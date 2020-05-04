@@ -36,4 +36,4 @@ RUN bundle install --jobs 20 --retry 5
 COPY . ./
 
 # Default command
-#CMD ["ruby", "app/app.rb"]
+CMD ['bin/robles help']
