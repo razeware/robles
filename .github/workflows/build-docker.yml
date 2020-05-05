@@ -6,7 +6,6 @@ on:
     branches:
       - master
       - development
-      - WEB-3249
 
     # Publish `v1.2.3` tags as releases.
     tags:
@@ -69,7 +68,6 @@ jobs:
           # Use Docker `latest` tag convention
           [ "$VERSION" == "master" ] && VERSION=latest
           [ "$VERSION" == "development" ] && VERSION=staging
-          [ "$VERSION" == "WEB-3249" ] && VERSION=staging
 
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
