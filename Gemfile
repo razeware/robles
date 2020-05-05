@@ -18,6 +18,6 @@ group :development do
   # For integration with VSCode
   gem 'ruby-debug-ide', '~> 0.7.2'
   gem 'debase', '~> 0.2.4.1'
-  gem 'solargraph', '~> 0.38.6'
-  gem 'rubocop', '~> 0.81.0'
+  gem 'solargraph', '~> 0.39'
+  gem 'rubocop', '~> 0.81'
 end

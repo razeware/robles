@@ -4,6 +4,6 @@ services:
     build: .
     volumes:
       - .:/app/robles
-      - ../books/ia:/data/src
+      - ../../books/ia:/data/src
     command: sleep infinity
     env_file: .env
