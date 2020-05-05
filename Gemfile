@@ -11,6 +11,9 @@ gem 'zeitwerk', '~> 2.3'
 gem 'thor', '~> 1.0', '>= 1.0.1'
 gem 'cli-ui', '~> 1.3'
 
+# Markdown processing
+gem 'redcarpet', '~> 3.5'
+
 group :development do
   # For integration with VSCode
   gem 'ruby-debug-ide', '~> 0.7.2'

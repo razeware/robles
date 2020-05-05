@@ -23,6 +23,7 @@ RUN \
 # directory used in any further RUN, COPY, and ENTRYPOINT
 # commands.
 RUN mkdir -p /app/robles
+RUN mkdir -p /data/src
 WORKDIR /app/robles
 
 # Copy the Gemfile as well as the Gemfile.lock and install
