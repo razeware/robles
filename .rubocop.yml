@@ -1,0 +1,44 @@
+AllCops:
+  TargetRubyVersion: 2.7
+  Exclude:
+    - tmp/**/*
+
+Rails:
+  Enabled: false
+
+Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Lambda:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+Style/SymbolArray:
+  Enabled: true
+
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 20
+
+Metrics/BlockLength:
+  Exclude:
+    - test/**/*
+
+Metrics/ClassLength:
+  Exclude:
+    - test/**/*
+
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - test/**/*
