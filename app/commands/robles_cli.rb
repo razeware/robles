@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Overall CLI app for robles
 class RoblesCli < Thor
   desc 'hello NAME', 'say hello to NAME'
   options from: :required, yell: :boolean
