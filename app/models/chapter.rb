@@ -5,8 +5,8 @@ class Chapter
   include ActiveModel::Model
   include ActiveModel::Serializers::JSON
 
-  attr_accessor :title, :number, :description, :body, :authors
-  validates :title, :number, presence: true
+  attr_accessor :title, :number, :description, :body, :authors, :markdown_file, :markdown_source
+  validates :title, :number, :markdown_file, presence: true
 
   # Used for serialisation
   def attributes

@@ -12,13 +12,11 @@ module Renderer
     end
 
     def render
-      p codex
+      p parser.parse
     end
 
-    private
-
-    def codex
-      @codex ||= Psych.load_file(codex_filename)
+    def parser
+      @parser ||= Parser::Codex.new(codex_filename: codex_filename)
     end
   end
 end
