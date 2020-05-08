@@ -12,7 +12,7 @@ module Renderer
     end
 
     def render
-      p parser.parse
+      parser.parse
     end
 
     def parser

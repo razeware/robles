@@ -17,6 +17,6 @@ class RoblesCli < Thor
   def render(codex_file)
     output = options[:output] || '/data/output'
     renderer = Renderer::Book.new(codex_filename: codex_file)
-    renderer.render
+    p renderer.render
   end
 end

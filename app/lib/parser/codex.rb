@@ -21,16 +21,28 @@ module Parser
       raise 'Invalid segment kind' unless section_segment[:kind] == 'section'
 
       chapters = segments.map.with_index { |segment, idx| parse_chapter(segment, idx) }
-      Section.new(markdown_file: section_segment[:path], number: index, chapters: chapters)
+      Section.new(markdown_file: apply_codex_path(section_segment[:path]), ordinal: index, chapters: chapters).tap do |section|
+        SectionMetadata.new(section).apply!
+      end
     end
 
     def parse_chapter(segment, index)
       raise 'Invalid semgent kind' unless segment[:kind] == 'chapter'
 
-      Chapter.new(markdown_file: segment[:path], number: index)
+      Chapter.new(markdown_file: apply_codex_path(segment[:path]), ordinal: index).tap do |chapter|
+        ChapterMetadata.new(chapter).apply!
+      end
     end
 
     private
+
+    def apply_codex_path(path)
+      (root_directory + path).to_s
+    end
+
+    def root_directory
+      @root_directory ||= Pathname.new(codex_filename).dirname
+    end
 
     def codex
       @codex ||= Psych.load_file(codex_filename).deep_symbolize_keys
