@@ -11,4 +11,12 @@ class RoblesCli < Thor
     output = output.join("\n")
     puts options[:yell] ? output.upcase : output
   end
+
+  desc 'render CODEX_FILE', 'renders books from CODEX_FILE'
+  options output: :string
+  def render(codex_file)
+    output = options[:output] || '/data/output'
+    renderer = Renderer::Book.new(codex_filename: codex_file)
+    renderer.render
+  end
 end
