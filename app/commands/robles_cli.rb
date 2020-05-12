@@ -16,7 +16,13 @@ class RoblesCli < Thor
   options output: :string
   def render(codex_file)
     output = options[:output] || '/data/output'
-    renderer = Renderer::Book.new(codex_filename: codex_file)
-    p renderer.render
+    book = Renderer::Book.render(codex_file)
+    p book
+  end
+
+  desc 'publish CODEX_FILE', 'renders and published a book from CODEX_FILE'
+  def publish(codex_file)
+    book = Renderer::Book.render(codex_file)
+    p Api::Alexandria::BookUploader.upload(book)
   end
 end
