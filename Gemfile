@@ -15,6 +15,9 @@ gem 'thor', '~> 1.0', '>= 1.0.1'
 # Markdown processing
 gem 'redcarpet', '~> 3.5'
 
+# HTTP Client
+gem 'faraday'
+
 group :development do
   # For integration with VSCode
   gem 'debase', '~> 0.2.4.1'
