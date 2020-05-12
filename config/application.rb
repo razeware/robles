@@ -7,6 +7,10 @@ Bundler.require(:default)
 require 'active_support/all'
 require 'active_model'
 
+# Load the initialisers
+Dir[File.join(__dir__, 'initialisers', '*.rb')].sort.each { |file| require file }
+
+# Configure the autoloader
 @loader = Zeitwerk::Loader.new
 @loader.push_dir(File.expand_path('../app/commands', __dir__))
 @loader.push_dir(File.expand_path('../app/lib', __dir__))
