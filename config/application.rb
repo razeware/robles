@@ -1,13 +1,16 @@
+# frozen_string_literal: true
+
 require_relative 'boot'
 
 # Require the gems listed in Gemfile
 Bundler.require(:default)
 require 'active_support/all'
-require 'zeitwerk'
+require 'active_model'
 
 @loader = Zeitwerk::Loader.new
 @loader.push_dir(File.expand_path('../app/commands', __dir__))
 @loader.push_dir(File.expand_path('../app/lib', __dir__))
+@loader.push_dir(File.expand_path('../app/models', __dir__))
 @loader.enable_reloading if ENV['ENV'] == 'development'
 @loader.setup # ready!
 
