@@ -13,6 +13,6 @@ class RoblesCli < Thor
   desc 'publish [PUBLISH_FILE]', 'renders and publishes a book from PUBLISH_FILE. [Default: /data/src/publish.yaml]'
   def publish(publish_file = '/data/src/publish.yaml')
     book = Renderer::Book.render(publish_file)
-    Api::Alexandria::BookUploader.upload(book)
+    p Api::Alexandria::BookUploader.upload(book)
   end
 end
