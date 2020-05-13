@@ -5,6 +5,8 @@ module Parser
   class SectionMetadata
     include MarkdownMetadata
 
+    VALID_SIMPLE_ATTRIBUTES = %i[number title].freeze
+
     attr_reader :section
 
     def initialize(section)
@@ -13,8 +15,7 @@ module Parser
     end
 
     def apply!
-      section.number = metadata[:number]
-      section.title = metadata[:title]
+      section.assign_attributes(simple_attributes)
     end
   end
 end
