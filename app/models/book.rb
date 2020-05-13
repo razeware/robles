@@ -5,11 +5,16 @@ class Book
   include ActiveModel::Model
   include ActiveModel::Serializers::JSON
 
-  attr_accessor :sku, :edition, :title, :description, :release_date, :sections
+  attr_accessor :sku, :edition, :title, :description, :released_at, :sections
   validates :sku, :edition, :title, presence: true
+
+  def initialize(attributes = {})
+    super
+    @sections ||= []
+  end
 
   # Used for serialisation
   def attributes
-    { sku: nil, edition: nil, title: nil, description: nil, release_date: nil, sections: [] }.stringify_keys
+    { sku: nil, edition: nil, title: nil, description: nil, released_at: nil, sections: [] }.stringify_keys
   end
 end

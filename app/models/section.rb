@@ -8,6 +8,11 @@ class Section
   attr_accessor :title, :number, :ordinal, :description, :chapters, :markdown_file, :markdown_source, :body
   validates :title, :number, :ordinal, presence: true
 
+  def initialize(attributes = {})
+    super
+    @chapters ||= []
+  end
+
   # Used for serialisaion
   def attributes
     { title: nil, number: nil, ordinal: nil, description: nil, body: nil, chapters: [] }.stringify_keys
