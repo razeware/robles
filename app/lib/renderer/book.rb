@@ -5,15 +5,15 @@ require 'psych'
 module Renderer
   # Takes a codex file and renders a book from it
   class Book
-    attr_reader :codex_filename
+    attr_reader :publish_filepath
     attr_reader :book
 
-    def self.render(codex_filename)
-      new(codex_filename: codex_filename).render
+    def self.render(publish_filepath)
+      new(publish_filepath: publish_filepath).render
     end
 
-    def initialize(codex_filename:)
-      @codex_filename = codex_filename
+    def initialize(publish_filepath:)
+      @publish_filepath = publish_filepath
     end
 
     def render
@@ -26,7 +26,7 @@ module Renderer
     end
 
     def parser
-      @parser ||= Parser::Codex.new(file: codex_filename)
+      @parser ||= Parser::Publish.new(file: publish_filepath)
     end
   end
 end
