@@ -4,8 +4,10 @@
 class Chapter
   include ActiveModel::Model
   include ActiveModel::Serializers::JSON
+  include Concerns::MarkdownRenderable
 
-  attr_accessor :title, :number, :ordinal, :description, :body, :authors, :markdown_file, :markdown_source
+  attr_accessor :title, :number, :ordinal, :description, :body, :authors, :markdown_file
+  attr_markdown :body
   validates :title, :number, :ordinal, :markdown_file, presence: true
 
   def initialize(attributes = {})

@@ -4,8 +4,10 @@
 class Section
   include ActiveModel::Model
   include ActiveModel::Serializers::JSON
+  include Concerns::MarkdownRenderable
 
-  attr_accessor :title, :number, :ordinal, :description, :chapters, :markdown_file, :markdown_source, :body
+  attr_accessor :title, :number, :ordinal, :description, :chapters, :markdown_file
+  attr_markdown :description
   validates :title, :number, :ordinal, presence: true
 
   def initialize(attributes = {})
@@ -15,6 +17,6 @@ class Section
 
   # Used for serialisaion
   def attributes
-    { title: nil, number: nil, ordinal: nil, description: nil, body: nil, chapters: [] }.stringify_keys
+    { title: nil, number: nil, ordinal: nil, description: nil, chapters: [] }.stringify_keys
   end
 end
