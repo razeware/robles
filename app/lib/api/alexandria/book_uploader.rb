@@ -19,7 +19,7 @@ module Api
       def upload
         conn.post do |req|
           req.url api_uri
-          req.body = book.to_json
+          req.body = payload
         end
       end
 
@@ -40,6 +40,10 @@ module Api
           faraday.token_auth(ALEXANDRIA_SERVICE_API_TOKEN)
           faraday.adapter(Faraday.default_adapter)
         end
+      end
+
+      def payload
+        { book: book }.to_json
       end
     end
   end
