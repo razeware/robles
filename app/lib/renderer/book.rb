@@ -8,6 +8,10 @@ module Renderer
     attr_reader :codex_filename
     attr_reader :book
 
+    def self.render(codex_filename)
+      new(codex_filename: codex_filename).render
+    end
+
     def initialize(codex_filename:)
       @codex_filename = codex_filename
     end
