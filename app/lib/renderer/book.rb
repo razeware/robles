@@ -26,7 +26,7 @@ module Renderer
     end
 
     def parser
-      @parser ||= Parser::Codex.new(codex_filename: codex_filename)
+      @parser ||= Parser::Codex.new(file: codex_filename)
     end
   end
 end
