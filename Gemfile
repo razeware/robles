@@ -18,6 +18,9 @@ gem 'redcarpet', '~> 3.5'
 # HTTP Client
 gem 'faraday'
 
+# Git Client
+gem 'git'
+
 group :development do
   # For integration with VSCode
   gem 'debase', '~> 0.2.4.1'
