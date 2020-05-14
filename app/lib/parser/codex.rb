@@ -4,12 +4,13 @@ module Parser
   # Parses a codex file, and returns a Book model object
   class Codex
     include Util::PathExtraction
+    include Util::GitHashable
 
     VALID_SEGMENTS = %w[section chapter].freeze
 
     def parse
       sections = grouped_segments.map.with_index { |segments, idx| parse_section(segments, idx) }
-      Book.new(title: codex[:title], sections: sections)
+      Book.new(title: codex[:title], sections: sections, git_commit_hash: git_hash)
     end
 
     def parse_section(segments, index)
