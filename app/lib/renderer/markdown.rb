@@ -22,7 +22,7 @@ module Renderer
     end
 
     def redcarpet
-      @redcarpet ||= Redcarpet::Markdown.new(redcarpet_renderer, tables: true, strikethrough: true, hightlight: true, )
+      @redcarpet ||= Redcarpet::Markdown.new(redcarpet_renderer, tables: true, strikethrough: true, hightlight: true)
     end
   end
 end

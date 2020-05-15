@@ -7,7 +7,8 @@ class RoblesCli < Thor
   def render(publish_file = '/data/src/publish.yaml')
     # output = options[:output] || '/data/output'
     book = Renderer::Book.render(publish_file)
-    p book
+    image_extractor = ImageProvider::Extractor.new(book)
+    p image_extractor.extract
   end
 
   desc 'publish [PUBLISH_FILE]', 'renders and publishes a book from PUBLISH_FILE. [Default: /data/src/publish.yaml]'
