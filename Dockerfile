@@ -3,7 +3,7 @@ LABEL maintainer=engineering@razeware.com
 
 ENV BUILD_PACKAGES="build-essential" \
     DEV_PACKAGES="" \
-    RUNTIME_PACKAGES="tzdata git rsyslog" \
+    RUNTIME_PACKAGES="tzdata git rsyslog imagemagick" \
     LANG="C.UTF-8"
 
 # SYSLOG TO STDOUT
