@@ -11,17 +11,23 @@ module ImageProvider
     end
 
     def extract
-      book.sections.each do |section|
-        @images << extract_images_from_markdown(section.markdown_file)
-        section.chapters.each do |chapter|
-          @images << extract_images_from_markdown(chapter.markdown_file)
-        end
+      @images = image_paths.map do |path|
+        Image.with_representations(local_url: path)
       end
-      @images = @images.flatten.compact.uniq
     end
 
     def extract_images_from_markdown(file)
       MarkdownImageExtractor.images_from(file)
+    end
+
+    def image_paths
+      book.sections.map do |section|
+        from_chapters = section.chapters.map do |chapter|
+          extract_images_from_markdown(chapter.markdown_file)
+        end
+
+        from_chapters + extract_images_from_markdown(section.markdown_file)
+      end.flatten.compact.uniq
     end
   end
 end
