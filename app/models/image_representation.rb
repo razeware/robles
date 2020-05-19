@@ -21,7 +21,8 @@ class ImageRepresentation
   delegate :uploaded_image_root_path, to: :image
 
   def filename
-    "#{image.key}/w#{width_px}#{image.extension}"
+    width_name = original? ? 'original' : "w#{width_px}"
+    "#{image.key}/#{width_name}#{image.extension}"
   end
 
   def key
