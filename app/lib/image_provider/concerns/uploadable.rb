@@ -2,9 +2,11 @@
 
 module ImageProvider
   # A concern that makes the selected class uploadable to AWS S3
-  # Required methods: key, local_url
+  # Required methods: key
   module Uploadable
     extend ActiveSupport::Concern
+
+    attr_accessor :local_url
 
     included do
       class_attribute :s3, instance_predicate: false, default: Aws::S3::Resource.new(region: AWS_REGION)

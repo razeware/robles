@@ -3,6 +3,7 @@
 # Defines a specific size of an image
 class ImageRepresentation
   include ActiveModel::Model
+  include ImageProvider::Resizable
   include ImageProvider::Uploadable
 
   WIDTHS = {
@@ -12,7 +13,7 @@ class ImageRepresentation
     original: nil
   }.freeze
 
-  attr_accessor :width, :local_url, :image
+  attr_accessor :width, :image
 
   validates :width, inclusion: { in: WIDTHS.keys }, presence: true
   validates :image, presence: true
@@ -29,5 +30,9 @@ class ImageRepresentation
 
   def width_px
     WIDTHS[width]
+  end
+
+  def source_url
+    image.local_url
   end
 end
