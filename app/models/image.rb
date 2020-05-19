@@ -27,4 +27,20 @@ class Image
   def extension
     @extension ||= Pathname.new(local_url).extname
   end
+
+  def remote_urls
+    representations.map(&:remote_url)
+  end
+
+  def upload
+    p local_url
+    representations.each do |representation|
+      next if representation.uploaded?
+
+      p "...generating #{representation.width}"
+      representation.generate
+      p "...uploading #{representation.width}"
+      representation.upload
+    end
+  end
 end
