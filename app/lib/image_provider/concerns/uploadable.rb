@@ -7,7 +7,7 @@ module ImageProvider
     extend ActiveSupport::Concern
 
     included do
-      class_attribute :client, instance_predicate: false, default: Aws::S3::Client.new(region: AWS_REGION)
+      class_attribute :s3, instance_predicate: false, default: Aws::S3::Resource.new(region: AWS_REGION)
       validates :key, presence: true
     end
 
@@ -18,27 +18,20 @@ module ImageProvider
     end
 
     def upload
-      raise 'Need local_url to upload' unless local_url.present?
       return if uploaded?
+      raise 'Need local_url to upload' unless local_url.present?
 
-      client.put_object(
-        bucket: AWS_BUCKET_NAME,
-        body: local_url,
-        key: key
-      )
+      s3_object.upload_file(local_url)
     end
 
     def uploaded?
       validate!
 
-      @uploaded ||= begin
-        response = client.list_objects_v2(
-          bucket: AWS_BUCKET_NAME,
-          max_keys: 1,
-          prefix: key
-        )
-        response.contents.count.positive?
-      end
+      @uploaded ||= s3_object.exists?
+    end
+
+    def s3_object
+      @s3_object ||= s3.bucket(AWS_BUCKET_NAME).object(key)
     end
   end
 end
