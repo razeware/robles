@@ -8,7 +8,7 @@ module Renderer
     def render
       render_markdown
       object.chapters.each do |chapter|
-        chapter_renderer = Renderer::Chapter.new(chapter)
+        chapter_renderer = Renderer::Chapter.new(chapter, image_provider: image_provider)
         chapter_renderer.render
       end
     end

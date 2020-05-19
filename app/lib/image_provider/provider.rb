@@ -24,10 +24,10 @@ module ImageProvider
       logger.info('Completed image upload')
     end
 
-    def remote_urls_for_local(url)
+    def representations_for_local_url(url)
       extractor.images
                .find { |image| image.local_url == url }
-               .remote_urls
+               &.representations
     end
 
     def extractor
