@@ -6,6 +6,7 @@ require_relative 'boot'
 Bundler.require(:default)
 require 'active_support/all'
 require 'active_model'
+require 'psych'
 
 # Load the initialisers
 Dir[File.join(__dir__, 'initialisers', '*.rb')].sort.each { |file| require file }

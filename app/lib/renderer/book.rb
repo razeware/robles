@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'psych'
-
 module Renderer
   # Takes a codex file and renders a book from it
   class Book
