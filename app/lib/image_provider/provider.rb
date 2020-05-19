@@ -3,6 +3,8 @@
 module ImageProvider
   # Creates an interface for giving access to images that have been processed and uploaded
   class Provider
+    include Util::Logging
+
     attr_reader :book
 
     def initialize(book:)
@@ -10,8 +12,10 @@ module ImageProvider
     end
 
     def process
+      logger.info('Extracting images from book')
       extractor.extract
       extractor.images.each(&:upload)
+      logger.info('Completed image upload')
     end
 
     def remote_urls_for_local(url)

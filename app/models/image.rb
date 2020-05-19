@@ -4,6 +4,7 @@
 class Image
   include ActiveModel::Model
   include ImageProvider::BookPathable
+  include Util::Logging
 
   attr_accessor :local_url, :representations
 
@@ -33,13 +34,15 @@ class Image
   end
 
   def upload
-    p local_url
     representations.each do |representation|
-      next if representation.uploaded?
+      if representation.uploaded?
+        logger.info "Skipping #{local_url}"
+        next
+      end
 
-      p "...generating #{representation.width}"
+      logger.info "Generating #{representation.width}px for #{local_url}"
       representation.generate
-      p "...uploading #{representation.width}"
+      logger.info "Uploading #{representation.width}px for #{local_url}"
       representation.upload
     end
   end
