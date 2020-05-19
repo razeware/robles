@@ -3,6 +3,7 @@
 # Defines a specific size of an image
 class ImageRepresentation
   include ActiveModel::Model
+  include ImageProvider::Uploadable
 
   WIDTHS = {
     small: 150,
@@ -11,29 +12,22 @@ class ImageRepresentation
     original: nil
   }.freeze
 
-  attr_accessor :width, :local_url, :root_path, :uploaded, :image
+  attr_accessor :width, :local_url, :image
 
   validates :width, inclusion: { in: WIDTHS.keys }, presence: true
   validates :image, presence: true
-  validates :root_path, presence: true
+
+  delegate :uploaded_image_root_path, to: :image
 
   def filename
-    "#{image.key}/#{width_px}w#{image.extension}"
+    "#{image.key}/w#{width_px}#{image.extension}"
   end
 
   def key
-    raise 'Invalid representation' unless valid?
-
-    "#{root_path}/#{filename}"
+    "#{uploaded_image_root_path}/#{filename}"
   end
 
   def width_px
     WIDTHS[width]
-  end
-
-  def remote_url
-    return unless uploaded && IMAGES_CDN_HOST.present?
-
-    "https://#{IMAGES_CDN_HOST}/#{key}"
   end
 end

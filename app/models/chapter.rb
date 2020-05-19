@@ -4,7 +4,7 @@
 class Chapter
   include ActiveModel::Model
   include ActiveModel::Serializers::JSON
-  include Concerns::MarkdownRenderable
+  include MarkdownRenderable
 
   attr_accessor :title, :number, :ordinal, :description, :body, :authors, :markdown_file
   attr_markdown :body

@@ -15,6 +15,7 @@ Dir[File.join(__dir__, 'initialisers', '*.rb')].sort.each { |file| require file 
 @loader.push_dir(File.expand_path('../app/commands', __dir__))
 @loader.push_dir(File.expand_path('../app/lib', __dir__))
 @loader.push_dir(File.expand_path('../app/models', __dir__))
+@loader.collapse('**/concerns')
 @loader.enable_reloading if ENV['ENV'] == 'development'
 @loader.setup # ready!
 
