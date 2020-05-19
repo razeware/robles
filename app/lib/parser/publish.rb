@@ -27,7 +27,7 @@ module Parser
     def update_authors_on_chapters
       book.sections.each do |section|
         section.chapters.each do |chapter|
-          chapter.authors << authors
+          chapter.authors += authors
         end
       end
     end

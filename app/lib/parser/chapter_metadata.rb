@@ -16,7 +16,7 @@ module Parser
 
     def apply!
       chapter.assign_attributes(simple_attributes)
-      chapter.authors << authors if authors.present?
+      chapter.authors += authors if authors.present?
     end
 
     def authors
