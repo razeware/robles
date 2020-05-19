@@ -14,7 +14,13 @@ module ImageProvider
     def process
       logger.info('Extracting images from book')
       extractor.extract
-      extractor.images.each(&:upload)
+      logger.info('Beginning image upload')
+      futures = extractor.images.map do |image|
+        Concurrent::Promises.future do
+          image.upload
+        end
+      end
+      Concurrent::Promises.zip(*futures).wait
       logger.info('Completed image upload')
     end
 

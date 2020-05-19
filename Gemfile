@@ -27,6 +27,9 @@ gem 'mini_magick'
 # AWS Access
 gem 'aws-sdk-s3', '~> 1.64'
 
+# For multithreading image proceesing
+gem 'concurrent-ruby', '~> 1.1'
+
 group :development do
   # For integration with VSCode
   gem 'debase', '~> 0.2.4.1'
