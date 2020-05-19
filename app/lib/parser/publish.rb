@@ -17,7 +17,7 @@ module Parser
     end
 
     def load_book_from_codex
-      @book = Codex.new(file: codex_filepath).parse
+      @book = Parser::Codex.new(file: codex_filepath).parse
     end
 
     def apply_additonal_metadata

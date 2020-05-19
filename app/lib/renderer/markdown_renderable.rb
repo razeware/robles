@@ -4,10 +4,11 @@ module Renderer
   # Methods that make it possible to render markdown from an object
   module MarkdownRenderable
     # This object should include Concerns::MarkdownRenderable
-    attr_accessor :object
+    attr_reader :object, :image_provider
 
-    def initialize(object)
+    def initialize(object, image_provider: nil)
       @object = object
+      @image_provider = image_provider
     end
 
     def render_markdown
@@ -15,7 +16,7 @@ module Renderer
     end
 
     def md_renderer
-      @md_renderer ||= Markdown.new(path: object.markdown_file)
+      @md_renderer ||= Markdown.new(path: object.markdown_file, image_provider: image_provider)
     end
   end
 end
