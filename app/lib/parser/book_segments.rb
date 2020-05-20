@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Parser
-  # Parses a codex file, and returns a Book model object
-  class Codex
+  # Parses the segments sections of the metadata file, and returns a Book model object
+  class BookSegments
     include Util::PathExtraction
     include Util::GitHashable
 
@@ -10,7 +10,7 @@ module Parser
 
     def parse
       sections = grouped_segments.map.with_index { |segments, idx| parse_section(segments, idx) }
-      Book.new(title: codex[:title], sections: sections, git_commit_hash: git_hash)
+      Book.new(title: yaml[:title], sections: sections, git_commit_hash: git_hash)
     end
 
     def parse_section(segments, index)
@@ -33,14 +33,14 @@ module Parser
 
     private
 
-    def codex
-      @codex ||= Psych.load_file(file).deep_symbolize_keys
+    def yaml
+      @yaml ||= Psych.load_file(file).deep_symbolize_keys
     end
 
     def grouped_segments
-      codex[:segments].filter { |segment| VALID_SEGMENTS.include?(segment[:kind]) }
-                      .slice_before { |segment| segment[:kind] == 'section' }
-                      .filter { |group| group.first[:kind] == 'section' }
+      yaml[:segments].filter { |segment| VALID_SEGMENTS.include?(segment[:kind]) }
+                     .slice_before { |segment| segment[:kind] == 'section' }
+                     .filter { |group| group.first[:kind] == 'section' }
     end
   end
 end
