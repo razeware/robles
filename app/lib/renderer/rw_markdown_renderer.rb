@@ -20,7 +20,10 @@ module Renderer
 
       %(
         <figure title="#{title}" class="#{class_list(alt_text)}">
-          <img src="#{src(link)}" srcset="#{srcset(link)}" alt="#{title}" title="#{title}" />
+          <picture>
+            <img src="#{src(link)}" alt="#{title}" title="#{title}">
+            <source srcset="#{srcset(link)}">
+          </picture>
           <figcaption>#{title}</figcaption>
         </figure>
       )
