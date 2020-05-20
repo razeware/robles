@@ -4,6 +4,7 @@ module Renderer
   # Custom implementation of a markdown renderer for RW books
   class RWMarkdownRenderer < Redcarpet::Render::HTML
     include Redcarpet::Render::SmartyPants
+    include Parser::FrontmatterMetadataFinder
 
     attr_reader :image_provider, :root_path
 
@@ -20,7 +21,8 @@ module Renderer
     end
 
     def preprocess(full_document)
-      full_document.gsub(/\$\[=[=sp]=\]/, '')
+      removing_pagesetting_notation = full_document.gsub(/\$\[=[=sp]=\]/, '')
+      without_metadata(removing_pagesetting_notation.each_line)
     end
 
     def srcset(relative_url)
