@@ -14,7 +14,7 @@ module Renderer
     end
 
     def image(link, title, alt_text)
-      return super if image_provider.blank?
+      return %(<img src="#{link}" alt="#{alt_text}" title="#{title}" />) if image_provider.blank?
 
       %(<img src="#{src(link)}" srcset="#{srcset(link)}" alt="#{alt_text}" title="#{title}" />)
     end
