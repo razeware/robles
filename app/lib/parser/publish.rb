@@ -10,14 +10,14 @@ module Parser
     attr_reader :book
 
     def parse
-      load_book_from_codex
+      load_book_segments
       apply_additonal_metadata
       update_authors_on_chapters
       book
     end
 
-    def load_book_from_codex
-      @book = Parser::Codex.new(file: codex_filepath).parse
+    def load_book_segments
+      @book = Parser::BookSegments.new(file: file).parse
     end
 
     def apply_additonal_metadata
@@ -42,10 +42,6 @@ module Parser
       @authors = publish_file[:authors].map do |author|
         Author.new(author)
       end
-    end
-
-    def codex_filepath
-      @codex_filepath ||= apply_path(publish_file[:codex_file])
     end
 
     def additional_attributes
