@@ -4,8 +4,10 @@ module Renderer
   # Custom implementation of a markdown renderer for RW books
   class RWMarkdownRenderer < Redcarpet::Render::HTML
     include Redcarpet::Render::SmartyPants
+    include Parser::FrontmatterMetadataFinder
+    include Renderer::ImageAttributes
 
-    attr_reader :image_provider, :root_path
+    attr_reader :root_path
 
     def initialize(attributes = {})
       super
@@ -14,23 +16,22 @@ module Renderer
     end
 
     def image(link, title, alt_text)
-      return super if image_provider.blank?
+      return %(<img src="#{link}" alt="#{alt_text}" title="#{title}" />) if image_provider.blank?
 
-      %(<img src="#{src(link)}" srcset="#{srcset(link)}" alt="#{alt_text}" title="#{title}" />)
+      %(
+        <figure title="#{title}" class="#{class_list(alt_text)}">
+          <picture>
+            <img src="#{src(link)}" alt="#{title}" title="#{title}">
+            <source srcset="#{srcset(link)}">
+          </picture>
+          <figcaption>#{title}</figcaption>
+        </figure>
+      )
     end
 
-    def srcset(relative_url)
-      representations("#{root_path}/#{relative_url}").filter { |r| r.width != :original }
-                                                     .map { |r| "#{r.remote_url} #{r.width_px}w" }
-                                                     .join(', ')
-    end
-
-    def src(relative_url)
-      representations("#{root_path}/#{relative_url}").find { |r| r.width == :original }.remote_url
-    end
-
-    def representations(local_url)
-      image_provider.representations_for_local_url(local_url)
+    def preprocess(full_document)
+      removing_pagesetting_notation = full_document.gsub(/\$\[=[=sp]=\]/, '')
+      without_metadata(removing_pagesetting_notation.each_line)
     end
   end
 end
