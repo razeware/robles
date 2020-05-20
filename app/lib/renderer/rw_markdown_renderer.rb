@@ -19,6 +19,10 @@ module Renderer
       %(<img src="#{src(link)}" srcset="#{srcset(link)}" alt="#{alt_text}" title="#{title}" />)
     end
 
+    def preprocess(full_document)
+      full_document.gsub(/\$\[=[=sp]=\]/, '')
+    end
+
     def srcset(relative_url)
       representations("#{root_path}/#{relative_url}").filter { |r| r.width != :original }
                                                      .map { |r| "#{r.remote_url} #{r.width_px}w" }
