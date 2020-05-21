@@ -3,6 +3,8 @@
 module Renderer
   # Read a file and render the markdown
   class Markdown
+    include Util::Logging
+
     attr_reader :path
     attr_reader :image_provider
 
@@ -12,6 +14,7 @@ module Renderer
     end
 
     def render
+      logger.debug 'Markdown::render'
       redcarpet.render(raw_content)
     end
 
