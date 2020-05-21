@@ -4,6 +4,8 @@ module Api
   module Alexandria
     # Allow uploading of books to alexandria
     class BookUploader
+      include Util::Logging
+
       attr_reader :book
 
       PUBLISH_URL = '/api/editions/publish'
@@ -36,7 +38,9 @@ module Api
 
       def conn
         @conn ||= Faraday.new(headers: { 'Content-Type' => 'application/json' }) do |faraday|
-          faraday.response(:logger)
+          faraday.response(:logger, logger) do |logger|
+            logger.filter(/(Token token=\\\")(\w+)/, '\1[REMOVED]')
+          end
           faraday.token_auth(ALEXANDRIA_SERVICE_API_TOKEN)
           faraday.adapter(Faraday.default_adapter)
         end

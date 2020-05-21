@@ -22,6 +22,6 @@ class RoblesCli < Thor
     image_provider.process
     renderer = Renderer::Book.new(book: book, image_provider: image_provider)
     renderer.render
-    p Api::Alexandria::BookUploader.upload(book)
+    Api::Alexandria::BookUploader.upload(book)
   end
 end
