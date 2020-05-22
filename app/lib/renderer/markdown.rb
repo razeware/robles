@@ -29,7 +29,13 @@ module Renderer
     end
 
     def redcarpet
-      @redcarpet ||= Redcarpet::Markdown.new(redcarpet_renderer, tables: true, strikethrough: true, hightlight: true)
+      @redcarpet ||= Redcarpet::Markdown.new(redcarpet_renderer,
+                                             fenced_code_blocks: true,
+                                             disable_indented_code_blocks: true,
+                                             autolink: true,
+                                             strikethrough: true,
+                                             tables: true,
+                                             hightlight: true)
     end
 
     def root_directory
