@@ -5,6 +5,7 @@ class Section
   include ActiveModel::Model
   include ActiveModel::Serializers::JSON
   include MarkdownRenderable
+  include TitleCleanser
 
   attr_accessor :title, :number, :ordinal, :description, :chapters, :markdown_file
   attr_markdown :description
