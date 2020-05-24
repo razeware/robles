@@ -31,7 +31,7 @@ module ImageProvider
     def images
       md_renderer.reset
       renderer.render(markdown)
-      md_renderer.images.map { |path| apply_path(path) }
+      md_renderer.images.map { |path| { relative_path: path, absolute_path: apply_path(path) } }
     end
 
     def renderer

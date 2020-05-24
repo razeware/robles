@@ -24,4 +24,12 @@ class RoblesCli < Thor
     renderer.render
     Api::Alexandria::BookUploader.upload(book)
   end
+
+  desc 'lint [PUBLISH_FILE]', 'runs a selection of linters on the book specified by PUBLISH_FILE. [Default: /data/src/publish.yaml]'
+  def lint(publish_file = '/data/src/publish.yaml')
+    parser = Parser::Publish.new(file: publish_file)
+    book = parser.parse
+    linter = Linting::ImageLinter.new(book: book)
+    p linter.lint.to_json
+  end
 end
