@@ -15,14 +15,31 @@ module Linting
 
     def lint(options: {})
       @annotations = []
-      return output unless check_publish_file_exists
-
-      annotations.concat(Linting::MetadataLinter.new(file: file).lint(options: options))
-      return output unless annotations.blank?
-
-      annotations.concat(Linting::ImageLinter.new(book: book).lint)
-
+      lint_with_ui(options: options, show_ui: !options['silent'])
       output
+    end
+
+    def lint_with_ui(options:, show_ui: true)
+      with_spinner(title: 'Checking {{bold:publish.yaml}} exists', show: show_ui) do
+        return unless check_publish_file_exists
+      end
+
+      with_spinner(title: 'Validating metadata in {{bold:publish.yaml}}', show: show_ui) do
+        annotations.concat(Linting::MetadataLinter.new(file: file).lint(options: options))
+      end
+      return unless annotations.blank?
+
+      with_spinner(title: 'Validating image references', show: show_ui) do
+        annotations.concat(Linting::ImageLinter.new(book: book).lint)
+      end
+    end
+
+    def with_spinner(title:, show: true)
+      if show
+        CLI::UI::Spinner.spin(title) { yield }
+      else
+        yield
+      end
     end
 
     def output # rubocop:disable Metrics/MethodLength
