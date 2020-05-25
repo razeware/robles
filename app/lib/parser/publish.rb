@@ -9,11 +9,6 @@ module Parser
 
     attr_reader :book
 
-    def initialize(file:)
-      super
-      Linting::Annotation.root_directory = Pathname.new(file).dirname
-    end
-
     def parse
       load_book_segments
       apply_additonal_metadata
