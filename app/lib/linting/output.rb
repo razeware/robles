@@ -6,7 +6,7 @@ module Linting
     include ActiveModel::Model
     include ActiveModel::Serializers::JSON
 
-    attr_accessor :title, :summary, :text, :annotations
+    attr_accessor :title, :summary, :text, :annotations, :validated
 
     # Used for serialisation
     def attributes

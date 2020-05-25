@@ -17,6 +17,32 @@ module Linting
       Pathname.new(absolute_path).relative_path_from(root_directory).to_s
     end
 
+    def cli_title
+      "#{cli_glyph} #{title}"
+    end
+
+    def cli_glyph
+      case annotation_level.to_sym
+      when :notice
+        '{{i}}'
+      when :warning
+        '{{*}}'
+      else
+        '{{x}}'
+      end
+    end
+
+    def cli_colour
+      case annotation_level.to_sym
+      when :notice
+        :cyan
+      when :warning
+        :yellow
+      else
+        :red
+      end
+    end
+
     # Used for serialisation
     def attributes
       { path: nil, start_line: nil, end_line: nil, start_column: nil, end_column: nil,

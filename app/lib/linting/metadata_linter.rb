@@ -6,7 +6,6 @@ module Linting
     include Util::PathExtraction
 
     def lint(options: {})
-      p options
       [].tap do |annotations|
         annotations.concat Linting::Metadata::PublishAttributes.lint(file: file, attributes: publish_attributes)
         annotations.concat Linting::Metadata::EditionReference.lint(file: file, attributes: publish_attributes) unless options['without-edition']

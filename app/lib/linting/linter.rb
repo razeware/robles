@@ -33,13 +33,15 @@ module Linting
           title: 'robles Linting Failure',
           summary: 'There was a problem with your book repository',
           text: 'Please check the individual file annotations for details',
-          annotations: annotations
+          annotations: annotations,
+          validated: false
         )
       else
         Linting::Output.new(
           title: 'robles Linting Success',
           summary: 'Your book repo looks great',
-          text: 'I have nothing else to say here...'
+          text: 'I have nothing else to say here...',
+          validated: true
         )
       end
     end
@@ -50,7 +52,8 @@ module Linting
       @output_details = {
         title: 'robles Linting Failure',
         summary: 'Unable to locate the `publish.yaml` file',
-        text: 'There should be a `publish.yaml` file in the root of your book repository.'
+        text: 'There should be a `publish.yaml` file in the root of your book repository.',
+        validated: false
       }
       false
     end
