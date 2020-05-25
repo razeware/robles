@@ -24,4 +24,15 @@ class RoblesCli < Thor
     renderer.render
     Api::Alexandria::BookUploader.upload(book)
   end
+
+  desc 'lint [PUBLISH_FILE]', 'runs a selection of linters on the book specified by PUBLISH_FILE. [Default: /data/src/publish.yaml]'
+  method_options 'without-edition': :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
+  method_options silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
+  def lint(publish_file = '/data/src/publish.yaml')
+    CLI::UI::StdoutRouter.enable unless options['silent']
+
+    linter = Linting::Linter.new(file: publish_file)
+    output = linter.lint(options: options)
+    Cli::OutputFormatter.render(output) unless options['silent']
+  end
 end
