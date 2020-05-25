@@ -16,6 +16,7 @@ module Parser
 
     def apply!
       section.assign_attributes(simple_attributes)
+      section.cleanse_title!
     end
   end
 end
