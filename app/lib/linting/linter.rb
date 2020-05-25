@@ -13,11 +13,11 @@ module Linting
       Linting::Annotation.root_directory = Pathname.new(file).dirname
     end
 
-    def lint
+    def lint(options: {})
       @annotations = []
       return output unless check_publish_file_exists
 
-      annotations.concat(Linting::MetadataLinter.new(file: file).lint)
+      annotations.concat(Linting::MetadataLinter.new(file: file).lint(options: options))
       return output unless annotations.blank?
 
       annotations.concat(Linting::ImageLinter.new(book: book).lint)

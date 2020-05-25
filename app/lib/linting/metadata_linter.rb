@@ -5,11 +5,12 @@ module Linting
   class MetadataLinter
     include Util::PathExtraction
 
-    def lint
-      [
-        Linting::Metadata::PublishAttributes.lint(file: file, attributes: publish_attributes),
-        Linting::Metadata::EditionReference.lint(file: file, attributes: publish_attributes)
-      ].flatten
+    def lint(options: {})
+      p options
+      [].tap do |annotations|
+        annotations.concat Linting::Metadata::PublishAttributes.lint(file: file, attributes: publish_attributes)
+        annotations.concat Linting::Metadata::EditionReference.lint(file: file, attributes: publish_attributes) unless options['without-edition']
+      end
     end
 
     def publish_attributes

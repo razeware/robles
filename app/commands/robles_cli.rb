@@ -26,8 +26,9 @@ class RoblesCli < Thor
   end
 
   desc 'lint [PUBLISH_FILE]', 'runs a selection of linters on the book specified by PUBLISH_FILE. [Default: /data/src/publish.yaml]'
+  method_options 'without-edition': :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
   def lint(publish_file = '/data/src/publish.yaml')
     linter = Linting::Linter.new(file: publish_file)
-    p linter.lint.to_json
+    p linter.lint(options: options).to_json
   end
 end
