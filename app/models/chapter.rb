@@ -4,8 +4,8 @@
 class Chapter
   include ActiveModel::Model
   include ActiveModel::Serializers::JSON
-  include MarkdownRenderable
-  include TitleCleanser
+  include ::MarkdownRenderable
+  include ::TitleCleanser
 
   attr_accessor :title, :number, :ordinal, :description, :body, :authors, :markdown_file
   attr_markdown :body
