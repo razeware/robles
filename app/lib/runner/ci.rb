@@ -2,7 +2,7 @@
 
 module Runner
   # For Continuous Integration
-  class Ci
+  class Ci < Runner::Base
     def lint(publish_file:, options: {})
       reporter = ::Ci::LintingReporter.new
       reporter.record_start
