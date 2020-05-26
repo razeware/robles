@@ -11,12 +11,6 @@ module Runner
       Runner::Interactive.new
     end
 
-    def initialize
-      logger.debug("ENV: #{ENV.to_hash}")
-      logger.info("Creating runner with default publish file: #{default_publish_file}")
-      logger.debug(Dir[Pathname.new(default_publish_file).dirname + '*'])
-    end
-
     def render(publish_file:, local: false)
       publish_file ||= default_publish_file
 
