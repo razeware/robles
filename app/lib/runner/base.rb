@@ -5,6 +5,7 @@ module Runner
   class Base
     def self.runner
       return Runner::Ci.new if CI
+
       Runner::Interactive.new
     end
 
