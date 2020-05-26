@@ -1,0 +1,13 @@
+name: 'robles'
+author: 'engineering@razeware.com'
+description: 'raywenderlich.com Book Processing'
+inputs:
+  operation:
+    description: 'What task to perform lint|publish'
+    required: true
+    default: 'lint'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.operation }}
