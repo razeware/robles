@@ -22,7 +22,7 @@ module Ci
       client.update_check_run(
         GITHUB_REPOSITORY,
         check_run.id,
-        conclusion: output.validated? ? 'success' : 'failure',
+        conclusion: output.validated ? 'success' : 'failure',
         output: output
       )
     end
