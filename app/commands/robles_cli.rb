@@ -29,6 +29,7 @@ class RoblesCli < Thor
   method_options 'without-edition': :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
   method_options silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
   def lint(publish_file = '/data/src/publish.yaml')
+    p 'TESTING LINT'
     p ENV
     CLI::UI::StdoutRouter.enable unless options['silent']
 
