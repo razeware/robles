@@ -4,6 +4,7 @@ module Linting
   # Overall linter that combines all other linters
   class Linter
     include Util::PathExtraction
+    include Util::Logging
     include Linting::FileExistenceChecker
 
     attr_reader :annotations, :output_details
@@ -65,6 +66,7 @@ module Linting
     end
 
     def check_publish_file_exists
+      logger.debug "Checking for existence of #{file}"
       return true if file_exists?(file)
 
       @output_details = {
