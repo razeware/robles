@@ -21,7 +21,8 @@ class RoblesCli < Thor
   method_options 'without-edition': :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
   method_options silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
   def lint
-    runner.lint(publish_file: options['publish_file'], options: options)
+    output = runner.lint(publish_file: options['publish_file'], options: options)
+    exit 1 unless output.validated
   end
 
   private

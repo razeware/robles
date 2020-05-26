@@ -19,10 +19,11 @@ module Linting
       output
     end
 
-    def lint_with_ui(options:, show_ui: true)
+    def lint_with_ui(options:, show_ui: true) # rubocop:disable Metrics/MethodLength
       with_spinner(title: 'Checking {{bold:publish.yaml}} exists', show: show_ui) do
-        return unless check_publish_file_exists
+        check_publish_file_exists
       end
+      return if output_details.present?
 
       with_spinner(title: 'Validating metadata in {{bold:publish.yaml}}', show: show_ui) do
         annotations.concat(Linting::MetadataLinter.new(file: file).lint(options: options))

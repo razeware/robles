@@ -4,7 +4,7 @@ module Runner
   # Base class with shared functionality
   class Base
     def self.runner
-      Runner::Ci.new if CI
+      return Runner::Ci.new if CI
       Runner::Interactive.new
     end
 
