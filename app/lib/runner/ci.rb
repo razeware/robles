@@ -12,7 +12,7 @@ module Runner
     end
 
     def default_publish_file
-      Pathname.new(GITHUB_WORKSPACE) + 'publish.yaml'
+      (Pathname.new(GITHUB_WORKSPACE) + 'publish.yaml').to_s
     end
   end
 end
