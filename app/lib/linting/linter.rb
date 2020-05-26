@@ -70,7 +70,7 @@ module Linting
       @output_details = {
         title: 'robles Linting Failure',
         summary: 'Unable to locate the `publish.yaml` file',
-        text: 'There should be a `publish.yaml` file in the root of your book repository.',
+        text: "There should be a `publish.yaml` file in the root of your book repository. Looking here: #{file}",
         validated: false
       }
       false

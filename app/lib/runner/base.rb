@@ -3,10 +3,17 @@
 module Runner
   # Base class with shared functionality
   class Base
+    include Util::Logging
+
     def self.runner
       return Runner::Ci.new if CI
 
       Runner::Interactive.new
+    end
+
+    def initialize
+      logger.debug("ENV: #{ENV}")
+      logger.info("Creating runner with default publish file: #{default_publish_file}")
     end
 
     def render(publish_file:, local: false)
@@ -35,6 +42,7 @@ module Runner
 
     def lint(publish_file:, options: {})
       publish_file ||= default_publish_file
+      logger.info("Attempting to lint using publish file at #{publish_file}")
 
       CLI::UI::StdoutRouter.enable unless options['silent']
 
