@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module CI
+module Ci
   # A way to transmit linting data back to GitHub
   class LintingReporter
     attr_reader :check_run
