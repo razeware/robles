@@ -2,39 +2,31 @@
 
 # Overall CLI app for robles
 class RoblesCli < Thor
-  desc 'render [PUBLISH_FILE]', 'renders book from PUBLISH_FILE. [Default: /data/src/publish.yaml]'
+  desc 'render', 'renders book'
+  option :'publish-file', type: :string, desc: 'Location of the publish.yaml file'
   option :local, type: :boolean
-  def render(publish_file = '/data/src/publish.yaml')
-    parser = Parser::Publish.new(file: publish_file)
-    book = parser.parse
-    image_provider = options[:local] ? nil : ImageProvider::Provider.new(book: book)
-    image_provider&.process
-    renderer = Renderer::Book.new(book: book, image_provider: image_provider)
-    renderer.render
+  def render
+    book = runner.render(publish_file: options['publish_file'], local: options['local'])
     p book.sections.first.chapters.last
   end
 
-  desc 'publish [PUBLISH_FILE]', 'renders and publishes a book from PUBLISH_FILE. [Default: /data/src/publish.yaml]'
-  def publish(publish_file = '/data/src/publish.yaml')
-    parser = Parser::Publish.new(file: publish_file)
-    book = parser.parse
-    image_provider = ImageProvider::Provider.new(book: book)
-    image_provider.process
-    renderer = Renderer::Book.new(book: book, image_provider: image_provider)
-    renderer.render
-    Api::Alexandria::BookUploader.upload(book)
+  desc 'publish [PUBLISH_FILE]', 'renders and publishes a book'
+  option :'publish-file', type: :string, desc: 'Location of the publish.yaml file'
+  def publish
+    runner.publish(publish_file: options['publish_file'])
   end
 
-  desc 'lint [PUBLISH_FILE]', 'runs a selection of linters on the book specified by PUBLISH_FILE. [Default: /data/src/publish.yaml]'
+  desc 'lint [PUBLISH_FILE]', 'runs a selection of linters on the book'
+  option :'publish-file', type: :string, desc: 'Location of the publish.yaml file'
   method_options 'without-edition': :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
   method_options silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
-  def lint(publish_file = '/data/src/publish.yaml')
-    p 'TESTING LINT'
-    p ENV
-    CLI::UI::StdoutRouter.enable unless options['silent']
+  def lint
+    runner.lint(publish_file: options['publish_file'], options: options)
+  end
 
-    linter = Linting::Linter.new(file: publish_file)
-    output = linter.lint(options: options)
-    Cli::OutputFormatter.render(output) unless options['silent']
+  private
+
+  def runner
+    Runner::Base.runner
   end
 end

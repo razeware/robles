@@ -24,7 +24,8 @@ Dir[File.join(__dir__, 'initialisers', '*.rb')].sort.each { |file| require file 
 
 # Custom inflections
 @loader.inflector.inflect(
-  'rw_markdown_renderer' => 'RWMarkdownRenderer'
+  'rw_markdown_renderer' => 'RWMarkdownRenderer',
+  'ci' => 'CI'
 )
 
 # We'll allow reloading in development mode
