@@ -19,9 +19,6 @@ Dir[File.join(__dir__, 'initialisers', '*.rb')].sort.each { |file| require file 
 @loader.push_dir(File.expand_path('../app/lib', __dir__))
 @loader.push_dir(File.expand_path('../app/models', __dir__))
 
-# All *concerns* subdirectories are collapsed (i.e. models/concerns/uploadable => Uploadable, not Concerns::Uploadable)
-@loader.collapse('**/concerns')
-
 # Custom inflections
 @loader.inflector.inflect(
   'rw_markdown_renderer' => 'RWMarkdownRenderer'

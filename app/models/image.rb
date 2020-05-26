@@ -3,7 +3,7 @@
 # An image extracted from the markdown
 class Image
   include ActiveModel::Model
-  include ImageProvider::BookPathable
+  include ImageProvider::Concerns::BookPathable
   include Util::Logging
 
   attr_accessor :local_url, :representations

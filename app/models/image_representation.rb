@@ -3,8 +3,8 @@
 # Defines a specific size of an image
 class ImageRepresentation
   include ActiveModel::Model
-  include ImageProvider::Resizable
-  include ImageProvider::Uploadable
+  include ImageProvider::Concerns::Resizable
+  include ImageProvider::Concerns::Uploadable
 
   WIDTHS = {
     small: 150,

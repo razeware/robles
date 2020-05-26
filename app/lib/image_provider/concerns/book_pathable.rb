@@ -1,19 +1,21 @@
 # frozen_string_literal: true
 
 module ImageProvider
-  # A concern that creates a root path based on a book SKU
-  module BookPathable
-    extend ActiveSupport::Concern
+  module Concerns
+    # A concern that creates a root path based on a book SKU
+    module BookPathable
+      extend ActiveSupport::Concern
 
-    attr_accessor :sku
+      attr_accessor :sku
 
-    included do
-      validates :sku, presence: true
-    end
+      included do
+        validates :sku, presence: true
+      end
 
-    def uploaded_image_root_path
-      validate!
-      "books/#{sku}/images"
+      def uploaded_image_root_path
+        validate!
+        "books/#{sku}/images"
+      end
     end
   end
 end
