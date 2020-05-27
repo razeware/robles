@@ -12,7 +12,8 @@ module Ci
         GITHUB_REPOSITORY,
         'robles Linter',
         GITHUB_SHA,
-        status: 'in_progress'
+        status: 'in_progress',
+        started_at: Time.now.iso8601
       )
     end
 
@@ -23,7 +24,9 @@ module Ci
         GITHUB_REPOSITORY,
         check_run.id,
         conclusion: output.validated ? 'success' : 'failure',
-        output: output.to_h
+        output: output.to_h,
+        status: 'completed',
+        completed_at: Time.now.iso8601
       )
     end
 
