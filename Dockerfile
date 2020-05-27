@@ -2,7 +2,10 @@ FROM ruby:2.7-slim
 LABEL maintainer=engineering@razeware.com
 
 LABEL com.github.actions.name="robles"
+LABEL com.github.actions.author="razeware <engineering@razeware.com>"
 LABEL com.github.actions.description="Build raywenderlich.com books"
+LABEL com.github.actions.color="purple"
+LABEL com.github.actions.icon="book"
 
 ENV BUILD_PACKAGES="build-essential" \
     DEV_PACKAGES="" \

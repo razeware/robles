@@ -11,9 +11,9 @@ module Ci
       @check_run = client.create_check_run(
         GITHUB_REPOSITORY,
         'robles Linter',
-        GITHUB_SHA,
+        head_sha,
         status: 'in_progress',
-        started_at: Time.now.iso8601
+        started_at: Time.now.utc.iso8601
       )
     end
 
@@ -26,7 +26,7 @@ module Ci
         conclusion: output.validated ? 'success' : 'failure',
         output: output.to_h,
         status: 'completed',
-        completed_at: Time.now.iso8601
+        completed_at: Time.now.utc.iso8601
       )
     end
 
@@ -34,6 +34,10 @@ module Ci
       GITHUB_REPOSITORY.present? &&
         GITHUB_SHA.present? &&
         GITHUB_EVENT_NAME == 'pull_request'
+    end
+
+    def head_sha
+      @head_sha ||= Git.open(GITHUB_WORKSPACE).log.first.sha
     end
 
     def client
