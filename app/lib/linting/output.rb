@@ -14,8 +14,8 @@ module Linting
     end
 
     def to_h
-      serializable_hash.tap do |hash|
-        hash['annotations'].map!(&:serializable_hash)
+      serializable_hash.compact.tap do |hash|
+        hash['annotations']&.map!(&:to_h)
       end
     end
   end

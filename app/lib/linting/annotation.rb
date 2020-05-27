@@ -48,5 +48,9 @@ module Linting
       { path: nil, start_line: nil, end_line: nil, start_column: nil, end_column: nil,
         annotation_level: nil, message: nil, title: nil }.stringify_keys
     end
+
+    def to_h
+      serializable_hash.compact
+    end
   end
 end
