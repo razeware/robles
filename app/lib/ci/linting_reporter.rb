@@ -5,6 +5,10 @@ module Ci
   class LintingReporter
     attr_reader :check_run
 
+    def initialize
+      p github_event
+    end
+
     def record_start
       return unless valid?
 
@@ -37,7 +41,11 @@ module Ci
     end
 
     def head_sha
-      @head_sha ||= Git.open(GITHUB_WORKSPACE).log.first.sha
+      @head_sha ||= github_event.dig('pull_request', 'head', 'sha')
+    end
+
+    def github_event
+      @github_event ||= JSON.parse(File.read(GITHUB_EVENT_PATH))
     end
 
     def client
