@@ -1,6 +1,9 @@
 FROM ruby:2.7-slim
 LABEL maintainer=engineering@razeware.com
 
+LABEL com.github.actions.name="robles"
+LABEL com.github.actions.description="Build raywenderlich.com books"
+
 ENV BUILD_PACKAGES="build-essential" \
     DEV_PACKAGES="" \
     RUNTIME_PACKAGES="tzdata git rsyslog imagemagick" \
