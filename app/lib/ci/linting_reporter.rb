@@ -49,7 +49,7 @@ module Ci
         builder.use Octokit::Middleware::FollowRedirects
         builder.use Octokit::Response::RaiseError
         builder.use Octokit::Response::FeedParser
-        builder.response :logger
+        builder.response :logger, nil, { headers: true, bodies: true }
         builder.adapter Faraday.default_adapter
       end
     end
