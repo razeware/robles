@@ -12,5 +12,11 @@ module Linting
     def attributes
       { title: nil, summary: nil, text: nil, annotations: [] }.stringify_keys
     end
+
+    def to_h
+      serializable_hash.tap do |hash|
+        hash['annotations'].map!(&:serializable_hash)
+      end
+    end
   end
 end

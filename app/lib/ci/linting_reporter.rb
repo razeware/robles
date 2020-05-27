@@ -23,7 +23,7 @@ module Ci
         GITHUB_REPOSITORY,
         check_run.id,
         conclusion: output.validated ? 'success' : 'failure',
-        output: output
+        output: output.to_h
       )
     end
 
