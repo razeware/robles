@@ -1,4 +1,4 @@
-name: Docker
+name: Build and publish docker images
 
 on:
   push:
@@ -15,8 +15,8 @@ env:
   IMAGE_NAME: robles
 
 jobs:
-  Run tests.
-  See also https://docs.docker.com/docker-hub/builds/automated-testing/
+  # Run tests.
+  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
     runs-on: ubuntu-latest
 

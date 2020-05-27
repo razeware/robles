@@ -1,4 +1,4 @@
-name: Docker
+name: Test docker image
 
 on:
   # Run tests for any PRs.
