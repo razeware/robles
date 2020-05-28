@@ -17,6 +17,12 @@ module Renderer
       @root_path = attributes[:root_path]
     end
 
+    def header(text, header_level)
+      return nil if header_level == 1
+
+      "<h#{header_level}>#{text}</h#{header_level}>"
+    end
+
     def image(link, title, alt_text)
       return %(<img src="#{link}" alt="#{alt_text}" title="#{title}" />) if image_provider.blank?
 
