@@ -4,7 +4,7 @@ module Linting
   module Metadata
     # Check for the required attributes in the publish.yaml file
     class PublishAttributes
-      REQUIRED_ATTRIBUTES = %i[sku edition title description released_at authors segments].freeze
+      REQUIRED_ATTRIBUTES = %i[sku edition title description released_at authors segments materials_url].freeze
 
       attr_reader :file, :attributes
 
