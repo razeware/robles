@@ -1,0 +1,10 @@
+{
+  "name": "Ruby",
+  "dockerComposeFile": "../docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "/app/robles",
+  "extensions": [
+    "rebornix.Ruby",
+    "castwide.solargraph"
+  ]
+}

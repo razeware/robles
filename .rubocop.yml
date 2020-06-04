@@ -1,0 +1,31 @@
+AllCops:
+  TargetRubyVersion: 2.7
+  Exclude:
+    - tmp/**/*
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+Style/SymbolArray:
+  Enabled: true
+
+Layout/LineLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 20
+
+Lint/RaiseException:
+  Enabled: true
+
+Lint/StructNewOverride:
+  Enabled: true
+
+Style/HashEachMethods:
+  Enabled: true
+
+Style/HashTransformKeys:
+  Enabled: true
+
+Style/HashTransformValues:
+  Enabled: true
