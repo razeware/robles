@@ -40,6 +40,3 @@ RUN bundle install --jobs 20 --retry 5
 
 # Copy the main application.
 COPY . ./
-
-# Default command
-ENTRYPOINT ['/app/robles/bin/robles']
