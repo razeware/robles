@@ -79,6 +79,7 @@ GEM
     sawyer (0.8.2)
       addressable (>= 2.3.5)
       faraday (> 0.8, < 2.0)
+    slack-notifier (2.3.2)
     solargraph (0.39.7)
       backport (~> 1.1)
       benchmark
@@ -119,6 +120,7 @@ DEPENDENCIES
   redcarpet (~> 3.5)
   rubocop (~> 0.81)
   ruby-debug-ide (~> 0.7.2)
+  slack-notifier (~> 2.3, >= 2.3.2)
   solargraph (~> 0.39)
   thor (~> 1.0, >= 1.0.1)
   zeitwerk (~> 2.3)

@@ -33,6 +33,9 @@ gem 'concurrent-ruby', '~> 1.1'
 # Interacting with github
 gem 'octokit', '~> 4.18'
 
+# Sending notifications to slack
+gem 'slack-notifier', '~> 2.3', '>= 2.3.2'
+
 group :development do
   # For integration with VSCode
   gem 'debase', '~> 0.2.4.1'
