@@ -2,6 +2,11 @@
 
 # Overall CLI app for robles
 class RoblesCli < Thor
+  # Ensures that invalid arguments etc result in a failure response to the shell
+  def self.exit_on_failure?
+    true
+  end
+
   desc 'render', 'renders book'
   option :'publish-file', type: :string, desc: 'Location of the publish.yaml file'
   option :local, type: :boolean
