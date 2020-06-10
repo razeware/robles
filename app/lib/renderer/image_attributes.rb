@@ -35,6 +35,7 @@ module Renderer
       width_match = /width=(\d+)%/.match(alt_text)
       return if width_match.blank?
 
+      # Convert width request to a class that's a multiple of 10
       width = width_match[1].to_i.round(-1).clamp(0, 100)
       "l-image-#{width}"
     end

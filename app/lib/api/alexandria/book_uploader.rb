@@ -41,6 +41,7 @@ module Api
           faraday.response(:logger, logger) do |logger|
             logger.filter(/(Token token=\\\")(\w+)/, '\1[REMOVED]')
           end
+          faraday.response(:raise_error)
           faraday.token_auth(ALEXANDRIA_SERVICE_API_TOKEN)
           faraday.adapter(Faraday.default_adapter)
         end

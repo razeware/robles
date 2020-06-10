@@ -4,6 +4,7 @@ module Runner
   # Base class with shared functionality
   class Base
     include Util::Logging
+    include Util::SlackNotifiable
 
     def self.runner
       return Runner::Ci.new if CI
@@ -23,16 +24,18 @@ module Runner
       book
     end
 
-    def publish(publish_file:)
+    def publish(publish_file:) # rubocop:disable Metrics/MethodLength
       publish_file ||= default_publish_file
-
       parser = Parser::Publish.new(file: publish_file)
       book = parser.parse
       image_provider = ImageProvider::Provider.new(book: book)
       image_provider.process
-      renderer = Renderer::Book.new(book: book, image_provider: image_provider)
-      renderer.render
+      Renderer::Book.new(book: book, image_provider: image_provider).render
       Api::Alexandria::BookUploader.upload(book)
+      notify_success(book: book)
+    rescue StandardError => e
+      notify_failure(book: defined?(book) ? book : nil, details: e.full_message)
+      raise e
     end
 
     def lint(publish_file:, options: {})
