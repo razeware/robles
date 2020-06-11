@@ -9,7 +9,7 @@ LABEL com.github.actions.icon="book"
 
 ENV BUILD_PACKAGES="build-essential" \
     DEV_PACKAGES="" \
-    RUNTIME_PACKAGES="tzdata git rsyslog imagemagick" \
+    RUNTIME_PACKAGES="tzdata git rsyslog imagemagick libsodium-dev" \
     LANG="C.UTF-8"
 
 # SYSLOG TO STDOUT
