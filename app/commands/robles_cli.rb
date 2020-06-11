@@ -30,6 +30,29 @@ class RoblesCli < Thor
     exit 1 unless output.validated
   end
 
+  desc 'secrets [REPO]', 'configures a book repo with the necessary secrets'
+  long_desc <<-LONGDESC
+    `robles secrets [REPO]` will upload the secrets requires to run robles on a
+    git repository containing a book.
+
+    You must ensure that the required secrets are provided as robleenvironment variables
+    before running this command:
+    
+    GITHUB_TOKEN=
+    REPO_ALEXANDRIA_SERVICE_API_TOKEN_PRODUCTION=
+    REPO_ALEXANDRIA_SERVICE_API_TOKEN_STAGING=
+    REPO_AWS_ACCESS_KEY_ID_PRODUCTION=
+    REPO_AWS_ACCESS_KEY_ID_STAGING=
+    REPO_AWS_SECRET_ACCESS_KEY_PRODUCTION=
+    REPO_AWS_SECRET_ACCESS_KEY_STAGING=
+    REPO_SLACK_BOT_TOKEN=
+    REPO_SLACK_WEBHOOK_URL=
+  LONGDESC
+  def secrets(repo)
+    secrets_manager = RepoManagement::Secrets.new(repo: repo)
+    secrets_manager.apply_secrets
+  end
+
   private
 
   def runner
