@@ -7,7 +7,7 @@ class Chapter
   include Concerns::MarkdownRenderable
   include Concerns::TitleCleanser
 
-  attr_accessor :title, :number, :ordinal, :description, :body, :authors, :markdown_file
+  attr_accessor :title, :number, :ordinal, :description, :authors, :markdown_file
   attr_markdown :body, source: :markdown_file, file: true
   validates :title, :number, :ordinal, :markdown_file, presence: true
 
