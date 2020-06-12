@@ -18,7 +18,8 @@ module Parser
       raise 'Invalid segment kind' unless section_segment[:kind] == 'section'
 
       chapters = segments.map.with_index { |segment, idx| parse_chapter(segment, idx) }
-      Section.new(markdown_file: apply_path(section_segment[:path]), ordinal: index, chapters: chapters).tap do |section|
+      markdown_file = apply_path(section_segment[:path])
+      Section.new(markdown_file: markdown_file, ordinal: index, chapters: chapters, root_path: Pathname.new(markdown_file).dirname.to_s).tap do |section|
         SectionMetadata.new(section).apply!
       end
     end
@@ -26,7 +27,8 @@ module Parser
     def parse_chapter(segment, index)
       raise 'Invalid semgent kind' unless segment[:kind] == 'chapter'
 
-      Chapter.new(markdown_file: apply_path(segment[:path]), ordinal: index).tap do |chapter|
+      markdown_file = apply_path(segment[:path])
+      Chapter.new(markdown_file: markdown_file, ordinal: index, root_path: Pathname.new(markdown_file).dirname.to_s).tap do |chapter|
         ChapterMetadata.new(chapter).apply!
       end
     end

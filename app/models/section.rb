@@ -4,10 +4,11 @@
 class Section
   include ActiveModel::Model
   include ActiveModel::Serializers::JSON
+  include Concerns::ImageAttachable
   include Concerns::MarkdownRenderable
   include Concerns::TitleCleanser
 
-  attr_accessor :title, :number, :ordinal, :chapters, :markdown_file
+  attr_accessor :title, :number, :ordinal, :chapters, :markdown_file, :root_path
   attr_markdown :description, source: :markdown_file, file: true
   validates :title, :number, :ordinal, presence: true
 
