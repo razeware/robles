@@ -19,7 +19,7 @@ module Runner
       book = parser.parse
       image_provider = local ? nil : ImageProvider::Provider.new(book: book)
       image_provider&.process
-      renderer = Renderer::Book.new(book: book, image_provider: image_provider)
+      renderer = Renderer::Book.new(book, image_provider: image_provider)
       renderer.render
       book
     end
@@ -30,7 +30,7 @@ module Runner
       book = parser.parse
       image_provider = ImageProvider::Provider.new(book: book)
       image_provider.process
-      Renderer::Book.new(book: book, image_provider: image_provider).render
+      Renderer::Book.new(book, image_provider: image_provider).render
       Api::Alexandria::BookUploader.upload(book)
       notify_success(book: book)
     rescue StandardError => e

@@ -7,23 +7,25 @@ module Concerns
     extend ActiveSupport::Concern
 
     included do
-      class_attribute :_markdown_renderable_attribute, instance_writer: false
+      class_attribute :_markdown_renderable_attributes, instance_writer: false, default: []
     end
 
     class_methods do
       # Specify the name of the attribute that markdown should be rendered into
-      def attr_markdown(attribute)
-        self._markdown_renderable_attribute = attribute
+      def attr_markdown(attribute, source:, file: false)
+        _markdown_renderable_attributes.push({ destination: attribute, source: source, file: file })
+        attr_accessor attribute
       end
     end
 
-    # These instance methods are shorthand for accessing the markdown_attribute
-    def markdown_attribute
-      send(_markdown_renderable_attribute)
-    end
-
-    def markdown_attribute=(value)
-      send("#{_markdown_renderable_attribute}=".to_sym, value)
+    # Allows a renderer to loop through the different markdown fields, rendering them.
+    # Takes a block with two arguments--content & file
+    def markdown_render_loop(&block)
+      _markdown_renderable_attributes.each do |attribute|
+        content = send(attribute[:source])
+        rendered = block.call(content, attribute[:file])
+        send("#{attribute[:destination]}=".to_sym, rendered)
+      end
     end
   end
 end
