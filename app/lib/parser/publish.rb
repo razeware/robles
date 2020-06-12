@@ -24,6 +24,7 @@ module Parser
 
     def apply_additonal_metadata
       book.assign_attributes(additional_attributes)
+      book.root_path = root_directory
     end
 
     def update_authors_on_chapters

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 module Concerns
-  # Adds a method that denotes which attribute should be populated with markdown
-  # Use in conjunction with Renderer::MarkdownRenderable
+  # Adds methods to allow attributes to be marked as containing markdown
   module MarkdownRenderable
     extend ActiveSupport::Concern
 
