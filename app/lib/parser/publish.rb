@@ -5,7 +5,9 @@ module Parser
   class Publish
     include Util::PathExtraction
 
-    VALID_BOOK_ATTRIBUTES = %i[sku edition title description released_at materials_url].freeze
+    VALID_BOOK_ATTRIBUTES = %i[sku edition title description released_at materials_url
+                               cover_image version_description professional difficulty platform
+                               language editor who_is_this_for_md covered_concepts_md].freeze
 
     attr_reader :book
 

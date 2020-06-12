@@ -12,11 +12,17 @@ module Renderer
     end
 
     def render_markdown
-      object.markdown_attribute = md_renderer.render
+      object.markdown_render_loop do |content, file|
+        file ? render_file(content) : render_string(content)
+      end
     end
 
-    def md_renderer
-      @md_renderer ||= Markdown.new(path: object.markdown_file, image_provider: image_provider)
+    def render_file(filename)
+      MarkdownFileRenderer.new(path: filename, image_provider: image_provider).render
+    end
+
+    def render_string(content)
+      MarkdownStringRenderer.new(content: content).render
     end
   end
 end

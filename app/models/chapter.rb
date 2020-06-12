@@ -8,7 +8,7 @@ class Chapter
   include Concerns::TitleCleanser
 
   attr_accessor :title, :number, :ordinal, :description, :body, :authors, :markdown_file
-  attr_markdown :body
+  attr_markdown :body, source: :markdown_file, file: true
   validates :title, :number, :ordinal, :markdown_file, presence: true
 
   def initialize(attributes = {})
