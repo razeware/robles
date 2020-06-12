@@ -35,7 +35,7 @@ class RoblesCli < Thor
     `robles secrets [REPO]` will upload the secrets requires to run robles on a
     git repository containing a book.
 
-    You must ensure that the required secrets are provided as robleenvironment variables
+    You must ensure that the required secrets are provided as environment variables
     before running this command:
     
     GITHUB_TOKEN=
