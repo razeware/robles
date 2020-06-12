@@ -10,11 +10,7 @@ module Linting
     end
 
     def lint
-      [].tap do |annotations|
-        book.sections.each do |section|
-          annotations.concat(Linting::Image::Section.lint(section))
-        end
-      end
+      Linting::Image::Book.lint(book)
     end
   end
 end
