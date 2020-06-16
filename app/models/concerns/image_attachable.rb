@@ -21,18 +21,23 @@ module Concerns
     def image_attachment_paths
       _image_attachable_attributes.map do |attr|
         path = send(attr[:source])
+        next if path.blank?
+
         {
           relative_path: path,
           absolute_path: (Pathname.new(root_path) + path).to_s
         }
-      end
+      end.compact
     end
 
     # Allows looping through the image attachment attributes, populating their remote URLs
     # Takes a block with one argument--the local URL of the file
     def image_attachment_loop(&block)
       _image_attachable_attributes.each do |attribute|
-        local_url = (Pathname.new(root_path) + send(attribute[:source])).to_s
+        path = send(attribute[:source])
+        next if path.blank?
+
+        local_url = (Pathname.new(root_path) + path).to_s
         remote_url = block.call(local_url)
         send("#{attribute[:destination]}=".to_sym, remote_url)
       end
