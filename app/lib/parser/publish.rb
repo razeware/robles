@@ -5,7 +5,11 @@ module Parser
   class Publish
     include Util::PathExtraction
 
-    VALID_BOOK_ATTRIBUTES = %i[sku edition title description released_at materials_url].freeze
+    VALID_BOOK_ATTRIBUTES = %i[sku edition title description released_at materials_url
+                               cover_image gallery_image twitter_card_image trailer_video_url
+                               version_description professional difficulty platform
+                               language editor domains categories who_is_this_for_md
+                               covered_concepts_md].freeze
 
     attr_reader :book
 
@@ -22,6 +26,7 @@ module Parser
 
     def apply_additonal_metadata
       book.assign_attributes(additional_attributes)
+      book.root_path = root_directory
     end
 
     def update_authors_on_chapters

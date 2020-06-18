@@ -20,14 +20,14 @@ module ImageProvider
       MarkdownImageExtractor.images_from(file)
     end
 
-    def image_paths
+    def image_paths # rubocop:disable Metrics/AbcSize
       book.sections.map do |section|
         from_chapters = section.chapters.map do |chapter|
-          extract_images_from_markdown(chapter.markdown_file)
+          extract_images_from_markdown(chapter.markdown_file) + chapter.image_attachment_paths
         end
 
-        from_chapters + extract_images_from_markdown(section.markdown_file)
-      end.flatten.compact.uniq
+        from_chapters + extract_images_from_markdown(section.markdown_file) + section.image_attachment_paths
+      end.flatten.compact.uniq + book.image_attachment_paths
     end
   end
 end
