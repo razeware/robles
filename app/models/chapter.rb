@@ -8,17 +8,18 @@ class Chapter
   include Concerns::MarkdownRenderable
   include Concerns::TitleCleanser
 
-  attr_accessor :title, :number, :ordinal, :description, :authors, :markdown_file, :root_path
+  attr_accessor :title, :number, :ordinal, :description, :authors, :markdown_file, :root_path, :free
   attr_markdown :body, source: :markdown_file, file: true
   validates :title, :number, :ordinal, :markdown_file, presence: true
 
   def initialize(attributes = {})
     super
     @authors ||= []
+    @free ||= false
   end
 
   # Used for serialisation
   def attributes
-    { title: nil, number: nil, ordinal: nil, description: nil, body: nil, authors: [] }.stringify_keys
+    { title: nil, number: nil, ordinal: nil, description: nil, body: nil, authors: [], free: false }.stringify_keys
   end
 end
