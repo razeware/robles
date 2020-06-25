@@ -5,7 +5,7 @@ module Parser
   class ChapterMetadata
     include MarkdownMetadata
 
-    VALID_SIMPLE_ATTRIBUTES = %i[number title description].freeze
+    VALID_SIMPLE_ATTRIBUTES = %i[number title description free].freeze
 
     attr_reader :chapter
 
