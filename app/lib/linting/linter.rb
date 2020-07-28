@@ -20,7 +20,7 @@ module Linting
       output
     end
 
-    def lint_with_ui(options:, show_ui: true) # rubocop:disable Metrics/MethodLength
+    def lint_with_ui(options:, show_ui: true) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       with_spinner(title: 'Checking {{bold:publish.yaml}} exists', show: show_ui) do
         check_publish_file_exists
       end
@@ -28,6 +28,11 @@ module Linting
 
       with_spinner(title: 'Validating metadata in {{bold:publish.yaml}}', show: show_ui) do
         annotations.concat(Linting::MetadataLinter.new(file: file).lint(options: options))
+      end
+      return unless annotations.blank?
+
+      with_spinner(title: 'Attempting to parse book', show: show_ui) do
+        book
       end
       return unless annotations.blank?
 
@@ -78,11 +83,23 @@ module Linting
       false
     end
 
-    def book
+    def book # rubocop:disable Metrics/MethodLength
       @book ||= begin
         parser = Parser::Publish.new(file: file)
         parser.parse
       end
+    rescue Parser::Error => e
+      line_number = (e.message.match(/at line (\d+)/)&.captures&.first&.to_i || 0) + 1
+      annotations.push(
+        Annotation.new(
+          absolute_path: e.file,
+          annotation_level: 'failure',
+          start_line: line_number,
+          end_line: line_number,
+          message: e.message,
+          title: 'Unable to parse book.'
+        )
+      )
     end
   end
 end
