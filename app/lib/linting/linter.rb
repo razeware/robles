@@ -36,6 +36,10 @@ module Linting
       end
       return unless annotations.blank?
 
+      with_spinner(title: 'Validating markdown', show: show_ui) do
+        annotations.concat(Linting::MarkdownLinter.new(book: book).lint)
+      end
+
       with_spinner(title: 'Validating image references', show: show_ui) do
         annotations.concat(Linting::ImageLinter.new(book: book).lint)
       end
