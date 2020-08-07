@@ -28,6 +28,13 @@ class RoblesServer < Sinatra::Application
         layout: :'layout.html'
   end
 
+  get '/assets/*.*' do
+    local_url = File.join('/data/src/', params[:splat].join('.'))
+    raise Sinatra::NotFound unless acceptable_image_extension(params[:splat].second) && File.exist?(local_url)
+
+    send_file(local_url)
+  end
+
   def book
     @book ||= begin
       parser = Parser::Publish.new(file: publish_file)
@@ -41,11 +48,17 @@ class RoblesServer < Sinatra::Application
   end
 
   def render_chapter(chapter)
-    renderer = Renderer::Chapter.new(chapter)
+    image_provider = LocalImageProvider.new(chapter: chapter)
+    image_provider.process
+    renderer = Renderer::Chapter.new(chapter, image_provider: image_provider)
     renderer.render
   end
 
   def publish_file
     '/data/src/publish.yaml'
+  end
+
+  def acceptable_image_extension(extension)
+    %w[jpg png gif].include?(extension.downcase)
   end
 end

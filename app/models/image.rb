@@ -16,6 +16,14 @@ class Image
     end
   end
 
+  def self.with_original_representation(attributes = {})
+    new(attributes).tap do |image|
+      image.representations = [
+        ImageRepresentation.new(width: :original, image: image, local_server: true)
+      ]
+    end
+  end
+
   def initialize(attributes = {})
     super
     @representations ||= []
