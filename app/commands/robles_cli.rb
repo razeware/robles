@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require 'guard'
+require 'guard/commander' # needed because of https://github.com/guard/guard/issues/793
 
 # Overall CLI app for robles
 class RoblesCli < Thor
@@ -17,6 +19,9 @@ class RoblesCli < Thor
 
   desc 'serve', 'starts local preview server'
   def serve
+    fork do
+      Guard.start(no_interactions: true)
+    end
     RoblesServer.run!
   end
 

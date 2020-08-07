@@ -50,4 +50,9 @@ group :development do
   gem 'rubocop', '~> 0.81'
   gem 'ruby-debug-ide', '~> 0.7.2'
   gem 'solargraph', '~> 0.39'
+
+  # Auto-reloading when serving locally
+  gem 'guard', '~> 2', '>= 2.16.2'
+  gem 'guard-livereload', '~> 2.5', require: false
+  gem 'rack-livereload'
 end
