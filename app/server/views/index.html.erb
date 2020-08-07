@@ -2,11 +2,4 @@
 
 <p><%= book.description %></p>
 
-<% book.sections.each do |section| %>
-  <h2><%= section.number %>: <%= section.title %></h2>
-  <ul>
-    <% section.chapters.each do |chapter| %>
-      <li><a href="<%= url(chapter_path(chapter)) %>"><%= chapter.number %>. <%= chapter.title %></a></li>
-    <% end %>
-  </ul>
-<% end %>
+<%= erb :'_table_of_contents.html', locals: { book: book } %>

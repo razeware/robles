@@ -2,4 +2,6 @@
 
 <h1><%= chapter.number %>. <%= chapter.title %></h1>
 
+<%= erb :'_table_of_contents.html', locals: { book: book } %>
+
 <%= chapter.body %>
