@@ -2,7 +2,7 @@
  * Sets some base rules for typography
  */
 
- body{
+ body {
 	font-family: $body;
   font-display: auto;
   font-size: 1rem;
@@ -10,6 +10,7 @@
   line-height: 1.45;
   color: $black-mine-shaft;
   -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.01);
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
