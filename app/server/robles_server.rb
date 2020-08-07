@@ -5,6 +5,7 @@ require 'rack-livereload'
 class RoblesServer < Sinatra::Application
   set :bind, '0.0.0.0'
   set :views, __dir__ + '/views'
+  set :public_folder, __dir__ + '/public'
 
   use Rack::LiveReload, host: '0.0.0.0'
 
@@ -33,6 +34,10 @@ class RoblesServer < Sinatra::Application
     raise Sinatra::NotFound unless acceptable_image_extension(params[:splat].second) && File.exist?(local_url)
 
     send_file(local_url)
+  end
+
+  get '/styles.css' do
+    scss :'styles/application', style: :expanded
   end
 
   def book

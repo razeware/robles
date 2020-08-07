@@ -42,6 +42,7 @@ gem 'rbnacl'
 gem 'slack-notifier', '~> 2.3', '>= 2.3.2'
 
 # Local previewing
+gem 'sassc'
 gem 'sinatra', '~> 2', '>= 2.0.8.1'
 
 group :development do

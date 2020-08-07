@@ -135,6 +135,8 @@ GEM
       rake (>= 0.8.1)
     ruby-progressbar (1.10.1)
     ruby2_keywords (0.0.2)
+    sassc (2.4.0)
+      ffi (~> 1.9)
     sawyer (0.8.2)
       addressable (>= 2.3.5)
       faraday (> 0.8, < 2.0)
@@ -189,6 +191,7 @@ DEPENDENCIES
   redcarpet (~> 3.5)
   rubocop (~> 0.81)
   ruby-debug-ide (~> 0.7.2)
+  sassc
   sinatra (~> 2, >= 2.0.8.1)
   slack-notifier (~> 2.3, >= 2.3.2)
   solargraph (~> 0.39)
