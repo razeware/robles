@@ -23,5 +23,5 @@ guard 'livereload' do
   watch(%r{app/server/views/.+\.erb$})
   watch(%r{app/server/views/styles/.+\.scss$})
   watch(%r{^/data/src/publish\.yaml$})
-  watch(%r{^/data/src/(.+)/(.+)\.(md|markdown)$})
+  watch(%r{^/data/src/.+\.(md|markdown)$})
 end
