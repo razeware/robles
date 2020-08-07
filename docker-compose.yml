@@ -3,7 +3,7 @@ services:
   app:
     build: .
     volumes:
-      - ../../books/ia:/data/src
+      - .:/app/robles
     command: bin/robles serve
     env_file: .env
     ports:
