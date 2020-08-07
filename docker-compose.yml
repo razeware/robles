@@ -3,7 +3,8 @@ services:
   app:
     build: .
     volumes:
-      - .:/app/robles
       - ../../books/ia:/data/src
-    command: sleep infinity
+    command: bin/robles serve
     env_file: .env
+    ports:
+      - "4567:4567"

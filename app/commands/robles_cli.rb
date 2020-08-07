@@ -15,6 +15,11 @@ class RoblesCli < Thor
     p book.sections.first.chapters.last
   end
 
+  desc 'serve', 'starts local preview server'
+  def serve
+    RoblesServer.run!
+  end
+
   desc 'publish [PUBLISH_FILE]', 'renders and publishes a book'
   option :'publish-file', type: :string, desc: 'Location of the publish.yaml file'
   def publish
