@@ -18,6 +18,10 @@ class Chapter
     @free ||= false
   end
 
+  def slug
+    "#{number}-#{title.parameterize}"
+  end
+
   # Used for serialisation
   def attributes
     { title: nil, number: nil, ordinal: nil, description: nil, body: nil, authors: [], free: false }.stringify_keys
