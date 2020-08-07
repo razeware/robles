@@ -10,7 +10,7 @@ module ImageProvider
       attr_accessor :local_url, :local_server
 
       included do
-        class_attribute :s3, instance_predicate: false, default: Aws::S3::Resource.new(region: AWS_REGION)
+        class_attribute :s3, instance_predicate: false, default: AWS_REGION.present? ? Aws::S3::Resource.new(region: AWS_REGION) : nil
         validates :key, presence: true
       end
 
