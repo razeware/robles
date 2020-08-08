@@ -10,6 +10,7 @@ module Parser
 
     def parse
       sections = grouped_segments.map.with_index { |segments, idx| parse_section(segments, idx) }
+      apply_auto_numbering(sections)
       Book.new(title: yaml[:title], sections: sections, git_commit_hash: git_hash)
     end
 
@@ -43,6 +44,17 @@ module Parser
       yaml[:segments].filter { |segment| VALID_SEGMENTS.include?(segment[:kind]) }
                      .slice_before { |segment| segment[:kind] == 'section' }
                      .filter { |group| group.first[:kind] == 'section' }
+    end
+
+    def apply_auto_numbering(sections)
+      section_index = 0
+      chapter_index = 0
+      sections.each do |section|
+        section_index = section.auto_number(section_index)
+        section.chapters.each do |chapter|
+          chapter_index = chapter.auto_number(chapter_index)
+        end
+      end
     end
   end
 end

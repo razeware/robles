@@ -4,6 +4,7 @@
 class Chapter
   include ActiveModel::Model
   include ActiveModel::Serializers::JSON
+  include Concerns::AutoNumberable
   include Concerns::ImageAttachable
   include Concerns::MarkdownRenderable
   include Concerns::TitleCleanser
