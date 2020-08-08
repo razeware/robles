@@ -1,6 +1,7 @@
-# A sample Guardfile
-# More info at https://github.com/guard/guard#readme
+# frozen_string_literal: true
 
+# This guard file is used for development of robles
+# We generate one in code for using robles as a local preview
 guard 'livereload' do
   extensions = {
     css: :css,
@@ -12,7 +13,7 @@ guard 'livereload' do
     png: :png,
     gif: :gif,
     jpg: :jpg,
-    jpeg: :jpeg,
+    jpeg: :jpeg
   }
 
   # file types LiveReload may optimize refresh for
@@ -22,6 +23,4 @@ guard 'livereload' do
   # file needing a full reload of the page anyway
   watch(%r{app/server/views/.+\.erb$})
   watch(%r{app/server/views/styles/.+\.scss$})
-  watch(%r{^/data/src/publish\.yaml$})
-  watch(%r{^/data/src/.+\.(md|markdown)$})
 end

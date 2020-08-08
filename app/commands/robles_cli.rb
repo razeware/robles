@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'guard'
 require 'guard/commander' # needed because of https://github.com/guard/guard/issues/793
 
@@ -18,9 +19,14 @@ class RoblesCli < Thor
   end
 
   desc 'serve', 'starts local preview server'
+  option :dev, type: :boolean, desc: 'Run in development mode (watch robles files, not book files)'
   def serve
     fork do
-      Guard.start(no_interactions: true)
+      if options[:dev]
+        Guard.start(no_interactions: true)
+      else
+        Guard.start(guardfile_contents: book_guardfile, watchdir: '/data/src', no_interactions: true)
+      end
     end
     RoblesServer.run!
   end
@@ -67,5 +73,14 @@ class RoblesCli < Thor
 
   def runner
     Runner::Base.runner
+  end
+
+  def book_guardfile
+    <<~GUARDFILE
+      guard 'livereload' do
+        watch(%r{publish\.yaml$})
+        watch(%r{.+\.(md|markdown)$})
+      end
+    GUARDFILE
   end
 end
