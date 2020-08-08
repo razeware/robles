@@ -11,3 +11,165 @@
 // ---------
 @import 'base/base';
 @import 'base/typography';
+
+/* ==========================================================================
+Side Navbar
+========================================================================== */
+.c-nav-sidebar--article{
+    top: 0;
+    left: 0;
+    width: 270px !important;
+    height: 100%;
+    background: $dark-black-mine-shaft;
+    padding: 0 18px;
+    overflow-y: auto;
+    overflow: -moz-scrollbars-none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar { width: 0 !important }
+}
+
+.c-sidebar-navigator {
+    padding-bottom: 0;
+    position: relative;
+
+
+    li {
+      padding-left: 20px;
+      margin-top: 12px !important;
+      font-size: 0.875rem; /* 14/16 */
+      white-space: normal !important;
+      text-overflow: unset !important;
+      overflow-x: visible !important;
+
+        a {
+            white-space: normal !important;
+            font-weight: 400;
+            color: $grey-chateau !important;
+            display: flex;
+            align-items: flex-start;
+            color: $white;
+            text-decoration: none;
+            position: relative;
+
+            &:hover {
+                text-decoration: underline;
+                color: $grey-lynch;
+            }
+
+        }
+
+    }
+}
+
+.c-box-list__item-title {
+    width: 100%;
+    text-overflow: ellipsis;
+    font-weight: 600;
+}
+
+nav.c-video-player__lessons {
+    width: 100%;
+
+    .c-video-player__lessons-section {
+      display: block;
+    }
+}
+
+.c-video-player__lessons {
+    display: block !important;
+    width: 320px;
+}
+
+
+.c-video-player__lessons-section{
+    padding: 0 24px 20px;
+    border-bottom: 1px solid $grey-mako;
+    display: none;
+
+
+    .c-video-player__lessons-header{
+      display: block;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .c-video-player__lessons-title{
+      display: block;
+      font-size: 1.125rem; /* 18/16 */
+      color: $white;
+      margin-top: 20px;
+    }
+
+}
+
+
+
+li{
+    font-size: 0.9375rem; /* 15/16 */
+    font-weight: 600;
+    position: relative;
+    margin-top: 18px;
+    color: $white;
+    cursor: pointer;
+    z-index: 1;
+    padding-left: 30px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+  
+    &:first-child{
+        margin-top: 0;
+    }
+
+    .c-box-list__item-number {
+        margin-right: 3px;
+    }
+
+    .c-box-list__item-title {
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}
+
+/* ==========================================================================
+Book Specific Sidebar
+========================================================================== */
+
+.c-nav-sidebar--book {
+    
+    .c-sidebar-navigator {
+        padding-bottom: 0;
+        position: relative;
+        padding-bottom: 0;
+    
+        &:before {
+          content: "";
+          position: absolute;
+          top: -6px;
+          left: 9px;
+          width: 2px;
+          height: calc(100% + 18px);
+          background: $grey-shuttle;
+        }
+    }
+    
+}
+    
+
+/* ==========================================================================
+Book Chapter
+========================================================================== */
+
+
+
+/* ==========================================================================
+Layout Bits
+========================================================================== */
+
+
+
+/* ==========================================================================
+Contents Bits
+========================================================================== */
