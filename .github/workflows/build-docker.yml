@@ -84,17 +84,21 @@ jobs:
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
 
           # Prefix tags with 'release'
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=release-$VERSION
+          if [[ "${{ github.ref }}" == "refs/tags/"* ]]; then
+            TAGS=$(echo "${VERSION}" | sed -E "s/v?([0-9]+)\.([0-9]+)\.([0-9]+)/release-\1.\2.\3 release-\1.\2 release-\1/g")
+          fi
 
           # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && VERSION=latest
-          [ "$VERSION" == "development" ] && VERSION=staging
+          [ "$VERSION" == "master" ] && TAGS=latest
+          [ "$VERSION" == "development" ] && TAGS=staging
 
           echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
+          echo TAGS=$TAGS
 
-          docker tag image $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
+          for TAG in ${TAGS}; do
+            docker tag image "${IMAGE_ID}:${TAG}"
+            docker push "${IMAGE_ID}:${TAG}"
+          done
 
       - name: Push image to GitHub
         run: |
@@ -107,17 +111,21 @@ jobs:
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
 
           # Prefix tags with 'release'
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=release-$VERSION
+          if [[ "${{ github.ref }}" == "refs/tags/"* ]]; then
+            TAGS=$(echo "${VERSION}" | sed -E "s/v?([0-9]+)\.([0-9]+)\.([0-9]+)/release-\1.\2.\3 release-\1.\2 release-\1/g")
+          fi
 
           # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && VERSION=latest
-          [ "$VERSION" == "development" ] && VERSION=staging
+          [ "$VERSION" == "master" ] && TAGS=latest
+          [ "$VERSION" == "development" ] && TAGS=staging
 
           echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
+          echo TAGS=$TAGS
 
-          docker tag image $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
+          for TAG in ${TAGS}; do
+            docker tag image "${IMAGE_ID}:${TAG}"
+            docker push "${IMAGE_ID}:${TAG}"
+          done
 
       - name: Logout of DockerHub Registry
         if: ${{ always() }}
