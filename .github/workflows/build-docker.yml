@@ -85,7 +85,7 @@ jobs:
 
           # Prefix tags with 'release'
           if [[ "${{ github.ref }}" == "refs/tags/"* ]]; then
-            TAGS=$(echo "${VERSION}" | sed -E "s/v?([0-9]+)\.([0-9]+)\.([0-9]+)/release-\1.\2.\3 release-\1.\2 release-\1/g")
+            TAGS=$(echo "${VERSION}" | sed -E "s/v?([0-9]+)\.([0-9]+)\.([0-9]+)/release-v\1.\2.\3 release-v\1.\2 release-v\1/g")
           fi
 
           # Use Docker `latest` tag convention
@@ -112,7 +112,7 @@ jobs:
 
           # Prefix tags with 'release'
           if [[ "${{ github.ref }}" == "refs/tags/"* ]]; then
-            TAGS=$(echo "${VERSION}" | sed -E "s/v?([0-9]+)\.([0-9]+)\.([0-9]+)/release-\1.\2.\3 release-\1.\2 release-\1/g")
+            TAGS=$(echo "${VERSION}" | sed -E "s/v?([0-9]+)\.([0-9]+)\.([0-9]+)/release-v\1.\2.\3 release-v\1.\2 release-v\1/g")
           fi
 
           # Use Docker `latest` tag convention
