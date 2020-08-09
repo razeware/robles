@@ -20,7 +20,7 @@ module Linting
         end
       end
 
-      def locate_errors(image)
+      def locate_errors(_image)
         [{
           start_line: 1,
           end_line: 1
