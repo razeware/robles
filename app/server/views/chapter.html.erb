@@ -1,7 +1,23 @@
-<p><a href="/">Home</a></p>
+<header id="c-global-header" class="c-book-header" role="banner"><p><a href="/">Home</a></p></header>
+<div class="l-admin">
+    <%= erb :'_table_of_contents.html', locals: { book: book } %>
 
-<h1><%= chapter.number %>. <%= chapter.title %></h1>
+    <div class="l-book-chapter-content l-relative">
+        <article class="c-written-tutorial c-book-chapter l-block l-block--card-medium">
+            <header>
+                <div class="c-written-tutorial__introduction">
+                    <h1>
+                        <span class="l-whitespace"><%= chapter.number %></span>
+                        <span><%= chapter.title %></span>
+                    </h1>
+                </div>   
+            </header> 
 
-<%= erb :'_table_of_contents.html', locals: { book: book } %>
 
-<%= chapter.body %>
+        <div class="c-written-tutorial__content c-book-chapter">
+            <%= chapter.body %>
+        </div>
+
+        </article>
+    </div>
+</div>
