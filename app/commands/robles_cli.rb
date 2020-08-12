@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'guard'
+require 'guard/commander' # needed because of https://github.com/guard/guard/issues/793
+
 # Overall CLI app for robles
 class RoblesCli < Thor
   # Ensures that invalid arguments etc result in a failure response to the shell
@@ -13,6 +16,19 @@ class RoblesCli < Thor
   def render
     book = runner.render(publish_file: options['publish_file'], local: options['local'])
     p book.sections.first.chapters.last
+  end
+
+  desc 'serve', 'starts local preview server'
+  option :dev, type: :boolean, desc: 'Run in development mode (watch robles files, not book files)'
+  def serve
+    fork do
+      if options[:dev]
+        Guard.start(no_interactions: true)
+      else
+        Guard.start(guardfile_contents: book_guardfile, watchdir: '/data/src', no_interactions: true)
+      end
+    end
+    RoblesServer.run!
   end
 
   desc 'publish [PUBLISH_FILE]', 'renders and publishes a book'
@@ -57,5 +73,14 @@ class RoblesCli < Thor
 
   def runner
     Runner::Base.runner
+  end
+
+  def book_guardfile
+    <<~GUARDFILE
+      guard 'livereload' do
+        watch(%r{publish\.yaml$})
+        watch(%r{.+\.(md|markdown)$})
+      end
+    GUARDFILE
   end
 end

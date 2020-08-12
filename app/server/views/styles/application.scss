@@ -1,0 +1,705 @@
+// Libraries
+// ---------
+@import 'lib/normalise';
+@import 'lib/highlightjs';
+
+// Abstracts
+// ---------
+@import 'abstracts/variables';
+
+// Base
+// ---------
+@import 'base/base';
+@import 'base/typography';
+
+/* ==========================================================================
+Side Navbar
+========================================================================== */
+.c-nav-sidebar--article {
+  top: 72px;
+  left: 0;
+  width: 270px !important;
+  height: 100%;
+  background: $dark-black-mine-shaft;
+  padding: 0 18px 72px;
+  overflow-y: scroll;
+  position: fixed;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { width: 0 !important }
+}
+
+.c-sidebar-navigator {
+  padding-bottom: 0;
+  position: relative;
+  
+  
+  li {
+    padding-left: 20px;
+    margin-top: 12px !important;
+    font-size: 0.875rem; /* 14/16 */
+    white-space: normal !important;
+    text-overflow: unset !important;
+    overflow-x: visible !important;
+    
+    a {
+      white-space: normal !important;
+      font-weight: 400;
+      color: $grey-chateau !important;
+      display: flex;
+      align-items: flex-start;
+      color: $white;
+      text-decoration: none;
+      position: relative;
+      
+      &:hover {
+        text-decoration: underline;
+        color: $grey-lynch;
+      }
+      
+    }
+    
+  }
+}
+
+.c-box-list__item-title {
+  width: 100%;
+  text-overflow: ellipsis;
+  font-weight: 600;
+}
+
+nav.c-video-player__lessons {
+  width: 100%;
+  overflow-y: scroll;
+  
+  .c-video-player__lessons-section {
+    display: block;
+  }
+}
+
+.c-video-player__lessons {
+  display: block !important;
+  width: 320px;
+}
+
+
+.c-video-player__lessons-section {
+  padding: 0 24px 20px;
+  border-bottom: 1px solid $grey-mako;
+  display: none;
+  
+  
+  .c-video-player__lessons-header {
+    display: block;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .c-video-player__lessons-title {
+    display: block;
+    font-size: 1.125rem; /* 18/16 */
+    color: $white;
+    margin-top: 20px;
+  }
+  
+  li {
+    font-size: 0.9375rem; /* 15/16 */
+    font-weight: 600;
+    position: relative;
+    margin-top: 18px;
+    color: $white;
+    cursor: pointer;
+    z-index: 1;
+    padding-left: 30px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    
+    &:first-child {
+      margin-top: 0;
+    }
+    
+    .c-box-list__item-number {
+      margin-right: 3px;
+      font-weight: 600;
+    }
+    
+    .c-box-list__item-title {
+      width: 100%;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-weight: 600;
+    }
+  }
+}
+
+/* ==========================================================================
+Book Specific Sidebar
+========================================================================== */
+
+.c-nav-sidebar--book {
+  
+  .c-sidebar-navigator {
+    padding-bottom: 0;
+    position: relative;
+    padding-bottom: 0;
+    
+    &:before {
+      content: "";
+      position: absolute;
+      top: -6px;
+      left: 9px;
+      width: 2px;
+      height: calc(100% + 18px);
+      background: $grey-shuttle;
+    }
+  }
+  
+}
+
+/* ==========================================================================
+Header
+========================================================================== */
+header#c-global-header {
+  height: 72px;
+  background: $black-mine-shaft;
+  padding: 0 25px 0 45px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 999999;
+  
+  a {
+    font-weight: 600 !important;
+    text-decoration: none;
+    color: $white;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }    
+}
+
+.c-book-header {
+  justify-content: space-between;
+  position: sticky !important;
+  top: 0;
+}
+
+/* ==========================================================================
+Book Chapter
+========================================================================== */
+.c-written-tutorial {
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.l-book-chapter {
+  .c-written-tutorial__introduction {
+    h1 {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: baseline;
+    }
+    
+    h1 span:first-child {
+      font-size: 5.625rem; /* 90/16 */
+      margin-right: 9px;
+    }
+    
+    h1 span {
+      display: block;
+    }
+  }
+}
+
+c-written-tutorial__content {
+  padding-bottom: 120px;
+  
+  > h2 {
+    font-size: 2.5rem;
+    
+    
+    a {
+      color: $black-mine-shaft;
+    }
+    
+  }
+  
+  > span {
+    display: block;
+    font-size: 0.75rem; /* 12/16 */
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    margin-top: 15px;
+  }
+  
+  img.bordered {
+    border-width: 9px;
+  }
+}
+
+.c-book-chapter {
+  
+  .l-image-100 {
+    img {
+      max-width: 100% !important;
+    }
+  }
+  
+  .l-image-90 {
+    img {
+      max-width: 90% !important;
+    }
+  }
+  
+  .l-image-80 {
+    img {
+      max-width: 80% !important;
+    }
+  }
+  
+  .l-image-70 {
+    img {
+      max-width: 70% !important;
+    }
+  }
+  
+  .l-image-60 {
+    img {
+      max-width: 60% !important;
+    }
+  }
+  
+  .l-image-50 {
+    img {
+      max-width: 50% !important;
+    }
+  }
+  
+  .l-image-40 {
+    img {
+      max-width: 40% !important;
+    }
+  }
+  
+  .l-image-30 {
+    img {
+      max-width: 30% !important;
+    }
+  }
+  
+  .l-image-20 {
+    img {
+      max-width: 20% !important;
+    }
+  }
+  
+  .l-image-10 {
+    img {
+      max-width: 10% !important;
+    }
+  }
+  
+}
+
+.l-book-chapter article.c-written-tutorial .c-written-tutorial__content { 
+  
+  h1, h2 {
+    font-size: 1.875em;
+  }
+  
+  h3 {
+    font-size: 1.5em;
+  }
+  
+  h4 {
+    font-size: 1.188em;
+  }
+  
+  ul, ol, p, blockquote {
+    font-size: 1.0625em;
+    
+    p {
+      font-size: 1em;
+    }
+    
+    li {
+      p {
+        margin-top: .5rem;
+        font-size: 1em;
+      }
+    }	
+    
+    ul, ol {
+      font-size: 1em;
+    }
+  }
+  
+  pre {
+    font-size: 0.8125em;
+    
+    code {
+      font-size: 1em;
+    }
+  }
+  
+  code {
+    font-size: 0.875em;
+  }
+  
+  blockquote {
+    font-size: 1em;
+  }
+}
+
+/*************************************/
+
+.c-written-tutorial__content {
+  
+  .c-written-tutorial__content-tags {
+    width: 100%;
+    padding-right: 45px;
+  }
+  
+  .c-written-tutorial__content-share {
+    display: flex;
+    align-items: flex-start;
+    margin-left: auto;
+    
+    button {
+      margin-left: 6px;
+    }
+    
+    .o-button--bookmark {
+      height: 28px;
+      line-height: 28px;
+      padding: 0;
+      
+      svg {
+        margin-top: -10px;
+      }
+    }   
+  }
+  
+  h1, h2 {
+    font-size: 1.6875rem; /* 27/16 */
+    margin-top: 27px;
+  }
+  
+  h3 {
+    font-size: 1.3125rem; /* 21/16 */
+    margin-top: 24px;
+  }
+  
+  h4 {
+    font-size: 1.125rem; /* 18/16 */
+    margin-top: 18px;
+  }
+  
+  h1, h2, h3, h4, h5 {
+    margin-top: 36px;
+    color: $black-mine-shaft;
+    
+    a {
+      color: $green-brand;
+    }
+  }
+  
+  h2 + p, h3 + p, h4 + p {
+    margin-top: 12px;
+  }
+  
+  p, ul, ol {
+    font-family: $article;
+    font-size: 1.0625rem; /* 18/16 */
+    line-height: 1.58;
+    margin-top: 24px;
+    
+    a {
+      color: $green-brand;
+    }
+    
+    em {
+      font-weight: 700;
+      font-style: normal;
+    }
+    
+  }
+  
+  ul, ol {
+    padding-left: 24px;
+    
+    li {
+      margin-top: .5rem;
+    }
+  }
+  
+  ul {
+    li {
+      list-style: square;
+    }
+  }
+  
+  div.note {
+    font-family: $article;
+    background: $grey-black-squeeze;
+    font-size: 1rem; /* 17/16 */
+    padding: 20px 24px;
+    border-radius: $border-radius;
+    margin-top: 24px;
+    
+    pre {
+      margin-left: 0px;
+      width: 100%;
+    }
+    
+    em {
+      font-weight: 700;
+      font-style: normal;
+    }
+    
+    p {
+      font-size: 1.0625rem;
+      
+      &:first-child{
+        margin-top: 0;
+      }
+    }
+    
+    a {
+      color: $green-brand;
+    }
+    
+  }
+  
+  pre, code {
+    word-wrap: break-word;
+  }
+  
+  pre {
+    font-family: "Menlo", monospace !important;
+    font-size: 0.8125rem; /* 13/16 */
+    background: $black-gradient;
+    border-radius: $border-radius;
+    padding: 15px;
+    color: $white;
+    margin-top: 18px;
+    position: relative;
+    padding-right: 80px;
+    margin-left: -16px;
+    width: calc(100% + 32px);
+    white-space: pre-wrap;
+    border: 1px solid $white;
+  }
+  
+  .c-spoiler pre {
+    margin-left: 0px;
+    width: 100%;
+  }
+  
+  code {
+    font-family: "Menlo", monospace;
+    font-size: 0.875rem; /* 14/16 */
+    padding: 0 6px;
+    border: 1px solid $grey-periwinkle;
+    background: $grey-black-squeeze;
+    border-radius: 5px;
+  }
+  
+  img, .wp-video {
+    margin: 0 auto;
+    display: flex;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .bordered {
+    border: .75rem solid $grey-catskill;
+    border-radius: $border-radius;
+  }
+  
+  .wp-caption {
+    margin: 36px auto;
+  }
+  
+  .wp-caption-text {
+    font-size: 0.9375rem; /* 15/16 */
+    color: $grey-raven;
+    margin-top: 9px;
+  }
+  
+  .c-written-tutorial__content-iframe {
+    position: relative;
+    padding-bottom: 56.25%;
+    margin: 36px 0;
+    
+    iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
+  .c-spoiler {
+    text-align: center;
+    
+    &.c-spoiler--revealed {
+      .c-spoiler__answer {
+        display: block;
+      }
+      .o-button {
+        display: none;
+      }
+    }
+    
+    .c-spoiler__answer {
+      text-align: left;
+      font-family: $article;
+      background: $grey-black-squeeze;
+      font-size: 1.0625rem; /* 17/16 */
+      padding: 20px 24px;
+      border-radius: $border-radius;
+      margin-top: 24px;
+      display: none;
+      
+      em {
+        font-weight: 700;
+        font-style: normal;
+      }
+      
+      p {
+        font-size: 1.0625rem;
+        
+        &:first-child{
+          margin-top: 0;
+        }
+      }
+      
+      a {
+        color: $green-brand;
+      }
+    }    
+  }
+}
+
+
+
+/***********************/
+
+
+.c-book-chapter {
+  header {
+    display: block !important;
+  }
+  
+  h1, h2, h3, h4, h5 {
+    code {
+      font-size: inherit !important;
+      font-family: inherit !important;
+      background: none !important;
+      border: 0 !important;
+      padding: 0 !important;
+    }
+  }
+  
+  pre code {
+    background: none !important;
+    border: none !important;
+  }
+  
+  blockquote {
+    font-family: inherit;
+    background: $grey-black-squeeze;
+    font-size: 1em; /* 17/16 */
+    padding: 20px 24px;
+    border-radius: $border-radius;
+    margin-top: 24px;
+    
+    pre {
+      margin-left: 0px;
+      width: 100%;
+    }
+    
+    em {
+      font-weight: 700;
+      font-style: normal;
+    }
+    
+    p {
+      font-size: 1.0625rem;
+      
+      &:first-child{
+        margin-top: 0;
+      }
+    }
+    
+    a {
+      color: $green-brand;
+    }
+  }
+  
+  figure {
+    max-width: 720px;
+    margin: 0 auto;
+    
+    img {
+      max-height: 720px;
+    }
+    
+    figcaption {
+      margin-top: 12px;
+      font-size: 0.9375em; /* 15/16 */
+      color: $grey-raven;
+      text-align: center;
+    }
+  }
+  
+  .l-image-bordered {
+    img {
+      border: 9px solid $grey-catskill;
+      border-radius: $border-radius;
+    }
+  }
+}
+
+/* ==========================================================================
+Layout Bits
+========================================================================== */
+.l-relative {
+  position: relative;
+}
+
+.l-block {
+  margin: 0 auto;
+  max-width: none;
+  padding: 0 20px;
+}
+
+.l-block--card-medium {
+  max-width: 720px;
+}
+
+.l-admin {
+  padding-left: 270px;
+}  
+
+l-book-chapter {
+  padding-left: 270px;
+}
+
+.l-whitespace {
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+Contents Bits
+========================================================================== */
+.c-written-tutorial {
+  padding-left: 60px;
+  padding-right: 60px;
+}

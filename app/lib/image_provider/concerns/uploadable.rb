@@ -7,14 +7,15 @@ module ImageProvider
     module Uploadable
       extend ActiveSupport::Concern
 
-      attr_accessor :local_url
+      attr_accessor :local_url, :local_server
 
       included do
-        class_attribute :s3, instance_predicate: false, default: Aws::S3::Resource.new(region: AWS_REGION)
+        class_attribute :s3, instance_predicate: false, default: AWS_REGION.present? ? Aws::S3::Resource.new(region: AWS_REGION) : nil
         validates :key, presence: true
       end
 
       def remote_url
+        return image&.local_url&.gsub(%r{/data/src}, '/assets') if local_server
         return unless uploaded? && IMAGES_CDN_HOST.present?
 
         "https://#{IMAGES_CDN_HOST}/#{key}"

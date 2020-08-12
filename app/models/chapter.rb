@@ -4,6 +4,7 @@
 class Chapter
   include ActiveModel::Model
   include ActiveModel::Serializers::JSON
+  include Concerns::AutoNumberable
   include Concerns::ImageAttachable
   include Concerns::MarkdownRenderable
   include Concerns::TitleCleanser
@@ -16,6 +17,10 @@ class Chapter
     super
     @authors ||= []
     @free ||= false
+  end
+
+  def slug
+    "#{number}-#{title.parameterize}"
   end
 
   # Used for serialisation

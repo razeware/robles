@@ -1,0 +1,102 @@
+/**
+ * This file contains all application-wide Sass variables.
+ *
+ * 1. Fonts
+ *
+ * 2. Colors
+ *
+ * 3. Elements
+ */
+
+/* ==========================================================================
+   1. Fonts
+   ========================================================================== */
+
+  @import './fonts';
+
+ 	$body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  $header: "Bitter", serif;
+  $header-2: "Bitter", serif;
+  $header-3: "Bitter", serif;
+  $monospace: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  $article: "IBM Plex Serif", serif;
+
+
+/* ==========================================================================
+   2. Colors
+   ========================================================================== */
+
+  $white: #ffffff;
+
+  /* Blacks */
+
+  $black-mine-shaft: #333333;
+  $dark-black-mine-shaft: #262626;
+  $black-slate: #2F4F4F;
+  $grey-raven: #6E7687;
+  $grey-lynch: #73859F;
+  $light-grey-lynch: (transparentize($grey-lynch, 0.5));
+  $grey-periwinkle: #D6E0EF;
+  $grey-catskill: #DFE7F0;
+
+  /* Greys */
+
+  $grey-bright: #3B4048;
+  $grey-mako: #434A53;
+  $grey-shuttle: #585E66;
+  $grey-regent: #959DA5;
+  $grey-chateau: #A7ADB4;
+  $grey-dark-iron: #CACED2;
+  $grey-cadet: #ACB6BF;
+  $grey-iron: #DBDDE0;
+  $grey-aqua-haze: #EFF3F6;
+  $light-grey-aqua-haze: (transparentize($grey-aqua-haze, 0.9));
+  $grey-black-squeeze: #F2F6FA;
+
+  /* Greens */
+
+  $green-brand: #158443;
+  $green-salem: #2EA664;
+
+  /* Blues */
+
+  $blue-azure: #3268A6;
+  $blue-bay: #3D5B84;
+  $blue-curious: #157CB8;
+
+  /* Reds */
+
+  $red-pomegranate: #CF3B2B;
+
+  /* Purples */
+
+  $purple-wisteria: #9668B0;
+  $purple-scampi: #6767A8;
+
+  /* Teals */
+
+  $teal-elm: #1E8C75;
+  $teal-keppel: #41AEA4;
+
+  /* Yellows */
+
+  $orange-sorbus: #FD7401;
+  $yellow-gold: #F3B36A;
+  $yellow-tan: #D0A57F;
+  $yellow-sin: #FCB526;
+
+  /* Brands */
+
+  $blue-twitter: #1D83D1;
+  $blue-facebook: #39579A;
+
+  /* Gradients */
+
+  $black-gradient: linear-gradient(to right bottom, #333333, #363638, #38393d, #3a3c43, #3b4048);
+
+/* ==========================================================================
+   3. Elements
+   ========================================================================== */
+
+  $box-shadow: 0px 2px 1px 0 rgba(51,51,51,.05);
+  $border-radius: 0.5625rem;
