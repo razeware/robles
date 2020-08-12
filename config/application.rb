@@ -18,6 +18,7 @@ Dir[File.join(__dir__, 'initialisers', '*.rb')].sort.each { |file| require file 
 @loader.push_dir(File.expand_path('../app/commands', __dir__))
 @loader.push_dir(File.expand_path('../app/lib', __dir__))
 @loader.push_dir(File.expand_path('../app/models', __dir__))
+@loader.push_dir(File.expand_path('../app/server', __dir__))
 
 # Custom inflections
 @loader.inflector.inflect(

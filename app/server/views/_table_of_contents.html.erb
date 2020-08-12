@@ -1,0 +1,21 @@
+<div class="c-nav-sidebar--article c-nav-sidebar--book">
+  <% book.sections.each do |section| %>
+  
+    <nav class="c-video-player__lessons">
+      <div class= "c-video-player__lessons-section">
+        <span class="c-video-player__lessons-header">
+          <h4 class="c-video-player__lessons-title"><%= section.title %></h4>
+        </span>
+        <ul class="c-sidebar-navigator">
+          <% section.chapters.each do |chapter| %>
+            <li>
+              <a href="<%= url(chapter_path(chapter)) %>">
+                <span class="c-box-list__item-number"><%= chapter.number %></span>.<span class="c-box-list__item-title"><%= chapter.title %></span>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+  <% end %>
+  </div>  

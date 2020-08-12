@@ -1,0 +1,171 @@
+/**
+ * Code Blocks
+ *
+ * Components for written tutorials, videos and screencasts
+ *
+ * 1. Dark (Default) No class needed
+ *
+ * 2. Lite Add class .l-written-tutorial--light to the parent
+ *
+ */
+
+
+/* ==========================================================================
+ 1. Dark (Default) Code Blocks
+ ========================================================================== */
+
+/* Comment */
+.hljs-comment,
+.hljs-quote {
+  color: #999;
+}
+
+/* Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-attribute,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-link,
+.hljs-deletion {
+  color: #F64E1A;
+}
+
+/* Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params {
+  color: #f08d49;
+}
+
+/* Yellow */
+.hljs-class .hljs-title {
+  color: #f8c555;
+}
+
+/* Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  color: #7ec699;
+}
+
+/* Aqua */
+.hljs-meta {
+  color: #18B5AB;
+}
+
+/* Blue */
+.hljs-function,
+.hljs-section,
+.hljs-title {
+  color: #70A2FF;
+}
+
+/* Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #cc99cd;
+}
+
+.hljs {
+  display: block;
+  background: #322931;
+  color: #b9b5b8;
+  padding: 0.5em;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+/* ==========================================================================
+ 2. Light Code Blocks add class .l-written-tutorial--light to parent
+ ========================================================================== */
+
+/* Comment */
+.l-written-tutorial--light .hljs-comment,
+.l-written-tutorial--light .hljs-quote {
+  color: #bbb;
+}
+
+/* Red */
+.l-written-tutorial--light .hljs-variable,
+.l-written-tutorial--light .hljs-template-variable,
+.l-written-tutorial--light .hljs-attribute,
+.l-written-tutorial--light .hljs-tag,
+.l-written-tutorial--light .hljs-name,
+.l-written-tutorial--light .hljs-selector-id,
+.l-written-tutorial--light .hljs-selector-class,
+.l-written-tutorial--light .hljs-regexp,
+.l-written-tutorial--light .hljs-link,
+.l-written-tutorial--light .hljs-deletion {
+  color: #D12F1B;
+}
+
+/* Orange */
+.l-written-tutorial--light .hljs-number,
+.l-written-tutorial--light .hljs-built_in,
+.l-written-tutorial--light .hljs-builtin-name,
+.l-written-tutorial--light .hljs-literal,
+.l-written-tutorial--light .hljs-type,
+.l-written-tutorial--light .hljs-params {
+  color: #e68200;
+}
+
+/* Yellow */
+.l-written-tutorial--light .hljs-class .hljs-title {
+  color: #e29803;
+}
+
+/* Green */
+.l-written-tutorial--light .hljs-string,
+.l-written-tutorial--light .hljs-symbol,
+.l-written-tutorial--light .hljs-bullet,
+.l-written-tutorial--light .hljs-addition {
+  color: #008400;
+}
+
+/* Aqua */
+.l-written-tutorial--light .hljs-meta {
+  color: #4E8188;
+}
+
+/* Blue */
+.l-written-tutorial--light .hljs-function,
+.l-written-tutorial--light .hljs-section,
+.l-written-tutorial--light .hljs-title {
+  color: #272AD8;
+}
+
+/* Purple */
+.l-written-tutorial--light .hljs-keyword,
+.l-written-tutorial--light .hljs-selector-tag {
+  color: #703DA9;
+}
+
+.l-written-tutorial--light .hljs {
+  display: block;
+  background: #322931;
+  color: #b9b5b8;
+  padding: 0.5em;
+}
+
+.l-written-tutorial--light .hljs-emphasis {
+  font-style: italic;
+}
+
+.l-written-tutorial--light .hljs-strong {
+  font-weight: bold;
+}
