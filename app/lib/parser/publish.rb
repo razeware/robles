@@ -21,7 +21,8 @@ module Parser
     end
 
     def load_book_segments
-      @book = Parser::BookSegments.new(file: file).parse
+      segment_file = apply_path(publish_file[:manifest_file] || file)
+      @book = Parser::BookSegments.new(file: segment_file).parse
     end
 
     def apply_additonal_metadata
