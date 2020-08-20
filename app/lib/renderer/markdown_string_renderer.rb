@@ -13,21 +13,11 @@ module Renderer
 
     def render
       logger.debug 'MarkdownStringRenderer::render'
-      redcarpet.render(content)
-    end
-
-    def redcarpet_renderer
-      @redcarpet_renderer ||= RWMarkdownRenderer.new(with_toc_data: true)
-    end
-
-    def redcarpet
-      @redcarpet ||= Redcarpet::Markdown.new(redcarpet_renderer,
-                                             fenced_code_blocks: true,
-                                             disable_indented_code_blocks: true,
-                                             autolink: true,
-                                             strikethrough: true,
-                                             tables: true,
-                                             hightlight: true)
+      CommonMarker.render_html(
+        content,
+        %i[SMART STRIKETHROUGH_DOUBLE_TILDE TABLE_PREFER_STYLE_ATTRIBUTES],
+        %i[table strikethrough autolink]
+      )
     end
   end
 end

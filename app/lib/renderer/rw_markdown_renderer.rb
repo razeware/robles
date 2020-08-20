@@ -2,45 +2,32 @@
 
 module Renderer
   # Custom implementation of a markdown renderer for RW books
-  class RWMarkdownRenderer < Redcarpet::Render::HTML
-    include Redcarpet::Render::SmartyPants
-    include Parser::FrontmatterMetadataFinder
+  class RWMarkdownRenderer < CommonMarker::HtmlRenderer
     include Renderer::ImageAttributes
     include Util::Logging
 
     attr_reader :root_path
 
-    def initialize(attributes = {})
+    def initialize(options: :DEFAULT, extensions: [], image_provider:, root_path:)
       logger.debug 'RWMarkdownRenderer::initialize'
-      super
-      @image_provider = attributes[:image_provider]
-      @root_path = attributes[:root_path]
+      super(options: options, extensions: extensions)
+      @image_provider = image_provider
+      @root_path = root_path
     end
 
-    def header(text, header_level)
-      return nil if header_level == 1
+    def image(node)
+      return super(node) if image_provider.blank?
 
-      "<h#{header_level}>#{text}</h#{header_level}>"
-    end
+      title = node.title.present? ? escape_html(node.title) : ''
+      classes = class_list(node.each.select { |child| child.type == :text }.map { |child| escape_html(child.string_content) }.join(' '))
 
-    def image(link, title, alt_text)
-      return %(<img src="#{link}" alt="#{alt_text}" title="#{title}" />) if image_provider.blank?
-
-      %(
-        <figure title="#{title}" class="#{class_list(alt_text)}">
-          <picture>
-            <img src="#{src(link)}" alt="#{title}" title="#{title}">
-            <source srcset="#{srcset(link)}">
-          </picture>
-          <figcaption>#{title}</figcaption>
-        </figure>
-      )
-    end
-
-    def preprocess(full_document)
-      logger.debug 'RWMarkdownRenderer::preprocess'
-      removing_pagesetting_notation = full_document.gsub(/\$\[=[=sp]=\]/, '')
-      without_metadata(removing_pagesetting_notation.each_line)
+      out('<figure title="', title, '"', ' class="', classes, '">')
+      out('  <picture>')
+      out('    <img src="', src(node.url), '" alt="', title, '" title="', title, '">')
+      out('    <source srcset="', srcset(node.url), '">')
+      out('  </picture>')
+      out('  <figcaption>', title, '</figcaption>')
+      out('</figure>')
     end
   end
 end
