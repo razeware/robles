@@ -17,11 +17,16 @@ module Renderer
     def render
       logger.debug 'MarkdownFileRenderer::render'
       remove_h1(doc)
-      rw_renderer.render(doc, )
+      rw_renderer.render(doc)
     end
 
     def rw_renderer
-      @rw_renderer ||= Renderer::RWMarkdownRenderer.new(options: %i[DEFAULT], extensions: %i[table strikethrough autolink], image_provider: image_provider, root_path: root_directory)
+      @rw_renderer ||= Renderer::RWMarkdownRenderer.new(
+        options: %i[TABLE_PREFER_STYLE_ATTRIBUTES],
+        extensions: %i[table strikethrough autolink],
+        image_provider: image_provider,
+        root_path: root_directory
+      )
     end
 
     def raw_content
@@ -36,7 +41,11 @@ module Renderer
     end
 
     def doc
-      @doc ||= CommonMarker.render_doc(preproccessed_markdown, %i[SMART STRIKETHROUGH_DOUBLE_TILDE], %i[table strikethrough autolink])
+      @doc ||= CommonMarker.render_doc(
+        preproccessed_markdown,
+        %i[SMART STRIKETHROUGH_DOUBLE_TILDE],
+        %i[table strikethrough autolink]
+      )
     end
 
     def remove_h1(document)

@@ -13,9 +13,13 @@ module Renderer
 
     def render
       logger.debug 'MarkdownStringRenderer::render'
-      CommonMarker.render_html(
+      doc = CommonMarker.render_doc(
         content,
-        %i[SMART STRIKETHROUGH_DOUBLE_TILDE TABLE_PREFER_STYLE_ATTRIBUTES],
+        %i[SMART STRIKETHROUGH_DOUBLE_TILDE],
+        %i[table strikethrough autolink]
+      )
+      doc.to_html(
+        %i[TABLE_PREFER_STYLE_ATTRIBUTES],
         %i[table strikethrough autolink]
       )
     end
