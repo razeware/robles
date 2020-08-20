@@ -14,7 +14,6 @@ gem 'thor', '~> 1.0', '>= 1.0.1'
 
 # Markdown processing
 gem 'commonmarker'
-gem 'redcarpet', '~> 3.5'
 
 # HTTP Client
 gem 'faraday'
