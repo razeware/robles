@@ -703,3 +703,178 @@ Contents Bits
   padding-left: 60px;
   padding-right: 60px;
 }
+
+
+/* ==========================================================================
+INDEX PAGE
+========================================================================== */
+
+/* ==========================================================================
+Title and Description
+========================================================================== */
+.l-block {
+  margin: 0 auto;
+}
+
+.l-block--1080 {
+  max-width: 1080px;
+}
+
+.l-collection-hero {
+  padding-top: 72px;
+  padding-bottom: 72px;
+  padding-left: 30px;
+  padding-right: 30px;
+  overflow: hidden;
+
+  .l-collection-hero__wrapper{
+    display: grid;
+    grid-template-columns: 300px 1fr!important;
+    grid-column-gap: 90px;
+    align-items: flex-start!important;
+  }  
+
+  h1 {
+    line-height: 1.25;
+  }
+
+  .l-collection-hero_artwork {
+
+    figure {
+      display: block;
+
+      img {
+        max-width: 100%;
+      }  
+    }  
+  }
+  
+  .l-collection-hero__copy {
+    flex-wrap: wrap;
+
+    h1, > span {
+      text-align: left;
+    }
+  }  
+
+  .l-collection-hero__copy-markdown {
+    font-size: 1.1875em !important; /* 21/16 */ /* 19/16 */
+  }  
+
+  p {
+    margin-top: 55px;
+    text-align: left;
+  }  
+}
+
+
+.l-book-hero {
+  padding-bottom: 0 !important;
+}
+
+.l-margin-18 {
+	margin-top: 18px;
+}
+
+.l-font-header {
+  font-family: $header;
+
+  ul{
+    font-family: $header;
+  }
+}
+
+
+/* ==========================================================================
+T.O.C. Wrappery
+========================================================================== */
+
+.l-padding-bottom-120 {
+  padding-bottom: 120px;
+}
+
+.l-collection-modules__module {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  grid-column-gap: 120px;
+
+  .l-collection-modules__module-episodes{
+
+    h2{
+      margin-top: 50px;
+
+      &:first-child{
+        margin-top: 0;
+      }
+
+    }
+
+  }
+}
+
+.l-book-modules {
+
+	.l-collection-modules__module {
+		grid-template-columns: 300px 1fr !important;
+    grid-column-gap: 90px !important;
+  }
+}
+
+.l-padding-60 {
+  padding-top: 100px;
+} 
+
+.l-block-wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px 30px;
+}
+
+.l-block--1080 {
+  max-width: 1080px;
+ }
+
+ /* ==========================================================================
+T.O.C. 
+========================================================================== */
+
+.c-tutorial-episode {
+  position: relative;
+  padding-left: 64px;
+  margin-top: 24px;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    &:before {
+      display: none;
+    }
+  }
+
+  a {
+    color: $black-mine-shaft;
+    text-decoration: none;
+
+  }
+
+  h4 {
+    font-size: 1.3125rem; /* 21/16 */
+  }
+} 
+
+.l-flex-align-start {
+  display: flex;
+  align-items: flex-start;
+}
+
+.l-collection-modules__module-episodes {
+
+  h2 {
+    margin-top: 20px;
+    color: $black-mine-shaft;
+  }
+}
+
+
