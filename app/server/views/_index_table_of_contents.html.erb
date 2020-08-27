@@ -1,0 +1,25 @@
+<section class = "l-collection-modules l-book-modules l-padding-60 l-block-wrapper l-block--1080">
+  <div class="l-collection-modules__wrapper">
+    <div class="l-collection-modules__module-episodes">
+      
+     <% book.sections.each do |section| %>
+      <h2><%= section.title %></h2>
+        <div class = "c-tutorial-episode">
+          <div>
+          <ul>
+            <h4>
+              <% section.chapters.each do |chapter| %>
+                <li>
+                  <a class = "book_homepage_clickChapter" href="<%= url(chapter_path(chapter)) %>">
+                    <span class="o-badge-tutorial"><%= chapter.number %></span>. <span><%= chapter.title %></span>
+                  </a>
+                  </li>
+              <% end %>    
+            </h4>
+           </ul> 
+          </div>
+        </div>        
+      <% end %>
+    </div>  
+  </div> 
+</section>
