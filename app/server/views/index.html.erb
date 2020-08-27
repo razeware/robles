@@ -1,5 +1,20 @@
-<h1><%= book.title %></h1>
+<div>
+    <div class="l-block l-block--1080 l-collection-hero l-book-hero">
+        <div class="l-collection-hero__wrapper">
+            <div class="l-collection-hero__artwork">
+                <figure >
+                    <img style="width:300px"  alt src = "https://assets.alexandria.raywenderlich.com/books/rxs/images/cab0998d275b6f95badbb9ab0dbbec88370d823cff5346c423c18be4fd977836/original.png">
+                </figure>
+            </div>
+            <div class="l-collection-hero__copy">
+                <h1><%= book.title %></h1>
 
-<p><%= book.description %></p>
+                <p class="l-margin-18 l-font-header l-collection-hero__copy-markdown"><%= book.description %></p>
+            </div>
+        </div>    
+    </div>
+</div>
 
-<%= erb :'_table_of_contents.html', locals: { book: book } %>
+<div class = "l-padding-bottom-120">    
+            <%= erb :'_index_table_of_contents.html', locals: { book: book } %> 
+</div>
