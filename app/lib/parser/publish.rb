@@ -9,7 +9,8 @@ module Parser
                                cover_image gallery_image twitter_card_image trailer_video_url
                                version_description professional difficulty platform
                                language editor domains categories who_is_this_for_md
-                               covered_concepts_md hide_chapter_numbers in_flux].freeze
+                               covered_concepts_md hide_chapter_numbers in_flux forum_url
+                               pages short_description skus].freeze
 
     attr_reader :book
 
