@@ -10,7 +10,7 @@ module Parser
                                version_description professional difficulty platform
                                language editor domains categories who_is_this_for_md
                                covered_concepts_md hide_chapter_numbers in_flux forum_url
-                               pages short_description skus].freeze
+                               pages short_description recommended_skus].freeze
 
     attr_reader :book
 
