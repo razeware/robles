@@ -44,6 +44,7 @@ class RoblesServer < Sinatra::Application
     @book ||= begin
       parser = Parser::Publish.new(file: publish_file)
       book = parser.parse
+      book.image_attachment_loop { |local_url| servable_image_url(local_url) }
       book
     end
   end
@@ -61,6 +62,10 @@ class RoblesServer < Sinatra::Application
 
   def publish_file
     '/data/src/publish.yaml'
+  end
+
+  def servable_image_url(local_url)
+    local_url&.gsub(%r{/data/src}, '/assets')
   end
 
   def acceptable_image_extension(extension)
