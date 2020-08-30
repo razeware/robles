@@ -1,4 +1,12 @@
-<header id="c-global-header" class="c-book-header" role="banner"><p><a href="/">Home</a></p></header>
+<header id="c-global-header" class="c-book-header" role="banner"><p class="e-home-p"><a href="/">Home</a></p> 
+  <span class="l-font-header l-font-bold l-font-18 l-color-white l-flex e-header-margin">
+    <span class="l-color-white l-font-underline--force"><%= book.title %></span>
+    <span class="u-hide-mobile-large--force">&nbsp;·&nbsp;</span>
+    <span class="c-book-header__chapter-title">
+      <%= chapter.number %>. <%= chapter.title %>
+    </span>
+  </span>
+</header>
 <div class="l-admin">
   <%= erb :'_table_of_contents.html', locals: { book: book } %>
 
