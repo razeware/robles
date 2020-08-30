@@ -1,0 +1,19 @@
+<section class="l-collection-modules l-book-modules l-padding-60 l-block-wrapper l-block--1080">
+  <div class="l-collection-modules__wrapper">
+    <div class="l-collection-modules__module-episodes">
+      <% book.sections.each do |section| %>
+        <h2><%= section.title %></h2>
+
+        <% section.chapters.each do |chapter| %>
+          <div class="c-tutorial-episode">
+            <div class="l-flex-align-start">
+              <h4><a href="<%= url(chapter_path(chapter)) %>">
+              <span class="o-badge-tutorial"><%= chapter.number %></span><span><%= chapter.title %></span>
+              </a></h4>
+            </div>   
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>
