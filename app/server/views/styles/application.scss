@@ -186,6 +186,31 @@ header#c-global-header {
   top: 0;
 }
 
+.l-color-white {
+  color: $white;
+}
+
+.l-font-underline--force {
+  text-decoration: underline !important;
+}
+
+.c-book-header__chapter-title {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.e-header-margin {
+  margin: auto;
+}
+
+.e-home-p {
+  width: 226px;
+}
+
+
 /* ==========================================================================
 Book Chapter
 ========================================================================== */
@@ -687,12 +712,28 @@ Layout Bits
   padding-left: 270px;
 }  
 
-l-book-chapter {
-  padding-left: 150px;
-}
-
 .l-whitespace {
   white-space: nowrap;
+}
+
+.l-font-header {
+  font-family: $header;
+}
+
+.l-font-bold {
+  font-weight: 700;
+}
+
+.l-font-18 {
+  font-size: 1.125em;
+}
+
+.l-color-white {
+  color: $white;
+}
+
+.l-flex {
+	display: flex;
 }
 
 /* ==========================================================================
