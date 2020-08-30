@@ -20,7 +20,7 @@ Side Navbar
   left: 0;
   width: 270px !important;
   height: 100%;
-  background: $dark-black-mine-shaft;
+  background-image: linear-gradient(to right bottom, rgb(51, 51, 51), rgb(54, 54, 56), rgb(56, 57, 61), rgb(58, 60, 67), rgb(59, 64, 72));
   padding: 0 18px 92px;
   overflow-y: scroll;
   position: fixed;
