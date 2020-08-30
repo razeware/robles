@@ -3,19 +3,16 @@
     <div class="l-collection-modules__module-episodes">
       <% book.sections.each do |section| %>
         <h2><%= section.title %></h2>
-        <div class="c-tutorial-episode">
-          <div>
-            <ul>
-              <% section.chapters.each do |chapter| %>
-                <li>
-                  <h4><a class="book_homepage_clickChapter" href="<%= url(chapter_path(chapter)) %>">
-                    <span class="o-badge-tutorial"><%= chapter.number %></span>. <span><%= chapter.title %></span>
-                  </a></h4>
-                </li>
-              <% end %>
-            </ul>
+
+        <% section.chapters.each do |chapter| %>
+          <div class="c-tutorial-episode">
+            <div class="l-flex-align-start">
+              <h4><a href="<%= url(chapter_path(chapter)) %>">
+              <span class="o-badge-tutorial"><%= chapter.number %></span><span><%= chapter.title %></span>
+              </a></h4>
+            </div>   
           </div>
-        </div>
+        <% end %>
       <% end %>
     </div>
   </div>
