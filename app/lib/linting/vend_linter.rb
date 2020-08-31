@@ -117,7 +117,7 @@ module Linting
 
     def locate_razeware_username
       IO.foreach(file).with_index do |line, line_number|
-        next unless line.include?('username: razeware')
+        next unless line[/username:\s*razeware/]
 
         start_column = line.index('razeware')
         return {
