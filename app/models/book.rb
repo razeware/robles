@@ -12,7 +12,8 @@ class Book
                 :trailer_video_url, :version_description, :professional, :difficulty,
                 :platform, :language, :editor, :domains, :categories, :who_is_this_for_md,
                 :covered_concepts_md, :root_path, :hide_chapter_numbers, :in_flux,
-                :forum_url, :pages, :short_description, :recommended_skus, :contributors
+                :forum_url, :pages, :short_description, :recommended_skus, :contributors,
+                :price_band
   attr_image :cover_image_url, source: :cover_image
   attr_image :gallery_image_url, source: :gallery_image
   attr_image :twitter_card_image_url, source: :twitter_card_image
@@ -38,6 +39,6 @@ class Book
       professional: nil, difficulty: nil, platform: nil, language: nil, editor: nil, domains: [],
       categories: [], who_is_this_for: nil, covered_concepts: nil, hide_chapter_numbers: nil,
       in_flux: nil, forum_url: nil, pages: nil, short_description: nil, recommended_skus: [],
-      contributors: [] }.stringify_keys
+      contributors: [], price_band: nil }.stringify_keys
   end
 end

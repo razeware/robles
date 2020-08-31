@@ -17,7 +17,7 @@ module Parser
 
     def parse
       load_book_segments
-      load_contributors
+      load_vend_file
       apply_additonal_metadata
       update_authors_on_chapters
       book
@@ -28,8 +28,8 @@ module Parser
       @book = Parser::BookSegments.new(file: segment_file).parse
     end
 
-    def load_contributors
-      book.contributors = contributors
+    def load_vend_file
+      book.assign_attributes(vend_file)
     end
 
     def apply_additonal_metadata
@@ -51,8 +51,8 @@ module Parser
       @publish_file ||= Psych.load_file(file).deep_symbolize_keys
     end
 
-    def contributors_file_path
-      Pathname.new(file).dirname + 'contributors.yaml'
+    def vend_file_path
+      Pathname.new(file).dirname + 'vend.yaml'
     end
 
     def authors
@@ -61,10 +61,8 @@ module Parser
       end
     end
 
-    def contributors
-      return [] unless file_exists?(contributors_file_path)
-
-      Parser::Contributors.new(file: contributors_file_path).parse
+    def vend_file
+      @vend_file ||= file_exists?(vend_file_path) ? Parser::Vend.new(file: vend_file_path).parse : {}
     end
 
     def additional_attributes

@@ -44,12 +44,12 @@ module Linting
         annotations.concat(Linting::ImageLinter.new(book: book).lint)
       end
 
-      if file_exists?(contributors_file)
-        with_spinner(title: 'Validating {{bold:contributors.yaml}}', show: show_ui) do
-          annotations.concat(Linting::ContributorsLinter.new(file: contributors_file).lint)
+      if file_exists?(vend_file)
+        with_spinner(title: 'Validating {{bold:vend.yaml}}', show: show_ui) do
+          annotations.concat(Linting::VendLinter.new(file: vend_file).lint)
         end
       else
-        puts CLI::UI.fmt('{{x}} Unable to find {{bold:contributors.yaml}}--skipping validation.')
+        puts CLI::UI.fmt('{{x}} Unable to find {{bold:vend.yaml}}--skipping validation.')
       end
     end
 
@@ -95,8 +95,8 @@ module Linting
       false
     end
 
-    def contributors_file
-      Pathname.new(file).dirname + 'contributors.yaml'
+    def vend_file
+      Pathname.new(file).dirname + 'vend.yaml'
     end
 
     def book # rubocop:disable Metrics/MethodLength
