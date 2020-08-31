@@ -9,6 +9,7 @@ module Parser
 
     def parse
       process_contributors
+      contributors
     end
 
     def process_contributors
