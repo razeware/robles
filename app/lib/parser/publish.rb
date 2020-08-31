@@ -4,6 +4,7 @@ module Parser
   # Parses a publish.yaml file, and returns a Book model object
   class Publish
     include Util::PathExtraction
+    include Linting::FileExistenceChecker
 
     VALID_BOOK_ATTRIBUTES = %i[sku edition title description released_at materials_url
                                cover_image gallery_image twitter_card_image trailer_video_url
@@ -16,6 +17,7 @@ module Parser
 
     def parse
       load_book_segments
+      load_vend_file
       apply_additonal_metadata
       update_authors_on_chapters
       book
@@ -24,6 +26,10 @@ module Parser
     def load_book_segments
       segment_file = apply_path(publish_file[:manifest_file] || file)
       @book = Parser::BookSegments.new(file: segment_file).parse
+    end
+
+    def load_vend_file
+      book.assign_attributes(vend_file)
     end
 
     def apply_additonal_metadata
@@ -45,10 +51,18 @@ module Parser
       @publish_file ||= Psych.load_file(file).deep_symbolize_keys
     end
 
+    def vend_file_path
+      Pathname.new(file).dirname + 'vend.yaml'
+    end
+
     def authors
       @authors = publish_file[:authors].map do |author|
         Author.new(author)
       end
+    end
+
+    def vend_file
+      @vend_file ||= file_exists?(vend_file_path) ? Parser::Vend.new(file: vend_file_path).parse : {}
     end
 
     def additional_attributes
