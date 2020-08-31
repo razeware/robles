@@ -36,6 +36,6 @@ class Book
       twitter_card_image_url: nil, trailer_video_url: nil, version_description: nil,
       professional: nil, difficulty: nil, platform: nil, language: nil, editor: nil, domains: [],
       categories: [], who_is_this_for: nil, covered_concepts: nil, hide_chapter_numbers: nil,
-      in_flux: nil, forum_url: nil, pages: nil, short_description: nil, recommended_skus: nil }.stringify_keys
+      in_flux: nil, forum_url: nil, pages: nil, short_description: nil, recommended_skus: [] }.stringify_keys
   end
 end
