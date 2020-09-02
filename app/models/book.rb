@@ -7,7 +7,7 @@ class Book
   include Concerns::ImageAttachable
   include Concerns::MarkdownRenderable
 
-  attr_accessor :sku, :edition, :title, :description, :released_at, :sections, :git_commit_hash,
+  attr_accessor :sku, :edition, :title, :description_md, :released_at, :sections, :git_commit_hash,
                 :materials_url, :cover_image, :gallery_image, :twitter_card_image,
                 :trailer_video_url, :version_description, :professional, :difficulty,
                 :platform, :language, :editor, :domains, :categories, :who_is_this_for_md,
@@ -19,6 +19,7 @@ class Book
   attr_image :twitter_card_image_url, source: :twitter_card_image
   attr_markdown :who_is_this_for, source: :who_is_this_for_md, file: false
   attr_markdown :covered_concepts, source: :covered_concepts_md, file: false
+  attr_markdown :description, source: :description_md, file: false
 
   validates :sku, :edition, :title, presence: true
   validates_inclusion_of :difficulty, in: %w[beginner intermediate advanced]
