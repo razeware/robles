@@ -7,16 +7,19 @@ class Book
   include Concerns::ImageAttachable
   include Concerns::MarkdownRenderable
 
-  attr_accessor :sku, :edition, :title, :description, :released_at, :sections, :git_commit_hash,
+  attr_accessor :sku, :edition, :title, :description_md, :released_at, :sections, :git_commit_hash,
                 :materials_url, :cover_image, :gallery_image, :twitter_card_image,
                 :trailer_video_url, :version_description, :professional, :difficulty,
                 :platform, :language, :editor, :domains, :categories, :who_is_this_for_md,
-                :covered_concepts_md, :root_path, :hide_chapter_numbers, :in_flux
+                :covered_concepts_md, :root_path, :hide_chapter_numbers, :in_flux,
+                :forum_url, :pages, :short_description, :recommended_skus, :contributors,
+                :price_band
   attr_image :cover_image_url, source: :cover_image
   attr_image :gallery_image_url, source: :gallery_image
   attr_image :twitter_card_image_url, source: :twitter_card_image
   attr_markdown :who_is_this_for, source: :who_is_this_for_md, file: false
   attr_markdown :covered_concepts, source: :covered_concepts_md, file: false
+  attr_markdown :description, source: :description_md, file: false
 
   validates :sku, :edition, :title, presence: true
   validates_inclusion_of :difficulty, in: %w[beginner intermediate advanced]
@@ -24,6 +27,7 @@ class Book
   def initialize(attributes = {})
     super
     @sections ||= []
+    @contributors ||= []
     @hide_chapter_numbers ||= false
     @in_flux ||= false
   end
@@ -35,6 +39,7 @@ class Book
       twitter_card_image_url: nil, trailer_video_url: nil, version_description: nil,
       professional: nil, difficulty: nil, platform: nil, language: nil, editor: nil, domains: [],
       categories: [], who_is_this_for: nil, covered_concepts: nil, hide_chapter_numbers: nil,
-      in_flux: nil }.stringify_keys
+      in_flux: nil, forum_url: nil, pages: nil, short_description: nil, recommended_skus: [],
+      contributors: [], price_band: nil }.stringify_keys
   end
 end

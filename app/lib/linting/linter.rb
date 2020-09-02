@@ -43,6 +43,14 @@ module Linting
       with_spinner(title: 'Validating image references', show: show_ui) do
         annotations.concat(Linting::ImageLinter.new(book: book).lint)
       end
+
+      if file_exists?(vend_file)
+        with_spinner(title: 'Validating {{bold:vend.yaml}}', show: show_ui) do
+          annotations.concat(Linting::VendLinter.new(file: vend_file).lint)
+        end
+      else
+        puts CLI::UI.fmt('{{x}} Unable to find {{bold:vend.yaml}}--skipping validation.')
+      end
     end
 
     def with_spinner(title:, show: true)
@@ -85,6 +93,10 @@ module Linting
         validated: false
       }
       false
+    end
+
+    def vend_file
+      Pathname.new(file).dirname + 'vend.yaml'
     end
 
     def book # rubocop:disable Metrics/MethodLength

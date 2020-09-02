@@ -1,5 +1,23 @@
-<h1><%= book.title %></h1>
+<div>
+  <div class="l-block l-block--1080 l-collection-hero l-book-hero">
+    <div class="l-collection-hero__wrapper">
+      <div class="l-collection-hero__artwork">
+        <figure>
+          <img style="width:300px" src="<%= book.cover_image_url || 'https://lorempixel.com/300/388/abstract/' %>">
+        </figure>
+      </div>
+      <div class="l-collection-hero__copy">
+        <h1><%= book.title %></h1>
+        <span class="l-font-24 l-font-italic l-margin-3 l-font-header l-display-block">
+          <%= book.version_description %>
+        </span>  
 
-<p><%= book.description %></p>
+        <p class="l-margin-18 l-font-header l-collection-hero__copy-markdown"><%= book.short_description %></p>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%= erb :'_table_of_contents.html', locals: { book: book } %>
+<div class="l-padding-bottom-120">
+  <%= erb :'_index_table_of_contents.html', locals: { book: book } %>
+</div>
