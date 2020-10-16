@@ -9,7 +9,7 @@ class Contributor
   validates :username, :percentage, presence: true
 
   def proportion
-    percentage / 100
+    BigDecimal(percentage, 8) / 100
   end
 
   # Used for serialisation
