@@ -37,11 +37,12 @@ class Book
   # Used for serialisation
   def attributes
     { sku: nil, edition: nil, title: nil, description: nil, released_at: nil, sections: [],
-      git_commit_hash: nil, materials_url: nil, cover_image_url: nil, gallery_image_url: nil,
-      twitter_card_image_url: nil, trailer_video_url: nil, version_description: nil,
-      professional: nil, difficulty: nil, platform: nil, language: nil, editor: nil, domains: [],
-      categories: [], who_is_this_for: nil, covered_concepts: nil, hide_chapter_numbers: nil,
-      in_flux: nil, forum_url: nil, pages: nil, short_description: nil, recommended_skus: [],
-      contributors: [], price_band: nil, isbn: nil, amazon_url: nil }.stringify_keys
+      git_commit_hash: nil, materials_url: nil, cover_image_url: [], gallery_image_url: [],
+      twitter_card_image_url: [], artwork_image_url: [], icon_image_url: [],
+      trailer_video_url: nil, version_description: nil, professional: nil, difficulty: nil,
+      platform: nil, language: nil, editor: nil, domains: [], categories: [], who_is_this_for: nil,
+      covered_concepts: nil, hide_chapter_numbers: nil, in_flux: nil, forum_url: nil, pages: nil,
+      short_description: nil, recommended_skus: [], contributors: [], price_band: nil, isbn: nil,
+      amazon_url: nil }.stringify_keys
   end
 end
