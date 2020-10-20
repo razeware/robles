@@ -8,7 +8,8 @@ module Parser
     def parse
       {
         contributors: contributors,
-        price_band: vend_file[:price_band]
+        price_band: vend_file[:price_band],
+        edition: vend_file[:edition]
       }
     end
 
