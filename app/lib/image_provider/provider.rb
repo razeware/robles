@@ -27,8 +27,8 @@ module ImageProvider
     def representations_for_local_url(url)
       clean_url = Pathname.new(url).cleanpath.to_s
       extractor.images
-               .find { |image| image.local_url == clean_url }
-               &.representations
+               .filter { |image| image.local_url == clean_url }
+               .flat_map(&:representations)
     end
 
     def extractor

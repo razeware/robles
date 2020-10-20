@@ -8,15 +8,17 @@ class Book
   include Concerns::MarkdownRenderable
 
   attr_accessor :sku, :edition, :title, :description_md, :released_at, :sections, :git_commit_hash,
-                :materials_url, :cover_image, :gallery_image, :twitter_card_image,
-                :trailer_video_url, :version_description, :professional, :difficulty,
+                :materials_url, :cover_image, :gallery_image, :twitter_card_image, :artwork_image,
+                :icon_image, :trailer_video_url, :version_description, :professional, :difficulty,
                 :platform, :language, :editor, :domains, :categories, :who_is_this_for_md,
                 :covered_concepts_md, :root_path, :hide_chapter_numbers, :in_flux,
                 :forum_url, :pages, :short_description, :recommended_skus, :contributors,
                 :price_band, :isbn, :amazon_url
-  attr_image :cover_image_url, source: :cover_image
+  attr_image :cover_image_url, source: :cover_image, variants: %i[original w594 w300]
   attr_image :gallery_image_url, source: :gallery_image
-  attr_image :twitter_card_image_url, source: :twitter_card_image
+  attr_image :twitter_card_image_url, source: :twitter_card_image, variants: %i[original w1800]
+  attr_image :artwork_image_url, source: :artwork_image, variants: %i[original w180]
+  attr_image :icon_image_url, source: :icon_image, variants: %i[original w180]
   attr_markdown :who_is_this_for, source: :who_is_this_for_md, file: false
   attr_markdown :covered_concepts, source: :covered_concepts_md, file: false
   attr_markdown :description, source: :description_md, file: false

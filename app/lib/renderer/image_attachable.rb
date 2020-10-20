@@ -15,8 +15,7 @@ module Renderer
       return if image_provider.blank?
 
       object.image_attachment_loop do |local_url|
-        representations = image_provider.representations_for_local_url(local_url)
-        representations.find { |r| r.width == :original }.remote_url
+        image_provider.representations_for_local_url(local_url)
       end
     end
   end

@@ -19,6 +19,8 @@ module Renderer
 
     def representations(local_url)
       image_provider.representations_for_local_url(local_url)
+                    .filter { |r| ImageRepresentation::DEFAULT_WIDTHS.keys.include?(r.variant) }
+                    .uniq(&:variant)
     end
 
     def class_list(alt_text)

@@ -16,8 +16,7 @@ class RoblesCli < Thor
   option :local, type: :boolean
   def render
     book = runner.render(publish_file: options['publish_file'], local: options['local'])
-    p book.sections.first.chapters.last
-    p book.contributors.to_json
+    p book.cover_image_url.to_json
   end
 
   desc 'serve', 'starts local preview server'
