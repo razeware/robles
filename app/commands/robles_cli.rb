@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'irb'
 require 'guard'
 require 'guard/commander' # needed because of https://github.com/guard/guard/issues/793
 
@@ -30,6 +31,15 @@ class RoblesCli < Thor
       end
     end
     RoblesServer.run!
+  end
+
+  desc 'console [PUBLISH_FILE]', 'opens an interactive Ruby console'
+  option :'publish-file', type: :string, desc: 'Location of the publish.yaml file'
+  def console
+    publish_file = options.fetch('publish_file', runner.default_publish_file)
+    parser = Parser::Publish.new(file: publish_file)
+    book = parser.parse
+    binding.irb
   end
 
   desc 'publish [PUBLISH_FILE]', 'renders and publishes a book'
