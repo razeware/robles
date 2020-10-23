@@ -3,7 +3,7 @@
 module Linting
   # Lints vend.yaml
   class VendLinter # rubocop:disable Metrics/ClassLength
-    VALID_PRICE_BANDS = %w(free 2020_full_book 2020_short_book 2020_deprecated_book).freeze
+    VALID_PRICE_BANDS = %w[free 2020_full_book 2020_short_book 2020_deprecated_book].freeze
     attr_reader :file, :vend_file
 
     def initialize(file:)
@@ -11,12 +11,13 @@ module Linting
       @annotations = []
     end
 
-    def lint
+    def lint(options: {})
       load_file
       return @annotations unless @annotations.empty?
 
       check_price_band
       check_total_percentage
+      @annotations.concat(Linting::Metadata::EditionReference.lint(file: file, attributes: vend_file)) unless options['without-edition']
       return @annotations unless @annotations.empty?
 
       check_for_razeware_user

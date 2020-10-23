@@ -46,7 +46,7 @@ module Linting
 
       if file_exists?(vend_file)
         with_spinner(title: 'Validating {{bold:vend.yaml}}', show: show_ui) do
-          annotations.concat(Linting::VendLinter.new(file: vend_file).lint)
+          annotations.concat(Linting::VendLinter.new(file: vend_file).lint(options: options))
         end
       else
         puts CLI::UI.fmt('{{x}} Unable to find {{bold:vend.yaml}}--skipping validation.')
