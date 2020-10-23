@@ -17,7 +17,8 @@ class ImageRepresentation
   OTHER_WIDTHS = {
     w180: 180,
     w300: 300,
-    w594: 594
+    w594: 594,
+    w1800: 1800
   }.freeze
 
   WIDTHS = DEFAULT_WIDTHS.merge(OTHER_WIDTHS).freeze
