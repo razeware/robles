@@ -8,9 +8,10 @@ class Image
 
   attr_accessor :local_url, :representations
 
-  def self.with_representations(attributes = {})
+  def self.with_representations(attributes = {}, variants: nil)
+    variants ||= ImageRepresentation::DEFAULT_WIDTHS.keys
     new(attributes).tap do |image|
-      image.representations = ImageRepresentation::WIDTHS.keys.map do |width|
+      image.representations = variants.map do |width|
         ImageRepresentation.new(width: width, image: image)
       end
     end
@@ -48,9 +49,9 @@ class Image
         next
       end
 
-      logger.info "Generating #{representation.width}px for #{local_url}"
+      logger.info "Generating #{representation.width} variant for #{local_url}"
       representation.generate
-      logger.info "Uploading #{representation.width}px for #{local_url}"
+      logger.info "Uploading #{representation.width} variant for #{local_url}"
       representation.upload
     end
   end

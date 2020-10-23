@@ -12,7 +12,7 @@ module ImageProvider
 
     def extract
       @images = image_paths.map do |path|
-        Image.with_representations(local_url: path[:absolute_path], sku: book.sku)
+        Image.with_representations({ local_url: path[:absolute_path], sku: book.sku }, variants: path[:variants])
       end
     end
 

@@ -18,7 +18,11 @@ module ImageProvider
     end
 
     def image_record(url)
-      { relative_path: cleanpath(url), absolute_path: cleanpath(apply_path(url)) }
+      {
+        relative_path: cleanpath(url),
+        absolute_path: cleanpath(apply_path(url)),
+        variants: ImageRepresentation::DEFAULT_WIDTHS.keys
+      }
     end
 
     def cleanpath(path)
