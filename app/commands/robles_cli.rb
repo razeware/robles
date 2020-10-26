@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'irb'
 require 'guard'
 require 'guard/commander' # needed because of https://github.com/guard/guard/issues/793
 
@@ -15,8 +16,7 @@ class RoblesCli < Thor
   option :local, type: :boolean
   def render
     book = runner.render(publish_file: options['publish_file'], local: options['local'])
-    p book.sections.first.chapters.last
-    p book.contributors.to_json
+    p book.cover_image_url.to_json
   end
 
   desc 'serve', 'starts local preview server'
@@ -30,6 +30,15 @@ class RoblesCli < Thor
       end
     end
     RoblesServer.run!
+  end
+
+  desc 'console [PUBLISH_FILE]', 'opens an interactive Ruby console'
+  option :'publish-file', type: :string, desc: 'Location of the publish.yaml file'
+  def console
+    publish_file = options.fetch('publish_file', runner.default_publish_file)
+    parser = Parser::Publish.new(file: publish_file)
+    book = parser.parse
+    binding.irb
   end
 
   desc 'publish [PUBLISH_FILE]', 'renders and publishes a book'

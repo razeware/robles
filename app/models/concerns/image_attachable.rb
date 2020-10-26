@@ -11,8 +11,14 @@ module Concerns
 
     class_methods do
       # Specify the name of the attribute that the CDN image URL should be stored in
-      def attr_image(attribute, source:)
-        _image_attachable_attributes.push({ destination: attribute, source: source })
+      def attr_image(attribute, source:, variants: nil)
+        _image_attachable_attributes.push(
+          {
+            destination: attribute,
+            source: source,
+            variants: variants.presence || %i[original]
+          }
+        )
         attr_accessor attribute
       end
     end
@@ -25,12 +31,13 @@ module Concerns
 
         {
           relative_path: path,
-          absolute_path: (Pathname.new(root_path) + path).to_s
+          absolute_path: (Pathname.new(root_path) + path).to_s,
+          variants: attr[:variants]
         }
       end.compact
     end
 
-    # Allows looping through the image attachment attributes, populating their remote URLs
+    # Allows looping through the image attachment attributes, populating the remote representations
     # Takes a block with one argument--the local URL of the file
     def image_attachment_loop(&block)
       _image_attachable_attributes.each do |attribute|
@@ -38,8 +45,10 @@ module Concerns
         next if path.blank?
 
         local_url = (Pathname.new(root_path) + path).to_s
-        remote_url = block.call(local_url)
-        send("#{attribute[:destination]}=".to_sym, remote_url)
+        representations = block.call(local_url)
+                               .filter { |r| attribute[:variants].include?(r.variant) }
+                               .uniq(&:variant)
+        send("#{attribute[:destination]}=".to_sym, representations)
       end
     end
   end

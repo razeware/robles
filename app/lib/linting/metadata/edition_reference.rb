@@ -34,13 +34,15 @@ module Linting
           locate_edition_reference.merge(
             absolute_path: file,
             annotation_level: 'failure',
-            message: "The edition attribute in `publish.yaml` (#{edition_from_metadata}) should be the same as the one\nspecified in the git branch name (#{current_branch}).",
+            message: "The edition attribute in #{Pathname.new(file).basename} (#{edition_from_metadata}) should be the same as the one\nspecified in the git branch name (#{current_branch}).",
             title: 'Invalid edition specified'
           )
         )
       end
 
-      def locate_edition_reference
+      def locate_edition_reference # rubocop:disable Metrics/MethodLength
+        return { start_line: 0, end_line: 0 } unless attributes[:edition].present?
+
         IO.foreach(file).with_index do |line, line_number|
           next unless line.include?('edition:')
 
