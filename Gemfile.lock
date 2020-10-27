@@ -1,12 +1,3 @@
-GIT
-  remote: https://github.com/octokit/octokit.rb
-  revision: d56af021d21d9a8f623e0b41cac073c272864ec2
-  branch: 4-stable
-  specs:
-    octokit (4.18.0)
-      faraday (>= 0.9)
-      sawyer (~> 0.8.0, >= 0.5.3)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -22,7 +13,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.1)
     aws-eventstream (1.1.0)
-    aws-partitions (1.381.0)
+    aws-partitions (1.386.0)
     aws-sdk-core (3.109.1)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -31,7 +22,7 @@ GEM
     aws-sdk-kms (1.39.0)
       aws-sdk-core (~> 3, >= 3.109.0)
       aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.83.0)
+    aws-sdk-s3 (1.83.1)
       aws-sdk-core (~> 3, >= 3.109.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
@@ -52,8 +43,9 @@ GEM
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
     eventmachine (1.2.7)
-    faraday (1.0.1)
+    faraday (1.1.0)
       multipart-post (>= 1.2, < 3)
+      ruby2_keywords
     ffi (1.13.1)
     formatador (0.2.5)
     git (1.7.0)
@@ -97,6 +89,9 @@ GEM
     notiffany (0.1.3)
       nenv (~> 0.1)
       shellany (~> 0.0)
+    octokit (4.19.0)
+      faraday (>= 0.9)
+      sawyer (~> 0.8.0, >= 0.5.3)
     parallel (1.19.2)
     parser (2.7.2.0)
       ast (~> 2.4.1)
@@ -130,7 +125,7 @@ GEM
       rubocop-ast (>= 0.6.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 2.0)
-    rubocop-ast (0.8.0)
+    rubocop-ast (1.1.0)
       parser (>= 2.7.1.5)
     ruby-debug-ide (0.7.2)
       rake (>= 0.8.1)
@@ -189,7 +184,7 @@ DEPENDENCIES
   guard (~> 2, >= 2.16.2)
   guard-livereload (~> 2.5)
   mini_magick
-  octokit!
+  octokit (~> 4.19)
   rack-livereload
   rbnacl
   rubocop (~> 0.81)
