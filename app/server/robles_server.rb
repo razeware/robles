@@ -65,7 +65,7 @@ class RoblesServer < Sinatra::Application
   end
 
   def servable_image_url(local_url)
-    local_url&.gsub(%r{/data/src}, '/assets')
+    [OpenStruct.new(url: local_url&.gsub(%r{/data/src}, '/assets'), variant: :original)]
   end
 
   def acceptable_image_extension(extension)
