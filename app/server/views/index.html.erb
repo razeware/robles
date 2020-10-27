@@ -3,7 +3,7 @@
     <div class="l-collection-hero__wrapper">
       <div class="l-collection-hero__artwork">
         <figure>
-          <img style="width:300px" src="<%= book.cover_image_url || 'https://lorempixel.com/300/388/abstract/' %>">
+          <img style="width:300px" src="<%= book.cover_image_url&.first&.url || 'https://lorempixel.com/300/388/abstract/' %>">
         </figure>
       </div>
       <div class="l-collection-hero__copy">
