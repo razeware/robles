@@ -31,9 +31,7 @@ gem 'aws-sdk-s3', '~> 1.64'
 gem 'concurrent-ruby', '~> 1.1'
 
 # Interacting with github
-# As soon as 4.19 has been released we can switch back to official releases. But for now the new
-# secrets API does not appear in a released version.
-gem 'octokit', git: 'https://github.com/octokit/octokit.rb', branch: '4-stable'
+gem 'octokit', '~> 4.19'
 
 # Interface with libsodium
 gem 'rbnacl'
