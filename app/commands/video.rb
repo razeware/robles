@@ -12,7 +12,10 @@ class Video < Thor
   desc 'console [RELEASE_FILE]', 'opens an interactive Ruby console'
   option :'release-file', type: :string, desc: 'Location of the release.yaml file'
   def console
-    p 'console'
+    release_file = options.fetch('release_file', runner.default_release_file)
+    parser = Parser::Release.new(file: release_file)
+    video_course = parser.parse
+    binding.irb # rubocop:disable Lint/Debugger
   end
 
   desc 'upload [RELEASE_FILE]', 'uploads a video course to betamax'

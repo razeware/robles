@@ -53,5 +53,9 @@ module Runner
     def default_publish_file
       raise 'Override this in a subclass please'
     end
+
+    def default_release_file
+      raise 'Override this in a subclass please'
+    end
   end
 end
