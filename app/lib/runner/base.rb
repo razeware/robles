@@ -12,7 +12,8 @@ module Runner
       Runner::Interactive.new
     end
 
-    def render(publish_file:, local: false)
+    # For books
+    def render_book(publish_file:, local: false)
       publish_file ||= default_publish_file
 
       parser = Parser::Publish.new(file: publish_file)
@@ -24,7 +25,7 @@ module Runner
       book
     end
 
-    def publish(publish_file:) # rubocop:disable Metrics/MethodLength
+    def publish_book(publish_file:) # rubocop:disable Metrics/MethodLength
       publish_file ||= default_publish_file
       parser = Parser::Publish.new(file: publish_file)
       book = parser.parse
@@ -38,7 +39,7 @@ module Runner
       raise e
     end
 
-    def lint(publish_file:, options: {})
+    def lint_book(publish_file:, options: {})
       publish_file ||= default_publish_file
       logger.info("Attempting to lint using publish file at #{publish_file}")
 
@@ -48,6 +49,41 @@ module Runner
       output = linter.lint(options: options)
       Cli::OutputFormatter.render(output) unless options['silent']
       output
+    end
+
+    # For video courses
+    def render_video_course(release_file:, local: false)
+      release_file ||= default_release_file
+
+      parser = Parser::Release.new(file: release_file)
+      video_course = parser.parse
+      # We don't support images in video courses yet
+      image_provider = nil
+      image_provider&.process
+      renderer = Renderer::VideoCourse.new(video_course, image_provider: image_provider)
+      renderer.render
+      video_course
+    end
+
+    def upload_video_course(release_file:)
+      release_file ||= default_release_file
+
+      parser = Parser::Release.new(file: release_file)
+      video_course = parser.parse
+      # We don't support images in video courses yet
+      image_provider = nil
+      image_provider&.process
+      Renderer::VideoCourse.new(video_course, image_provider: image_provider).render
+      # TODO: Upload and notify
+    end
+
+    def lint_video_course(release_file:, options: {})
+      release_file ||= default_release_file
+      logger.info("Attempting to lint using release file at #{release_file}")
+
+      CLI::UI::StdoutRouter.enable unless options['silent']
+
+      # TODO: Add linting
     end
 
     def default_publish_file

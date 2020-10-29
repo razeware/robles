@@ -6,7 +6,8 @@ class Video < Thor
   option :'release-file', type: :string, desc: 'Location of the release.yaml file'
   option :local, type: :boolean
   def render
-    p 'render'
+    video_course = runner.render_video_course(release_file: options['release_file'], local: options['local'])
+    p video_course.to_json
   end
 
   desc 'console [RELEASE_FILE]', 'opens an interactive Ruby console'
@@ -21,7 +22,7 @@ class Video < Thor
   desc 'upload [RELEASE_FILE]', 'uploads a video course to betamax'
   option :'release-file', type: :string, desc: 'Location of the release.yaml file'
   def publish
-    p 'console'
+    runner.upload_video_course(release_file: options['release_file'])
   end
 
   desc 'lint [RELEASE_FILE]', 'runs a selection of linters on the video course'
@@ -29,7 +30,8 @@ class Video < Thor
   method_options 'without-version': :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
   method_options silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
   def lint
-    p 'lint'
+    output = runner.lint_video_course(release_file: options['publish_file'], options: options)
+    exit 1 unless output.validated
   end
 
   desc 'secrets [REPO]', 'configures a video repo with the necessary secrets'

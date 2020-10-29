@@ -10,7 +10,7 @@ class Book < Thor
   option :'publish-file', type: :string, desc: 'Location of the publish.yaml file'
   option :local, type: :boolean
   def render
-    book = runner.render(publish_file: options['publish_file'], local: options['local'])
+    book = runner.render_book(publish_file: options['publish_file'], local: options['local'])
     p book.cover_image_url.to_json
   end
 
@@ -39,7 +39,7 @@ class Book < Thor
   desc 'publish [PUBLISH_FILE]', 'renders and publishes a book'
   option :'publish-file', type: :string, desc: 'Location of the publish.yaml file'
   def publish
-    runner.publish(publish_file: options['publish_file'])
+    runner.publish_book(publish_file: options['publish_file'])
   end
 
   desc 'lint [PUBLISH_FILE]', 'runs a selection of linters on the book'
@@ -47,7 +47,7 @@ class Book < Thor
   method_options 'without-edition': :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
   method_options silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
   def lint
-    output = runner.lint(publish_file: options['publish_file'], options: options)
+    output = runner.lint_book(publish_file: options['publish_file'], options: options)
     exit 1 unless output.validated
   end
 
