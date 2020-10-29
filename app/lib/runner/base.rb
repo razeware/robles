@@ -33,9 +33,9 @@ module Runner
       image_provider.process
       Renderer::Book.new(book, image_provider: image_provider).render
       Api::Alexandria::BookUploader.upload(book)
-      notify_success(book: book)
+      notify_book_success(book: book)
     rescue StandardError => e
-      notify_failure(book: defined?(book) ? book : nil, details: e.full_message)
+      notify_book_failure(book: defined?(book) ? book : nil, details: e.full_message)
       raise e
     end
 
@@ -65,7 +65,7 @@ module Runner
       video_course
     end
 
-    def upload_video_course(release_file:)
+    def upload_video_course(release_file:) # rubocop:disable Metrics/MethodLength
       release_file ||= default_release_file
 
       parser = Parser::Release.new(file: release_file)
@@ -74,7 +74,11 @@ module Runner
       image_provider = nil
       image_provider&.process
       Renderer::VideoCourse.new(video_course, image_provider: image_provider).render
-      # TODO: Upload and notify
+      Api::Betamax::VideoCourseUploader.upload(video_course)
+      notify_video_course_success(video_course: video_course)
+    rescue StandardError => e
+      notify_video_course_failure(video_course: defined?(video_course) ? video_course : nil, details: e.full_message)
+      raise e
     end
 
     def lint_video_course(release_file:, options: {})

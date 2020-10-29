@@ -21,7 +21,7 @@ class Video < Thor
 
   desc 'upload [RELEASE_FILE]', 'uploads a video course to betamax'
   option :'release-file', type: :string, desc: 'Location of the release.yaml file'
-  def publish
+  def upload
     runner.upload_video_course(release_file: options['release_file'])
   end
 
