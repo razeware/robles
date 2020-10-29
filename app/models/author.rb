@@ -12,4 +12,9 @@ class Author
   def attributes
     { username: nil, role: nil }.stringify_keys
   end
+
+  # Used for linting
+  def validation_name
+    username
+  end
 end

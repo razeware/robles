@@ -10,7 +10,7 @@ class Episode
                 :authors
   attr_markdown :description, source: :description_md, file: false
   attr_markdown :authors_notes, source: :authors_notes_md, file: false
-  validates :title, :ordinal, presence: true
+  validates :title, :ordinal, :description_md, :short_description, presence: true
 
   def initialize(attributes = {})
     super
@@ -21,5 +21,10 @@ class Episode
   # Used for serialisation
   def attributes
     { title: nil, ordinal: nil, free: false, description: nil, short_description: nil, authors: [] }.stringify_keys
+  end
+
+  # Used for linting
+  def validation_name
+    title
   end
 end

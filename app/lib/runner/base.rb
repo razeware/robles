@@ -45,7 +45,7 @@ module Runner
 
       CLI::UI::StdoutRouter.enable unless options['silent']
 
-      linter = Linting::Linter.new(file: publish_file)
+      linter = Linting::BookLinter.new(file: publish_file)
       output = linter.lint(options: options)
       Cli::OutputFormatter.render(output) unless options['silent']
       output
@@ -87,7 +87,10 @@ module Runner
 
       CLI::UI::StdoutRouter.enable unless options['silent']
 
-      # TODO: Add linting
+      linter = Linting::VideoCourseLinter.new(file: release_file)
+      output = linter.lint(options: options)
+      Cli::OutputFormatter.render(output) unless options['silent']
+      output
     end
 
     def default_publish_file

@@ -14,9 +14,15 @@ class VideoCourse
   attr_markdown :covered_concepts, source: :covered_concepts_md, file: false
   attr_markdown :description, source: :description_md, file: false
 
-  validates :shortcode, :version, :title, presence: true
+  validates :shortcode, :version, :title, :version_description, :description_md, :domains,
+            :categories, presence: true
   validates_inclusion_of :difficulty, in: %w[beginner intermediate advanced]
   validates_inclusion_of :course_type, in: %w[core spotlight]
+  validates_each :domains do |record, attr, value|
+    value.each do |domain|
+      record.errors.add(attr, "(#{domain}) not included in the list") unless %w[ios android flutter server-side-swift unity macos].include?(domain)
+    end
+  end
 
   def initialize(attributes = {})
     super
@@ -30,5 +36,10 @@ class VideoCourse
       professional: nil, difficulty: nil, platform: nil, language: nil, editor: nil, domains: [],
       categories: [], who_is_this_for: nil, covered_concepts: nil, authors: [], parts: [],
       git_commit_hash: nil }.stringify_keys
+  end
+
+  # Used for linting
+  def validation_name
+    title
   end
 end

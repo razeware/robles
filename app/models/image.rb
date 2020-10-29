@@ -55,4 +55,9 @@ class Image
       representation.upload
     end
   end
+
+  # Used for linting
+  def validation_name
+    local_url
+  end
 end

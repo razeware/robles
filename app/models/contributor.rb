@@ -16,4 +16,9 @@ class Contributor
   def attributes
     { username: nil, proportion: nil }.stringify_keys
   end
+
+  # Used for linting
+  def validation_name
+    username
+  end
 end

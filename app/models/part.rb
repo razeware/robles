@@ -18,4 +18,9 @@ class Part
   def attributes
     { title: nil, description: nil, ordinal: nil, episodes: [] }.stringify_keys
   end
+
+  # Used for linting
+  def validation_name
+    title
+  end
 end
