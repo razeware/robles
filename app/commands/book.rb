@@ -70,7 +70,7 @@ class Book < Thor
     REPO_SLACK_WEBHOOK_URL=
   LONGDESC
   def secrets(repo)
-    secrets_manager = RepoManagement::Secrets.new(repo: repo)
+    secrets_manager = RepoManagement::Secrets.new(repo: repo, mode: :book)
     secrets_manager.apply_secrets
   end
 

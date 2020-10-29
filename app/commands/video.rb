@@ -49,7 +49,8 @@ class Video < Thor
     REPO_SLACK_WEBHOOK_URL=
   LONGDESC
   def secrets(repo)
-    p 'secrets'
+    secrets_manager = RepoManagement::Secrets.new(repo: repo, mode: :video_course)
+    secrets_manager.apply_secrets
   end
 
   private
