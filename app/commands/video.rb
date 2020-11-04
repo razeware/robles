@@ -2,7 +2,7 @@
 
 # CLI for managing books
 class Video < Thor
-  desc 'render', 'renders book'
+  desc 'render', 'renders video course'
   option :'release-file', type: :string, desc: 'Location of the release.yaml file'
   option :local, type: :boolean
   def render
