@@ -45,4 +45,9 @@ class Book
       short_description: nil, recommended_skus: [], contributors: [], price_band: nil, isbn: nil,
       amazon_url: nil }.stringify_keys
   end
+
+  # Used for linting
+  def validation_name
+    title
+  end
 end
