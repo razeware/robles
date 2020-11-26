@@ -27,13 +27,13 @@ module Parser
 
     def load_parts
       video_course.parts = metadata[:parts].each_with_index.map do |part, index|
-        Parser::Part.new(part.merge(ordinal: index)).parse
+        Parser::Part.new(part.merge(ordinal: index + 1)).parse
       end
     end
 
     def apply_episode_ordinals
       video_course.parts.flat_map(&:episodes).each_with_index do |episode, index|
-        episode.ordinal = index
+        episode.ordinal = index + 1
       end
     end
 
