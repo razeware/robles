@@ -26,7 +26,7 @@ module Parser
     end
 
     def parse_chapter(segment, index)
-      raise 'Invalid semgent kind' unless segment[:kind] == 'chapter'
+      raise 'Invalid segment kind' unless segment[:kind] == 'chapter'
 
       markdown_file = apply_path(segment[:path])
       Chapter.new(markdown_file: markdown_file, ordinal: index, root_path: Pathname.new(markdown_file).dirname.to_s).tap do |chapter|

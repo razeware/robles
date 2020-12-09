@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # CLI for managing books
-class Video < Thor
+class VideoCli < Thor
   desc 'render', 'renders video course'
   option :'release-file', type: :string, desc: 'Location of the release.yaml file'
   option :local, type: :boolean

@@ -5,7 +5,7 @@ require 'guard'
 require 'guard/commander' # needed because of https://github.com/guard/guard/issues/793
 
 # CLI for managing books
-class Book < Thor
+class BookCli < Thor
   desc 'render', 'renders book'
   option :'publish-file', type: :string, desc: 'Location of the publish.yaml file'
   option :local, type: :boolean

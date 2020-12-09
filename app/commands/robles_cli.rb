@@ -8,10 +8,10 @@ class RoblesCli < Thor
   end
 
   desc 'book SUBCOMMAND ...ARGS', 'manage publication of books'
-  subcommand 'book', Book
+  subcommand 'book', BookCli
 
   desc 'video SUBCOMMAND ...ARGS', 'manage publication of videos'
-  subcommand 'video', Video
+  subcommand 'video', VideoCli
 
   ## We leave these in for now--they're deprecated. They should be removed later
   desc 'serve', '[DEPRECATED: use `robles book serve` instead] starts local preview server'
