@@ -20,7 +20,7 @@ class Episode
 
   # Used for serialisation
   def attributes
-    { title: nil, ordinal: nil, free: false, description: nil, short_description: nil, authors: [] }.stringify_keys
+    { title: nil, ordinal: nil, free: false, description: nil, short_description: nil, authors_notes: nil, authors: [] }.stringify_keys
   end
 
   # Used for linting
