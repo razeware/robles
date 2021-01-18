@@ -11,7 +11,7 @@ class Book
                 :materials_url, :cover_image, :gallery_image, :twitter_card_image, :artwork_image,
                 :icon_image, :trailer_video_url, :version_description, :professional, :difficulty,
                 :platform, :language, :editor, :domains, :categories, :who_is_this_for_md,
-                :covered_concepts_md, :root_path, :hide_chapter_numbers, :in_flux,
+                :covered_concepts_md, :root_path, :hide_chapter_numbers, :in_flux, :deprecated,
                 :forum_url, :pages, :short_description, :recommended_skus, :contributors,
                 :price_band, :isbn, :amazon_url
   attr_image :cover_image_url, source: :cover_image, variants: %i[original w594 w300]
@@ -32,6 +32,7 @@ class Book
     @contributors ||= []
     @hide_chapter_numbers ||= false
     @in_flux ||= false
+    @deprecated ||= false
   end
 
   # Used for serialisation
@@ -43,7 +44,7 @@ class Book
       platform: nil, language: nil, editor: nil, domains: [], categories: [], who_is_this_for: nil,
       covered_concepts: nil, hide_chapter_numbers: nil, in_flux: nil, forum_url: nil, pages: nil,
       short_description: nil, recommended_skus: [], contributors: [], price_band: nil, isbn: nil,
-      amazon_url: nil }.stringify_keys
+      amazon_url: nil, deprecated: nil, }.stringify_keys
   end
 
   # Used for linting
