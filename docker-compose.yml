@@ -4,7 +4,7 @@ services:
     build: .
     volumes:
       - .:/app/robles
-      - ../../books/ia:/data/src
+      - ../../videos/video-g1:/data/src
     command: bin/robles serve
     env_file: .env
     ports:

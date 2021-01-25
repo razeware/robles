@@ -2,7 +2,7 @@
 
 module Linting
   # Overall linter that combines all other linters
-  class Linter
+  class VideoCourseLinter
     include Util::PathExtraction
     include Util::Logging
     include Linting::FileExistenceChecker
@@ -21,35 +21,23 @@ module Linting
     end
 
     def lint_with_ui(options:, show_ui: true) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
-      with_spinner(title: 'Checking {{bold:publish.yaml}} exists', show: show_ui) do
-        check_publish_file_exists
+      with_spinner(title: 'Checking {{bold:release.yaml}} exists', show: show_ui) do
+        check_release_file_exists
       end
       return if output_details.present?
 
-      with_spinner(title: 'Validating metadata in {{bold:publish.yaml}}', show: show_ui) do
-        annotations.concat(Linting::MetadataLinter.new(file: file).lint(options: options))
+      with_spinner(title: 'Validating metadata in {{bold:release.yaml}}', show: show_ui) do
+        annotations.concat(Linting::VideoCourseMetadataLinter.new(file: file).lint(options: options))
       end
       return unless annotations.blank?
 
-      with_spinner(title: 'Attempting to parse book', show: show_ui) do
-        book
+      with_spinner(title: 'Attempting to parse video course', show: show_ui) do
+        video_course
       end
       return unless annotations.blank?
 
-      with_spinner(title: 'Validating markdown', show: show_ui) do
-        annotations.concat(Linting::MarkdownLinter.new(book: book).lint)
-      end
-
-      with_spinner(title: 'Validating image references', show: show_ui) do
-        annotations.concat(Linting::ImageLinter.new(book: book).lint)
-      end
-
-      if file_exists?(vend_file)
-        with_spinner(title: 'Validating {{bold:vend.yaml}}', show: show_ui) do
-          annotations.concat(Linting::VendLinter.new(file: vend_file).lint(options: options))
-        end
-      else
-        puts CLI::UI.fmt('{{x}} Unable to find {{bold:vend.yaml}}--skipping validation.')
+      with_spinner(title: 'Validating data models', show: show_ui) do
+        annotations.concat(Linting::Validations::VideoCourse.new(video_course: video_course, file: file).lint)
       end
     end
 
@@ -67,7 +55,7 @@ module Linting
       if annotations.present?
         Linting::Output.new(
           title: 'robles Linting Failure',
-          summary: 'There was a problem with your book repository',
+          summary: 'There was a problem with your video course repository',
           text: 'Please check the individual file annotations for details',
           annotations: annotations,
           validated: false
@@ -75,33 +63,29 @@ module Linting
       else
         Linting::Output.new(
           title: 'robles Linting Success',
-          summary: 'Your book repo looks great',
+          summary: 'Your video course repo looks great',
           text: 'I have nothing else to say here...',
           validated: true
         )
       end
     end
 
-    def check_publish_file_exists
+    def check_release_file_exists
       logger.debug "Checking for existence of #{file}"
       return true if file_exists?(file)
 
       @output_details = {
         title: 'robles Linting Failure',
-        summary: 'Unable to locate the `publish.yaml` file',
-        text: "There should be a `publish.yaml` file in the root of your book repository. Looking here: #{file}",
+        summary: 'Unable to locate the `release.yaml` file',
+        text: "There should be a `release.yaml` file in the root of your book repository. Looking here: #{file}",
         validated: false
       }
       false
     end
 
-    def vend_file
-      Pathname.new(file).dirname + 'vend.yaml'
-    end
-
-    def book # rubocop:disable Metrics/MethodLength
-      @book ||= begin
-        parser = Parser::Publish.new(file: file)
+    def video_course # rubocop:disable Metrics/MethodLength
+      @video_course ||= begin
+        parser = Parser::Release.new(file: file)
         parser.parse
       end
     rescue Parser::Error => e
@@ -113,7 +97,7 @@ module Linting
           start_line: line_number,
           end_line: line_number,
           message: e.message,
-          title: 'Unable to parse book.'
+          title: 'Unable to parse video course.'
         )
       )
     end

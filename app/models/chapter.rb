@@ -27,4 +27,9 @@ class Chapter
   def attributes
     { title: nil, number: nil, ordinal: nil, description: nil, body: nil, authors: [], free: false }.stringify_keys
   end
+
+  # Used for linting
+  def validation_name
+    title
+  end
 end

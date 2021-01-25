@@ -2,13 +2,13 @@
 
 module Linting
   # Run through various metadata checks
-  class MetadataLinter
+  class BookMetadataLinter
     include Util::PathExtraction
 
     def lint(options: {})
       [].tap do |annotations|
         annotations.concat Linting::Metadata::PublishAttributes.lint(file: file, attributes: publish_attributes)
-        annotations.concat Linting::Metadata::EditionReference.lint(file: file, attributes: publish_attributes) unless options['without-edition']
+        annotations.concat Linting::Metadata::BranchName.lint(file: file, attributes: publish_attributes, version_attribute: :edition) unless options['without-edition']
       end
     end
 

@@ -22,4 +22,9 @@ class Section
   def attributes
     { title: nil, number: nil, ordinal: nil, description: nil, chapters: [] }.stringify_keys
   end
+
+  # Used for linting
+  def validation_name
+    title
+  end
 end

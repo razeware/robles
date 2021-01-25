@@ -3,7 +3,7 @@
 module RepoManagement
   # Set secrets for GitHub Actions on a specified repo
   class Secrets
-    DEFAULT_SECRETS = {
+    DEFAULT_BOOK_SECRETS = {
       alexandria_service_api_token_production: REPO_ALEXANDRIA_SERVICE_API_TOKEN_PRODUCTION,
       alexandria_service_api_token_staging: REPO_ALEXANDRIA_SERVICE_API_TOKEN_STAGING,
       aws_access_key_id_production: REPO_AWS_ACCESS_KEY_ID_PRODUCTION,
@@ -14,11 +14,19 @@ module RepoManagement
       slack_webhook_url: REPO_SLACK_WEBHOOK_URL
     }.freeze
 
+    DEFAULT_VIDEO_COURSE_SECRETS = {
+      betamax_service_api_token_production: REPO_BETAMAX_SERVICE_API_TOKEN_PRODUCTION,
+      betamax_service_api_token_staging: REPO_BETAMAX_SERVICE_API_TOKEN_STAGING,
+      slack_bot_token: REPO_SLACK_BOT_TOKEN,
+      slack_webhook_url: REPO_SLACK_WEBHOOK_URL
+    }.freeze
+
     attr_reader :repo, :secrets
 
-    def initialize(repo:, secrets: {})
+    def initialize(repo:, mode:, secrets: {})
       @repo = repo
-      @secrets = DEFAULT_SECRETS.merge(secrets.symbolize_keys)
+      default_secrets = mode == :video_course ? DEFAULT_VIDEO_COURSE_SECRETS : DEFAULT_BOOK_SECRETS
+      @secrets = default_secrets.merge(secrets.symbolize_keys)
     end
 
     def secrets_valid?
