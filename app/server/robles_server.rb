@@ -6,6 +6,7 @@ class RoblesServer < Sinatra::Application
   set :bind, '0.0.0.0'
   set :views, __dir__ + '/views'
   set :public_folder, __dir__ + '/public'
+  set :static_cache_control, [max_age: 0]
 
   use Rack::LiveReload, host: '0.0.0.0'
 
@@ -13,6 +14,10 @@ class RoblesServer < Sinatra::Application
     def chapter_path(chapter)
       "/chapters/#{chapter.slug}"
     end
+  end
+
+  before do
+    cache_control max_age: 0
   end
 
   get '/' do
