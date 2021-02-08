@@ -3,7 +3,7 @@
 module Renderer
   # Methods that make it possible to determine image attributes
   module ImageAttributes
-    VALID_MODIFIERS = %w[bordered iphone iphone-landscape ipad ipad-landscape tvos watch bezel].freeze
+    VALID_MODIFIERS = %w[bordered iphone iphone-landscape ipad ipad-landscape tvos watch bezel float-left float-right].freeze
 
     attr_reader :image_provider
 
