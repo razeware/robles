@@ -69,6 +69,6 @@ class RoblesServer < Sinatra::Application
   end
 
   def acceptable_image_extension(extension)
-    %w[jpg png gif].include?(extension.downcase)
+    %w[jpg jpeg png gif].include?(extension.downcase)
   end
 end
