@@ -17,7 +17,7 @@ module Linting
 
       check_price_band
       check_total_percentage
-      @annotations.concat(Linting::Metadata::EditionReference.lint(file: file, attributes: vend_file)) unless options['without-edition']
+      @annotations.concat(Linting::Metadata::BranchName.lint(file: file, attributes: vend_file, version_attribute: :edition)) unless options['without-edition']
       return @annotations unless @annotations.empty?
 
       check_for_razeware_user
