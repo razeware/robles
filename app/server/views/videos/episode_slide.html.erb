@@ -1,0 +1,16 @@
+<div class="slide">
+  <h1><%= episode.title %></h1>
+  <h2>Part <%= part.ordinal %>: <%= part.title %></h2>
+  <h2><%= video_course.title %></h2>
+
+  <div class="logo">
+    <svg class="logo__text" viewBox="0 0 240 50"><title>raywenderlich.com</title><use xlink:href="#logo-text"/></svg>
+    <svg class="logo__mark" viewBox="0 0 50 50"><use xlink:href="#logo-mark"/></svg>
+  </div>
+
+  <ul class="domains">
+    <% video_course.domains.each do |domain| %>
+      <li><%= marketing_name_for_domain(domain) %></li>
+    <% end %>
+  </ul>
+</div>

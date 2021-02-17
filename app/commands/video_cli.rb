@@ -10,6 +10,19 @@ class VideoCli < Thor
     p video_course.to_json
   end
 
+  desc 'serve', 'starts local preview server'
+  option :dev, type: :boolean, desc: 'Run in development mode (watch robles files, not book files)'
+  def serve
+    fork do
+      if options[:dev]
+        Guard.start(no_interactions: true)
+      else
+        Guard.start(guardfile_contents: video_guardfile, watchdir: '/data/src', no_interactions: true)
+      end
+    end
+    RoblesVideoServer.run!
+  end
+
   desc 'console [RELEASE_FILE]', 'opens an interactive Ruby console'
   option :'release-file', type: :string, desc: 'Location of the release.yaml file'
   def console
@@ -41,7 +54,7 @@ class VideoCli < Thor
 
     You must ensure that the required secrets are provided as environment variables
     before running this command:
-    
+
     GITHUB_TOKEN=
     REPO_BETAMAX_SERVICE_API_TOKEN_PRODUCTION=
     REPO_BETAMAX_SERVICE_API_TOKEN_STAGING=
@@ -57,5 +70,13 @@ class VideoCli < Thor
 
   def runner
     Runner::Base.runner
+  end
+
+  def video_guardfile
+    <<~GUARDFILE
+      guard 'livereload' do
+        watch(%r{[a-zA-Z0-9\-_]+\.yaml$})
+      end
+    GUARDFILE
   end
 end

@@ -18,6 +18,10 @@ class Episode
     @free ||= false
   end
 
+  def slug
+    "#{ordinal.to_s.rjust(2, '0')}-#{title.parameterize}"
+  end
+
   # Used for serialisation
   def attributes
     { title: nil, ordinal: nil, free: false, description: nil, short_description: nil, authors_notes: nil, authors: [] }.stringify_keys

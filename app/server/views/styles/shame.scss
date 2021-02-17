@@ -1,0 +1,27 @@
+.slide {
+  height: 1080px;
+  width: 1920px;
+  background: rgb(2,0,36);
+  background: linear-gradient(155deg, rgba(13,13,13,1) 0%, rgba(80,80,80,1) 100%);
+
+  color: white;
+
+  .logo {
+    position: relative;
+    width: 480px;
+    height: 100px;
+    fill: rgba(255, 255, 255, 0.2);
+
+    .logo__mark {
+      width: 100px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  ul.domains {
+    list-style-type: '-';
+    padding: 10px;
+  }
+}

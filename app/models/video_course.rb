@@ -4,6 +4,7 @@
 class VideoCourse
   include ActiveModel::Model
   include ActiveModel::Serializers::JSON
+  include Concerns::ImageAttachable
   include Concerns::MarkdownRenderable
 
   attr_accessor :shortcode, :version, :version_description, :title, :course_type, :description_md,

@@ -1,0 +1,23 @@
+<div>
+  <div class="l-block l-block--1080 l-collection-hero l-book-hero">
+    <div class="l-collection-hero__wrapper">
+      <div class="l-collection-hero__artwork">
+        <figure>
+          <img style="width:300px" src="https://picsum.photos/300?grayscale">
+        </figure>
+      </div>
+      <div class="l-collection-hero__copy">
+        <h1><%= video_course.title %></h1>
+        <span class="l-font-24 l-font-italic l-margin-3 l-font-header l-display-block">
+          <%= video_course.version_description %>
+        </span>
+
+        <p class="l-margin-18 l-font-header l-collection-hero__copy-markdown"><%= video_course.short_description %></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="l-padding-bottom-120">
+  <%= erb :'videos/_index_table_of_contents.html', locals: { video_course: video_course } %>
+</div>

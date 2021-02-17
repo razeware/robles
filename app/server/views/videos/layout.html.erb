@@ -1,0 +1,18 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title><%= title || 'robles Preview' %></title>
+  <meta name="description" content="robles Local Rendering engine">
+
+  <link rel="stylesheet" href="/styles.css">
+</head>
+
+<%= erb :'shared/_svg_icons.html' %>
+
+<body>
+ <%= yield %>
+</body>
+</html>
