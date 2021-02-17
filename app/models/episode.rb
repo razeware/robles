@@ -4,6 +4,7 @@
 class Episode
   include ActiveModel::Model
   include ActiveModel::Serializers::JSON
+  include Concerns::ImageAttachable
   include Concerns::MarkdownRenderable
 
   attr_accessor :title, :ordinal, :free, :description_md, :short_description, :authors_notes_md,
