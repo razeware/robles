@@ -3,7 +3,7 @@
     <div class="l-collection-hero__wrapper">
       <div class="l-collection-hero__artwork">
         <figure>
-          <img style="width:300px" src="https://picsum.photos/300?grayscale">
+          <img style="width:300px" src="<%= video_course.featured_banner_image_url&.first&.url || 'https://picsum.photos/300?grayscale' %>">
         </figure>
       </div>
       <div class="l-collection-hero__copy">

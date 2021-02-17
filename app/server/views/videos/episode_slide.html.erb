@@ -13,4 +13,10 @@
       <li><%= marketing_name_for_domain(domain) %></li>
     <% end %>
   </ul>
+
+  <% if video_course.featured_banner_image_url&.first&.url.present? %>
+    <figure>
+      <img style="width:300px" src="<%= video_course.featured_banner_image_url&.first&.url %>">
+    </figure>
+  <% end %>
 </div>
