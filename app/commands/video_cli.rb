@@ -40,11 +40,26 @@ class VideoCli < Thor
 
   desc 'lint [RELEASE_FILE]', 'runs a selection of linters on the video course'
   option :'release-file', type: :string, desc: 'Location of the release.yaml file'
-  method_options 'without-version': :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
-  method_options silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
+  method_option 'without-version': :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
+  method_option silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
   def lint
     output = runner.lint_video_course(release_file: options['publish_file'], options: options)
     exit 1 unless output.validated
+  end
+
+  desc 'slides [RELEASE_FILE]', 'generates slides to be inserted at beginning of video'
+  option :'release-file', type: :string, desc: 'Location of the release.yaml file'
+  option :app_host, type: :string, default: 'app', desc: 'Hostname of host running robles app server'
+  option :app_port, type: :string, default: '4567', desc: 'Port of host running robles app server'
+  option :snapshot_host, type: :string, default: 'snapshot', desc: 'Hostname of host running headless chrome'
+  option :snapshot_port, type: :string, default: '3000', desc: 'Port of host running headless chrome'
+  def slides
+    release_file = options.fetch('release_file', runner.default_release_file)
+    parser = Parser::Release.new(file: release_file)
+    video_course = parser.parse
+    args = options.merge(video_course: video_course).symbolize_keys
+    snapshotter = Snapshotter::Slides.new(**args)
+    snapshotter.generate
   end
 
   desc 'secrets [REPO]', 'configures a video repo with the necessary secrets'
