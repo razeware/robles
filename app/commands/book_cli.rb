@@ -24,7 +24,7 @@ class BookCli < Thor
         Guard.start(guardfile_contents: book_guardfile, watchdir: '/data/src', no_interactions: true)
       end
     end
-    RoblesServer.run!
+    RoblesBookServer.run!
   end
 
   desc 'console [PUBLISH_FILE]', 'opens an interactive Ruby console'
@@ -58,7 +58,7 @@ class BookCli < Thor
 
     You must ensure that the required secrets are provided as environment variables
     before running this command:
-    
+
     GITHUB_TOKEN=
     REPO_ALEXANDRIA_SERVICE_API_TOKEN_PRODUCTION=
     REPO_ALEXANDRIA_SERVICE_API_TOKEN_STAGING=

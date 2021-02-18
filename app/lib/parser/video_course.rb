@@ -8,7 +8,8 @@ module Parser
     VALID_SIMPLE_ATTRIBUTES = %i[shortcode version version_description title course_type
                                  description_md short_description released_at materials_url
                                  professional difficulty platform language editor domains
-                                 categories who_is_this_for_md covered_concepts_md git_commit_hash].freeze
+                                 categories who_is_this_for_md covered_concepts_md git_commit_hash
+                                 card_artwork_image featured_banner_image twitter_card_image].freeze
 
     attr_accessor :video_course, :metadata
 

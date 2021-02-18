@@ -2,7 +2,7 @@
 
 module ImageProvider
   # Extract all images from a book
-  class Extractor
+  class BookExtractor
     attr_reader :book, :images
 
     def initialize(book)
@@ -12,12 +12,16 @@ module ImageProvider
 
     def extract
       @images = image_paths.map do |path|
-        Image.with_representations({ local_url: path[:absolute_path], sku: book.sku }, variants: path[:variants])
+        Image.with_representations({ local_url: path[:absolute_path], uploaded_image_root_path: uploaded_image_root_path }, variants: path[:variants])
       end
     end
 
     def extract_images_from_markdown(file)
       MarkdownImageExtractor.images_from(file)
+    end
+
+    def uploaded_image_root_path
+      "books/#{book.sku}/images"
     end
 
     def image_paths # rubocop:disable Metrics/AbcSize

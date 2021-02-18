@@ -24,7 +24,7 @@ class RoblesCli < Thor
         Guard.start(guardfile_contents: book_guardfile, watchdir: '/data/src', no_interactions: true)
       end
     end
-    RoblesServer.run!
+    RoblesBookServer.run!
   end
 
   desc 'lint [PUBLISH_FILE]', '[DEPRECATED: use `robles book lint` instead] runs a selection of linters on the book'

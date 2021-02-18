@@ -2,7 +2,7 @@
 require 'rack-livereload'
 
 # A local preview server for robles
-class RoblesServer < Sinatra::Application
+class RoblesBookServer < Sinatra::Application
   set :bind, '0.0.0.0'
   set :views, __dir__ + '/views'
   set :public_folder, __dir__ + '/public'
@@ -21,7 +21,7 @@ class RoblesServer < Sinatra::Application
   end
 
   get '/' do
-    erb :'index.html', locals: { book: book, title: "robles Preview: #{book.title}" }, layout: :'layout.html'
+    erb :'books/index.html', locals: { book: book, title: "robles Preview: #{book.title}" }, layout: :'layout.html'
   end
 
   get '/chapters/:slug' do
@@ -29,9 +29,9 @@ class RoblesServer < Sinatra::Application
     raise Sinatra::NotFound unless chapter.present?
 
     render_chapter(chapter)
-    erb :'chapter.html',
+    erb :'books/chapter.html',
         locals: { chapter: chapter, book: book, title: "robles Preview: #{chapter.title}" },
-        layout: :'layout.html'
+        layout: :'books/layout.html'
   end
 
   get '/assets/*.*' do

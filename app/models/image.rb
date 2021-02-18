@@ -3,10 +3,9 @@
 # An image extracted from the markdown
 class Image
   include ActiveModel::Model
-  include ImageProvider::Concerns::BookPathable
   include Util::Logging
 
-  attr_accessor :local_url, :representations
+  attr_accessor :local_url, :representations, :uploaded_image_root_path
 
   def self.with_representations(attributes = {}, variants: nil)
     variants ||= ImageRepresentation::DEFAULT_WIDTHS.keys

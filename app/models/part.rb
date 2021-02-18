@@ -4,6 +4,7 @@
 class Part
   include ActiveModel::Model
   include ActiveModel::Serializers::JSON
+  include Concerns::ImageAttachable
   include Concerns::MarkdownRenderable
 
   attr_accessor :title, :description, :ordinal, :episodes

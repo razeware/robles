@@ -10,11 +10,16 @@ module Parser
 
     def parse
       load_course
+      apply_additional_metadata
       video_course
     end
 
     def load_course
       @video_course = Parser::VideoCourse.new(release_file.merge(git_commit_hash: git_hash)).parse
+    end
+
+    def apply_additional_metadata
+      video_course.root_path = root_directory
     end
 
     private
