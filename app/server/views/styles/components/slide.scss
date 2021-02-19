@@ -1,0 +1,107 @@
+/**
+ * Styles for auto-generated slide 
+ *
+ * 1. Slide
+ *
+ */
+
+/* ==========================================================================
+   1. Slide
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap');
+
+.c-slide {
+  height: 1080px;
+  width: 1920px;
+  background-color: #1A1A1A;
+  color: white;
+  padding: 60px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  z-index: 0;
+
+  .c-slide__logo {
+    position: absolute;
+    right: 60px;
+    bottom: 60px;
+    width: 384px;
+    height: 80px;
+    fill: rgba(255, 255, 255, 0.3);
+
+    .c-slide__logo-mark {
+      width: 80px;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  div.c-slide__domains {
+    position: absolute;
+    bottom: 60px;
+    left: 60px;
+
+    span {
+      font-family: "Inter", Arial;
+      font-size: 24px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #A7ADB4;
+    }
+
+  }
+
+  h1 {
+    font-size: 40px;
+    line-height: 1.5;
+    letter-spacing: -1px;
+    position: absolute;
+    top: 60px;
+    left: 60px;
+    max-width: 1600px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  h2 {
+    font-family: "Inter", Arial;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  h3 {
+    font-size: 100px;
+    line-height: 1.125;
+    letter-spacing: -2px;
+    font-weight: 500;
+    text-align: center;
+    max-width: 1376px;
+    margin: 20px auto 0;
+  }
+
+  figure {
+    width: 1000px;
+    height: 1000px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -500px 0 0 -500px;
+    opacity: 0.1;
+    z-index: -1;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+  }
+
+}
