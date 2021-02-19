@@ -4,7 +4,7 @@ services:
     build: .
     volumes:
       - .:/app/robles
-      - ../../videos/video-aiar:/data/src
+      - ../video-aiar:/data/src
       #- ../../books/mad:/data/src
     command: bin/robles video serve
     env_file: .env
@@ -16,4 +16,4 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ../../videos/video-aiar:/data/src
+      - ../video-aiar:/data/src
