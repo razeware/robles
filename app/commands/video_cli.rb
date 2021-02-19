@@ -53,6 +53,7 @@ class VideoCli < Thor
   option :app_port, type: :string, default: '4567', desc: 'Port of host running robles app server'
   option :snapshot_host, type: :string, default: 'snapshot', desc: 'Hostname of host running headless chrome'
   option :snapshot_port, type: :string, default: '3000', desc: 'Port of host running headless chrome'
+  option :out_dir, type: :string, default: '/data/src/artwork/slides', desc: 'Location to save the output slides'
   def slides
     release_file = options.fetch('release_file', runner.default_release_file)
     parser = Parser::Release.new(file: release_file)
