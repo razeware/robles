@@ -5,8 +5,9 @@
 > the mechanical precursor to the electronic book. In 1949, Ruiz was awarded Spanish patent 190,698
 > for the "Mechanical Encyclopedia".
 
-__robles__ is a tool that can build raywenderlich.com books from their git repositories, and publish
-them to [`alexandria`](https://github.com/razeware/alexandria).
+__robles__ is a tool that can build raywenderlich.com books and video courses from their git repositories,\
+and publish them to [`alexandria`](https://github.com/razeware/alexandria) and
+[`betamax`](https://github.com/razeware/betamax) respectively..
 
 ## Usage
 
@@ -19,9 +20,9 @@ To build the container:
 $ docker build -t robles .
 ```
 
-The docker container expects the book repository to be mounted to `/data/src` inside the container.
-To publish a book to `alexandria`, ensure that you've populated the `.env` file with the appropriate
-environment variables, and then run the following:
+The docker container expects the book or video repository to be mounted to `/data/src` inside the container.
+To publish a book to `alexandria` or a video course to `betamax`, ensure that you've populated the `.env`
+file with the appropriate environment variables, and then run the following:
 
 ```
 $ docker run -v "PATH_TO_BOOK:/data/src" --env-file .env --rm robles bin/robles publish

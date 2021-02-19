@@ -1,22 +1,24 @@
-<div class="slide" id="slide-to-snapshot">
-  <h1><%= episode.title %></h1>
-  <h2>Part <%= part.ordinal %>: <%= part.title %></h2>
-  <h2><%= video_course.title %></h2>
-
-  <div class="logo">
-    <svg class="logo__text" viewBox="0 0 240 50"><title>raywenderlich.com</title><use xlink:href="#logo-text"/></svg>
-    <svg class="logo__mark" viewBox="0 0 50 50"><use xlink:href="#logo-mark"/></svg>
+<div class="c-slide" id="slide-to-snapshot">
+  <h1><%= video_course.title %></h1>
+  <div>
+    <% if video_course.parts.count > 1 %>
+      <h2>Part <%= part.ordinal %>: <%= part.title %></h2>
+    <% end %>
+    <h3><%= episode.title %></h3>
+  </div>
+  <div class="c-slide__logo">
+    <svg class="c-slide__logo-text" viewBox="0 0 240 50"><title>raywenderlich.com</title><use xlink:href="#logo-text"/></svg>
+    <svg class="c-slide__logo-mark" viewBox="0 0 50 50"><use xlink:href="#logo-mark"/></svg>
   </div>
 
-  <ul class="domains">
-    <% video_course.domains.each do |domain| %>
-      <li><%= marketing_name_for_domain(domain) %></li>
-    <% end %>
-  </ul>
+  <div class="c-slide__domains">
+    <span>&mdash;</span>
+    <span><%= video_course.domains.map { |domain| marketing_name_for_domain(domain) }.join(', ') %></span>
+  </div>
 
   <% if video_course.featured_banner_image_url&.first&.url.present? %>
     <figure>
-      <img style="width:300px" src="<%= video_course.featured_banner_image_url&.first&.url %>">
+      <img src="<%= video_course.featured_banner_image_url&.first&.url %>">
     </figure>
   <% end %>
 </div>
