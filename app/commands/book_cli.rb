@@ -48,7 +48,7 @@ class BookCli < Thor
   method_options silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
   def lint
     output = runner.lint_book(publish_file: options['publish_file'], options: options)
-    exit 1 unless output.validated
+    exit 1 unless output.validated || ENVIRONMENT == 'staging'
   end
 
   desc 'secrets [REPO]', 'configures a book repo with the necessary secrets'
