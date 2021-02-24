@@ -44,7 +44,7 @@ class VideoCli < Thor
   method_option silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
   def lint
     output = runner.lint_video_course(release_file: options['publish_file'], options: options)
-    exit 1 unless output.validated
+    exit 1 unless output.validated || ENVIRONMENT == 'staging'
   end
 
   desc 'slides [RELEASE_FILE]', 'generates slides to be inserted at beginning of video'
