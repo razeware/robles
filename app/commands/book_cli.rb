@@ -24,7 +24,7 @@ class BookCli < Thor
         Guard.start(guardfile_contents: book_guardfile, watchdir: '/data/src', no_interactions: true)
       end
     end
-    RoblesServer.run!
+    RoblesBookServer.run!
   end
 
   desc 'console [PUBLISH_FILE]', 'opens an interactive Ruby console'
@@ -48,7 +48,7 @@ class BookCli < Thor
   method_options silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
   def lint
     output = runner.lint_book(publish_file: options['publish_file'], options: options)
-    exit 1 unless output.validated
+    exit 1 unless output.validated || ENVIRONMENT == 'staging'
   end
 
   desc 'secrets [REPO]', 'configures a book repo with the necessary secrets'
@@ -58,7 +58,7 @@ class BookCli < Thor
 
     You must ensure that the required secrets are provided as environment variables
     before running this command:
-    
+
     GITHUB_TOKEN=
     REPO_ALEXANDRIA_SERVICE_API_TOKEN_PRODUCTION=
     REPO_ALEXANDRIA_SERVICE_API_TOKEN_STAGING=

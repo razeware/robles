@@ -43,6 +43,9 @@ gem 'slack-notifier', '~> 2.3', '>= 2.3.2'
 gem 'sassc'
 gem 'sinatra', '~> 2', '>= 2.0.8.1'
 
+# Controlling Chrome to create snapshots
+gem 'ferrum'
+
 group :development do
   # For integration with VSCode
   gem 'debase', '~> 0.2.4.1'

@@ -17,6 +17,10 @@ module RepoManagement
     DEFAULT_VIDEO_COURSE_SECRETS = {
       betamax_service_api_token_production: REPO_BETAMAX_SERVICE_API_TOKEN_PRODUCTION,
       betamax_service_api_token_staging: REPO_BETAMAX_SERVICE_API_TOKEN_STAGING,
+      aws_access_key_id_production: REPO_AWS_ACCESS_KEY_ID_PRODUCTION,
+      aws_access_key_id_staging: REPO_AWS_ACCESS_KEY_ID_STAGING,
+      aws_secret_access_key_production: REPO_AWS_SECRET_ACCESS_KEY_PRODUCTION,
+      aws_secret_access_key_staging: REPO_AWS_SECRET_ACCESS_KEY_STAGING,
       slack_bot_token: REPO_SLACK_BOT_TOKEN,
       slack_webhook_url: REPO_SLACK_WEBHOOK_URL
     }.freeze

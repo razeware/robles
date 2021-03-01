@@ -1,0 +1,19 @@
+<section class="l-collection-modules l-book-modules l-padding-60 l-block-wrapper l-block--1080">
+  <div class="l-collection-modules__wrapper">
+    <div class="l-collection-modules__module-episodes">
+      <% video_course.parts.each do |part| %>
+        <h2><%= part.title %></h2>
+
+        <% part.episodes.each do |episode| %>
+          <div class="c-tutorial-episode">
+            <div class="l-flex-align-start">
+              <h4><a href="<%= url(slide_path(episode)) %>">
+              <span class="o-badge-tutorial"><%= episode.ordinal %></span><span><%= episode.title %></span>
+              </a></h4>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>

@@ -18,7 +18,8 @@ module Runner
 
       parser = Parser::Publish.new(file: publish_file)
       book = parser.parse
-      image_provider = local ? nil : ImageProvider::Provider.new(book: book)
+      image_extractor = ImageProvider::BookExtractor.new(book)
+      image_provider = local ? nil : ImageProvider::Provider.new(extractor: image_extractor)
       image_provider&.process
       renderer = Renderer::Book.new(book, image_provider: image_provider)
       renderer.render
@@ -29,7 +30,8 @@ module Runner
       publish_file ||= default_publish_file
       parser = Parser::Publish.new(file: publish_file)
       book = parser.parse
-      image_provider = ImageProvider::Provider.new(book: book)
+      image_extractor = ImageProvider::BookExtractor.new(book)
+      image_provider = ImageProvider::Provider.new(extractor: image_extractor)
       image_provider.process
       Renderer::Book.new(book, image_provider: image_provider).render
       Api::Alexandria::BookUploader.upload(book)
@@ -57,8 +59,8 @@ module Runner
 
       parser = Parser::Release.new(file: release_file)
       video_course = parser.parse
-      # We don't support images in video courses yet
-      image_provider = nil
+      image_extractor = ImageProvider::VideoCourseExtractor.new(video_course)
+      image_provider = local ? nil : ImageProvider::Provider.new(extractor: image_extractor)
       image_provider&.process
       renderer = Renderer::VideoCourse.new(video_course, image_provider: image_provider)
       renderer.render
@@ -70,9 +72,10 @@ module Runner
 
       parser = Parser::Release.new(file: release_file)
       video_course = parser.parse
-      # We don't support images in video courses yet
-      image_provider = nil
-      image_provider&.process
+
+      image_extractor = ImageProvider::VideoCourseExtractor.new(video_course)
+      image_provider = ImageProvider::Provider.new(extractor: image_extractor)
+      image_provider.process
       Renderer::VideoCourse.new(video_course, image_provider: image_provider).render
       Api::Betamax::VideoCourseUploader.upload(video_course)
       notify_video_course_success(video_course: video_course)

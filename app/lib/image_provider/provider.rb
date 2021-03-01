@@ -5,14 +5,14 @@ module ImageProvider
   class Provider
     include Util::Logging
 
-    attr_reader :book
+    attr_reader :extractor
 
-    def initialize(book:)
-      @book = book
+    def initialize(extractor:)
+      @extractor = extractor
     end
 
     def process
-      logger.info('Extracting images from book')
+      logger.info('Extracting images')
       extractor.extract
       logger.info('Beginning image upload')
       futures = extractor.images.map do |image|
@@ -29,10 +29,6 @@ module ImageProvider
       extractor.images
                .filter { |image| image.local_url == clean_url }
                .flat_map(&:representations)
-    end
-
-    def extractor
-      @extractor ||= Extractor.new(book)
     end
   end
 end

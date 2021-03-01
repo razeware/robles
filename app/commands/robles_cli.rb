@@ -24,7 +24,7 @@ class RoblesCli < Thor
         Guard.start(guardfile_contents: book_guardfile, watchdir: '/data/src', no_interactions: true)
       end
     end
-    RoblesServer.run!
+    RoblesBookServer.run!
   end
 
   desc 'lint [PUBLISH_FILE]', '[DEPRECATED: use `robles book lint` instead] runs a selection of linters on the book'
@@ -33,7 +33,7 @@ class RoblesCli < Thor
   method_options silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
   def lint
     output = runner.lint_book(publish_file: options['publish_file'], options: options)
-    exit 1 unless output.validated
+    exit 1 unless output.validated || ENVIRONMENT == 'staging'
   end
 
   private

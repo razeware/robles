@@ -4,4 +4,10 @@
 APP_PATH = File.expand_path('../config/application', __dir__)
 require_relative '../config/application'
 
-RoblesCli.start(ARGV)
+begin
+  RoblesCli.start(ARGV)
+rescue Exception => e # rubocop:disable Lint/RescueException
+  raise e unless ENVIRONMENT == 'staging'
+
+  p e.full_message
+end

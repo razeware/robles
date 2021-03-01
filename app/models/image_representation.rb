@@ -15,9 +15,14 @@ class ImageRepresentation
   }.freeze
 
   OTHER_WIDTHS = {
+    w90: 90,
     w180: 180,
+    w225: 225,
+    w240: 240,
     w300: 300,
+    w560: 560,
     w594: 594,
+    w750: 750,
     w1800: 1800
   }.freeze
 
