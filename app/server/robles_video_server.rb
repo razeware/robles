@@ -48,9 +48,9 @@ class RoblesVideoServer < Sinatra::Application
         layout: :'videos/layout.html'
   end
 
-  get '/assets/*.*' do
-    local_url = File.join('/data/src/', params[:splat].join('.'))
-    raise Sinatra::NotFound unless acceptable_image_extension(params[:splat].second) && File.exist?(local_url)
+  get '/assets/*' do
+    local_url = File.join('/data/src/', params[:splat])
+    raise Sinatra::NotFound unless acceptable_image_extension(File.extname(local_url)) && File.exist?(local_url)
 
     send_file(local_url)
   end
@@ -81,6 +81,6 @@ class RoblesVideoServer < Sinatra::Application
   end
 
   def acceptable_image_extension(extension)
-    %w[jpg jpeg png gif].include?(extension.downcase)
+    %w[jpg jpeg png gif].include?(extension.sub('.', '').downcase)
   end
 end
