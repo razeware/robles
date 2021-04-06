@@ -21,7 +21,7 @@ class RoblesBookServer < Sinatra::Application
   end
 
   get '/' do
-    erb :'books/index.html', locals: { book: book, title: "robles Preview: #{book.title}" }, layout: :'layout.html'
+    erb :'books/index.html', locals: { book: book, title: "robles Preview: #{book.title}" }, layout: :'books/layout.html'
   end
 
   get '/chapters/:slug' do
