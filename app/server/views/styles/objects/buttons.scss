@@ -1,0 +1,1309 @@
+/**
+ *
+ * DO NOT EDIT BASE
+ *
+ * Add additional color classes if required
+ *
+ * Every button you'll ever need can be created from these o-button classes
+ *
+ * To modify use custom -l classes on html element
+ *
+ * Can be used for 'a' and 'button' html tags
+ *
+ * 1. Base button
+ *
+ * 2. Colors
+ *
+ * 3a. Size
+ *
+ * 3b. Shape
+ *
+ * 4. Icons within buttons with text - customise the icon color and background
+ *
+ * 5. Loaders within buttons -
+ *
+ * 6. Single button icons no text - eg. menu, close
+ *
+ * 7. Video
+ *
+ * 8. Badge / Button - Eg. Copy
+ *
+ * 9. Mobile menu
+ *
+ * 10. Bookmark
+ *
+ * Custom layouts
+ *
+ */
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@mixin o-button{
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  height: 46px;
+  line-height: 46px;
+  padding: 0 15px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  border-radius: $border-radius;
+  color: $white;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .5s;
+  white-space: nowrap;
+}
+
+
+/* ==========================================================================
+   Colors
+   ========================================================================== */
+.o-button{
+  @include o-button;
+}
+
+.o-button--green{
+  @include o-button;
+  background: $green-brand;
+
+  &:hover{
+    background: lighten($green-brand, 3%);
+  }
+}
+
+.o-button--blue{
+  @include o-button;
+  background: $blue-curious;
+
+  &:hover{
+    background: lighten($blue-curious, 3%);
+  }
+}
+
+.o-button--grey{
+  @include o-button;
+  background: $grey-raven;
+
+  &:hover{
+    background: lighten($grey-raven, 3%);
+  }
+}
+
+.o-button--red{
+  @include o-button;
+  background: $red-pomegranate;
+
+  &:hover{
+    background: lighten($red-pomegranate, 3%);
+  }
+}
+
+.o-button--orange{
+  @include o-button;
+  background: $orange-sorbus;
+
+  &:hover{
+    background: lighten($orange-sorbus, 3%);
+  }
+}
+
+.o-button--dark{
+  @include o-button;
+  background: $grey-bright;
+
+  &:hover{
+    background: lighten($grey-bright, 3%);
+  }
+}
+
+.o-button--black{
+  @include o-button;
+  background: $black-mine-shaft;
+}
+
+.o-button--dark-outline{
+  @include o-button;
+  background: $black-mine-shaft;
+  border: 2px solid $grey-bright;
+
+  &:hover{
+    border: 2px solid $grey-lynch;
+    background: lighten($grey-bright, 3%);
+  }
+}
+
+.o-button--green-outline{
+  @include o-button;
+  background: none;
+  border: 2px solid $green-brand;
+  color: $green-brand;
+}
+
+.o-button--white-outline{
+  @include o-button;
+  background: none;
+  border: 2px solid $white;
+  color: $white;
+}
+
+.o-button--yellow{
+  @include o-button;
+  background: $yellow-sin;
+  color: $black-mine-shaft;
+
+  &:hover{
+    background: lighten($yellow-sin, 3%);
+  }
+}
+
+.o-button--white-green{
+  @include o-button;
+  background: $white;
+  color: $green-brand;
+}
+
+.o-button--white-blue{
+  @include o-button;
+  background: $white;
+  color: $blue-curious;
+}
+
+.o-button--twitter{
+  @include o-button;
+  background: $blue-twitter;
+
+  &:hover{
+    background: lighten($blue-twitter, 3%);
+  }
+}
+
+.o-button--neon-green{
+  @include o-button;
+  background: $green-brand;
+  box-shadow: 0 0 1vw #158443, 0 0 1vw #158443, 0 0 1vw #158443, 0 0 .4vw #F9D91D;
+  border: 2px solid #199E50;
+
+  @include breakpoint("mobile"){
+    border: 1px solid #199E50;
+  }
+
+  &:hover{
+    background: lighten($green-brand, 3%);
+  }
+}
+
+.o-button--background-yellow{
+  background: $yellow-gold !important;
+
+  &:hover{
+    background: lighten($yellow-gold, 3%);
+  }
+}
+
+.o-button--background-blue{
+  background: $blue-curious !important;
+
+  &:hover{
+    background: lighten($blue-curious, 3%);
+  }
+}
+
+.o-button--disabled{
+  @include o-button;
+  background: $grey-iron;
+  cursor: not-allowed;
+
+  &:hover{
+    // transform: translateY(0) !important;
+    background: $grey-iron !important;
+  }
+}
+
+/* ==========================================================================
+   3a. Size
+   ========================================================================== */
+
+.o-button--full-col{
+  display: block;
+  width: 100%;
+}
+
+.o-button--huge{
+  height: 66px;
+  line-height: 66px;
+  padding: 0 18px;
+}
+
+.o-button--large{
+  height: 50px;
+  padding: 0 18px;
+}
+
+.o-button--small{
+  height: 42px;
+}
+
+.o-button--mini{
+  height: 36px;
+  line-height: 36px;
+  padding: 0 12px;
+  font-size: 0.875rem;
+}
+
+.o-button--shrink {
+  @include breakpoint("mobile"){
+    height: 36px;
+    line-height: 36px;
+    padding: 0 12px;
+    font-size: 0.875rem;
+
+    i {
+      display: none;
+    }
+
+  }
+}
+
+/* ==========================================================================
+   3b. Shape
+   ========================================================================== */
+
+.o-button-round {
+  display: inline-flex;
+  justify-content: center;
+  height: 46px;
+  line-height: 46px;
+  font-family: $header;
+  color: $white;
+  font-weight: 700;
+  border-radius: 100px;
+  font-size: 1.0625rem; /* 17/16 */
+  padding: 0 30px;
+  cursor: pointer;
+}
+
+.o-button-round--blue  {
+  background: $blue-curious;
+}
+
+.o-button-round--green  {
+  background: $green-brand;
+}
+
+.o-button-round--disabled  {
+  background: $grey-iron;
+  color: $grey-regent;
+}
+
+/* ==========================================================================
+   4. Icons
+   ========================================================================== */
+
+@mixin o-button__icon{
+  display: inline-block;
+  vertical-align: middle;
+  height: 24px;
+  width: 24px;
+  border-radius: $border-radius;
+  position: relative;
+}
+
+@mixin o-button__icon--small{
+  display: inline-block;
+  vertical-align: middle;
+  height: 15px;
+  width: 15px;
+  position: relative;
+}
+
+.o-button__icon--large{
+  height: 27px !important;
+  width: 27px !important;
+}
+
+.o-button__svg{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.o-button__svg--grey{
+  fill: $grey-raven;
+}
+
+.o-button__svg--medium-grey{
+  fill: $grey-dark-iron;
+}
+
+.o-button__svg--grey-mako{
+  fill: $grey-mako;
+}
+
+.o-button__svg--grey-chateau{
+  fill: $grey-chateau;
+}
+
+.o-button__svg--grey-regent{
+  fill: $grey-regent;
+}
+
+.o-button__svg--light-grey{
+  fill: $grey-black-squeeze;
+}
+
+.o-button__svg--white{
+  fill: $white;
+}
+
+.o-button__svg--black{
+  fill: $black-mine-shaft;
+}
+
+.o-button__svg--black-force{
+  fill: $black-mine-shaft !important;
+}
+
+
+.o-button__svg--green{
+  fill: $green-brand;
+}
+
+.o-button__svg--red{
+  fill: $red-pomegranate;
+}
+
+.o-button__svg--orange{
+  fill: $orange-sorbus;
+}
+
+.o-button__svg--twitter{
+  fill: $blue-twitter;
+}
+
+.o-button__svg--highlighter-yellow {
+  fill: $highlighter-highlight-yellow;
+}
+
+.o-button__svg--highlighter-orange {
+  fill: $highlighter-highlight-orange;
+}
+
+.o-button__svg--highlighter-red {
+  fill: $highlighter-highlight-red;
+}
+
+.o-button__svg--highlighter-purple {
+  fill: $highlighter-highlight-purple;
+}
+
+.o-button__svg--highlighter-blue {
+  fill: $highlighter-highlight-blue;
+}
+
+.o-button__svg--highlighter-green {
+  fill: $highlighter-highlight-green;
+}
+
+.o-button__icon--white{
+  background: $white;
+}
+
+.o-button__icon--yellow{
+  background: $yellow-sin;
+}
+
+.o-button__icon--black{
+  background: $black-mine-shaft;
+}
+
+.o-button__icon--grey{
+  background: $grey-raven;
+}
+
+.o-button__icon--medium-grey{
+  background: $grey-dark-iron;
+}
+
+.o-button__icon--green{
+  background: $green-brand;
+}
+
+.o-button__icon--blue{
+  background: $blue-curious;
+}
+
+.o-button__icon--input{
+  border: 2px solid $white;
+}
+
+.o-button__icon{
+  @include o-button__icon;
+}
+
+.o-button__icon--only{
+  @include o-button__icon;
+}
+
+.o-button__icon--left{
+  @include o-button__icon;
+  margin-right: 10px;
+}
+
+.o-button__icon--right{
+  @include o-button__icon;
+  margin-right: -2px;
+  margin-left: 10px;
+}
+
+.o-button__icon--right-small{
+  @include o-button__icon--small;
+  margin-right: -2px;
+  margin-left: 6px;
+}
+
+.o-button__icon--left-small{
+  @include o-button__icon--small;
+  margin-left: -2px;
+  margin-right: 6px;
+}
+
+/* ==========================================================================
+   Loaders
+   ========================================================================== */
+
+ .o-button__loader-text{
+  padding-left: 36px;
+ }
+
+ .o-button__loader-text--center{
+    position: relative;
+
+    .l-button__loader-pulse{
+      left: -40px;
+    }
+
+ }
+
+.l-button__loader-pulse{
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  margin-top: -16px;
+}
+
+/* ==========================================================================
+   Single button icons no text
+   ========================================================================== */
+
+@mixin o-icon-button{
+  display: flex;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  background: $white;
+  border-radius: $border-radius;
+  cursor: pointer;
+}
+
+.o-icon-button{
+  @include o-icon-button;
+
+  svg{
+    display: block;
+    margin: 0 auto;
+  }
+
+}
+
+.o-icon-button--small{
+  width: 27px;
+  height: 27px;
+}
+
+.o-icon-button--tiny{
+  width: 24px;
+  height: 24px;
+}
+
+.o-button__icon--dark-blue{
+
+  svg{
+    fill: $grey-bright;
+  }
+}
+
+/* ==========================================================================
+Text buttons with no background
+========================================================================== */
+
+.o-text-button{
+  @include o-button;
+  padding-left: 0;
+  padding-right: 0;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 0;
+
+  &:hover{
+
+    .o-button__label{
+      text-decoration: underline;
+    }
+
+  }
+
+  .o-button__icon--right{
+    margin-left: 8px;
+    margin-top: 1px;
+  }
+
+}
+
+.o-text-button--green{
+  color: $green-brand;
+}
+
+.o-text-button--black{
+  color: $black-mine-shaft;
+}
+
+.o-text-button--clear{
+  &:hover{
+
+    .o-button__label{
+      text-decoration: none;
+    }
+
+  }
+}
+
+/* Apply to inside label span only */
+
+.o-text-button--label{
+  position: relative;
+
+  &:hover{
+    text-decoration: none !important;
+
+    &:before{
+      content: "";
+      width: 100%;
+      height: 2px;
+      background: $grey-raven;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+
+  }
+
+}
+
+
+/* ==========================================================================
+Text buttons with background on hover
+========================================================================== */
+
+.o-text-button--hover{
+  position: relative;
+  z-index: 0;
+
+  &:before{
+    content: "";
+    position: absolute;
+    width: 130%;
+    height: 140%;
+    background: $grey-aqua-haze;
+    z-index: -1;
+    border-radius: $border-radius;
+    left: -12%;
+    opacity: 0;
+    transition: opacity all .3s ease-out;
+  }
+
+  &:hover{
+
+    &:before{
+      opacity: 1;
+    }
+
+  }
+
+}
+
+
+/* ==========================================================================
+   Buttons inside input elements eg. password show
+   ========================================================================== */
+
+.o-input-button{
+  background: #DCE0E7;
+  text-transform: uppercase;
+  font-size: 0.6875em; /* 11/16 */
+  font-weight: 700;
+  letter-spacing: .5px;
+  border-radius: $border-radius;
+  color: $white;
+  padding: 6px 10px 4px;
+  cursor: pointer;
+
+  &:hover{
+    background: #B9C2CF;
+  }
+
+}
+
+/* ==========================================================================
+   7. Video
+   ========================================================================== */
+
+.o-button-video{
+  width: 96px;
+  height: 96px;
+  background: $black-mine-shaft;
+  border: 6px solid $white;
+  border-radius: 21px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -48px 0 0 -48px;
+  cursor: pointer;
+  color: $white;
+
+  &:hover{
+    background: $green-brand;
+  }
+
+  svg{
+    position: absolute;
+    width: 38px;
+    height: 42px;
+    fill: $white;
+    top: 50%;
+    left: 50%;
+    margin-top: -21px;
+    margin-left: -17px;
+  }
+
+}
+
+.o-button-video-start{
+  height: 76px;
+  background: $black-mine-shaft;
+  border: 6px solid $white;
+  border-radius: 12px;
+  font-size: 1rem;
+  padding: 0 27px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -38px 0 0 -103px;
+
+  &:hover{
+    background: $green-brand;
+  }
+
+  svg{
+    width: 40px;
+    height: 30px;
+    fill: $white;
+    margin-left: -6px;
+    margin-right: 6px;
+  }
+
+}
+
+/* ==========================================================================
+8. Badge / Button - Eg. Copy
+========================================================================== */
+
+.o-button-copy{
+  width: 52px;
+  height: 24px;
+  background: rgba(86,98,115,.5);
+  font-size: 0.6875rem; /* 11/16 */
+  font-weight: 600;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: $white;
+  padding: 5px 9px 5px;
+  border-radius: $border-radius;
+  cursor: pointer;
+  position: absolute;
+  top: 12px;
+  right: 45px;
+  white-space: nowrap;
+
+  &:before{
+    content: "Copy";
+  }
+
+  &:hover{
+    background: #647388;
+  }
+
+}
+
+/* ==========================================================================
+8. Button for Code Blocks
+========================================================================== */
+
+.o-button-code{
+  width: 24px;
+  height: 24px;
+  background: rgba(86,98,115,.5);
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  border-radius: $border-radius;
+  cursor: pointer;
+
+  // Defaults to light. Will override elsewhere
+  background-image: url(../images/svg-icons/light.png);
+  background-size: cover;
+
+  &:hover{
+    background: #647388;
+    background-image: url(../images/svg-icons/light.png);
+    background-size: cover;
+  }
+}
+
+/* ==========================================================================
+9. Mobile menu
+========================================================================== */
+
+.o-button-menu{
+  width: 48px;
+  height: 48px;
+  z-index: 9999;
+  position: absolute;
+  left: 80px;
+  z-index: 9999;
+  background: $grey-mako;
+  border-radius: 120px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  svg{
+    width: 20px;
+    height: 20px;
+    fill: $white;
+  }
+
+}
+
+.o-button-more{
+  width: 48px;
+  height: 48px;
+  background: $grey-mako;
+  border-radius: 120px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  svg{
+    width: 20px;
+    height: 20px;
+    fill: $white;
+  }
+
+}
+
+.o-button-sidebar {
+  width: 36px;
+  height: 36px;
+}
+
+/* ==========================================================================
+10. Close
+========================================================================== */
+
+.o-alert__close{
+  order: 10;
+  height: 16px;
+  cursor: pointer;
+  svg{
+    width: 16px;
+    height: 16px;
+    fill: $white;
+  }
+}
+
+/* ==========================================================================
+11. Bookmarks
+========================================================================== */
+
+.o-button--bookmark{
+  display: inline-flex;
+  align-items: center;
+  float: right;
+  height: 46px;
+  line-height: 46px;
+  padding: 0 5px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all .5s;
+  white-space: nowrap;
+
+  &:focus{
+    outline: none;
+  }
+
+}
+
+/* ==========================================================================
+12. Share Buttons
+========================================================================== */
+
+.o-button--share{
+  cursor: pointer;
+
+  i{
+    transition: all .3s ease-out;
+  }
+
+  &:hover{
+    i{
+    background: (transparentize($grey-dark-iron, 0.15));
+    }
+  }
+
+}
+
+/* ==========================================================================
+13. How to
+========================================================================== */
+
+.o-button--how-to{
+
+  .o-button__highlight{
+    width: 90px;
+    height: 90px;
+    border-radius: 100%;
+    border: 3px solid $green-brand;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -55px;
+    margin-left: -45px;
+    z-index: 999;
+  }
+
+  .o-tooltip{
+    opacity: 1;
+    visibility: visible;
+    width: 300px;
+    top: 70px;
+    left: -90px;
+
+    &:after{
+      right: 35px;
+      left: auto;
+    }
+
+  }
+
+}
+
+
+/* ==========================================================================
+14. Start of content
+========================================================================== */
+
+.o-button-start-content{
+  position: absolute;
+  top: -1000px;
+  left: -1000px;
+  height: 1px;
+  width: 1px;
+  text-align: left;
+  overflow: hidden;
+  color: $white;
+  text-decoration: none;
+
+  &:focus{
+    top: 0;
+    left: 0;
+    z-index: 9999999999;
+    width: auto;
+    height: 72px;
+    line-height: 72px;
+    padding: 0 15px;
+    background-color: $blue-curious;
+  }
+
+}
+
+/* ==========================================================================
+15. Chapter buttons
+========================================================================== */
+
+.o-button-chapter {
+  width: 90px;
+  height: 100vh;
+  background: #F5F8FB;
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+
+  @include breakpoint("tablet"){
+    width: 60px;
+  }
+
+  @include breakpoint("mobile-large"){
+    display: none;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+
+  svg {
+    width: 17px;
+    height: 15px;
+    fill: $grey-chateau;
+  }
+
+}
+
+.o-button-chapter--left {
+  left: 0;
+  transform: rotate(180deg)
+}
+
+.o-button-chapter--right {
+  right: 0;
+}
+
+/* ==========================================================================
+Custom layouts for buttons
+========================================================================== */
+
+/* A hack for buttons that need to wrap their children in a span */
+
+.o-button__wrapper{
+  display: flex;
+  align-items: center;
+}
+
+.o-button--center{
+
+  .o-button__label, i{
+    margin-left: auto;
+  }
+
+}
+
+.o-button--center-left {
+
+  .o-button__label, i{
+    margin-right: auto;
+  }
+
+}
+
+.o-button--long-label{
+  justify-content: center;
+  white-space: normal;
+  line-height: 1.25;
+}
+
+
+/* ==========================================================================
+Custom layouts for button icons
+========================================================================== */
+
+/* Misc */
+
+.l-button__svg-checkmark{
+  width: 14px;
+  height: 11px;
+  margin-top: -5px;
+  margin-left: -7px;
+}
+
+.l-button__svg-plus{
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  margin-left: -6px;
+}
+
+.l-button__svg-question{
+  width: 13px;
+  position: relative;
+  left: 3px;
+  top: -1px;
+}
+
+.l-button__svg-question--tooltip{
+  opacity: 1;
+}
+
+.l-button__svg-close{
+  width: 18px;
+  transform: rotate(45deg);
+}
+
+.l-button__svg-close--button{
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px ;
+  transform: rotate(45deg);
+}
+
+.l-button-inside-input{
+  position: absolute;
+  top: 40px;
+  right: 15px;
+}
+
+.l-button__svg-hamburger{
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  margin-left: -6px;
+}
+
+.l-button__svg-filter{
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+}
+
+.l-button__svg-grid{
+  width: 18px;
+  height: 18px;
+  margin-right: 9px;
+}
+
+.l-button__svg-clear{
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+}
+
+.l-button__svg-clear--button{
+  width: 16px;
+  height: 16px;
+  margin-top: -8px;
+  margin-left: -8px;
+}
+
+.l-button__svg-bookmark-icon{
+  width: 20px;
+  height: 20px;
+  margin-top: -20px;
+  margin-left: -10px;
+}
+
+.l-button__svg-bookmark-icon-nav{
+  width: 20px;
+  height: 20px;
+}
+
+/* Arrows */
+
+.l-button__svg-arrow{
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  margin-left: -7px;
+}
+
+.l-button__svg-arrow-45{
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  margin-left: -7px;
+  transform: rotate(-45deg);
+}
+
+.l-button__svg-arrow-90{
+  width: 14px;
+  height: 14px;
+  margin-top: -7px;
+  margin-left: -7px;
+  transform: rotate(90deg);
+}
+
+.l-button__nub{
+  width: 10px;
+  height: 10px;
+  margin-top: -6px;
+  margin-left: -6px;
+  position: relative;
+  top: -15.5px;
+}
+
+.l-button__grid-nub{
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  margin-left: -5px;
+  position: relative;
+  top: -16px;
+}
+
+/* Search */
+
+.l-button__search{
+  width: 18px;
+  height: 20px;
+  top: 1px;
+  margin-right: 8px;
+
+  svg{
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Social */
+
+.l-button__svg-facebook{
+  width: 11px;
+  position: relative;
+  top: 4px;
+  left: -1px;
+}
+
+.l-button__svg-facebook-share{
+  width: 12px;
+  height: 22px;
+  position: absolute;
+  top: 6px;
+  left: 6px;
+}
+
+.l-button__svg-twitter{
+  width: 17px;
+}
+
+.l-button__svg-twitter-share{
+  width: 17px;
+  height: 13px;
+  position: absolute;
+  top: 7px;
+  left: 5px;
+}
+
+.l-button__svg-follow-twitter{
+  width: 17px;
+  height: 17px;
+  margin-left: -8.5px;
+  margin-top: -8.5px;
+}
+
+.l-button__svg-speech-bubble{
+  width: 22px;
+  height: 22px;
+  opacity: .5;
+}
+
+.l-button__svg-star{
+  width: 15px;
+  height: 15px;
+}
+
+.l-button__svg-empty-star{
+  width: 15px;
+  height: 15px;
+}
+
+.l-button__svg-half-star{
+  width: 8px;
+  height: 15px;
+}
+
+.l-button-newsletter-icon {
+  position: absolute;
+  right: 15px;
+  top: 13px;
+}
+
+.l-button__svg-cog{
+  width: 25px;
+  height: 25px;
+}
+
+.l-button__svg-search-navigator {
+  width: 23px;
+  height: 23px;
+}
+
+.l-button__svg-bookmark-navigator {
+  width: 22px;
+  height: 22px;
+}
+
+.l-button__svg-22 {
+  width: 22px;
+  height: 22px;
+}
+
+.l-button__svg-watch-offline {
+  width: 16px;
+  height: 16px;
+  margin-top: -8px;
+  margin-left: -8px;
+}
+
+.l-button__svg-notepad-icon-nav {
+  width: 24px;
+  height: 23px;
+}
+
+.l-button__svg-lettering-icon-nav {
+  width: 30px;
+  height: 17px;
+}
+
+.l-button__svg-toc-icon-nav {
+  width: 24px;
+  height: 21px;
+  margin-top: 4px;
+  margin-right: -6px;
+  stroke: white;
+}
+
+.l-button__search-nav{
+  width: 18px;
+  height: 20px;
+  top: 1px;
+  margin-right: 8px;
+
+  svg{
+    width: 21px;
+    height: 21px;
+  }
+}
+
+.l-button__svg-arrow-nav {
+  transition: .25s all;
+  width: 12px;
+  height: 12px;
+  margin-left: 3px;
+}
+
+.l-button__svg-arrow-to-nav {
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+  opacity: 0.5;
+  transform: rotate(270deg);
+}
