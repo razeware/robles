@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+
+require 'active_support'
+require 'active_support/core_ext/string/inflections'
 require 'rack-livereload'
 
 # A local preview server for robles

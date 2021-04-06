@@ -1,0 +1,2280 @@
+/**
+ *
+ * Night Mode
+ *
+ *
+ * 1. Global
+ *
+ * 2. Skeletons
+ *
+ * 3. Authors
+ *
+ * 4a. Tutorials
+ *
+ * 4b. Platforms
+ *
+ * 5. Videos
+ *
+ * 6. Homepage (Logged In)
+ *
+ * 7. Homepage (Logged Out)
+ *
+ * 8. Domains
+ *
+ * 9. Library
+ *
+ * 10. Paths
+ *
+ * 11. Article
+ *
+ * 12. About
+ *
+ * 13. Onboarding
+ *
+ * 14. Testimonials
+ *
+ * 15. Ratings
+ *
+ * 16. Newsletter
+ *
+ * 17. Video Collection Home Custom
+ *
+ * 18. FAQ
+ *
+ * 19. Homepage (Sections)
+ *
+ * 20. Profile
+ *
+ * 21. Book Chapters
+ *
+ * 22. Book Home
+ *
+ * 23. Pagination
+ *
+ * 24. Adverts
+ *
+ * 25. Sidebars
+ *
+ * 25. Mobile Navigator
+ *
+ * 27. Empty States
+ *
+ * 28. Dropdowns
+ *
+ * X. Apply to CSS
+ *
+ **/
+
+
+/* ==========================================================================
+1. Dark styles as a placeholder to use for JS and OS with single stylesheet
+========================================================================== */
+
+@mixin prefers-color-scheme--dark(){
+  
+  /* ==========================================================================
+  1. Global
+  ========================================================================== */
+  
+  .l-background--grey{
+    background: $black-mine-shaft;
+  }
+  
+  .l-color-grey--dark{
+    color: $grey-chateau !important;
+  }
+
+  .l-color-white--dark{
+    color: $white !important;
+  }
+  
+  .l-color-invert--dark {
+    color: $grey-chateau;
+    
+    a {
+      color: $white;
+    }
+    
+  }
+  
+  .o-tag{
+    background: $grey-bright;
+    border: 2px solid $grey-lynch;
+    color: $white;
+  }
+  
+  .c-tabs{
+    border-bottom: 2px solid $grey-bright !important;
+  }
+  
+  .o-button--share{
+    
+    &:hover{
+      i{
+        background: $grey-lynch !important;
+      }
+    }
+    
+    i{
+      background: $grey-mako;
+    }
+    
+  }
+  
+  .o-screenshot{
+    border-color: $grey-mako;
+  }
+
+  .l-border-top-grey--dark {
+    border-color: $grey-mako;
+  }
+  
+  .l-border-bottom {
+    border-color: $grey-mako;
+  }
+  
+  .l-svg-color-night-grey-chateau {
+    fill: $grey-chateau !important;
+  }
+
+  .l-svg-color-night-white {
+    fill: $white !important;
+  }
+  
+  .o-button--green-outline {
+    border-color: $white;
+    color: $white;
+    svg {
+      fill: $white;
+    }
+  }
+
+  .o-button-round--disabled {
+    background: $grey-bright;
+    color: $white;
+  }
+  
+  /* ==========================================================================
+  2. Skeletons
+  ========================================================================== */
+  
+  .o-skeleton__artwork, .o-skeleton__graphic, .o-skeleton__title, .o-skeleton__text, .o-skeleton__button, .o-skeleton-card__title, .o-skeleton-card__text, .o-skeleton-sidebar__meta {
+    animation-duration: .75s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: shimmer;
+    animation-timing-function: linear;
+    background: #646D7A;
+    background: linear-gradient(to right, $grey-bright 8%, #485059 18%, $grey-bright 33%);
+    background-size: 800px 104px !important;
+    animation-duration: 1s !important;
+  }
+  
+  .o-skeleton-card{
+    background: $grey-mako !important;
+  }
+  
+  /* ==========================================================================
+  3. Authors
+  ========================================================================== */
+  
+  .c-authors{
+    .c-content-author{
+      .c-content-author__title{
+        color: $white;
+      }
+      
+      .c-content-author__description{
+        color: $grey-chateau;
+      }
+      
+      img{
+        border: 4px solid $grey-mako;
+      }
+      
+      .o-badge{
+        background: $grey-mako !important;
+        color: $white !important;
+      }
+      
+    }
+  }
+  
+  
+  /* ==========================================================================
+  4a. Tutorials
+  ========================================================================== */
+  
+  .c-tutorial-item{
+    a, > div.c-tutorial-item__wrapper{
+      background: $grey-bright !important;
+      box-shadow: none;
+      padding: 21px;
+    }
+    
+    .o-button--mark-as-complete{
+      .checkbox__input, .checkbox__indicator{
+        background: none;
+      }
+    }
+    
+    .c-tutorial-item__text{
+      
+      .o-badge--soon{
+        background: $grey-mako !important;
+        color: $white !important;
+      }
+      
+      .c-tutorial-item__title{
+        color: $white !important;
+      }
+      
+      .c-tutorial-item__category{
+        color: $grey-chateau !important;
+      }
+      
+      .c-tutorial-item__parent{
+        color: $grey-chateau !important;
+      }
+      
+      .c-tutorial-item__metadata{
+        color: $grey-chateau !important;
+      }
+      
+      .c-tutorial-item__metadata-short{
+        color: $grey-chateau !important;
+      }
+      
+      .c-tutorial-item__description{
+        color: $grey-chateau !important;
+        
+        p, ul, ol{
+          color: $grey-chateau;
+        }
+        
+      }
+      
+      .c-tutorial-item__platform{
+        color: $grey-chateau !important;
+      }
+      
+      .c-tutorial-item__type{
+        color: $grey-chateau !important;
+      }
+      
+    }
+    
+    .c-tutorial-item__continue{
+      border-radius: 0.5625rem !important;
+      box-shadow: 0 !important;
+      border-bottom: 0 !important;
+    }
+    
+    .c-tutorial-item__art{
+      background: none !important;
+    }
+    
+  }
+  
+  .c-tutorial--card{
+    
+    .c-tutorial-item{
+      a{
+        border-bottom: 0 !important;
+      }
+    }
+    
+  }
+  
+  .c-tutorial--list{
+    .c-tutorial-item{
+      
+      a{
+        background: $grey-bright !important;
+      }
+      
+    }
+    
+  }
+  
+  .c-tutorial--white {
+    .c-tutorial-item {
+      background: $grey-bright !important;
+      
+      a{
+        background: $grey-bright !important;
+      }
+      
+    }
+    
+  }
+
+  .c-tutorial--book, .c-tutorial--list-style-basic, .c-tutorial--list-style-complex {
+    .c-tutorial-item {
+      a {
+        background: none !important;
+        box-shadow: none;
+        padding: 0;
+      }
+    }
+  }
+
+  .c-tutorial--list-style-basic, .c-tutorial--list-style-complex {
+    .c-tutorial-item {
+      border-color: $grey-mako;
+    }
+  }
+
+  .c-tutorial--list-style-complex {
+    .c-tutorial-item {
+      @include breakpoint("tablet"){
+        padding: 21px;
+        background: $grey-bright !important;
+        border-radius: $border-radius;
+      }
+
+      .o-badge--pro {
+        border-color: $white !important;
+      }
+
+    }
+  }
+
+  /* ==========================================================================
+  4b. Platforms
+  ========================================================================== */
+
+  .c-card-platform {
+    a {
+      background-color: $grey-bright;
+
+      &:before {
+        filter: invert(100%);
+      }
+
+      h2 {
+        color: $white;
+      }
+
+      p {
+        color: $grey-chateau;
+      }
+
+    }
+  }
+  
+  
+  
+  /* ==========================================================================
+  5. Videos
+  ========================================================================== */
+  
+  
+  .c-tutorial-episode{
+    
+    &:before{
+      background: $grey-mako !important;
+    }
+    
+    h4{
+      a{
+        color: $white !important;
+      }
+    }
+    
+    .o-badge-tutorial{
+      border-color: $grey-mako;
+    }
+    
+    p{
+      color: $grey-chateau !important;
+    }
+    
+  }
+  
+  .c-video-information{
+    .c-content-author{
+      
+      a{
+        color: $white;
+      }
+      
+      img{
+        border: 4px solid $grey-mako;
+      }
+    }
+  }
+  
+  .c-video-player__paywall {
+    .c-video-player__paywall-copy {
+      p {
+        color: $black-mine-shaft;
+      }
+    }
+  }
+  
+  .c-video-player__paywall--professional {
+    .c-video-player__paywall-copy {
+      p {
+        color: $white;
+      }
+      
+      .l-color-white {
+        color: $white;
+      }
+      
+    }
+  }
+  
+  .c-video-player__paywall-options{
+    .c-price-card{
+      h4{
+        color: $black-mine-shaft;
+        
+        @include breakpoint($maxWidth: 1080px){
+          color: $white;
+        }
+        
+      }
+      
+      .c-price-card__price{
+        span{
+          color: $black-mine-shaft;
+          
+          @include breakpoint($maxWidth: 1080px){
+            color: $white;
+          }
+          
+        }
+      }
+      
+      .c-price-card__period{
+        color: $black-mine-shaft;
+        
+        @include breakpoint($maxWidth: 1080px){
+          color: $white;
+        }
+        
+      }
+      
+    }
+  }
+  
+  .c-video-player__paywall--black-friday-2019 {
+    .c-price-card{
+      h4, .c-price-card__price-currency{
+        color: $white !important;
+      }
+    }
+  }
+  
+  .c-video-player--nav{
+    .c-video-player__paywall-options{
+      .c-price-card{
+        h4{
+          color: $white;
+        }
+        
+        .c-price-card__price{
+          span{
+            color: $white;
+          }
+        }
+        
+        .c-price-card__period{
+          color: $white;
+        }
+        
+      }
+    }
+  }
+  
+  
+  /* ==========================================================================
+  5a. Comments
+  ========================================================================== */
+  
+  .c-forum-comments__load{
+    background: $grey-mako !important;
+    
+    span{
+      color: $white !important;
+    }
+    
+    i{
+      svg{
+        fill: $white;
+      }
+    }
+    
+  }
+  
+  /* ==========================================================================
+  5c. Bookmarks
+  ========================================================================== */
+  
+  .o-link--bookmark-remove{
+    color: $green-brand !important;
+    border-bottom: none !important;
+  }
+  
+  
+  /* ==========================================================================
+  6. Homepage (Logged In)
+  ========================================================================== */
+  
+  .l-follow-pillars{
+    background: $grey-bright;
+    box-shadow: none;
+  }
+  
+  .l-home-hero{
+    .l-home-hero__video-wrapper{
+      .c-tutorial-item{
+        a{
+          border-radius: 0 0 0 0 !important;
+        }
+      }
+    }
+  }
+  
+  /* ==========================================================================
+  7a. Homepage (Logged Out)
+  ========================================================================== */
+  
+  .home-hero{
+    box-shadow: none;
+    
+    .home-hero__action{
+      h4, ul{
+        color: $black-mine-shaft;
+      }
+    }
+    
+  }
+  
+  .home-top-tutorials{
+    
+    .c-tutorial-item{
+      
+      .c-tutorial-item__metadata{
+        color: $grey-raven !important;
+      }
+      
+      .o-progress-indicator{
+        background: $grey-mako !important;
+      }
+      
+    }
+    
+  }
+  
+  .home-pattern{
+    background-image: none !important;
+  }
+
+  /* ==========================================================================
+  7b. Homepage (Logged Out) Teaspoon
+  ========================================================================== */
+
+  .l-home-hero-teaspoon {
+    .l-home-hero-teaspoon__left {
+      &:before {
+        filter: invert(100%);
+      }
+    }
+
+    .l-home-hero-teaspoon__right {
+      p, ul {
+        @include breakpoint($maxWidth: 1080px){
+          color: $white;
+        }
+      }
+    }
+
+  }
+
+  .l-home-teaspoon {
+    .l-tutorial-collection {
+
+      .c-tutorial-item {
+        a {
+          background: $grey-bright !important;
+        }
+      }
+
+      .o-button__icon--prev {
+        background: $black-mine-shaft;
+        background: linear-gradient(90deg, $black-mine-shaft 0%, rgba(51, 51, 51, 0) 100%);
+      }
+
+      .o-button__icon--next {
+        background: white;
+        background: linear-gradient(90deg, rgba(51, 51, 51, 0) 0%, $black-mine-shaft 100%);
+      }
+
+    }
+
+  }  
+  
+  /* ==========================================================================
+  8. Domains
+  ========================================================================== */
+  
+  .c-tabs--emphasis{
+    border-bottom: none !important;
+    
+    .c-tabs--active{
+      &:before{
+        display: none;
+      }
+    }
+  }
+  
+  .l-tutorial-container--slider{
+    .c-tutorial-item{
+      a{
+        background: none !important;
+      }
+    }
+  }
+  
+  /* ==========================================================================
+  9. Library
+  ========================================================================== */
+  
+  .l-library{
+    .c-library-controls{
+      div{
+        color: $white !important;
+        
+        svg{
+          fill: $white !important;
+        }
+        
+      }
+    }
+    
+    .c-tutorial-item{
+      
+      @include breakpoint("mobile-large"){
+        margin-top: 15px !important;
+        border: 0 !important;
+      }
+      
+    }
+    
+    .c-library-filters__added{
+      .o-tag{
+        background: $grey-bright;
+        border: 2px solid $grey-lynch;
+        color: $white;
+        
+        svg{
+          fill: $white;
+        }
+        
+      }
+    }
+    
+  }
+  
+  /* ==========================================================================
+  10. Paths
+  ========================================================================== */
+  
+  .l-popular-paths{
+    .c-tutorial-item{
+      background: $grey-bright !important;
+      
+      @include breakpoint("mobile-large"){
+        border: 0;
+        background: none !important;
+      }
+      
+      a{
+        border: 0;
+        padding: 0;
+      }
+      
+      .c-tutorial-item__art{
+        background: none;
+      }
+      
+      .o-button{
+        background: $green-brand !important;
+        border-radius: 0.5625rem !important;
+        padding: 21px 21px 21px 0 !important;
+        
+        svg{
+          fill: $green-brand !important;
+        }
+        
+      }
+      
+      .o-button--center{
+        padding: 21px 21px 21px 21px !important;
+      }
+      
+      .o-progress-indicator{
+        background: rgba(0,0,0,.125);
+      }
+      
+    }
+  }
+  
+  #learning-path-list{
+    .c-tutorial-item{
+      &:before{
+        background: $grey-mako !important;
+      }
+      
+      .c-tutorial-item__icon{
+        display: none;
+      }
+      
+      .o-badge-tutorial{
+        border-color: $grey-mako;
+      }
+      
+    }
+  }
+  
+  
+  /* ==========================================================================
+  11a. Article
+  ========================================================================== */
+  
+  article.c-written-tutorial{
+    color: $white;
+    background-color: $black-mine-shaft;
+    
+    header{
+      .c-written-tutorial__introduction{
+        @include breakpoint("mobile-large"){
+          background: $black-mine-shaft;
+        }
+        
+      }
+      
+      .c-written-tutorial__breadcrumbs {
+        color: $grey-chateau !important;
+        
+        a {
+          color: $grey-chateau;
+        }
+        
+        .l-svg-breadcrumb {
+          fill: $grey-chateau;
+        }
+        
+      }
+      
+    }
+    
+    .c-content-author{
+      
+      img{
+        border: 4px solid $grey-mako;
+      }
+      
+      .c-content-author__title{
+        a{
+          color: $white;
+        }
+      }
+      
+      .c-content-author__description{
+        color: $grey-chateau;
+      }
+    }
+    
+    h1{
+      color: $white !important;
+    }
+    
+    .c-written-tutorial__content{
+      > h1, > h2, > h3, > h4, > h5{
+        color: $white !important;
+      }
+      
+      p{
+        h1, h2, h3, h4, h5{
+          color: $white !important;
+        }
+      }
+      
+      ul, ol{
+        h1, h2, h3, h4, h5{
+          color: $white !important;
+        }
+      }
+      
+      a{
+        color: $white !important;
+      }
+      
+      .note{
+        h1, h2, h3, h4, h5{
+          color: $white !important;
+        }
+      }
+      
+      .c-spoiler__answer{
+        background: $grey-mako !important;
+      }
+      
+    }
+    
+    code{
+      color: $white !important;
+      background: $grey-bright !important;
+      border: 1px solid $grey-lynch !important;
+    }
+    
+    pre {
+      border: 1px solid $grey-lynch;
+      
+      code {
+        background: transparent !important;
+        border: none !important;
+      }
+    }
+    
+    .note{
+      background: $grey-mako !important;
+      
+      a{
+        color: $white !important;
+      }
+      
+    }
+    
+    .bordered{
+      border-color: $grey-mako !important;
+    }
+    
+    .c-box-list__item{
+      color: $white !important;
+    }
+    
+    .c-box-list__item--active{
+      color: $white !important;
+      
+      &:before{
+        background-image: url(../images/svg-icons/chevron--white.png) !important;
+        background-size: cover;
+      }
+    }
+    
+  }
+  
+  article.c-written-tutorial--event {
+    header {
+      h1, p {
+        color: $black-mine-shaft !important;
+      }
+    }
+    
+    header.c-written-tutorial--event-header { 
+      
+      .c-written-tutorial__introduction {
+        
+        background: $black-mine-shaft !important;
+        z-index: 1;
+        
+        &:before {
+          background: $black-mine-shaft !important;
+        }
+        
+        h1, p {
+          color: $white !important;
+        }
+        
+      }
+      
+      .c-written-tutorial--event-artwork {
+        z-index: 0;
+      }
+      
+    }
+    
+  }
+  
+  .l-community-care-article {
+    
+    &.c-written-tutorial--event {
+      header {
+        background: $black-mine-shaft !important;
+        
+        h1, p {
+          color: $white !important;
+        }
+        
+      }
+    }
+    
+  }
+  
+  .l-community-care-upcoming-events {
+    li {
+      border-color: $grey-mako !important;
+      
+      a {
+        color: $white !important;
+      }
+    }
+  }
+  
+  /* ==========================================================================
+  12. About a
+  ========================================================================== */
+  
+  .l-about-team{
+    .c-content-author{
+      a{
+        color: $white;
+      }
+      
+      .c-content-author__description{
+        color: $grey-chateau;
+        
+        a{
+          color: $grey-chateau;
+          text-decoration: underline;
+        }
+        
+      }
+      
+      img{
+        border: 4px solid $grey-mako;
+      }
+      
+    }
+  }
+  
+  /* ==========================================================================
+  12a. About b
+  ========================================================================== */
+  
+  .c-nav-sidebar--white{
+    .c-sidebar-navigator{
+      
+      .c-sidebar-navigator__indicator{
+        background: none;
+        border: 2px solid $grey-mako;
+        
+        &:before{
+          background: $grey-mako;
+        }
+        
+        &:after{
+          background: $grey-mako;
+        }
+      } 
+      
+      .c-sidebar-navigator__title{
+        color: $white;
+      }
+    }
+  }
+  
+  /* ==========================================================================
+  13. Onboarding
+  ========================================================================== */
+  
+  .l-onboarding-plans{
+    .c-plan{
+      color: $black-mine-shaft;
+    }
+  }
+  
+  .c-onboarding-progress{
+    .c-onboarding-progress__bar{
+      background: $grey-mako !important;
+    }
+    
+    .c-onboarding-progress__bar--complete{
+      background: $green-brand !important;
+    }
+  }
+  
+  .l-onboarding-interests{
+    .c-card-category{
+      .c-card-category__text-title{
+        color: $black-mine-shaft;
+      }
+      
+      @include breakpoint("mobile-large"){
+        border-bottom: 1px solid $grey-mako;
+        
+        .c-card-category__text-title{
+          color: $white;
+        }
+        
+      }
+      
+    }
+  }
+  
+  .l-onboarding-skill{
+    .c-card-choice{
+      .c-card-choice__title{
+        color: $black-mine-shaft;
+      }
+    }
+  }
+  
+  /* ==========================================================================
+  14. Testimonials
+  ========================================================================== */
+  
+  .c-testimonial{
+    &:before{
+      display: none;
+    }
+    
+    img{
+      border: 4px solid $grey-mako !important;
+    }
+  }
+  
+  .c-content-author--card{
+    background: none;
+    
+    img{
+      border: 4px solid $grey-mako;
+    }
+    
+  }
+
+  .c-testimonial--twitter {
+    background: $grey-bright;
+
+    p, .c-testimonial__date, .c-testimonial__twitter {
+      color: $grey-chateau;
+    }
+
+  }
+  
+  /* ==========================================================================
+  15. Ratings
+  ========================================================================== */
+  
+  .c-written-tutorial__introduction{
+    .rating{
+      color: $white !important;
+    }
+    
+    .l-button__svg-empty-star{
+      fill: $grey-mako;
+    }
+    
+  }
+  
+  .l-article-rating-footer{
+    border-top: 1px solid $grey-mako;
+  }
+  
+  .l-video-rating-footer{
+    .c-add-rating{
+      border-top: 1px solid $grey-mako;
+    }
+  }
+  
+  .l-article-rating-footer, .l-video-rating-footer{
+    h3{
+      color: $white !important;
+    }
+    
+    a, .l-color-grey-regent{
+      color: $grey-chateau;
+    }
+    
+    .c-rate__star{
+      background: $grey-mako;
+    }
+    
+    .c-rate__star--green{
+      background: $green-brand;
+    }
+  }
+  
+  /* ==========================================================================
+  16. Newsletter
+  ========================================================================== */
+  
+  .l-newsletter-hero{
+    .o-input--larger{
+      background: $grey-bright;
+      border: 2px solid $grey-lynch;
+      color: $white;
+      
+      &::placeholder{
+        color: $grey-regent;
+      }
+    }
+    
+    .o-tooltip{
+      display: none;
+    }
+    
+  }
+  
+  .l-newsletter-article {
+    border-top: 1px solid $grey-mako;
+    
+    h4 {
+      color: $white !important;
+    }
+    
+    p {
+      color: $white;
+    }
+    
+    .l-color-grey {
+      color: $grey-chateau !important;
+    }
+    
+    .o-button__svg--green {
+      @include breakpoint("mobile-large"){
+        fill: $black-mine-shaft;
+      }
+    }
+    
+    .o-input--larger{
+      background: $grey-bright;
+      border: 2px solid $grey-lynch;
+      color: $white;
+      
+      &::placeholder{
+        color: $grey-regent;
+      }
+    }
+  }
+  
+  /* ==========================================================================
+  17. Video Collection Home Custom
+  ========================================================================== */
+  
+  .l-collection-introduction__copy{
+    h2{
+      color: $black-mine-shaft;
+    }
+    
+    p{
+      color: $white;
+    }
+  }
+  
+  .l-collection-pitch-cards{
+    
+    h2{
+      color: $black-mine-shaft;
+    }
+    
+    .c-card-pitch{
+      background: none;
+    }
+    
+  }
+  
+  .l-collection-modules__pitch-cards{
+    p{
+      color: $grey-chateau;
+    }
+  }
+  
+  /* ==========================================================================
+  17a. Book Collection Home Custom
+  ========================================================================== */
+  
+  .l-book-hero {
+    
+    .rating {
+      color: $white !important;
+      
+      .l-button__svg-empty-star {
+        fill: $grey-mako;
+      }
+      
+    }
+    
+    .c-box-list--black {
+      li {
+        color: $white;
+        
+        &:before {
+          background-image: url(../images/svg-icons/chevron--white.png) !important;
+          background-size: cover;
+        }
+        
+      }
+    }
+    
+  }
+  
+  /* ==========================================================================
+  18. FAQ
+  ========================================================================== */
+  
+  .c-faq{
+    ul{
+      color: $grey-raven;
+    }
+  }
+  
+  /* ==========================================================================
+  19a. Homepage new tutorials
+  ========================================================================== */
+  
+  .l-home-section-border-padding{
+    padding-top: 0;
+    border-top: 0;
+  }
+  
+  .l-home-section-border-padding-bottom{
+    padding-bottom: 0;
+    border-bottom: 0;
+    margin-bottom: 0;
+  }
+  
+  /* ==========================================================================
+  19b. Homepage upcoming tutorials
+  ========================================================================== */
+  
+  .l-home-upcoming{
+    .c-tutorial-item__title{
+      opacity: .5;
+    }
+  }
+  
+  /* ==========================================================================
+  19c. Homepage continue watching
+  ========================================================================== */
+  
+  .l-home-continue-watching{
+    .c-tutorial-item{
+      a{
+        border-bottom: 0;
+        
+        .c-tutorial-item__text{
+          padding-bottom: 0;
+          
+          .c-tutorial-item__metadata{
+            color: $white !important;
+          }
+          
+        }
+        
+      }
+    }
+    
+  }
+  
+  /* ==========================================================================
+  19d. Homepage getting started
+  ========================================================================== */
+  
+  .l-home-getting-started{
+    .c-tutorial-item{
+
+      a{
+        padding-top: 170px;
+        padding-left: 0;
+        padding-bottom: 0;
+        padding-right: 0;
+        border-bottom: none;
+        
+        &:before {
+          filter: $invert-colors;
+        }
+
+        .c-tutorial-item__abstract {
+          color: $grey-chateau !important;
+        }
+        
+      }
+    }
+  }
+  
+  /* ==========================================================================
+  19e. Homepage recommendations
+  ========================================================================== */
+  
+  .l-home-recommendations{
+    .o-tooltip{
+      background: $white !important;
+      color: $black-mine-shaft !important;
+      
+      &:after{
+        background: $white;
+      }
+      
+    }
+  }
+  
+  /* ==========================================================================
+  20. Profile
+  ========================================================================== */
+  
+  .c-profile__bio-description{
+    color: $grey-chateau !important;
+    
+    a {
+      color: $grey-chateau;
+      text-decoration: underline;
+    }
+    
+  }
+  
+  /* ==========================================================================
+  21a. Book Chapter Navigation
+  ========================================================================== */
+  
+  .c-book-header {
+    background: $black-mine-shaft !important;
+    
+    .o-button__svg--grey-regent {
+      fill: $grey-chateau;
+    }
+    
+    .l-button__svg-toc-icon-nav {
+      stroke: $black-mine-shaft;
+    }
+    
+    > nav ul li {
+      color: $white;
+    }
+    
+    .o-tooltip {
+      background: $grey-bright;
+      
+      &:after {
+        background: $grey-bright;
+      }
+    }
+    
+    .login-link {
+      color: $white !important;
+    }
+    
+  }
+  
+  /* ==========================================================================
+  21b. Book Chapter TOC
+  ========================================================================== */
+  
+  .c-nav-sidebar--book {
+    background: $black-onyx;
+    
+    .c-nav-sidebar__wrapper {
+      background: $black-onyx;
+    }
+    
+    .c-video-player__lessons-section {
+      border-color: $grey-mako !important;
+    }
+    
+    .c-video-player__lessons {
+      background: $black-onyx;
+    }
+    
+    .c-video-player__lessons-header svg {
+      fill: $grey-chateau;
+    }
+    
+    .c-video-player__lessons-title, .c-box-list__item-title {
+      color: $white !important;
+      
+      a {
+        color: $white !important;
+      }
+      
+    }
+    
+    .l-color-grey, .c-video-player__lessons-sum, .c-sidebar-navigator__title {
+      color: $grey-chateau !important;
+    }
+    
+    .c-box-list li {
+      &:before {
+        background: transparent;
+        border-color: $white;
+      }
+      
+      > a {
+        color: $white;
+        
+        &:hover {
+          color: $white !important;
+        }
+        
+      }
+      
+    }
+
+    .c-box-list__item--active {
+      &:before {
+        background-image: url(../images/svg-icons/chevron--white.png) !important;
+        background-size: cover !important;
+      }
+    }
+    
+    .c-box-list__item--complete {
+      
+      a {
+        color: $white !important;
+      }
+      
+      &:before {
+        background: $green-brand !important;
+        background-image: url(../images/svg-icons/checkmark.png) !important;
+        background-size: cover !important;
+      }
+    }
+    
+    .c-box-list__item--complete + .c-sidebar-navigator {
+      &:before {
+        opacity: 1;
+      }
+    }
+
+    .c-box-list .c-box-list__item--locked {
+      &:before{
+        background-image: url(../images/svg-icons/padlock.png) !important;
+        background-size: cover;
+      }
+    }
+    
+    .c-sidebar-navigator {
+      &:before {
+        background: $grey-shuttle;
+        opacity: 0.5;
+      }
+    }
+    
+  }
+  
+  /* ==========================================================================
+  21c. Book Chapter Search
+  ========================================================================== */
+  
+  .c-global-search--book {
+    background: $black-mine-shaft;
+    
+    .l-color-grey {
+      color: $white !important;
+    }
+    
+    .o-input {
+      background: $grey-bright;
+      border: 2px solid $grey-lynch;
+      color: $white;
+      
+      &::placeholder{
+        color: $grey-regent;
+      }
+    }
+    
+    .c-global-search__recommendations { 
+      h3 {
+        color: $white;
+      }
+      
+      ul {
+        li {
+          border-bottom: 1px solid $grey-mako;
+          padding: 15px 0;
+          
+          a {
+            color: $grey-chateau;
+            
+            &:hover {
+              color: $white;
+            }
+            
+          }
+          
+          p {
+            font-size: 0.9375rem; /* 15/16 */
+            color: $white;
+          }
+          
+          .c-search__results--highlight {
+            background: transparent;
+            font-weight: 700;
+            color: $white;
+          }
+          
+        }
+      }
+      
+    }
+    
+    .c-paginator {
+      border-color: $grey-mako;
+    }
+    
+  }
+  
+  /* ==========================================================================
+  21d. Book Chapter Notebook & Highlighting
+  ========================================================================== */
+  
+  .c-notebook {
+    background: $black-onyx;
+    border: 0;
+    
+    .c-notebook__artwork {
+      filter: $invert-colors;
+    }
+    
+    .l-color-grey {
+      color: $grey-chateau !important;
+    }
+    
+    .o-button__svg--grey {
+      fill: $grey-chateau;
+    }
+    
+    .c-notebook__demo {
+      p mark {
+        color: $white;
+        background: $highlighter-dark-red;
+      }
+    }
+    
+    .c-notebook__entry {
+      border-color: $grey-mako;
+      
+      a, mark {
+        color: $white !important;
+      }
+      
+      h4, .c-notebook__entry-text {
+        color: $white;
+      }
+      
+      .c-notebook__action {
+        color: $grey-chateau;
+      }
+      
+      .o-textarea {
+        background: $grey-bright;
+        border: 2px solid $grey-lynch;
+        color: $white;
+        
+        &::placeholder{
+          color: $grey-regent;
+        }
+      }
+      
+      .c-notebook__entry-note {
+        span {
+          color: $grey-chateau;
+        }
+      }
+      
+      &.c-notebook__entry--yellow {
+        &:before {
+          background: $highlighter-dark-yellow;
+        }
+      }
+      
+      &.c-notebook__entry--orange {
+        &:before {
+          background: $highlighter-dark-orange;
+        }
+      }
+      
+      &.c-notebook__entry--red {
+        &:before {
+          background: $highlighter-dark-red;
+        }
+      }
+      
+      &.c-notebook__entry--purple {
+        &:before {
+          background: $highlighter-dark-purple;
+        }
+      }
+      
+      &.c-notebook__entry--blue {
+        &:before {
+          background: $highlighter-dark-blue;
+        }
+      }
+      
+      &.c-notebook__entry--green {
+        &:before {
+          background: $highlighter-dark-green;
+        }
+      }
+      
+    }
+    
+  }
+  
+  /* ==========================================================================
+  21e. Book Chapter Highlighting Tooltip
+  ========================================================================== */
+  
+  .o-fragment--tooltip {
+    background: $grey-bright !important;
+    box-shadow: 4px 4px 30px rgba(0,0,0,.3);
+    
+    &:after {
+      background: $grey-bright !important;
+    }
+    
+    .o-tooltip__color--yellow {
+      background: $highlighter-dark-yellow;
+    }
+    
+    .o-tooltip__color--orange {
+      background: $highlighter-dark-orange;
+    }
+    
+    .o-tooltip__color--red {
+      background: $highlighter-dark-red;
+    }
+    
+    .o-tooltip__color--purple {
+      background: $highlighter-dark-purple;
+    }
+    
+    .o-tooltip__color--blue {
+      background: $highlighter-dark-blue;
+    }
+    
+    .o-tooltip__color--green {
+      background: $highlighter-dark-green;
+    }
+    
+  }
+
+  .o-button__svg--highlighter-yellow {
+    fill: $highlighter-dark-yellow;
+  }
+  
+  .o-button__svg--highlighter-orange {
+    fill: $highlighter-dark-orange;
+  }
+  
+  .o-button__svg--highlighter-red {
+    fill: $highlighter-dark-red;
+  }
+  
+  .o-button__svg--highlighter-purple {
+    fill: $highlighter-dark-purple;
+  }
+  
+  .o-button__svg--highlighter-blue {
+    fill: $highlighter-dark-blue;
+  }
+  
+  .o-button__svg--highlighter-green {
+    fill: $highlighter-dark-green;
+  }
+  
+  .o-fragment--tooltip-with-note { 
+    background: $grey-bright !important;
+    border: 2px solid $grey-lynch !important;
+    
+    textarea {
+      color: $white !important;
+      
+      &::placeholder{
+        color: $grey-regent !important;
+      }
+      
+    }
+    
+    .o-fragment__action {
+      color: $grey-chateau !important;
+    }
+    
+  }
+  
+  /* ==========================================================================
+  21e. Book Chapter Highlighting Colors
+  ========================================================================== */
+  
+  .o-fragment {
+    mark {
+      color: $white;
+      background-color: $highlighter-dark-highlight-yellow;
+    }
+  }
+  
+  mark.o-fragment--highlighter-yellow {
+    background: $highlighter-dark-highlight-yellow;
+    
+    &.o-fragment--annotation-note {
+      border-bottom: 3px solid $highlighter-note-yellow;
+    }
+  } 
+  
+  mark.o-fragment--highlighter-orange {
+    background: $highlighter-dark-highlight-orange;
+    
+    &.o-fragment--annotation-note {
+      border-bottom: 3px solid $highlighter-note-orange;
+    }
+  } 
+  
+  mark.o-fragment--highlighter-red {
+    background: $highlighter-dark-highlight-red;
+    
+    &.o-fragment--annotation-note {
+      border-bottom: 3px solid $highlighter-note-red;
+    }
+  } 
+  
+  mark.o-fragment--highlighter-purple {
+    background: $highlighter-dark-highlight-purple;
+    
+    &.o-fragment--annotation-note {
+      border-bottom: 3px solid $highlighter-note-purple;
+    }
+  } 
+  
+  mark.o-fragment--highlighter-blue {
+    background: $highlighter-dark-highlight-blue;
+    
+    &.o-fragment--annotation-note {
+      border-bottom: 3px solid $highlighter-note-blue;
+    }
+  } 
+  
+  mark.o-fragment--highlighter-green {
+    background: $highlighter-dark-highlight-green;
+    
+    &.o-fragment--annotation-note {
+      border-bottom: 3px solid $highlighter-note-green;
+    }
+  }
+  
+  /* ==========================================================================
+  21f. Book Reading Experience Switcher
+  ========================================================================== */
+  
+  .c-reading-experience-selector {
+    background: $black-onyx;
+    border: 0;
+    
+    h4 {
+      color: $white;
+    }
+    
+    .o-button__svg--grey-regent {
+      fill: $white;
+    }
+    
+    .c-reading-experience-selector__checkbox--large {
+      background: $grey-bright;
+      border: 2px solid $grey-lynch;
+      
+      label {
+        color: $white;
+      }
+      
+    }
+    
+    .c-reading-experience-selector__range::-webkit-slider-runnable-track {
+      background: $grey-lynch;
+    }
+    
+    .c-reading-experience-selector__range:focus::-webkit-slider-runnable-track {
+      background: $grey-lynch;
+    }
+    
+    .c-reading-experience-selector__range::-moz-range-track {
+      background: $grey-lynch;
+    }
+    
+    .c-reading-experience-selector__range::-ms-track {
+      background: $grey-lynch;
+    }
+    
+    .c-reading-experience-selector__range::-webkit-slider-thumb {
+      border: 0;
+    }
+    
+    .c-reading-experience-selector__range::-moz-range-thumb {
+      border: 0;
+    }
+    
+    .c-reading-experience-selector__range::-ms-thumb {
+      border: 0;
+    }
+    
+  }
+  
+  /* ==========================================================================
+  21g. Book Chapter Misc
+  ========================================================================== */
+  
+  .c-book-chapter__links {
+    a {
+      border-color: $grey-mako;
+    }
+  }
+  
+  .l-book-chapter-end-message {
+    border-color: $grey-mako;
+    
+    p {
+      color: $grey-chateau !important;
+      
+      a {
+        color: $white !important;
+      }
+      
+    }
+    
+    textarea, input {
+      background: $grey-bright;
+      border: 2px solid $grey-lynch;
+      color: $white;
+      
+      &::placeholder{
+        color: $grey-chateau !important;
+        opacity: .75 !important;
+      }
+    }
+    
+  }
+  
+  /* ==========================================================================
+  21h. Book Chapter Content
+  ========================================================================== */
+  
+  .c-book-chapter {
+    
+    .c-modal {
+      .c-modal__description {
+        p {
+          color: $grey-raven !important;
+        }
+      }
+    }
+    
+    .o-button-chapter {
+      background: $grey-bright;
+    }
+    
+    .c-written-tutorial__introduction {
+      @include breakpoint("mobile"){
+        background: $black-mine-shaft !important;
+      }
+    }
+    
+    .l-written-tutorial--light {
+      pre code {
+        color: $black-mine-shaft;
+      }
+    }
+    
+    .c-book-chapter__links {
+      border-color: $grey-mako;
+      
+      a {
+        color: $white !important;
+        
+        &:hover {
+          background: $grey-mako;
+        }
+        
+      }
+      
+    }
+    
+    h1, h2, h3, h4, h5, p, ol, ul {
+      color: $white !important;
+    }
+    
+    pre{
+      border: 1px solid $grey-lynch !important;
+    }
+    
+    code{
+      color: $white;
+      background: $grey-bright !important;
+      border: 1px solid $grey-lynch !important;
+    }
+    
+    blockquote {
+      background: $grey-mako !important;
+      
+      a {
+        color: $white !important;
+      }
+      
+    }
+    
+    figcaption {
+      color: $grey-chateau !important;
+    }
+    
+    .l-image-bordered {
+      
+      img {
+        border-color: $grey-mako !important;
+      }
+      
+    }
+    
+  }
+  
+  .l-written-tutorial--light{
+    pre{
+      border: 1px solid $white !important;
+      background: $grey-black-squeeze !important;
+      color: $black-mine-shaft !important;
+    }
+    
+    pre code {
+      color: $black-mine-shaft !important;
+    }
+    
+    // This switches the default sun button for a moon
+    .o-button-code{
+      background-image: url(../images/svg-icons/dark.png);
+      background-size: cover;
+      
+      &:hover{
+        background: #647388;
+        background-image: url(../images/svg-icons/dark.png);
+        background-size: cover;
+      }
+    }
+  }
+  
+  /* ==========================================================================
+  21i. Book Chapter Mobile Navigation
+  ========================================================================== */
+  
+  .c-mobile-navigator--book {
+    background: $black-onyx;
+    
+    .o-button__svg--grey-regent {
+      fill: $grey-chateau;
+    }
+    
+    .l-button__svg-toc-icon-nav {
+      stroke: $black-onyx;
+    }
+    
+    a {
+      &:hover {
+        background: $grey-bright !important;
+      }
+    }
+  }
+  
+  /* ==========================================================================
+  22. Book Home
+  ========================================================================== */
+  
+  .l-book-sales-right {
+    
+    @include breakpoint("mobile-large"){
+      background: $black-onyx;
+    }
+    
+    .o-badge--pro {
+      border-color: $white;
+    }
+    
+    a.rating {
+      span {
+        color: $white;
+      }
+      
+      .l-button__svg-empty-star {
+        fill: $grey-mako;
+      }
+      
+    }
+  }
+  
+  .l-book-sales-right--show {
+    .l-no-border {
+      border-bottom: 1px solid $grey-mako !important;
+    }
+  }
+  
+  .l-book-sales-cta {
+    border-bottom: 1px solid $grey-mako;
+    
+    .l-color-green, .o-text-button--green {
+      color: $white;
+    }
+    
+    .o-text-button svg {
+      fill: $white;
+    }
+    
+  }
+  
+  .l-book-sales-copy {
+    
+    p, ul, ol {
+      color: $grey-chateau;
+    }
+    
+    a {
+      color: $white;
+    }
+  }
+  
+  .l-book-contributors {
+    img {
+      border: none;
+    }
+  }
+  
+  .c-version-history-table {
+    .c-version-history-table__row {
+      border-bottom: 1px solid $grey-mako;
+    }
+    
+    .c-version-history-table__meta {
+      color: $grey-chateau;
+    }
+    
+    .c-version-history-table__links {
+      a {
+        color: $white !important;
+      }
+    }
+  }
+
+  .l-book-toc {
+    .l-book-toc-section-description {
+
+      &:before {
+        background: $grey-mako;
+      }
+
+      p, ul, ol {
+        color: $grey-chateau;
+      }
+    }
+  }
+
+  
+  /* ==========================================================================
+  23. Pagination
+  ========================================================================== */
+  
+  .c-paginator {
+    a {
+      color: $white;
+      
+      &:hover {
+        background: $grey-mako;
+      }
+      
+      svg {
+        fill: $grey-chateau;
+      }
+      
+    }
+  }
+
+  .c-paginator--no-hover {
+    a {
+      &:hover {
+        background: none;
+      }
+    }
+  }
+  
+  /* ==========================================================================
+  24. Adverts
+  ========================================================================== */
+  
+  .c-banner-draper-sticky--obfuscate {
+    background: $black-onyx;
+    
+    p {
+      color: $white !important;
+    }
+    
+    img {
+      filter: $invert-colors;
+    }
+
+    .l-obfuscated-text {
+      background: $highlighter-dark-red;
+    }
+
+  }
+  
+  .c-bookshelf-book {
+    
+    a {
+      color: $white;
+    }
+    
+    .c-bookshelf-book__description {
+      color: $grey-chateau;
+    }
+  }
+
+  /* ==========================================================================
+  25. Sidebars
+  ========================================================================== */
+
+  .c-nav-sidebar--night-mode {
+    background: $black-onyx;
+
+    @include breakpoint("tablet"){
+      background: $black-onyx;
+    }
+
+    .c-nav-sidebar__wrapper{
+      @include breakpoint("tablet"){
+        background: $black-onyx;
+      }
+    }
+
+    .c-nav-sidebar__nav-action{
+
+      border-color: $grey-mako;
+
+      .o-button__icon--black {
+        background: $white;
+
+        svg {
+          fill: $black-mine-shaft;
+        }
+
+      }
+
+      .l-color-black {
+        color: $white !important;
+      }
+
+    }
+
+    .c-nav-sidebar__section {
+      &:before {
+        background-color: $grey-mako;
+      }
+    }
+
+    .c-nav-sidebar__title {
+      color: $white;
+    }
+
+    .c-sidebar-navigator {
+      li {
+        a {
+          .c-sidebar-navigator__indicator {
+            border-color: $grey-mako;
+
+            &:after {
+              background: $grey-mako !important;
+            }
+
+          }
+
+          .c-sidebar-navigator__title {
+            color: $white;
+          }
+
+        }
+      }
+    }
+
+
+    .o-checkbox {
+
+      .checkbox__indicator {
+        background: none;
+        border: 2px solid (transparentize($grey-lynch, 0.25));
+      }
+
+    }
+
+
+  }
+
+   /* ==========================================================================
+  26. Mobile Navigator
+  ========================================================================== */
+
+  .c-mobile-navigator {
+    background: $black-onyx;
+
+    a {
+      &:hover {
+        background: $grey-bright !important;
+      }
+    }
+
+  }
+
+  /* ==========================================================================
+  27. Empty States
+  ========================================================================== */
+
+  .c-empty-state--message {
+    p {
+      color: $grey-chateau;
+    }
+
+    img {
+      filter: invert(100%);
+    }
+
+  }
+
+  /* ==========================================================================
+  28. Dropdowns
+  ========================================================================== */
+
+  .o-dropdown-menu--dark {
+    background: $black-onyx;
+
+    &:before {
+      background: $black-onyx;
+    }
+
+    .o-checkbox {
+      .checkbox__indicator{
+        background: none;
+        border: 2px solid (transparentize($grey-lynch, 0.25));
+      }
+    }
+
+    a {
+      color: $white !important;
+
+      &:hover {
+        color: $white !important;
+      }
+
+    }
+
+  }
+
+
+}
+
+
+
+/* ==========================================================================
+Apply to CSS with class
+========================================================================== */
+
+.l-prefers-color-scheme--dark {
+  background-color: $black-mine-shaft;
+  color: $white !important;
+  
+  @include prefers-color-scheme--dark;
+}

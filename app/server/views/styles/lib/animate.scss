@@ -1,0 +1,392 @@
+ /**
+ * Animations
+ *
+ * Keyframes from animate.css
+ *
+ * Inline the animation name with the CSS
+ *
+ * 1. Base - Use for inline HTML animations
+ *
+ * 2. a-fade-in
+ *
+ * 3. a-fade-in-up
+ *
+ * 4. a-slide-in-right
+ *
+ * 5. a-zoom-in
+ *
+ * 6. a-slide-in-up
+ *
+ * 7. a-slide-out-down
+ *
+ * 8. a-slight-fade-in-up
+ *
+ * 9. a-fade-in-up-20
+ *
+ * 10. scale-in
+ *
+ */
+
+ /* ==========================================================================
+   1. Base
+   ========================================================================== */
+
+ .animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+.animated--half{
+  animation-duration: .5s;
+}
+
+/* ==========================================================================
+   2. a-fade-in
+   ========================================================================== */
+
+@keyframes a-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+%a-fade-in{
+  animation: a-fade-in 1s;
+}
+
+/* ==========================================================================
+   3. a-fade-in-up
+   ========================================================================== */
+
+@keyframes a-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+%a-fade-in-up{
+  animation: a-fade-in-up 1s;
+}
+
+/* ==========================================================================
+   4. a-slide-in-right
+   ========================================================================== */
+
+@keyframes a-slide-in-right {
+  from {
+    transform: translate3d(100%, 0, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* ==========================================================================
+4. a-slide-in-right-320
+========================================================================== */
+
+@keyframes a-slide-in-right-320 {
+  from {
+    transform: translateX(-320px);
+    visibility: visible;
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+%a-slide-in-right-320{
+  animation: a-slide-in-right-320 .5s;
+}
+
+/* ==========================================================================
+4. a-slide-in-right-360
+========================================================================== */
+
+@keyframes a-slide-in-right-360 {
+  from {
+    transform: translateX(360px);
+    visibility: visible;
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+%a-slide-in-right-360{
+  animation: a-slide-in-right-360 .5s;
+}
+
+/* ==========================================================================
+   5. a-zoom-in
+   ========================================================================== */
+
+@keyframes a-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+/* ==========================================================================
+   6. a-slide-in-up
+   ========================================================================== */
+
+@keyframes a-slide-in-up {
+  from {
+    transform: translate3d(0, 100%, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    display: none;
+  }
+}
+
+%a-slide-in-up{
+  animation: a-slide-in-up .25s;
+}
+
+.a-slide-in-up {
+  animation-name: a-slide-in-up;
+}
+
+/* ==========================================================================
+   7. a-slide-out-down
+   ========================================================================== */
+
+@keyframes a-slide-out-down {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    visibility: hidden;
+    transform: translate3d(0, 100%, 0);
+  }
+}
+
+.a-slide-out-down {
+  animation-name: a-slide-out-down;
+}
+
+/* ==========================================================================
+   8. a-slight-fade-in-up
+   ========================================================================== */
+
+@keyframes a-slight-fade-in-up {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+%a-slight-fade-in-up{
+  animation: a-slight-fade-in-up .25s;
+}
+
+/* ==========================================================================
+9. a-fade-in-up--10
+========================================================================== */
+
+@keyframes a-fade-in-up--10 {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+%a-fade-in-up--10{
+  animation: a-fade-in-up-20 1s;
+}
+
+.a-fade-in-up--10{
+  animation: a-fade-in-up-20 1s;
+}
+
+/* ==========================================================================
+9. a-fade-in-up-20
+========================================================================== */
+
+@keyframes a-fade-in-up-20 {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+%a-fade-in-up-20{
+  animation: a-fade-in-up-20 2s;
+}
+
+.a-fade-in-up-20{
+  animation: a-fade-in-up-20 2s;
+}
+
+/* ==========================================================================
+9. a-fade-in-down-20
+========================================================================== */
+
+@keyframes a-fade-in-down-20 {
+  from { opacity: 0; transform: translateY(-20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+%a-fade-in-down-20{
+  animation: a-fade-in-down-20 2s;
+}
+
+.a-fade-in-down-20{
+  animation: a-fade-in-down-20 2s;
+}
+
+/* ==========================================================================
+9. a-scale-in
+========================================================================== */
+
+@keyframes a-scale-in {
+  from { opacity: 0; transform: scale(.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+%a-scale-in{
+  animation: a-scale-in 1.5s;
+}
+
+/* ==========================================================================
+10. a-scale-in-plain
+========================================================================== */
+
+@keyframes a-scale-in-plain {
+  from { transform: scale(.9); }
+  to   { transform: scale(1); }
+}
+
+%a-scale-in{
+  animation: a-scale-in-plain 1.5s;
+}
+
+/* ==========================================================================
+11a. a-scale-in
+========================================================================== */
+
+@keyframes a-scale-in-small {
+  from { opacity: 0; transform: scale(.99); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+%a-scale-in-small{
+  animation: a-scale-in-small .75s;
+}
+
+.a-scale-in-small{
+  animation: a-scale-in-small .75s;
+}
+
+/* ==========================================================================
+11b. a-scale-in--large
+========================================================================== */
+
+@keyframes a-scale-in-large {
+  from { opacity: 0; transform: scale(.1); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+%a-scale-in-large{
+  animation: a-scale-in-large .75s;
+}
+
+.a-scale-in-large{
+  animation: a-scale-in-large .75s;
+}
+
+/* ==========================================================================
+12. File rotate 30
+========================================================================== */
+
+@keyframes a-file-rotate {
+  0%    { transform: translateX(0) translateY(0); }
+  25%   { transform: translateX(30px); }
+  50%   { transform: translateX(30px) translateY(30px); }
+  75%   { transform: translateX(0px) translateY(30px); }
+  100%   { transform: translateX(0) translateY(0);}
+}
+
+%a-file-rotate{
+  animation: a-file-rotate 3s infinite;
+}
+
+.a-file-rotate{
+  animation: a-file-rotate 3s infinite;
+}
+
+
+/* ==========================================================================
+12. File rotate 5
+========================================================================== */
+
+@keyframes a-file-rotate--5 {
+  0%    { transform: translateX(0) translateY(0); }
+  25%   { transform: translateX(5px); }
+  50%   { transform: translateX(5px) translateY(5px); }
+  75%   { transform: translateX(0px) translateY(5px); }
+  100%   { transform: translateX(0) translateY(0);}
+}
+
+%a-file-rotate--5{
+  animation: a-file-rotate--5 3s infinite;
+}
+
+.a-file-rotate--5{
+  animation: a-file-rotate--5 3s infinite;
+}
+
+/* ==========================================================================
+13. a-fade-out
+========================================================================== */
+
+@keyframes a-fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+/* ==========================================================================
+14. pulse
+========================================================================== */
+
+@keyframes a-pulse {
+  0% {
+    background-color: rgba(33,33,33,.75);
+  }
+  50% {
+    background-color: rgba(21,132,67,1);
+  }
+  100% {
+    background-color: rgba(33,33,33,.75);
+  }
+}
+
+.a-pulse{
+  animation: a-pulse 3s infinite;
+}

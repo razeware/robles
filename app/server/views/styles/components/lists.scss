@@ -1,0 +1,601 @@
+/*
+ * Lists
+ *
+ * Powerful components you can use to create tables, lists
+ *
+ * 1. Wrapper - Gives the list item or table a background.
+ *
+ * 2. Table row - Can be used to create floating lists of content.
+ *
+ * 3. Table - Modifies the table row component to create a seamless list/table of connected content.
+ *
+ * 4. Table of Contents
+ *
+ * 5. Custom layout classes
+ *
+ * 6. Onboarding Progress
+ *
+ * 7. Item list with icons
+ *
+ * 8. Filter list
+ *
+ * 9. Version history
+ */
+
+ /* ==========================================================================
+   1. Wrapper
+   ========================================================================== */
+
+.c-list-item-wrapper{
+  @include card;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  min-height: 75px;
+  padding: 13px 24px;
+  margin-bottom: 10px;
+}
+
+ /* ==========================================================================
+   2. Table row
+   ========================================================================== */
+
+ .c-table__row{
+  display: flex;
+  width: 100%;
+  align-items: center;
+
+  .c-table__image{
+    width: 54px;
+    height: 54px;
+    margin-right: 15px;
+    background: $grey-periwinkle;
+    border-radius: $border-radius;
+    overflow: hidden;
+
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .c-table__image--offset{
+    margin-left: -9px;
+  }
+
+  .c-table__copy{
+    flex: 1;
+
+    a{
+      display: block;
+      text-decoration: none;
+
+      &:hover{
+        .c-table__row-title{
+          color: $green-brand;
+        }
+      }
+    }
+
+
+    .c-table__row-title{
+      font-family: $header;
+      font-size: 1.125rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: $black-mine-shaft;
+      transition: all .3s;
+      padding-right: 30px;
+    }
+
+    .c-table__row-subtitle{
+      font-size: 0.9375rem;
+      text-decoration: none;
+      color: $grey-raven;
+      padding-right: 45px;
+    }
+
+  }
+
+  .c-table__row-data{
+    padding-right: 20px;
+      span{
+        display: block;
+      }
+  }
+
+  .c-table__row-control{
+    position: relative;
+    margin-left: auto;
+
+    .c-table__row-label{
+
+    }
+
+    .c-table__row-checkbox{
+      top: 50%;
+      margin-top: -13.5px;
+      right: 0;
+    }
+
+  }
+
+}
+
+ /* ==========================================================================
+   3. Table
+   ========================================================================== */
+
+ .c-table-list{
+  padding: 8px 24px;
+
+  .table__col-title{
+    border-bottom: 1px solid $grey-aqua-haze;
+  }
+
+  .c-table__row{
+    padding: 21px 0;
+    border-bottom: 1px solid $grey-aqua-haze;
+    align-items: top;
+
+    &:last-child{
+      border-bottom: 0;
+    }
+
+    .c-table__image{
+      width: 42px;
+      height: 42px;
+    }
+
+    .c-table__copy{
+
+      .c-table__row-title{
+        font-size: 1.0625em;
+      }
+
+    }
+
+  }
+
+  .l-table__row--height{
+    padding: 15px 0;
+  }
+
+  .c-table__header{
+    padding: 10px 0;
+
+    span{
+      font-family: $header-2;
+      font-weight: 700;
+      font-size: 1.125rem;
+    }
+
+  }
+
+ }
+
+/* ==========================================================================
+ 4. Box list - Checkbox style list
+ ========================================================================== */
+
+.c-box-list{
+
+  li{
+    font-size: 0.9375rem; /* 15/16 */
+    font-weight: 600;
+    position: relative;
+    margin-top: 18px;
+    color: $white;
+    cursor: pointer;
+    z-index: 1;
+    padding-left: 30px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+
+    &:first-child{
+      margin-top: 0;
+    }
+
+    &:before{
+      content: "";
+      position: absolute;
+      top: 1px;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 0.4375rem; /* 7/16 */
+      border: 2px solid $grey-iron;
+      z-index: -1;
+    }
+
+    &.c-box-list__item--active{
+      cursor: auto;
+
+      &:before{
+        background-image: url(../images/svg-icons/chevron--white.png);
+        background-size: cover;
+      }
+
+      a{
+
+        &:hover{
+          color: $white;
+          cursor: auto;
+        }
+
+      }
+
+    }
+
+    &.c-box-list__item--complete{
+
+      color: $green-brand;
+      text-decoration: line-through;
+
+      &:before{
+        content: "";
+        position: absolute;
+        top: 1px;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        background: $green-brand;
+        background-image: url(../images/svg-icons/checkmark.png);
+        background-size: cover;
+        border-radius: 0.4375rem; /* 7/16 */
+        border: 0;
+      }
+
+      a{
+        color: $green-brand;
+
+        .c-box-list__item-duration {
+          color: $green-brand;
+        }
+
+      }
+
+    }
+
+    &.c-box-list__item--pending{
+      opacity: .2;
+
+      .o-badge{
+        display: none;
+      }
+
+    }
+
+    &.c-box-list__item--locked{
+      &:before{
+        content: "";
+        position: absolute;
+        top: 1px;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        background: none;
+        background-image: url(../images/svg-icons/padlock.png) !important;
+        background-size: cover !important;
+        border-radius: 0; /* 7/16 */
+        border: 0;
+      }
+    }
+
+    a{
+      display: flex;
+      margin-left: -30px;
+      padding-left: 30px;
+      color: $white;
+      text-decoration: none;
+      white-space: nowrap;
+
+
+      &:hover{
+        color: $green-brand;
+      }
+
+      .c-box-list__item-number {
+        margin-right: 3px;
+      }
+
+      .c-box-list__item-duration {
+        margin-left: auto;
+        color: $grey-chateau;
+      }
+
+      .c-box-list__item-title {
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
+
+    }
+
+  }
+
+}
+
+.c-box-list--linked{
+
+  li{
+
+    &:first-child{
+      &:after{
+        display: none;
+      }
+    }
+
+    &:after{
+      content: "";
+      position: absolute;
+      top: -15px;
+      left: 9px;
+      width: 2px;
+      height: 12px;
+      background: $grey-shuttle;
+    }
+  }
+
+}
+
+.c-box-list--black{
+  li{
+    color: $black-mine-shaft;
+    font-weight: 400;
+
+    &.c-box-list__item--active{
+
+    &:before{
+      background-image: url(../images/svg-icons/chevron--black.png);
+      background-size: cover;
+    }
+
+  }
+
+  }
+
+  a{
+    color: $black-mine-shaft !important;
+    text-decoration: none;
+
+    &:hover{
+      color: $green-brand !important;
+    }
+
+  }
+
+}
+
+.c-box-list--checked{
+  li{
+    cursor: inherit;
+
+    &:before{
+      background-image: url(../images/svg-icons/checkmark.png);
+      background-size: cover;
+      border: 2px solid $white;
+    }
+
+  }
+}
+
+
+ /* ==========================================================================
+ 5. Custom layout classes
+ ========================================================================== */
+
+ .l-list-item-wrapper{
+  &:first-child{
+    margin-top: 30px;
+  }
+}
+
+/* ==========================================================================
+6. Onboarding Progress
+========================================================================== */
+
+.c-onboarding-progress{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  li{
+    min-width: 27px;
+    height: 27px;
+    background: $black-mine-shaft;
+    border-radius: $border-radius;
+    font-family: $header;
+    font-weight: 700;
+    color: $white;
+    text-align: center;
+    position: relative;
+
+    .c-onboarding-progress__step{
+      line-height: 26px;
+    }
+
+    &.c-onboarding-progress__bar{
+      background: $grey-catskill;
+      width: 100%;
+      height: 6px;
+      border-radius: 100px;
+      margin: 0 9px;
+
+      &.c-onboarding-progress__bar--in-progress{
+        &:before{
+          content: "";
+          width: 50%;
+          height: 100%;
+          border-radius: 100px;
+          background: $green-brand;
+          position: absolute;
+          left: 0;
+        }
+      }
+
+      &.c-onboarding-progress__bar--complete{
+        background: $green-brand;
+      }
+
+    }
+
+    &.c-onboarding-progress--complete{
+      background: $green-brand;
+      background-image: url(/images/svg-icons/checkmark--large.png);
+      background-size: cover;
+
+      .c-onboarding-progress__step{
+        display: none;
+      }
+
+      .o-tooltip{
+        background: $green-brand;
+
+        &:after{
+          background: $green-brand;
+        }
+
+      }
+
+    }
+
+    .o-tooltip{
+      visibility: visible;
+      opacity: 1;
+      top: -50px;
+      height: 36px;
+      line-height: 17px;
+
+      @include breakpoint("tablet"){
+        display: none;
+      }
+
+       &:after{
+        top: 20px;
+       }
+
+    }
+
+  }
+}
+
+/* ==========================================================================
+7. Item list with icons
+========================================================================== */
+
+.c-item-list-icon{
+
+  li{
+    padding-left: 33px;
+    font-family: $header;
+    font-weight: 700;
+    font-size: 1.0625rem; /* 17/16 */
+    margin-top: 15px;
+    position: relative;
+
+    &:first-child{
+      margin-top: 0;
+    }
+
+    &:before{
+      content: "";
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      left: 0;
+    }
+
+  }
+
+}
+
+.c-item-list-icon--arrow-right{
+  li{
+
+    &:before{
+      background-image: url('../images/svg-icons/arrow-right--clear-green.png');
+      background-size: cover;
+    }
+
+  }
+}
+
+.c-item-list-icon--checkmark{
+  li{
+
+    &:before{
+      background-image: url('../images/svg-icons/checkmark--clear-green.png');
+      background-size: cover;
+    }
+
+  }
+}
+
+/* ==========================================================================
+   8. Filter list
+   ========================================================================== */
+
+.c-list-filter {
+
+  li {
+    margin-top: 18px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+  }
+
+  .c-list-filter__label {
+    font-size: 0.9375rem; /* 15/16 */
+    padding-left: 36px;
+  }
+}
+
+.c-list-filter--dark {
+  .c-list-filter__label {
+    color: $white;
+  }
+}
+
+/* ==========================================================================
+   9. Version history
+   ========================================================================== */
+
+.c-version-history-table {
+  .c-version-history-table__row {
+    margin-top: 18px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid $grey-catskill;
+
+    h3 {
+      font-size: 1.3125rem; /* 21/16 */
+      line-height: 1.25;
+
+      @include breakpoint("mobile-large"){
+        font-size: 1.1875rem; /* 19/16 */
+      }
+
+    }
+
+    .c-version-history-table__meta {
+      display: block;
+      font-size: 0.9375rem; /* 15/16 */
+      margin-top: 6px;
+    }
+
+    .c-version-history-table__links {
+      margin-top: 3px;
+
+      a, span {
+        font-size: 0.9375rem; /* 15/16 */
+        color: $green-brand;
+      }
+
+    }
+
+    
+  }
+}

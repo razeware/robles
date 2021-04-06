@@ -13,6 +13,9 @@
 </head>
 
 <body class="l-book-chapter l-chapter-text-size-100 l-page-size-720 l-chapter-font-sans-serif">
- <%= yield %>
+  <%= erb :'books/_svg_icons.html' %>
+  <div class="l-min-height-100">
+    <%= yield %>
+  </div>
 </body>
 </html>
