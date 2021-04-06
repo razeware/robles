@@ -8,7 +8,7 @@
   </span>
 </header>
 <div class="l-admin">
-  <%= erb :'_table_of_contents.html', locals: { book: book } %>
+  <%= erb :'books/_table_of_contents.html', locals: { book: book } %>
 
   <div class="l-book-chapter-content l-relative">
     <article class="c-written-tutorial c-book-chapter l-block l-block--card-medium l-margin-18">
@@ -18,8 +18,8 @@
             <span class="l-whitespace"><%= book.hide_chapter_numbers ? '' : chapter.number %></span>
             <span><%= chapter.title %></span>
           </h1>
-        </div>   
-      </header> 
+        </div>
+      </header>
 
       <div class="c-written-tutorial__content c-book-chapter">
         <%= chapter.body %>

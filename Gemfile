@@ -42,15 +42,14 @@ gem 'slack-notifier', '~> 2.3', '>= 2.3.2'
 # Local previewing
 gem 'sassc'
 gem 'sinatra', '~> 2', '>= 2.0.8.1'
+gem 'thin'
 
 # Controlling Chrome to create snapshots
 gem 'ferrum'
 
 group :development do
   # For integration with VSCode
-  gem 'debase', '~> 0.2.4.1'
-  gem 'rubocop', '~> 0.81'
-  gem 'ruby-debug-ide', '~> 0.7.2'
+  gem 'rubocop', '~> 1.0'
   gem 'solargraph', '~> 0.39'
 
   # Auto-reloading when serving locally
