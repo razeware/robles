@@ -1,0 +1,2492 @@
+/**
+ * Tutorials
+ *
+ * Tutorial cards form the base of all tutorials advertisements around the site
+ *
+ * NOTE - All modifiers should be added to the wrapper/container not the tutorial itself
+ *
+ * 1. Base: The most common tutorial card items
+ *
+ * 2. Card modifier
+ *
+ * 3. List modifier
+ *
+ * 5. Featured modifier
+ *
+ * 6. Badge modifier (Author, Number, Checkmark)
+ *
+ * 7. Contributor modifier (Role in tutorial)
+ *
+ * 8. Mini modifier
+ *
+ * 9. Episode
+ *
+ * 10. Large Card modifier
+ *
+ * 11. Dark modifier
+ *
+ * 12. Mason modifier
+ *
+ * 13. Artwork size modifier for mason
+ *
+ * 14. Mason bookmark
+ *
+ * 15. Mark as complete
+ *
+ * 16. White backgroudn modifier 
+ *
+ * 17. Floating button
+ *
+ * 18. Book
+ *
+ * 19. Editable
+ *
+ */
+
+/* ==========================================================================
+ 1. Base
+ ========================================================================== */
+
+
+.c-tutorial-item{
+  position: relative;
+  @extend %a-scale-in-small;
+
+  > a{
+    text-decoration: none;
+    display: block; /* this might not be a good idea*/
+  }
+
+  .o-button--bookmark{
+    display: none;
+  }
+
+  .c-tutorial-item__actions {
+    display: none;
+  }
+
+  .o-button--mark-as-complete{
+
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 27px;
+    height: 27px;
+    display: none;
+
+    @include breakpoint("mobile-large"){
+      display: none !important;
+    }
+
+    .checkbox__input, .checkbox__indicator{
+      top: 0;
+    }
+
+    button{
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+
+  .o-badge-tutorial--locked, .o-badge-tutorial--recording{
+    display: none;
+  }
+
+  .c-tutorial-item__art{
+
+    background: $white;
+    border-radius: $border-radius;
+    overflow: hidden;
+    position: relative;
+
+    img{
+      display: flex;
+       width: 100%;
+       height: auto;
+       align-self: flex-start;
+    }
+
+    img.c-tutorial-item__art-image--alternate, .c-tutorial-item__in-progress, .c-tutorial-item__complete{
+      display: none;
+    }
+
+    .o-badge{
+      position: absolute;
+      z-index: 1;
+    }
+
+  }
+
+  .c-tutorial-item__text{
+    display: flex;
+    flex-wrap: wrap;
+
+    .c-tutorial-item__title {
+      @include breakpoint("mobile"){
+        word-break: break-word;
+      }
+    }
+
+    .c-tutorial-item__title, .c-tutorial-item__category{
+      font-family: $header;
+      font-size: 1.3125rem; /* 21/16 */
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -.5px;
+      color: $black-mine-shaft;
+      padding-right: 12px;
+    }
+
+    .c-tutorial-item__category{
+      font-size: 1.125rem; /* 18/16 */
+      font-weight: 500;
+      margin-top: 9px;
+      display: none;
+    }
+
+    .c-tutorial-item__parent {
+      display: none;
+    }
+
+    > span{
+      display: block;
+      width: 100%;
+      font-size: 0.9375rem;
+    }
+
+    .c-tutorial-item__metadata, .c-tutorial-item__metadata-short{
+      color: $grey-raven;
+      font-size: 0.9375rem; /* 15/16 */
+    }
+
+    .c-tutorial-item__description{
+      width: 100%;
+      margin-top: 8px;
+      font-size: 0.9375rem;
+      color: $grey-raven;
+
+      p, ul, ol{
+        margin-top: 8px;
+        font-size: 0.9375rem;
+        color: $grey-raven;
+      }
+
+      ul, ol{
+        padding-left: 10px;
+      }
+
+    }
+
+    .c-tutorial-item__platform, .c-tutorial-item__platform-long, .c-tutorial-item__parent, .c-tutorial-item__continue, .c-tutorial-item__type{
+      color: $grey-raven;
+    }
+
+    .c-tutorial-item__continue{
+      display: none;
+      margin-top: 8px;
+    }
+
+    .c-tutorial-item__platform-long {
+      display: none;
+    }
+
+    .c-tutorial-item__in-progress{
+      display: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 100px;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+
+      .c-tutorial-item__in-progress--fill{
+        width: 50%;
+        background: $green-brand;
+        height: 6px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 100px;
+      }
+
+    }
+
+    .c-tutorial-item__complete{
+      display: none;
+      color: $white;
+      margin-top: 10px;
+      background: $green-brand;
+      align-items: center;
+
+      .c-tutorial-item__complete-text{
+        position: relative;
+        top: -1px;
+      }
+
+      i{
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        width: 15px;
+        height: 20px;
+        margin-right: 6px;
+        border-radius: 7px;
+
+        svg{
+          width: 11px;
+          fill: $white;
+        }
+      }
+    }
+
+    .o-badge{
+      width: auto;
+      font-size: 0.6875rem; /* 11/16 */
+      margin-top: 10px;
+      display: none;
+    }
+
+    .o-badge--soon{
+      display: none;
+    }
+
+  }
+
+  .c-tutorial-item__lower{
+    display: none;
+  }
+
+  .c-tutorial-item__number-badge {
+    .o-badge-tutorial--checkmark {
+      display: none;
+    }
+  }
+
+  &.c-tutorial-item--in-progress {
+    .c-tutorial-item__in-progress, .c-tutorial-item__continue {
+      display: block;
+    }
+  }
+
+  &.c-tutorial-item--complete {
+
+    .c-tutorial-item__complete {
+      display: inline-flex;
+    }
+
+    .c-tutorial-item__number-badge {
+      .o-badge-tutorial {
+        display: none;
+      }
+      .o-badge-tutorial--checkmark {
+        display: flex;
+      }
+    }
+
+    [data-tooltip]:before{
+      content: "Unmark as complete" !important;
+      right: -96px;
+    }
+
+  }
+}
+
+/* ==========================================================================
+ 2. Card modifier (add to container not the tutorial)
+ ========================================================================== */
+
+.c-tutorial--card{
+
+  @include breakpoint("tablet"){
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @include breakpoint("mobile-large"){
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .o-button--bookmark{
+    display: inline-block;
+    position: absolute;
+    top: 177px;
+    right: 0px;
+  }
+
+  .c-tutorial-item{
+    position: relative;
+
+    @include breakpoint("mobile"){
+      margin-top: 45px;
+    }
+
+    a{
+      padding: 0 !important;
+    }
+
+    .c-tutorial-item__art{
+      width: 100%;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .o-badge-video, .o-badge--pro{
+        display: inline-flex;
+        position: absolute;
+        left: auto !important;
+        right: 12px !important;
+        top: 12px !important;
+        z-index: 1;
+      }
+
+      .c-tutorial-item__in-progress{
+        width: 100%;
+        height: 6px;
+        border-radius: 100px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+
+        .c-tutorial-item__in-progress--fill{
+          width: 50%;
+          background: $green-brand;
+          height: 6px;
+          position: absolute;
+          left: 0;
+          top: 0;
+          border-radius: 100px;
+        }
+
+      }
+
+      .c-tutorial-item__complete{
+        color: $white;
+        background: $green-brand;
+        align-items: center;
+        margin-top: 0;
+        z-index: 2;
+
+        .c-tutorial-item__complete-text{
+          position: relative;
+          top: -1px;
+        }
+
+        i{
+          display: flex;
+          justify-content: center;
+          align-content: center;
+          width: 15px;
+          height: 20px;
+          margin-right: 6px;
+          border-radius: 7px;
+
+          svg{
+            width: 11px;
+            fill: $white;
+          }
+        }
+      }
+
+      .o-badge{
+        top: 12px;
+        left: 12px;
+      }
+
+    }
+
+    .c-tutorial-item__art--product{
+      height: auto;
+      margin-bottom: -12px;
+
+      img{
+        transform: scale(0.9);
+      }
+
+    }
+
+    .c-tutorial-item__art--product + .c-tutorial-item__text + .c-tutorial-item__number-badge{
+      .o-badge-tutorial{
+        left: 8px;
+        top: 162px;
+      }
+    }
+
+    .c-tutorial-item__text{
+      padding: 0 12px;
+      margin-top: 15px;
+
+      .c-tutorial-item__title{
+        font-size: 21px;
+        padding-right: 33px;
+      }
+
+      .c-tutorial-item__category{
+        display: block !important;
+      }
+
+      .c-tutorial-item__metadata{
+        margin-top: 8px;
+      }
+
+      .c-tutorial-item__platform{
+        align-self: flex-end;
+        margin-top: 5px;
+      }
+
+      .c-tutorial-item__metadata-short, .c-tutorial-item__type{
+        font-size: 13px;
+        letter-spacing: -.1px;
+      }
+
+      .c-tutorial-item__description, .c-tutorial-item__in-progress, .c-tutorial-item__complete{
+        display: none;
+      }
+
+    }
+
+    .c-tutorial-item__upper{
+      .c-tutorial-item__platform {
+        display: none;
+      }
+    }
+
+    .c-tutorial-item__icon{
+      display: flex;
+      position: absolute;
+      top: 12px !important;
+      right: 13px;
+
+      .o-badge-video{
+        align-self: center;
+      }
+
+    }
+
+    .o-badge-tutorial{
+      position: absolute;
+      left: 12px;
+      top: 132px;
+    }
+
+  }
+
+}
+
+/* ==========================================================================
+ 3a. List modifier (add to container not the tutorial)
+ ========================================================================== */
+
+.c-tutorial--list{
+
+  .c-tutorial-item--in-progress {
+    a {
+      padding-bottom: 27px !important;
+    }
+  }
+
+  .c-tutorial-item--complete {
+    .c-tutorial-item__metadata-short {
+      display: none !important;
+    }
+  }
+
+  .c-tutorial--list__page {
+    margin-top: 15px;
+
+    &:first-child{
+      margin-top: 0;
+    }
+  }
+
+  .c-tutorial-item{
+    margin-top: 15px;
+
+    @include breakpoint("mobile-large"){
+      margin-top: 15px !important;
+    }
+
+    &:first-child{
+      margin-top: 0;
+    }
+
+    .o-button--bookmark{
+      display: inline-block;
+      position: absolute;
+      z-index: 1;
+      bottom: 0;
+      right: 12px;
+    }
+
+    .o-link--bookmark-remove {
+      color: $grey-raven;
+      text-decoration: underline;
+      display: inline-block;
+      position: absolute;
+      z-index: 1;
+      bottom: 21px;
+      right: 20px;
+      box-shadow: none;
+      border-radius: none;
+      padding: 0px;
+      cursor: pointer;
+      font-size: 0.9375em;
+
+      @include breakpoint("mobile-large"){
+        position: absolute !important;
+        top: auto !important;
+        bottom: 21px !important;
+        right: 21px !important;
+        left: auto !important;
+      }
+
+    }
+
+    > a, > div.c-tutorial-item__wrapper {
+      background: $white;
+      box-shadow: $soft-box-shadow;
+      border-radius: $border-radius;
+      padding: 21px 42px 21px 21px;
+    }
+
+    .c-tutorial-item__upper {
+      display: grid;
+      grid-template-columns: 90px 1fr 42px;
+
+      @include breakpoint("mobile-large"){
+        grid-template-columns: 1fr 72px !important;
+      }
+
+    }
+
+    .c-tutorial-item__art{
+      width: 90px;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: $grey-iron;
+
+      @include breakpoint("mobile-large"){
+        width: 72px;
+        height: 72px;
+        order: 2;
+
+        .o-badge{
+          top: 15px;
+          left: 15px;
+
+          @include breakpoint("mobile-large"){
+            display: none;
+          }
+
+        }
+      }
+
+      img{
+        align-self: auto;
+        transform: scale(1.4);
+      }
+
+      img.c-tutorial-item__art-image--primary{
+        display: none;
+      }
+
+      img.c-tutorial-item__art-image--alternate{
+        display: flex;
+      }
+
+      .c-tutorial-item__complete{
+        display: none;
+      }
+
+    }
+
+    .c-tutorial-item__art--product{
+
+      img{
+        transform: scale(1) !important;
+      }
+
+    }
+
+    .c-tutorial-item__text{
+      margin-left: 18px;
+
+      @include breakpoint("mobile-large"){
+        display: block;
+        order: 1;
+        margin: 0;
+      }
+
+      .c-tutorial-item__title{
+        @include breakpoint("mobile-large"){
+          font-size: 1.3125rem; /* 21/16 */
+        }
+
+        @include breakpoint("mobile"){
+          font-size: 1.25rem; /* 21/16 */
+        }
+
+      }
+
+      .o-badge--pro {
+        @include breakpoint("mobile-large"){
+          display: inline-flex;
+          max-width: min-content;
+        }
+      }
+
+      .c-tutorial-item__metadata{
+        display: none;
+        margin-top: 8px;
+
+        @include breakpoint("mobile"){
+          font-size: 0.875rem; /* 14/16 */
+        }
+
+      }
+
+      .c-tutorial-item__metadata-short, .c-tutorial-item__metadata-long {
+        @include breakpoint("mobile"){
+          font-size: 0.875rem; /* 14/16 */
+        }
+      }
+
+      .c-tutorial-item__description{
+        display: block;
+        margin-bottom: 8px;
+        padding-right: 80px;
+
+        @include breakpoint("mobile"){
+          padding-right: 0;
+          font-size: 0.875rem; /* 14/16 */
+        }
+
+      }
+
+      .c-tutorial-item__platform, .c-tutorial-item__parent{
+        align-self: flex-end;
+        margin-top: 9px;
+
+        @include breakpoint("tablet"){
+          align-self: normal;
+        }
+
+        @include breakpoint("mobile"){
+          font-size: 0.875rem; /* 14/16 */
+        }
+
+      }
+
+    }
+
+    .c-tutorial-item__icon{
+      display: flex;
+
+      @include breakpoint("mobile-large"){
+        display: none;
+      }
+
+      .o-badge-video{
+        align-self: center;
+      }
+
+      .o-badge--pro {
+        z-index: 1;
+        display: inline-table;
+        align-self: center;
+        box-shadow: none;
+      }
+
+    }
+
+    .o-badge-tutorial{
+      @include breakpoint("mobile-large"){
+        position: absolute;
+        left: 12px !important;
+        top: 132px !important;
+        z-index: 1;
+      }
+    }
+
+  }
+
+}
+
+/* ==========================================================================
+ 3b. Basic list modifier (add to container not the tutorial)
+ ========================================================================== */
+
+ .c-tutorial--list-style-basic {
+    
+    .c-tutorial-item{
+      border-bottom: 1px solid $grey-iron;
+      padding-bottom: 20px;
+
+      .o-button--bookmark {
+        display: inline-flex;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+
+      .o-badge--new {
+        display: none;
+      }
+
+      .c-tutorial-item__art {
+        display: none;
+      }
+
+      .c-tutorial-item__title {
+        order: 1;
+        margin-top: 6px;
+
+        @include breakpoint("tablet"){
+          font-size: 1.25rem;
+        }
+
+      }
+
+      .c-tutorial-item__metadata {
+        order: 0;
+        font-size: 0.875rem; /* 14/16 */
+      }
+
+      .c-tutorial-item__text-upper-meta {
+        order: 2;
+        margin-top: 6px;
+      }
+
+      .c-tutorial-item__description {
+        font-size: 0.875rem; /* 14/16 */
+        margin-top: 0;
+        padding-right: 30px;
+      }
+
+      .c-tutorial-item__platform, .c-tutorial-item__metadata-short {
+        display: none;
+      }
+
+    }
+
+    .c-tutorial-item--in-progress {
+      border-bottom: none;
+    }
+
+ }
+
+/* ==========================================================================
+ 3c. Complex list modifier (add to container not the tutorial)
+ ========================================================================== */
+
+ .c-tutorial--list-style-complex {
+  
+  .c-tutorial-item {
+
+    padding-bottom: 20px;
+    border-bottom: 1px solid $grey-iron;
+
+    @include breakpoint("tablet"){
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    a {
+
+      @include breakpoint("tablet"){
+        background: $white;
+        box-shadow: $soft-box-shadow;
+        border-radius: $border-radius;
+        padding: 21px;
+      }
+
+      > .c-tutorial-item__icon {
+        display: none;
+      }
+    }
+
+    .o-button--bookmark {
+      display: inline-flex;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+
+      @include breakpoint("tablet"){
+        right: 12px;
+      }
+
+    }
+    
+    .c-tutorial-item__upper {
+      display: grid;
+      grid-template-columns: 1fr 90px;
+      grid-column-gap: 30px;
+
+      @include breakpoint("tablet"){
+        grid-template-columns: 1fr 72px;
+      }
+
+      .c-tutorial-item__art {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        order: 1;
+        width: 90px;
+        height: 90px;
+
+        @include breakpoint("tablet"){
+          width: 72px;
+          height: 72px;
+        }
+
+        .o-badge--new {
+          display: none;
+        }
+
+        .c-tutorial-item__art-image--primary {
+          display: none;
+        }
+
+        .c-tutorial-item__art-image--alternate {
+          display: flex;
+          align-self: auto;
+          transform: scale(1.4);
+        }
+
+      }
+
+      .c-tutorial-item__text-upper {
+        order: 0;
+
+        @include breakpoint("tablet"){
+          align-content: flex-start;
+        }
+
+        .o-badge--new {
+          display: inline-flex;
+          position: absolute;
+          top: -20px;
+          right: -10px;
+          z-index: 2;
+
+          @include breakpoint("tablet"){
+            top: 0;
+            right: 10px;
+          }
+
+        }
+
+        .c-tutorial-item__metadata {
+          order: 0;
+          font-size: 0.875rem; /* 14/16 */
+
+          @include breakpoint("tablet"){
+            display: none;
+          }
+
+        }
+
+        .c-tutorial-item__title {
+          order: 1;
+          font-size: 1.5rem; /* 24/16 */
+          line-height: 1.25;
+          margin-top: 3px;
+
+          @include breakpoint("tablet"){
+            font-size: 1.25rem;
+          }
+
+        }
+
+        .c-tutorial-item__platform {
+          order: 2;
+          font-size: 0.875rem;
+          margin-top: 3px;
+        }
+
+      }
+
+      .c-tutorial-item__text-upper-meta {
+        display: none;
+      }
+
+    }
+
+    .c-tutorial-item__lower {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      margin-top: 10px;
+
+      @include breakpoint("tablet"){
+        flex-wrap: wrap;
+      }
+
+      .c-tutorial-item__description {
+        margin-top: 0;
+        order: 1;
+        padding-right: 30px;
+        font-size: 0.875rem;
+
+        @include breakpoint("tablet"){
+          order: 0;
+        }
+
+      }
+
+      .c-tutorial-item__metadata-short {
+        order: 0;
+        width: auto;
+        margin-right: 10px;
+
+        @include breakpoint("tablet"){
+          order: 1;
+          margin-top: 10px;
+          display: flex;
+          align-items: center;
+        }
+
+        .o-badge--pro {
+          display: inline-flex;
+          border-color: $blue-curious;
+          margin-top: 0;
+        }
+
+        .o-badge-video {
+          width: 38px;
+          height: 38px;
+          min-width: 38px;
+          min-height: 38px;
+
+          svg {
+            width: 13px;
+            height: 14px;
+          }
+
+        }
+
+        .c-tutorial-item__metadata-short-string {
+          display: none;
+
+          @include breakpoint("tablet"){
+            display: inline-block;
+            margin-left: 9px;
+            font-size: 0.875rem;
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+  .c-tutorial-item--in-progress {
+    border-bottom: none;
+  }
+
+  .c-tutorial-item--complete {
+    
+    .c-tutorial-item__art {
+      
+      .c-tutorial-item__complete {
+        display: none;
+      }
+    
+    }
+
+    .c-tutorial-item__lower {
+      flex-wrap: wrap;
+
+      .c-tutorial-item__description {
+        order: 0;
+      }
+
+      .c-tutorial-item__complete {
+        order: 1;
+      }
+
+      .o-badge--pro, .o-badge-video {
+          display: none !important;
+      }
+
+    }
+
+  }
+
+ } 
+
+.c-tutorial--list-style-complex-zero {
+  .c-tutorial-item__upper {
+    grid-template-columns: 1fr !important;
+  }
+
+  .c-tutorial-item__title {
+    margin-top: 10px !important;
+    padding-right: 0 !important;
+  }
+
+  .o-button--bookmark, .c-tutorial-item__art, .c-tutorial-item__metadata-short, .c-tutorial-item__platform {
+    display: none !important;
+  }
+
+  .c-tutorial-item__description {
+    padding-right: 0 !important;
+  }
+
+  .c-tutorial-item__metadata {
+    @include breakpoint("tablet"){
+      display: block !important;
+    }
+  }
+
+}
+
+/* ==========================================================================
+ 5. Featured modifier (add to container not the tutorial)
+ ========================================================================== */
+
+.c-tutorial--featured{
+
+  .l-tutorial-container__wrapper{
+    grid-row-gap: 30px;
+  }
+
+  .c-tutorial-item--in-progress{
+    .c-tutorial-item__in-progress {
+      display: block;
+    }
+  }
+
+  .c-tutorial-item{
+    width: 480px;
+    min-width: 480px;
+    height: 325px;
+    position: relative;
+
+    > a{
+      display: flex;
+      align-items: flex-end;
+      height: 100%;
+      overflow: hidden;
+      border-radius: $border-radius;
+
+      &:hover{
+        .c-tutorial-item__art{
+          img{
+            transform: scale(1.3);
+          }
+        }
+      }
+
+    }
+
+    .c-tutorial-item__art{
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+
+      &:before{
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(to bottom, rgba(51,51,51,0) 0%,rgba(51,51,51,1) 100%);
+        z-index: 1;
+      }
+
+      img{
+        transition: .5s all;
+        transform: scale(1.2);
+      }
+
+      .o-badge{
+        left: 15px;
+        top: 15px;
+      }
+
+      .o-badge-video, .o-badge--pro{
+        right: 15px !important;
+        top: 15px !important;
+      }
+
+    }
+
+    .c-tutorial-item__text{
+      position: relative;
+      align-self: flex-end;
+      padding: 21px 24px;
+      z-index: 2;
+
+      span{
+        color: $white;
+      }
+
+      .c-tutorial-item__title{
+        font-size: 1.875rem; /* 30/16 */
+        line-height: 1.25;
+      }
+
+      .c-tutorial-item__category{
+        font-size: 1.3125em; /* 21/16 */
+      }
+
+      .c-tutorial-item__description{
+        display: none;
+        color: $white;
+      }
+
+      .c-tutorial-item__metadata{
+        margin-top: 12px !important;
+        display: block !important;
+        font-size: 0.9375rem !important; /* 15/16 */
+      }
+
+      .c-tutorial-item__platform{
+        margin-top: 3px;
+      }
+
+      .c-tutorial-item__metadata-short, .c-tutorial-item__metadata, .c-tutorial-item__platform {
+        color: $white !important;
+      }
+
+    }
+
+    .c-tutorial-item__lower {
+      display: none !important;
+    }
+
+    .c-tutorial-item__text-upper-meta {
+      display: none !important;
+    }
+
+    .c-tutorial-item__icon{
+      position: absolute;
+      right: 15px;
+      top: 15px !important;
+      z-index: 3;
+    }
+
+    .o-badge-tutorial{
+      display: none;
+    }
+
+    .o-button--bookmark{
+      display: none;
+    }
+
+  }
+}
+
+/* ==========================================================================
+ 6. Number modifier (add to container not the tutorial)
+ ========================================================================== */
+
+.c-tutorial--card{
+
+  .c-tutorial-item__metadata-short {
+    .o-badge-video {
+      display: none;
+    }
+  }
+
+  &.c-tutorial--number{
+
+    .c-tutorial-item__text{
+      margin-top: 40px !important;
+    }
+
+    .c-tutorial-item__art--product + .c-tutorial-item__text{
+         margin-top: 20px !important;
+    }
+
+  }
+
+}
+
+.c-tutorial--list{
+
+  &.c-tutorial--number{
+
+    .c-tutorial-item{
+      padding-left: 86px;
+
+      @include breakpoint("mobile-large"){
+        padding-left: 56px;
+      }
+
+      &:before{
+        content: "";
+        position: absolute;
+        left: 27px;
+        top: 100px;
+        width: 6px;
+        height: calc(100% - 50px);
+        background: #DFE7F0;
+        border-radius: 100px;
+      }
+
+      &.c-tutorial-item--complete{
+        &:before{
+          background: $green-brand;
+        }
+      }
+
+    }
+
+    .o-badge-tutorial{
+      position: absolute;
+      top: 36px;
+      left: 0;
+    }
+
+  }
+
+}
+
+/* ==========================================================================
+ 7. Contributor modifier (role)
+ ========================================================================== */
+
+.c-tutorial--contributor{
+
+  .c-tutorial-item__text{
+
+    .c-tutorial-item__complete{
+      display: none;
+    }
+
+    .o-badge-role{
+      display: inline-flex;
+    }
+
+    .c-tutorial-item__platform{
+      display: none;
+    }
+
+  }
+}
+
+/* ==========================================================================
+ 8. Mini modifier
+ ========================================================================== */
+
+.c-tutorial--mini{
+
+  .c-tutorial-item{
+    margin-top: 15px;
+
+    @include breakpoint("mobile-large"){
+      margin-top: 0;
+    }
+
+    a{
+      padding: 13px 15px;
+      grid-template-columns: 54px 1fr;
+
+      @include breakpoint("mobile-large"){
+        padding: 0;
+      }
+
+    }
+
+    .o-button--bookmark{
+      display: none;
+
+      @include breakpoint("mobile-large"){
+        display: block;
+      }
+
+    }
+
+    .c-tutorial-item__art{
+      width: 54px;
+      height: 54px;
+
+      @include breakpoint("mobile-large"){
+        width: 72px;
+        height: 72px;
+
+      }
+
+      span.o-badge{
+        display: none;
+      }
+
+    }
+
+    .c-tutorial-item__text{
+      margin-left: 15px;
+
+      @include breakpoint("mobile-large"){
+        margin-left: 0;
+      }
+
+      .c-tutorial-item__title{
+        font-size: 1.125rem; /* 18/16 */
+
+        @include breakpoint("mobile-large"){
+          font-size: 1.3125rem;
+        }
+
+      }
+
+      .c-tutorial-item__metadata{
+        margin-top: 2px;
+
+        @include breakpoint("mobile-large"){
+          margin-top: 8px;
+        }
+
+      }
+
+      .c-tutorial-item__description, .c-tutorial-item__platform{
+        display: none;
+      }
+
+    }
+
+    .c-tutorial-item__icon, .c-tutorial-item__in-progress, .c-tutorial-item__complete{
+      display: none;
+    }
+
+    .c-tutorial-item__icon{
+      @include breakpoint("mobile-large"){
+        display: none;
+      }
+    }
+
+  }
+
+}
+
+/* ==========================================================================
+9. Episode
+========================================================================== */
+
+.c-tutorial-episode{
+  position: relative;
+  padding-left: 64px;
+  margin-top: 20px;
+
+  &:first-child{
+    margin-top: 0;
+  }
+
+  &:last-child{
+    &:before{
+      display: none;
+    }
+  }
+
+  &:before{
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 40px;
+    width: 6px;
+    height: calc(100% - 15px);
+    background: #DFE7F0;
+    border-radius: 100px;
+    transition: .75s all;
+  }
+
+  > div {
+    &:last-child {
+      height: 0;
+    }
+  }
+
+  a{
+    color: $black-mine-shaft;
+    text-decoration: none;
+
+    &:hover{
+      color: $green-brand;
+    }
+
+  }
+
+  h4{
+    font-size: 1.3125rem; /* 21/16 */
+  }
+
+  p{
+    font-size: 1rem;
+    margin-top: 10px;
+    color: $black-mine-shaft;
+
+    @include breakpoint("mobile-large"){
+      font-size: 0.9375rem;
+    }
+
+  }
+
+  .c-tutorial-episode__length{
+    font-family: $header;
+    font-size: 1.125em; /* 18/16 */
+    margin-left: 8px;
+    position: relative;
+    top: 3px;
+  }
+
+  .o-badge{
+    margin-left: 12px;
+    position: relative;
+    top: 1px;
+  }
+
+  .o-badge-tutorial{
+    position: absolute;
+    top: -9px;
+    left: 0;
+    width: 46px;
+    height: 46px;
+    font-size: 1.1875rem; /* 19/16 */
+
+    svg{
+      display: none;
+    }
+
+  }
+
+  .o-button--mark-as-complete{
+    position: absolute;
+    left: 0;
+    top: -9px;
+    width: 46px;
+    height: 46px;
+    cursor: pointer;
+    z-index: 99;
+
+     &:focus{
+      outline: none;
+    }
+
+  }
+
+}
+
+.c-tutorial-episode__number-badge {
+  .o-badge-tutorial--checkmark, .o-badge-tutorial--locked {
+    display: none;
+  }
+
+}
+
+.c-tutorial-episode--completed{
+  &:before{
+    background: $green-brand;
+  }
+
+  .c-tutorial-episode__number-badge{
+    background: $green-brand;
+
+    .o-badge-tutorial {
+      display: none;
+    }
+    .o-badge-tutorial--checkmark {
+      display: flex;
+    }
+
+    svg{
+      display: block;
+    }
+
+  }
+
+  [data-tooltip]:before{
+    left: 70px !important ;
+    content: attr(data-unmark-complete) !important;
+  }
+
+}
+
+.c-tutorial-episode--locked {
+  .o-badge-tutorial {
+    display: none;
+  }
+
+  .o-badge-tutorial--locked {
+    display: flex;
+  }
+
+}
+
+/* ==========================================================================
+10. Advert
+========================================================================== */
+
+.c-tutorial-card--large{
+
+  .c-tutorial-item{
+    padding: 42px 30px 96px;
+    @include card;
+
+    @include breakpoint("mobile-large"){
+      background: none;
+      padding: 0;
+      box-shadow: none;
+      margin-top: 24px;
+    }
+
+  }
+
+  .c-tutorial-item__art{
+    display: flex;
+    min-height: 240px;
+    margin-bottom: 24px;
+
+    @include breakpoint("mobile-large"){
+      background: none;
+      margin-bottom: 21px;
+      min-height: auto;
+    }
+
+    img{
+      width: 200px;
+      margin: 0 auto;
+      align-self: center;
+    }
+  }
+
+  .c-tutorial-item__title{
+    font-size: 1.6875rem !important; /* 27/16 */
+    line-height: 1.3;
+
+    @include breakpoint("mobile-large"){
+      font-size: 1.3125rem !important; /* 21/16 */
+      line-height: 1.35;
+    }
+
+  }
+
+  .c-tutorial-item__icon{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    @include breakpoint("mobile-large"){
+      top: 0;
+      right: 0;
+    }
+
+  }
+
+  .o-button{
+    display: flex;
+    position: absolute;
+    bottom: 30px;
+    width: calc(100% - 60px);
+
+    @include breakpoint("mobile-large"){
+      width: 100%;
+      position: relative;
+      bottom: auto;
+      margin-top: 18px;
+    }
+
+  }
+
+  .o-progress-indicator{
+    margin-top: 18px;
+
+    .o-progress-indicator__fill{
+      width: 25%;
+    }
+
+  }
+
+}
+
+/* ==========================================================================
+10. Learning Path Modifiers
+========================================================================== */
+
+
+.c-tutorial-item__art{
+
+  &.c-tutorial-item__art--learning-path{
+    background: none !important;
+    height: 100% !important;
+
+    @include breakpoint("mobile-large"){
+      height: auto !important;
+      width: 100% !important;
+      margin: 0 auto !important;
+    }
+
+    img{
+      transform: scale(1) !important;
+    }
+
+  }
+
+}
+
+.o-progress-indicator--learning-path{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: none;
+
+  .o-progress-indicator__fill{
+    width: 25%;
+  }
+
+}
+
+.c-tutorial-item--learning-path{
+
+  @include breakpoint("mobile-large"){
+    margin-top: 24px !important;
+  }
+
+  a{
+    grid-template-columns: 90px 1fr 0 !important;
+  }
+
+  .c-tutorial-item__text{
+
+    .c-tutorial-item__description{
+      padding-right: 0 !important;
+    }
+
+    @include breakpoint("mobile-large"){
+      margin-left: 0 !important;
+    }
+  }
+
+  .c-tutorial-item__art{
+    @include breakpoint("mobile-large"){
+      margin-bottom: 21px !important;
+    }
+  }
+
+  .c-tutorial-item__icon{
+    @include breakpoint("mobile-large"){
+      top: 0 !important;
+      right: 0 !important;
+    }
+  }
+
+
+  .c-tutorial-item__continue{
+    display: flex !important;
+    box-shadow: 0 !important;
+    color: $white !important;
+    background: $green-brand !important;
+    padding: 5px 9px 5px 11px !important;
+    align-items: center;
+    position: absolute;
+    bottom: 21px;
+    left: 129px;
+
+    @include breakpoint("mobile-large"){
+      left: 0;
+      padding: 5px 9px 5px 11px !important;
+      border-radius: $border-radius !important;
+    }
+
+    &:hover{
+      background: lighten($green-brand, 3%);
+    }
+
+    .c-tutorial-item__complete-text{
+      position: relative;
+      top: -1px;
+    }
+
+    i{
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      width: 15px;
+      height: 20px;
+      margin-right: 0;
+      margin-left: 3px;
+
+      svg{
+        width: 11px;
+        fill: $white;
+      }
+    }
+
+  }
+
+}
+
+
+.c-tutorial-item--learning-path-continue{
+
+  // > a{
+  //   padding-bottom: 61px !important;
+  // }
+
+  .c-tutorial-item__continue{
+    @include breakpoint("mobile-large"){
+     display: none !important;
+    }
+  }
+
+}
+
+/* ==========================================================================
+11. Dark Modifier
+========================================================================== */
+
+.c-tutorial--dark{
+
+  .c-tutorial-item{
+
+    a{
+      background: none !important;
+      box-shadow: none;
+      border-radius: 0 !important;
+      border-bottom: 2px solid $grey-bright;
+      padding: 21px 21px 21px 0;
+
+      @include breakpoint("mobile-large"){
+        padding: 0 0 21px 0;
+        border-bottom: 0;
+      }
+
+    }
+
+    .c-tutorial-item__title{
+      color: $white !important;
+    }
+
+    .c-tutorial-item__metadata{
+      color: $grey-chateau !important;
+    }
+
+    .c-tutorial-item__metadata-short{
+      color: $grey-chateau !important;
+    }
+
+    .c-tutorial-item__description, .c-tutorial-item__platform{
+      color: $grey-chateau !important;
+    }
+
+  }
+
+}
+
+/* ==========================================================================
+12. Mason Modifier
+========================================================================== */
+
+.c-tutorial--mason{
+
+  .c-tutorial-item__actions {
+    position: absolute;
+    bottom: 21px;
+    right: 21px;
+    z-index: 1;
+
+    .o-icon-button {
+      background: $black-mine-shaft;
+    }
+
+    .o-dropdown-menu--dark {
+      a {
+        padding: 0 !important;
+        background: none !important;
+      }
+    }
+
+  }
+
+  .c-tutorial-item{
+
+    .c-tutorial-item__upper{
+      display: grid;
+      grid-template-columns: 1fr 90px;
+      width: 100%;
+    }
+
+    .c-tutorial-item__text-upper-meta {
+      display: none;
+    }
+
+    .c-tutorial-item__lower{
+      display: block;
+    }
+
+    > a, > div.c-tutorial-item__wrapper{
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: space-between;
+      padding: 21px;
+      height: 100%;
+    }
+
+    .c-tutorial-item__art{
+      order: 2;
+
+      .o-badge-video, .o-badge--pro {
+        display: none;
+      }
+
+      .o-badge-tutorial--locked, .o-badge-tutorial--recording{
+        display: flex;
+        width: 48px;
+        height: 48px;
+        left: 50% !important;
+        top: 50% !important;
+        margin: -24px 0 0 -24px;
+      }
+
+    }
+
+    .c-tutorial-item__text{
+      order: 1;
+      margin-left: 0;
+      align-content: start !important;
+
+      .c-tutorial-item__title{
+        padding-right: 30px;
+      }
+
+      .o-badge--new{
+        display: inline-flex;
+        position: absolute;
+        top: 0;
+        right: 10px;
+        z-index: 2;
+      }
+
+      .o-badge--pro {
+          display: inline-flex;
+          max-width: min-content;
+          box-shadow: none;
+          margin-top: 0;
+      }
+
+      .c-tutorial-item__description{
+        margin-top: 15px;
+        padding-right: 0;
+      }
+
+    }
+
+    .c-tutorial-item__icon, .o-badge--new{
+      display: none;
+    }
+
+    .c-tutorial-item__metadata-short{
+      display: flex;
+      align-items: center;
+
+      .o-badge, .o-badge-video {
+        margin-right: 9px;
+      }
+
+      .o-badge-video {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        min-height: 38px;
+
+        svg {
+          width: 13px;
+        }
+
+      }
+
+    }
+
+  }
+
+}
+
+/* ==========================================================================
+12a. Artwork size modifier for mason
+========================================================================== */
+
+.c-tutorial--mason-mini{
+  a{
+    grid-template-columns: 1fr 72px !important;
+    padding: 18px 21px !important;
+  }
+
+  .c-tutorial-item__title{
+    font-size: 1.1875em !important; /* 19/16 */
+    padding-right: 30px !important;
+
+    @include breakpoint("mobile-large"){
+      font-size: 1.3125em !important; /* 21/16 */
+    }
+
+  }
+
+  .c-tutorial-item__art{
+    width: 72px !important;
+    height: 72px !important;
+  }
+
+  .c-tutorial-item__metadata{
+    display: block !important;
+  }
+
+  .c-tutorial-item__metadata-short{
+    color: $black-mine-shaft;
+  }
+
+  // .c-tutorial-item__metadata-short, .c-tutorial-item__type{
+  //   display: none !important;
+  //   margin-top: 6px;
+  // }
+
+}
+
+/* ==========================================================================
+12b. Mason Large Modifier
+========================================================================== */
+
+.c-tutorial--mason-large {
+  .c-tutorial-item {
+
+    .c-tutorial-item__upper {
+      grid-template-columns: 90px 1fr;
+
+      @include breakpoint("mobile-large") {
+       grid-template-columns: 1fr 72px;
+      }
+
+    }
+
+    .c-tutorial-item__text-upper {
+      margin-left: 18px;
+      order: 2;
+
+      @include breakpoint("mobile-large") {
+       margin-left: 0;
+       order: 1;
+      }
+
+      .o-badge--new {
+        display: block;
+        position: absolute;
+        right: 21px;
+        top: 21px;
+        margin-top: 0;
+
+        @include breakpoint("mobile-large") {
+          right: 10px;
+          top: 10px;
+          z-index: 2;
+        }
+
+      }
+
+    }
+
+    .c-tutorial-item__text-upper-meta {
+      display: block;
+
+      @include breakpoint("mobile-large") {
+       display: none;
+      }
+
+    }
+
+    .c-tutorial-item__platform {
+      display: none;
+
+      @include breakpoint("mobile-large") {
+       display: block;
+      }
+
+    }
+
+    .c-tutorial-item__platform-long {
+      display: block;
+
+      @include breakpoint("mobile-large") {
+        display: none;
+      }
+
+    }
+
+    .c-tutorial-item__description {
+      margin-top: 9px !important;
+
+      @include breakpoint("mobile-large") {
+       margin-top: 15px !important;
+      }
+
+    }
+
+    .c-tutorial-item__lower {
+      display: none;
+
+      @include breakpoint("mobile-large") {
+       display: block;
+      }
+
+    }
+  }
+}
+
+/* ==========================================================================
+12c. Mason Art Modifier
+========================================================================== */
+
+.c-tutorial--mason-art{
+  .c-tutorial-item__art {
+    width: 180px !important;
+    height: 100% !important;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 0 !important;
+  }
+
+  .c-tutorial-item__art-image--alternate {
+    transform: none !important;
+    width: auto !important;
+    height: 100% !important;
+  }
+
+  .c-tutorial-item__lower {
+    padding-right: 180px;
+  }
+
+  .o-button--bookmark {
+    right: 192px !important;
+  }
+
+}
+
+/* ==========================================================================
+12c. Mason Modifier Small
+========================================================================== */
+
+.c-tutorial--mason-small{
+
+  .c-tutorial-item {
+
+    > a, > div {
+      box-shadow: $soft-box-shadow;
+    }
+
+    .c-tutorial-item__upper {
+      grid-template-columns: 1fr 72px;
+      grid-column-gap: 16px;
+    }
+
+    .c-tutorial-item__lower {
+      display: inline-grid;
+    }
+
+    .c-tutorial-item__title {
+      font-size: 1.25rem; /* 20/16 */
+      padding-right: 0 !important;
+      line-height: 1.2;
+    }
+
+    .c-tutorial-item__platform, .c-tutorial-item__parent {
+      margin-top: 5px !important;
+    }
+
+    .c-tutorial-item__metadata-short {
+      display: block;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 90%;
+      height: 40px;
+      line-height: 40px;
+
+      .o-badge-video {
+        margin-right: 5px;
+        display: inline-flex;
+        top: 2px;
+
+        svg {
+          height: 14px;
+        }
+
+      }
+
+      .o-badge--pro {
+        height: 26px;
+        line-height: 16px;
+        margin-right: 5px;
+      }
+
+    }
+
+    .c-tutorial-item__description, .c-tutorial-item__platform, .c-tutorial-item__metadata-short {
+      font-size: 0.875rem; /* 14/16 */
+    }
+
+    .c-tutorial-item__art {
+      width: 72px !important;
+      height: 72px !important;
+    }
+
+    .c-tutorial-item__complete {
+      width: 108px;
+    }
+
+  }
+}
+
+/* ==========================================================================
+14. If user is signed make room for the bookmark on mason
+========================================================================== */
+
+.c-tutorial--mason-mini-bookmark{
+  a{
+    padding: 18px 45px 18px 21px !important;
+
+    .o-button--bookmark{
+    right: 10px !important;
+    top: 18px !important;
+  }
+
+  }
+}
+
+/* ==========================================================================
+ 3. Number modifier (add to list view to fix layout)
+ ========================================================================== */
+
+.c-tutorial--list{
+  &.c-tutorial--number {
+
+    .c-tutorial-item__number-badge{
+
+      .o-badge-tutorial{
+        @include breakpoint("mobile-large"){
+          width: 42px;
+          height: 42px;
+          top: 13px !important;
+          left: 0 !important;
+          font-size: 1rem;
+        }
+      }
+
+    }
+
+    .c-tutorial-item__art{
+      @include breakpoint("mobile-large"){
+        display: none;
+      }
+    }
+
+  }
+}
+
+/* ==========================================================================
+15. Mark as complete button
+========================================================================== */
+
+.c-tutorial--mark-as-complete{
+
+  .o-button--bookmark{
+    display: none !important;
+  }
+
+  .o-button--mark-as-complete{
+    display: block;
+  }
+
+}
+
+/* ==========================================================================
+16. White background modifier
+========================================================================== */
+
+.c-tutorial--white {
+
+  .c-tutorial-item {
+      @include card;
+      min-height: 340px;
+      overflow: hidden;
+
+      .c-tutorial-item__art {
+        border-radius: 0.5625rem 0.5625rem 0 0 ;
+      }
+
+      .c-tutorial-item__text {
+        white-space: normal;
+        padding: 0 18px;
+        padding-bottom: 50px;
+
+        .c-tutorial-item__description {
+          display: block;
+        }
+
+      }
+
+    }
+
+}
+
+/* ==========================================================================
+17. Floating button
+========================================================================== */
+
+.c-tutorial--floating-button {
+
+  .c-tutorial-item {
+
+      .c-tutorial-item__text {
+        padding-bottom: 100px;
+      }
+
+      .o-button {
+        position: absolute;
+        bottom: 24px;
+      }
+  }
+
+}
+
+/* ==========================================================================
+18. Book
+========================================================================== */
+
+.c-tutorial--book {
+  .c-tutorial-item {
+
+    &.c-tutorial-item--locked {
+      .c-tutorial-item__art-image--primary {
+        opacity: 0.5;
+      }
+
+      .o-badge-tutorial--locked {
+        display: flex;
+        top: 50% !important;
+      }
+
+    }
+
+    .o-badge--new {
+      display: inline-flex;
+      position: absolute;
+      top: -20px;
+      right: -10px;
+      z-index: 2;
+    }
+
+    .c-tutorial-item__actions {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 1;
+
+      .o-icon-button {
+        background: $black-mine-shaft;
+      }
+
+    }
+
+    .c-tutorial-item__art {
+      border-radius: 21px;
+
+       .o-badge--new {
+        display: none;
+       }
+
+       .o-badge-tutorial--locked {
+          width: 48px;
+          height: 48px;
+          top: 50%;
+          left: 50%;
+          top: -24px;
+          margin-top: -24px;
+          margin-left: -24px;
+       }
+
+      .c-tutorial-item__in-progress{
+        width: 100%;
+        height: 6px;
+        border-radius: 100px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        display: none;
+
+        .c-tutorial-item__in-progress--fill{
+          width: 50%;
+          background: $green-brand;
+          height: 6px;
+          position: absolute;
+          left: 0;
+          top: 0;
+          border-radius: 100px;
+        }
+
+      }
+
+      .c-tutorial-item__complete{
+        display: none;
+        color: $white;
+        margin-top: 10px;
+        background: $green-brand;
+        align-items: center;
+        width: 100%;
+        border-radius: 0;
+        bottom: 0;
+        left: 0;
+        justify-content: center;
+
+        .c-tutorial-item__complete-text{
+          position: relative;
+          top: -1px;
+        }
+
+        i{
+          display: flex;
+          justify-content: center;
+          align-content: center;
+          width: 15px;
+          height: 20px;
+          margin-right: 6px;
+          border-radius: 7px;
+
+          svg{
+            width: 11px;
+            fill: $white;
+          }
+        }
+      }
+
+    }
+    
+    .c-tutorial-item__title {
+      font-size: 1.25rem; /* 20/16 */
+      line-height: 1.25;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .c-tutorial-item__metadata-short, .c-tutorial-item__platform {
+      color: $grey-raven;
+      font-size: 0.875rem; /* 14/16 */
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    .c-tutorial-item__platform-long {
+      display: block;
+    }
+
+    .c-tutorial-item__text-upper-meta {
+      width: 100%;
+      text-align: center;
+
+      .c-tutorial-item__description {
+        display: none;
+      }
+
+    }
+
+    .c-tutorial-item__metadata-short {
+      display: block;
+      width: 100%;
+    }
+
+    .c-tutorial-item__parent, .c-tutorial-item__metadata {
+      display: none;
+    }
+
+    .c-tutorial-item__lower {
+      display: none;
+    }
+
+  }
+
+  .c-tutorial-item--in-progress {
+
+    .c-tutorial-item__art {
+      .c-tutorial-item__in-progress{
+        display: block;
+      }
+    }
+
+    .c-tutorial-item__text-upper-meta {
+      .c-tutorial-item__in-progress {
+        display: none;
+      }
+    }
+  }
+
+  .c-tutorial-item--complete {
+    
+    .c-tutorial-item__art {
+      .c-tutorial-item__complete {
+        display: inline-flex;
+      }
+    }
+
+    .c-tutorial-item__text-upper-meta {
+      .c-tutorial-item__complete {
+        display: none;
+      }
+    }
+
+  }
+
+}
+
+/* ==========================================================================
+19. Editable
+========================================================================== */
+
+.c-tutorial--editable-books {
+  .c-tutorial-item__actions--book {
+    display: block;
+  }
+}
+
+.c-tutorial--editable-tutorials {
+
+  &.c-tutorial--mason{
+    .c-tutorial-item__metadata-short {
+      width: 60%;
+    }
+
+    .o-button--bookmark {
+      right: 66px;
+      bottom: 6px;
+    }
+
+  }
+
+  .c-tutorial-item__actions--tutorial {
+    display: block;
+  }
+}
+
+/* ==========================================================================
+20. No Margins
+========================================================================== */
+
+.c-tutorial--no-margin {
+  .c-tutorial-item {
+    margin-top: 0;
+
+    @include breakpoint("mobile-large"){
+      margin-top: 0 !important;
+    }
+
+  }
+}
+

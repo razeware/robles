@@ -53,8 +53,15 @@ class RoblesBookServer < Sinatra::Application
       parser = Parser::Publish.new(file: publish_file)
       book = parser.parse
       book.image_attachment_loop { |local_url| servable_image_url(local_url) }
+      book.markdown_render_loop do |content, file|
+        render_string(content) unless file
+      end
       book
     end
+  end
+
+  def render_string(content)
+    Renderer::MarkdownStringRenderer.new(content: content).render
   end
 
   def chapter_for_slug(slug)
