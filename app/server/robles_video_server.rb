@@ -63,9 +63,14 @@ class RoblesVideoServer < Sinatra::Application
     @video_course ||= begin
       parser = Parser::Release.new(file: release_file)
       video_course = parser.parse
+      Renderer::VideoCourse.new(video_course, image_provider: nil).render
       video_course.image_attachment_loop { |local_url| servable_image_url(local_url) }
       video_course
     end
+  end
+
+  def render_string(content)
+    Renderer::MarkdownStringRenderer.new(content: content).render
   end
 
   def episode_for_slug(slug)
