@@ -1,27 +1,76 @@
-<header id="c-global-header" class="c-book-header" role="banner"><p class="e-home-p"><a href="/">Home</a></p> 
-  <span class="l-font-header l-font-bold l-font-18 l-color-white l-flex e-header-margin">
-    <span class="l-color-white l-font-underline--force"><%= book.title %></span>
-    <span class="u-hide-mobile-large--force">&nbsp;·&nbsp;</span>
-    <span class="c-book-header__chapter-title">
-      <%= chapter.number %>. <%= chapter.title %>
-    </span>
-  </span>
+<header id="c-global-header" class="c-book-header" role="banner">
+  <div class="l-flex-align-center--force">
+
+    <div class="c-global-header__logo o-header-logo">
+      <a href="/" class="o-header-logo__link">
+        <svg class="o-header-logo__mark" viewBox="0 0 50 50"><use xlink:href="#logo-mark"/></svg>
+      </a>
+    </div>
+
+  </div>
+
+  <nav role="navigation" aria-label="primary" class="l-margin-mobile-large-left-20">
+    <ul>
+      <li class="l-margin-all-0">
+        <span class="l-font-header l-font-bold l-font-18 l-flex c-book-header__chapter-intro">
+          <span class="c-book-header__chapter-title">
+            <span><%= chapter.number %>.</span> <span><%= chapter.title %></span>
+          </span>
+        </span>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="c-global-header__user">
+    <div class="c-global-header__user-control l-margin-right-9">
+      <button class="o-text-button o-button-tooltip c-global-header__search" id="sun-button">
+        <i class="o-button__icon--left l-button__search-nav">
+          <svg class="o-button__svg--grey-regent"><title>Light</title><use xlink:href="#sun"/></svg>
+        </i>
+        <span class="o-tooltip o-tooltip--arrow-top o-tooltip--slim l-tooltip-book-tools">Light</span>
+      </button>
+
+      <button class="o-text-button o-button-tooltip c-global-header__search" id="moon-button">
+        <i class="o-button__icon--left l-button__search-nav">
+          <svg class="o-button__svg--grey-regent"><title>Dark</title><use xlink:href="#moon"/></svg>
+        </i>
+        <span class="o-tooltip o-tooltip--arrow-top o-tooltip--slim l-tooltip-book-tools">Dark</span>
+      </button>
+    </div>
+  </div>
+
 </header>
-<div class="l-admin">
-  <%= erb :'books/_table_of_contents.html', locals: { book: book } %>
+
+<div class="l-admin l-admin--sidebar-open">
+  <%= erb :'books/_table_of_contents.html', locals: { book: book, current_chapter: chapter } %>
 
   <div class="l-book-chapter-content l-relative">
-    <article class="c-written-tutorial c-book-chapter l-block l-block--card-medium l-margin-18">
+    <article class="c-written-tutorial c-book-chapter l-block l-block--688">
       <header>
         <div class="c-written-tutorial__introduction">
+          <span class="c-written-tutorial__breadcrumbs l-color-grey">
+            <a href="/"><%= book.title %></a>
+            <svg class="l-svg-breadcrumb">
+              <use xlink:href="#chevron-vertical--grey"></use>
+            </svg>
+            <a href="#"><%= chapter.title %></a>
+          </span>
+
+
+
           <h1>
             <span class="l-whitespace"><%= book.hide_chapter_numbers ? '' : chapter.number %></span>
-            <span><%= chapter.title %></span>
+            <div>
+              <span class="l-font-42 l-margin-6"><%= chapter.title %></span>
+              <span class="l-font-header l-font-17 l-font-normal l-no-font-spacing l-margin-6 l-line-height-1125">
+                Written by <%= chapter.authors.map(&:username).to_sentence %>
+              </span>
+            </div>
           </h1>
         </div>
       </header>
 
-      <div class="c-written-tutorial__content c-book-chapter">
+      <div class="c-written-tutorial__content l-block l-block--card-medium">
         <%= chapter.body %>
       </div>
 

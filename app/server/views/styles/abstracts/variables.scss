@@ -3,7 +3,9 @@
  *
  * 1. Fonts
  *
- * 2. Colors
+ * 2a. Colors
+ *
+ * 2b. Highlighter Colors
  *
  * 3. Elements
  */
@@ -14,7 +16,7 @@
 
   @import './fonts';
 
- 	$body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  $body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   $header: "Bitter", serif;
   $header-2: "Bitter", serif;
   $header-3: "Bitter", serif;
@@ -23,13 +25,14 @@
 
 
 /* ==========================================================================
-   2. Colors
+   2a. Colors
    ========================================================================== */
 
   $white: #ffffff;
 
   /* Blacks */
 
+  $black-onyx: #222222;
   $black-mine-shaft: #333333;
   $dark-black-mine-shaft: #262626;
   $black-slate: #2F4F4F;
@@ -52,6 +55,7 @@
   $grey-aqua-haze: #EFF3F6;
   $light-grey-aqua-haze: (transparentize($grey-aqua-haze, 0.9));
   $grey-black-squeeze: #F2F6FA;
+  $grey-alabaster: #FAFAFA;
 
   /* Greens */
 
@@ -84,6 +88,7 @@
   $yellow-gold: #F3B36A;
   $yellow-tan: #D0A57F;
   $yellow-sin: #FCB526;
+  $yellow-grandis: #FDCF74;
 
   /* Brands */
 
@@ -95,8 +100,57 @@
   $black-gradient: linear-gradient(to right bottom, #333333, #363638, #38393d, #3a3c43, #3b4048);
 
 /* ==========================================================================
+   2b. Highlighter Colors
+   ========================================================================== */
+
+$highlighter-yellow: #FFEA75;
+$highlighter-orange: #FBCF8E;
+$highlighter-red: #F4C3C3;
+$highlighter-purple: #CECEF8;
+$highlighter-blue: #B4E3E9;
+$highlighter-green: #C3F0CA;
+
+$highlighter-highlight-yellow: #FFE242;
+$highlighter-highlight-orange: #FBBC5D;
+$highlighter-highlight-red: #E58A8A;
+$highlighter-highlight-purple: #A0AEF2;
+$highlighter-highlight-blue: #85DDE9;
+$highlighter-highlight-green: #90DE9C;
+
+$highlighter-note-yellow: #EBC700;
+$highlighter-note-orange: #F99A0C;
+$highlighter-note-red: #E58A8A;
+$highlighter-note-purple: #A0AEF2;
+$highlighter-note-blue: #5BD1E1;
+$highlighter-note-green: #90DE9C;
+
+$highlighter-dark-yellow: #D6C256;
+$highlighter-dark-orange: #C97228;
+$highlighter-dark-red: #AB5050;
+$highlighter-dark-purple: #9157AD;
+$highlighter-dark-blue: #5E70CC;
+$highlighter-dark-green: #549954;
+
+$highlighter-dark-highlight-yellow: #8A7400;
+$highlighter-dark-highlight-orange: #B05000;
+$highlighter-dark-highlight-red: #783838;
+$highlighter-dark-highlight-purple: #5F2878;
+$highlighter-dark-highlight-blue: #1D35B2;
+$highlighter-dark-highlight-green: #3A5F3A;
+
+$highlighter-dark-note-yellow: #8A7400;
+$highlighter-dark-note-orange: #B05000;
+$highlighter-dark-note-red: #E36D6E;
+$highlighter-dark-note-purple: #5F2878;
+$highlighter-dark-note-blue: #1D35B2;
+$highlighter-dark-note-green: #3A5F3A;
+
+/* ==========================================================================
    3. Elements
    ========================================================================== */
 
-  $box-shadow: 0px 2px 1px 0 rgba(51,51,51,.05);
-  $border-radius: 0.5625rem;
+$box-shadow: 0px 2px 1px 0 rgba(51,51,51,.05);
+$border-radius: 0.5625rem;
+$invert-colors: invert(100%);
+$big-box-shadow: 4px 4px 30px 0 rgba(51,51,51,.25);
+$soft-box-shadow: 4px 4px 30px 0 rgba(51,51,51,.075);

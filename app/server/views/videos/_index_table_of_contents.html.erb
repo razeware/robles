@@ -1,19 +1,24 @@
-<section class="l-collection-modules l-book-modules l-padding-60 l-block-wrapper l-block--1080">
-  <div class="l-collection-modules__wrapper">
-    <div class="l-collection-modules__module-episodes">
-      <% video_course.parts.each do |part| %>
-        <h2><%= part.title %></h2>
-
-        <% part.episodes.each do |episode| %>
-          <div class="c-tutorial-episode">
-            <div class="l-flex-align-start">
-              <h4><a href="<%= url(slide_path(episode)) %>">
-              <span class="o-badge-tutorial"><%= episode.ordinal %></span><span><%= episode.title %></span>
-              </a></h4>
-            </div>
-          </div>
-        <% end %>
-      <% end %>
+<div class="l-book-toc l-margin-60 l-margin-mobile-large-40">
+  <% video_course.parts.each do |part| %>
+    <h2><%= part.title %></h2>
+    <div class="l-book-toc-section-description">
+      <p>
+        <%= part.description %>
+      </p>
     </div>
-  </div>
-</section>
+
+
+    <% part.episodes.each do |episode| %>
+      <div class="c-tutorial-episode">
+        <div class="l-flex-align-start">
+          <h4><a href="<%= url(slide_path(episode)) %>"><%= episode.title %></a></h4>
+          <% if episode.free %><span class="o-badge">Free</span><% end %>
+        </div>
+        <p><%= episode.description %></p>
+        <span class="c-tutorial-episode__number-badge data-tooltip--top-left">
+          <span class="o-badge-tutorial"><%= episode.ordinal %></span>
+        </span>
+      </div>
+    <% end %>
+  <% end %>
+</div>

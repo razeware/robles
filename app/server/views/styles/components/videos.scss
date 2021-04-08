@@ -1,0 +1,1431 @@
+/**
+ * Video
+ *
+ *
+ * 1. Player
+ *
+ * 2. Navigation
+ *
+ * 3. Complete / Autoplay
+ *
+ * 4. Paywall
+ *
+ * 5. Black Friday Paywall
+ *
+ * 6. Video Information
+ *
+ * 7. Promo Video
+ *
+ * 8. Preview
+ *
+ */
+
+/* ==========================================================================
+ 1. Player
+ ========================================================================== */
+
+
+.c-video-player {
+  position: relative;
+  background: $black-mine-shaft;
+  overflow: hidden;
+  padding: 50px 60px 0 140px;
+
+  @include breakpoint($maxWidth: 1080px) {
+    padding: 50px 30px 0 110px;
+  }
+
+  @include breakpoint("tablet") {
+    padding: 50px 30px 0;
+  }
+
+  @include breakpoint("mobile-large") {
+    padding: 50px 0 0;
+  }
+
+  &.c-video-player--nav{
+
+    padding: 50px 60px 90px;
+
+    @include breakpoint($maxWidth: 1080px) {
+      padding: 50px 30px 0;
+    }
+
+    .o-button-sidebar--open {
+      display: none;
+    }
+
+    .o-button-sidebar--close {
+      display: inline-flex;
+
+      @include breakpoint("tablet") {
+        display: none;
+      }
+
+    }
+
+    .c-video-player__lessons {
+      display: block !important;
+      width: 320px;
+
+      @include breakpoint("tablet") {
+        width: 100%;
+      }
+
+    }
+
+    .c-video-player__lessons-section {
+      display: block;
+
+      .c-tutorial-item__metadata-short {
+        display: none;
+      }
+
+    }
+
+    .c-video-player__lessons-section--action {
+      display: block;
+      padding: 20px 24px;
+      border-bottom: 1px solid $grey-mako;
+
+      @include breakpoint("tablet"){
+        display: none;
+      }
+
+    }
+
+    .c-video-player__wrapper{
+      margin: 0 auto 0 auto !important;
+      padding-left: 320px;
+      max-width: 1280px;
+
+      @include breakpoint($maxWidth: 1080px){
+        margin: 0 auto !important;
+      }
+
+      @include breakpoint("tablet"){
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+    }
+
+    .c-video-player__video{
+      border-radius: $border-radius;
+    }
+
+    h1{
+      max-width: 320px;
+
+      @include breakpoint($maxWidth: 1280px){
+        max-width: 180px;
+      }
+
+    }
+
+  }
+
+  header{
+    display: grid;
+    grid-template-columns: 230px 1fr 230px;
+    align-items: flex-start;
+
+    @include breakpoint("mobile-large"){
+      grid-template-columns: 1fr auto;
+    }
+
+    h1{
+      height: 30px;
+      line-height: 30px;
+      max-width: 480px;
+      text-align: center;
+      font-size: 1.125rem; /* 18/16 */
+      font-weight: 500;
+      color: $white;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin: 0 auto;
+
+      @include breakpoint("tablet"){
+        max-width: 210px;
+      }
+
+      @include breakpoint("mobile-large"){
+        display: none;
+      }
+
+      .o-badge--pro {
+        margin-right: 10px;
+        top: -3px;
+      }
+
+    }
+
+  }
+
+  .c-video-player__wrapper{
+    transition: padding .25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    @include breakpoint("tablet"){
+      display: grid;
+      width: 100%;
+    }
+
+  }
+
+  .c-video-player__video{
+    background: $black-gradient;
+    border-radius: $border-radius;
+    margin-top: 40px;
+    margin-bottom: 45px;
+    padding-top: 56.25%;
+    position: relative;
+    overflow: hidden;
+
+    @include breakpoint("tablet"){
+      margin-bottom: 15px;
+    }
+
+    @include breakpoint("mobile"){
+      margin-left: -20px;
+      width: calc(100% + 40px);
+      border-radius: 0 !important;
+      margin-bottom: 0;
+      padding-bottom: 20px;
+    }
+
+    .c-video-player__preloader{
+      width: 100%;
+      @extend %a-scale-in;
+      animation-duration: .5s;
+    }
+
+  }
+
+}
+
+div.vimeo-player > div[style] { padding: 0 0 0 0 !important; position: inherit !important; }
+
+/* ==========================================================================
+ 2. Navigation
+ ========================================================================== */
+
+.c-video-player__lessons:hover{
+  overflow-y: auto;
+}
+
+.c-video-player__lessons{
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: 80px;
+  height: 100%;
+  background: $black-gradient;
+  padding: 4px 0 36px 0;
+  @extend %a-slide-in-right-320;
+  overflow-y: scroll;
+  @include mobile-scroll;
+  @include hide-scrollbar;
+
+  @include breakpoint("tablet"){
+    width: 100%;
+    position: relative;
+    order: 3;
+    background: none;
+  }
+
+  .c-video-player__lessons-section--action{
+    @include breakpoint("tablet"){
+      display: none;
+    }
+  }
+
+  .o-button-sidebar--open {
+    position: absolute;
+    top: 15px;
+    left: 22px;
+    cursor: pointer;
+
+    svg {
+      width: 26px;
+      height: 26px;
+      margin: -13px 0 0 -13px;
+    }
+
+  }
+
+  .o-button-sidebar--close {
+    display: none;
+  }
+
+  .c-video-player__lessons-section{
+    padding: 0 24px;
+    border-bottom: 1px solid $grey-mako;
+    padding-bottom: 20px;
+    display: none;
+
+    &:last-child{
+      border-bottom: 0;
+    }
+
+    @include breakpoint("tablet"){
+      display: block;
+      padding: 0 0 24px 0;
+    }
+
+    .c-video-player__lessons-header{
+      display: block;
+      cursor: pointer;
+      position: relative;
+
+      svg{
+        width: 15px;
+        height: 9px;
+        fill: #B8CCE6;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        opacity: .5;
+        margin-top: -4px;
+        transform: rotate(180deg);
+      }
+
+      &.c-video-player__lessons-header--open{
+        svg{
+          transform: rotate(360deg);
+        }
+      }
+
+    }
+
+    .c-video-player__lessons-title{
+      display: block;
+      font-size: 1.125rem; /* 18/16 */
+      color: $white;
+      margin-top: 20px;
+
+      .l-svg-collection {
+        margin-right: 12px;
+      }
+
+      a{
+        color: $white;
+        text-decoration: none;
+
+        &:hover{
+          color: $green-brand;
+        }
+
+      }
+
+      .o-badge--pro {
+        margin-left: 12px;
+      }
+
+    }
+
+    .c-video-player__lessons-sum{
+      display: block;
+      font-size: 0.75rem; /* 12/16 */
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      color: $grey-chateau;
+      margin-top: 3px;
+    }
+
+    .c-video-player__lesson-list{
+      display: none;
+      margin: 18px 0 10px;
+
+      > li {
+        white-space: normal;
+        overflow-x: visible;
+        text-overflow: none;
+
+        a {
+          &:before {
+            background: $white;
+            color: $black-mine-shaft;
+            z-index: 999;
+            top: -51px;
+
+            @include breakpoint($maxWidth: 1080px){
+              display: none;
+            }
+
+          }
+
+          &:after {
+            background: $white;
+            z-index: 998;
+            top: -28px;
+
+            @include breakpoint($maxWidth: 1080px){
+              display: none;
+            }
+
+          }
+
+        }
+
+      }
+
+      li > div {
+        display: inline;
+      }
+
+      li > div > button {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+      }
+
+    }
+
+    .c-video-player__lesson-list--open{
+      display: block;
+    }
+
+    .c-tutorial-item{
+      margin-top: 30px;
+
+      &:first-child{
+        margin-top: 0;
+      }
+
+      a{
+        border-bottom: 0;
+      }
+
+    }
+
+    .o-button--mark-as-complete{
+      width: 20px;
+      height: 20px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 99;
+      cursor: pointer;
+
+      &:focus{
+        outline: none;
+      }
+
+    }
+
+  }
+
+}
+
+/* ==========================================================================
+ 3. Complete - Autoplay
+ ========================================================================== */
+
+.c-video-player__complete{
+  display: none;
+
+  .c-video-player__complete-wrapper{
+    text-align: center;
+    @extend %a-scale-in;
+  }
+
+  h3{
+    @include breakpoint("mobile-large"){
+      display: none;
+    }
+  }
+
+  .o-button--dark{
+    @include breakpoint("mobile-large"){
+      background: none;
+      margin-top: 9px;
+    }
+  }
+
+  .c-video-player__complete-countdown{
+    font-size: 0.9375rem; /* 15/16 */
+    font-weight: 700;
+    color: $white;
+
+    @include breakpoint("mobile-large"){
+      display: none;
+    }
+
+  }
+
+  .c-video-player__complete-loader{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 120px;
+    height: 120px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    cursor: pointer;
+    border-radius: 100px;
+
+    @include breakpoint("mobile"){
+      width: 60px;
+      height: 60px;
+    }
+
+    &:hover{
+      background: $grey-mako;
+    }
+
+    .c-video-player__complete-icon{
+      width: 38px;
+      height: 42px;
+      fill: $white;
+      margin-right: -5px;
+
+      @include breakpoint("mobile"){
+        width: 20px;
+        height: 30px;
+      }
+
+    }
+
+    .c-video-player__complete-circle{
+      position: absolute;
+      left: 0;
+      top: 0;
+
+      @include breakpoint("mobile"){
+        width: 60px;
+        height: 60px;
+      }
+
+      &.c-video-player__complete-circle--fill{
+        transform: rotate(-90deg);
+      }
+
+    }
+
+  }
+
+}
+
+/* ==========================================================================
+4. Paywall
+========================================================================== */
+
+.c-video-player__paywall{
+  display: none;
+
+  .c-video-player__paywall-mobile-link{
+    display: none;
+
+    @include breakpoint("mobile"){
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+  }
+
+  .c-video-player__paywall-wrapper{
+    display: flex;
+    padding: 30px;
+    align-items: center;
+    height: 100%;
+    max-width: 960px;
+    margin: 0 auto;
+    @extend %a-scale-in;
+    animation-duration: .5s;
+
+    @include breakpoint($maxWidth: 1080px){
+      padding: 60px;
+    }
+
+    @include breakpoint("tablet"){
+      text-align: center;
+    }
+
+    @include breakpoint("mobile-large"){
+      padding: 15px;
+    }
+
+  }
+
+  .c-video-player__paywall-sign-in{
+    font-size: 1rem;
+
+    @include breakpoint("mobile"){
+      display: none;
+    }
+
+    a{
+      color: $green-brand;
+    }
+
+  }
+
+  .c-video-player__paywall-copy {
+    padding-right: 30px;
+
+    @include breakpoint("tablet") {
+      padding-right: 0;
+    }
+
+  }
+
+  .c-video-player__paywall-artwork {
+
+    @include breakpoint("tablet"){
+      display: none;
+    }
+
+    img {
+      width: 320px;
+    }
+  }
+
+  .c-video-player__paywall-options{
+    @include breakpoint("mobile"){
+      margin-top: 0;
+    }
+  }
+
+  h3 {
+    @include breakpoint("tablet") {
+      text-align: center !important;
+      line-height: 1.25;
+    }
+
+    @include breakpoint("mobile-large") {
+      font-size: 1.5rem !important; /* 24/16 */
+    }
+
+    @include breakpoint($maxWidth: 400px) {
+      font-size: 1.1875rem !important; /* 19/16 */
+    }
+
+  }
+
+  .c-price-card{
+
+    @include breakpoint("mobile"){
+      padding: 10px 0 !important;
+    }
+
+    h4{
+      @include breakpoint("mobile"){
+        font-size: 1rem;
+      }
+    }
+
+    .o-badge{
+      @include breakpoint("mobile"){
+        display: none;
+      }
+    }
+
+  }
+
+  .c-price-card__price{
+    span{
+      @include breakpoint("mobile"){
+        font-size: 1rem !important;
+      }
+    }
+  }
+
+  /* Below 1080px change the layout dramatically */
+
+  @include breakpoint($maxWidth: 1080px){
+    align-items: center;
+
+    h3{
+      margin-top: 0 !important;
+      font-size: 2.25rem; /* 36/16 */
+    }
+
+    .c-video-player__paywall-options{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 600px;
+    padding: 0 20px;
+    flex-direction: column-reverse;
+  }
+
+  .c-price-card{
+    background: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid $grey-bright;
+    padding: 20px 0;
+
+    &:first-child{
+      border-bottom: 0;
+    }
+
+    .c-price-card__divider{
+      display: flex;
+      align-items: center;
+    }
+
+    h4, .c-price-card__period{
+      margin-top: 0;
+      color: $white;
+    }
+
+    .c-price-card__price{
+      margin-top: 0;
+      margin-left: 10px;
+      margin-right: 5px;
+
+      span{
+        color: $white;
+        font-size: 1.125rem;
+        font-weight: 700;
+        line-height: 21px;
+        margin: 0;
+        letter-spacing: -.5px;
+        top: 0;
+      }
+
+      .c-price-card__price-change{
+        margin-left: -4px;
+      }
+
+    }
+
+    .c-price-card__action{
+      margin-top: 0;
+      margin-left: auto;
+
+      a{
+        padding: 0;
+        background: none;
+
+        .o-button__label{
+          display: none;
+        }
+
+        svg{
+          fill: $black-mine-shaft;
+        }
+
+      }
+
+    }
+
+  }
+
+  }
+
+}
+
+/* Need a different layout when the sidebar is open */
+
+.c-video-player--nav{
+
+  .c-video-player__paywall{
+    align-items: center;
+
+    h3{
+      margin-top: 0 !important;
+      font-size: 2rem; /* 36/16 */
+      text-align: center !important;
+      line-height: 1.25;
+    }
+
+  }
+
+  .c-video-player__paywall-wrapper {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .c-video-player__paywall-copy {
+    padding-right: 0;
+
+    .l-font-17 {
+      @include breakpoint($maxWidth: 1200px){
+        display: none;
+      }
+    }
+
+  }
+
+  .c-video-player__paywall-artwork {
+    display: none;
+  }
+
+  .c-video-player__paywall-options{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 600px;
+    padding: 0 20px;
+    flex-direction: column-reverse;
+  }
+
+  .c-price-card{
+    background: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid $grey-bright;
+    padding: 20px 0;
+
+    &:first-child{
+      border-bottom: 0;
+    }
+
+    .c-price-card__divider{
+      display: flex;
+      align-items: center;
+    }
+
+    h4, .c-price-card__period{
+      margin-top: 0;
+      color: $white;
+    }
+
+    .c-price-card__price{
+      margin-top: 0;
+      margin-left: 10px;
+      margin-right: 5px;
+
+      span{
+        color: $white;
+        font-size: 1.125rem;
+        font-weight: 700;
+        line-height: 21px;
+        margin: 0;
+        letter-spacing: -.5px;
+        top: 0;
+      }
+
+      .c-price-card__price-change{
+        margin-left: -4px;
+      }
+
+    }
+
+    .c-price-card__action{
+      margin-top: 0;
+      margin-left: auto;
+    }
+
+  }
+
+}
+
+/* ==========================================================================
+5. Black Friday Paywall
+========================================================================== */
+
+.c-video-player__paywall--black-friday {
+  .c-video-player__paywall-artwork img {
+    width: 420px;
+
+    @include breakpoint($maxWidth: 1140px) {
+      width: 320px;
+    }
+
+  }
+}
+
+/* Layout adjustments for tablet devices */
+
+@include breakpoint($maxWidth: 1080px){
+  .c-video-player__paywall--black-friday{
+
+    .c-price-card{
+      display: block;
+
+      .c-price-card__divider{
+        display: none;
+      }
+
+      .c-price-card__divider-alternate{
+        display: block;
+
+        h4{
+          font-size: 1.5rem; /* 24/16 */
+        }
+
+      }
+
+     .c-price-card__saving{
+        color: $white;
+      }
+
+      .c-price-card__action{
+        margin-top: 0;
+        margin-left: auto;
+
+        a{
+          padding: 0 15px;
+          background: $green-brand;
+
+          .o-button__label{
+            display: inline-flex;
+          }
+
+          svg{
+            fill: $green-brand;
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+}
+
+/* Layout adjustments for open lesson navigation */
+
+.c-video-player--nav{
+  .c-video-player__paywall--black-friday{
+
+    .c-price-card{
+      display: block;
+
+      .c-price-card__divider{
+        display: none;
+      }
+
+      .c-price-card__divider-alternate{
+        display: block;
+
+        h4{
+          font-size: 1.5rem; /* 24/16 */
+        }
+
+      }
+
+     .c-price-card__saving{
+        color: $white;
+      }
+
+    }
+
+  }
+}
+
+/* ==========================================================================
+6. Spring Free Weekend
+========================================================================== */
+
+.c-video-player__paywall--black-friday-2019 {
+  background: $black-mine-shaft;
+
+  .c-video-player__paywall-wrapper {
+    .c-plan--neon {
+      @include breakpoint($maxWidth: 1080px){
+        box-shadow: none;
+        border: none;
+      }
+    }
+
+    .l-color-neon--red {
+      @include breakpoint("mobile"){
+        color: $white !important;
+        -webkit-text-stroke-width: 0;
+        text-shadow: none;
+      }
+    }
+
+  }
+
+}
+
+.c-video-player--nav {
+  .c-video-player__paywall--black-friday{ 
+    .c-plan--neon {
+      border: none;
+      box-shadow: none;
+    }
+  }
+}
+
+/* ==========================================================================
+5. Spring Free Weekend
+========================================================================== */
+
+.c-video-player__paywall--black-friday--mod-spring{
+  background-image: url(../images/patterns/spring-fling-video-background@2x.png) !important;
+  background-color: #ffd7d6 !important;
+  background-size: 100% !important;
+  background: no-repeat;
+
+  .c-video-player__paywall-wrapper h3, .c-video-player__paywall-sign-in{
+    color: $black-mine-shaft !important;
+  }
+
+  .c-price-card__price-main{
+    font-size: 6.5rem !important;
+    letter-spacing: -7px !important;
+  }
+
+  .c-price-card{
+    @include breakpoint($maxWidth: 1080px){
+      background: none;
+      box-shadow: none !important;
+
+      h4, .c-price-card__saving{
+        color: $black-mine-shaft;
+      }
+
+      .o-button--green{
+        background: $green-brand !important;
+
+        svg{
+          fill: $green-brand !important;
+        }
+
+      }
+
+      .c-price-card__price{
+        @include breakpoint("mobile"){
+            margin-left: 5px !important;
+            margin-right: 0px !important;
+        }
+
+        .c-price-card__price-currency, .c-price-card__price-main, .c-price-card__period{
+           @include breakpoint("mobile"){
+            color: $black-mine-shaft;
+          }
+        }
+
+        .c-price-card__price-main{
+          @include breakpoint("mobile"){
+            letter-spacing: -.5px !important
+          }
+        }
+
+      }
+
+      .c-price-card__period{
+        @include breakpoint("mobile"){
+          color: $black-mine-shaft;
+          font-weight: 700;
+        }
+      }
+
+      .c-price-card__action a{
+        @include breakpoint("mobile"){
+          background: none !important;
+
+          svg{
+            fill: $black-mine-shaft !important;
+          }
+
+        }
+      }
+
+    }
+  }
+
+}
+
+.c-video-player__paywall--free-weekend{
+  background: #FDC774;
+  background-image: url(../images/patterns/free-weekend-video-background@2x.png);
+  background-size: cover;
+  display: block;
+  text-align: center;
+  align-items: center;
+
+  h3, p{
+    color: $black-mine-shaft !important;
+  }
+
+  h3{
+
+    @include breakpoint("tablet"){
+      font-size: 2rem;
+    }
+
+    span{
+      display: block;
+      font-size: 2.1rem; /* 40/16 */
+      margin-top: -6px;
+
+      @include breakpoint("tablet"){
+        font-size: 1.75rem;
+      }
+
+       @include breakpoint("mobile-large"){
+        display: none;
+      }
+
+    }
+  }
+
+  h3 + p{
+    font-family: $header;
+    font-size: 1.1875rem; /* 19/16 */
+    padding: 0 60px;
+
+    @include breakpoint("tablet"){
+      font-size: 1.0625rem;
+    }
+
+    @include breakpoint("mobile"){
+      padding: 0 20px;
+      font-size: 0.875rem;
+    }
+
+  }
+
+  .l-margin-21{
+    @include breakpoint("mobile"){
+      margin-top: 0;
+    }
+  }
+
+  .l-margin-30{
+    @include breakpoint("mobile"){
+      margin-top: 15px;
+    }
+  }
+
+}
+
+.c-video-player--nav{
+  .c-video-player__paywall--free-weekend{
+    h3{
+      font-size: 2rem;
+
+      span{
+        font-size: 1.75rem;
+      }
+
+    }
+
+    p{
+      font-size: 1.0625rem; /* 17/16 */
+    }
+
+  }
+}
+
+/* ==========================================================================
+5b. Spring Ahead 2021
+========================================================================== */
+
+.c-video-player__paywall--spring-ahead-2021 {
+  background-color: #FDEA89 !important;
+
+  h3, p {
+    color: $black-mine-shaft;
+  }
+
+}
+
+/* ==========================================================================
+6. Video Information
+========================================================================== */
+
+.c-video-information {
+  .c-written-tutorial__content {
+
+    h2, h3, h4 {
+      margin-bottom: 24px;
+    }
+
+    p, ul, ol {
+      font-size: 1.0625rem; /* 17/16 */
+      margin-bottom: 18px;
+
+      @include breakpoint("mobile-large"){
+        font-size: 0.9375rem; /* 15/16 */
+      }
+
+    }
+
+    ul, ol {
+      padding-left: 20px;
+      list-style: initial;
+
+      li{
+        margin-top: 0;
+      }
+
+    }
+
+    ol {
+      list-style: decimal;
+    }
+
+    a{
+      color: $green-brand;
+      text-decoration: underline;
+    }
+  }
+}
+
+/* ==========================================================================
+7. Promo Video
+========================================================================== */
+
+.c-subscription-promo-video {
+  .c-subscription-promo-video__wrapper {
+    position: relative;
+    border-radius: 1.25rem; /* 20/16 */
+
+    img {
+      border-radius: 1.25rem;
+    }
+
+  }
+
+  .c-subscription-promo-video__placeholder {
+    opacity: 0;
+    border-radius: 1.25rem;
+  }
+
+  .c-subscription-promo-video__fake{
+        background: url('../images/photos/promo-video-bg.jpg');
+        background-size: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1;
+        cursor: pointer;
+        border-radius: 1.25rem;
+        padding-top: 56.25%;
+        box-shadow: $big-box-shadow;
+
+        &:after{
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(35, 41, 43, 0);
+            z-index: -1;
+            transition: all 0.05s linear;
+          }
+
+         .o-button-video {
+          position: absolute;
+         }
+
+      }
+
+}
+
+/* ==========================================================================
+8. Preview
+========================================================================== */
+
+.c-video-player__preview {
+
+  background: #1A1A1A;
+  padding: 30px;
+
+  @include breakpoint("mobile-large"){
+    padding: 18px;
+  }
+
+  > div {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+
+  .c-video-player__preview-artwork {
+    max-width: 500px;
+    max-height: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -250px 0 0 -250px;
+    opacity: 0.1;
+
+    @include breakpoint("mobile-large"){
+      max-width: 300px;
+      max-height: 300px;
+      margin: -150px 0 0 -150px;
+    }
+
+    @include breakpoint($maxWidth: 480px){
+      max-width: 200px;
+      max-height: 200px;
+      margin: -100px 0 0 -100px;
+    }
+
+  }
+  
+  .c-video-player__preview-title {
+    display: block;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    font-family: $header;
+    font-size: 1.25rem; /* 20/16 */
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: $white;
+    width: 60%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    @include breakpoint("mobile-large"){
+      font-size: 0.9375rem; /* 15/16 */
+      top: 18px;
+      left: 18px;
+    }
+
+    @include breakpoint($maxWidth: 480px){
+      display: none;
+    }
+
+  }
+
+  .c-video-player__preview-part {
+    display: block;
+    font-size: 0.75rem; /* 12/16 */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: $white;
+    text-align: left;
+    position: absolute;
+    top: 60px;
+    left: 30px;
+    width: 60%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    @include breakpoint("mobile-large"){
+      font-size: 0.625rem; /* 10/16 */
+      top: 40px;
+      left: 18px;
+     
+    }
+
+    @include breakpoint($maxWidth: 480px){
+      position: absolute;
+      top: 18px;
+    }
+
+  }
+
+  .c-video-player__preview-episode {
+    display: block;
+    font-family: $header;
+    font-size: 3.125rem; /* 50/16 */
+    line-height: 1.2;
+    letter-spacing: -1px;
+    color: $white;
+    text-align: center;
+    max-width: 688px;
+    width: 100%;
+
+    @include breakpoint("tablet"){
+      font-size: 2.625rem; /* 42/16 */
+    }
+
+    @include breakpoint("mobile-large"){
+      font-size: 0.9375rem; /* 15/16 */
+      letter-spacing: 0;
+      position: absolute;
+      top: 56px;
+      left: 18px;
+      text-align: left;
+      width: 60%;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    @include breakpoint($maxWidth: 480px){
+      top: 34px;
+    }
+
+  }
+
+  .c-video-player__preview-domains {
+    position: absolute;
+    display: block;
+    bottom: 30px;
+    left: 30px;
+    color: $grey-chateau;
+    font-size: 0.75rem; /* 12/16 */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+
+    @include breakpoint("mobile-large"){
+      font-size: 0.625rem; /* 10/16 */
+      bottom: 18px;
+      left: 18px;
+    }
+
+    @include breakpoint($maxWidth: 480px){
+      display: none;
+    }
+
+  }
+
+}
+
+.c-video-player--nav {
+  .c-video-player__preview  {
+
+    .c-video-player__preview-artwork {
+
+      @include breakpoint($maxWidth: 1200px){
+        max-width: 300px;
+        max-height: 300px;
+        margin: -150px 0 0 -150px;
+      }
+
+      @include breakpoint("tablet"){
+        max-width: 500px;
+        max-height: 500px;
+        margin: -250px 0 0 -250px;
+      }
+
+      @include breakpoint("mobile-large"){
+        max-width: 300px;
+        max-height: 300px;
+        margin: -150px 0 0 -150px;
+      }
+
+      @include breakpoint($maxWidth: 480px){
+        max-width: 200px;
+        max-height: 200px;
+        margin: -100px 0 0 -100px;
+      }
+    }
+
+    .c-video-player__preview-episode {
+      @include breakpoint($maxWidth: 1200px){
+        font-size: 2.625rem; /* 42/16 */
+      }
+
+      @include breakpoint("mobile-large"){
+        font-size: 0.9375rem; /* 15/16 */
+      }
+
+    }
+  }
+}
+
