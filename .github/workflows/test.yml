@@ -52,4 +52,4 @@ jobs:
         run: echo ${{ steps.buildx.outputs.platforms }}
 
       - name: Build image
-        run: docker buildx build --platform linux/amd64 --file Dockerfile --tag robles_image .
+        run: docker buildx build --platform linux/arm64,linux/amd64 --file Dockerfile --tag robles_image .
