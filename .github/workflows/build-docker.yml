@@ -77,17 +77,15 @@ jobs:
       - name: Log in to DockerHub registry
         run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u razewareci --password-stdin
 
-      - name: Build image
+      - name: Generate tag list
+        id: generate_tags
         run: |
-          docker buildx build --platform linux/arm64,linux/amd64 --file Dockerfile --tag image:latest .
-          docker image ls
-
-      - name: Push image to DockerHub
-        run: |
-          IMAGE_ID=razeware/$IMAGE_NAME
+          DOCKER_HUB_IMAGE_ID=razeware/$IMAGE_NAME
+          GITHUB_IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
 
           # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
+          DOCKER_HUB_IMAGE_ID=$(echo $DOCKER_HUB_IMAGE_ID | tr '[A-Z]' '[a-z]')
+          GITHUB_IMAGE_ID=$(echo $GITHUB_IMAGE_ID | tr '[A-Z]' '[a-z]')
 
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
@@ -104,37 +102,19 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo TAGS=$TAGS
 
+          TAG_LIST=""
           for TAG in ${TAGS}; do
-            docker tag image:latest "${IMAGE_ID}:${TAG}"
-            docker push "${IMAGE_ID}:${TAG}"
+            TAG_LIST="${TAG_LIST} --tag ${DOCKER_HUB_IMAGE_ID}:${TAG}"
+            TAG_LIST="${TAG_LIST} --tag ${GITHUB_IMAGE_ID}:${TAG}"
           done
 
-      - name: Push image to GitHub
+          echo $TAG_LIST
+          echo "::set-output name=tag_list::${TAG_LIST}"
+
+      - name: Build and push image
         run: |
-          IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+          docker buildx build --platform linux/amd64 --file Dockerfile ${{ steps.generate_tags.outputs.tag_list }} --push .
 
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-          # Prefix tags with 'release'
-          if [[ "${{ github.ref }}" == "refs/tags/"* ]]; then
-            TAGS=$(echo "${VERSION}" | sed -E "s/v?([0-9]+)\.([0-9]+)\.([0-9]+)/release-v\1.\2.\3 release-v\1.\2 release-v\1/g")
-          fi
-
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && TAGS=latest
-          [ "$VERSION" == "development" ] && TAGS=staging
-
-          echo IMAGE_ID=$IMAGE_ID
-          echo TAGS=$TAGS
-
-          for TAG in ${TAGS}; do
-            docker tag image:latest "${IMAGE_ID}:${TAG}"
-            docker push "${IMAGE_ID}:${TAG}"
-          done
 
       - name: Logout of DockerHub Registry
         if: ${{ always() }}
