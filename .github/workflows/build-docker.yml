@@ -107,6 +107,7 @@ jobs:
             TAG_LIST="${TAG_LIST}${DOCKER_HUB_IMAGE_ID}:${TAG},"
             TAG_LIST="${TAG_LIST}${GITHUB_IMAGE_ID}:${TAG},"
           done
+          TAG_LIST="${TAG_LIST%%*(,)}"
 
           echo $TAG_LIST
           echo "::set-output name=tag_list::${TAG_LIST}"
