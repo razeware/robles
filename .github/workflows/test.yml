@@ -21,7 +21,7 @@ jobs:
           else
             docker build . --file Dockerfile
           fi
-      
+
       - name: Notify slack - test results
         uses: voxmedia/github-action-slack-notify-build@v1
         if: failure()
@@ -31,3 +31,17 @@ jobs:
           channel: circleci
           status: FAILED
           color: danger
+
+  buildx:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Builder instance name
+        run: echo ${{ steps.buildx.outputs.name }}
+
+      - name: Available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }}
