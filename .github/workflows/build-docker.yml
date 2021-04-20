@@ -73,21 +73,16 @@ jobs:
         with:
           buildkitd-flags: --debug
 
-      - name: Log into GitHub registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
-
       - name: Log in to DockerHub registry
         run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u razewareci --password-stdin
 
       - name: Generate tag list
         id: generate_tags
         run: |
-          DOCKER_HUB_IMAGE_ID=razeware/$IMAGE_NAME
-          GITHUB_IMAGE_ID=docker.pkg.github.com/${{ github.repository }}/$IMAGE_NAME
+          IMAGE_ID=razeware/$IMAGE_NAME
 
           # Change all uppercase to lowercase
-          DOCKER_HUB_IMAGE_ID=$(echo $DOCKER_HUB_IMAGE_ID | tr '[A-Z]' '[a-z]')
-          GITHUB_IMAGE_ID=$(echo $GITHUB_IMAGE_ID | tr '[A-Z]' '[a-z]')
+          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
 
           # Strip git ref prefix from version
           VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
@@ -106,8 +101,7 @@ jobs:
 
           TAG_LIST=""
           for TAG in ${TAGS}; do
-            TAG_LIST="${TAG_LIST}${DOCKER_HUB_IMAGE_ID}:${TAG},"
-            TAG_LIST="${TAG_LIST}${GITHUB_IMAGE_ID}:${TAG},"
+            TAG_LIST="${TAG_LIST}${IMAGE_ID}:${TAG},"
           done
 
           echo $TAG_LIST
@@ -124,10 +118,6 @@ jobs:
       - name: Logout of DockerHub Registry
         if: ${{ always() }}
         run: docker logout
-
-      - name: Logout of GitHub Docker Registry
-        if: ${{ always() }}
-        run: docker logout docker.pkg.github.com
 
       - name: Notify slack - build result successful
         uses: voxmedia/github-action-slack-notify-build@v1
