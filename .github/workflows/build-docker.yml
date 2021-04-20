@@ -78,7 +78,9 @@ jobs:
         run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u razewareci --password-stdin
 
       - name: Build image
-        run: docker buildx build --platform linux/arm64,linux/amd64 --file Dockerfile --tag image .
+        run: |
+          docker buildx build --platform linux/arm64,linux/amd64 --file Dockerfile --tag image:latest .
+          docker image ls
 
       - name: Push image to DockerHub
         run: |
@@ -103,7 +105,7 @@ jobs:
           echo TAGS=$TAGS
 
           for TAG in ${TAGS}; do
-            docker tag image "${IMAGE_ID}:${TAG}"
+            docker tag image:latest "${IMAGE_ID}:${TAG}"
             docker push "${IMAGE_ID}:${TAG}"
           done
 
@@ -130,7 +132,7 @@ jobs:
           echo TAGS=$TAGS
 
           for TAG in ${TAGS}; do
-            docker tag image "${IMAGE_ID}:${TAG}"
+            docker tag image:latest "${IMAGE_ID}:${TAG}"
             docker push "${IMAGE_ID}:${TAG}"
           done
 
