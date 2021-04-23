@@ -1,4 +1,4 @@
-FROM ruby:2.7-slim
+FROM ruby:3.0-alpine
 LABEL maintainer=engineering@razeware.com
 
 LABEL com.github.actions.name="robles"
@@ -7,29 +7,27 @@ LABEL com.github.actions.description="Build raywenderlich.com books"
 LABEL com.github.actions.color="purple"
 LABEL com.github.actions.icon="book"
 
-ENV BUILD_PACKAGES="build-essential" \
-    DEV_PACKAGES="" \
-    RUNTIME_PACKAGES="tzdata git rsyslog imagemagick libsodium-dev" \
-    LANG="C.UTF-8"
+ARG APP_ROOT=/app/robles
+ARG BUILD_PACKAGES="build-base git"
+ARG DEV_PACKAGES="bash imagemagick libsodium-dev"
+ARG RUBY_PACKAGES="tzdata"
 
 # SYSLOG TO STDOUT
 RUN \
   touch /var/log/syslog && \
   ln -sf /proc/1/fd/1 /var/log/syslog
 
-# Hack a (potential) problem with the slim distro
-#RUN for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done
-
-RUN \
-  apt-get update -qq && \
-  apt-get install -y $BUILD_PACKAGES && \
-  apt-get install -y $DEV_PACKAGES $RUNTIME_PACKAGES
+# install packages
+RUN apk update \
+    && apk upgrade \
+    && apk add --update --no-cache $BUILD_PACKAGES $DEV_PACKAGES \
+       $RUBY_PACKAGES
 
 # Configure the main working directory. This is the base
 # directory used in any further RUN, COPY, and ENTRYPOINT
 # commands.
-RUN mkdir -p /app/robles
-WORKDIR /app/robles
+RUN mkdir -p $APP_ROOT
+WORKDIR $APP_ROOT
 
 # Copy the Gemfile as well as the Gemfile.lock and install
 # the RubyGems. This is a separate step so the dependencies

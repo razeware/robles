@@ -1,0 +1,161 @@
+/**
+ * Consult bourbon.io for a comprehensive list of available mixins before adding one here
+ *
+ * 1. Card - Used for nearly every container as a background
+ *
+ * 2. Breakpoints - Powerful mixin with five presets for common screen sizes
+ *
+ * 3. Position Absolute - A full width/height pseudo element fill
+ *
+ * 4. Border Hover
+ *
+ * 5. Mobile scroll - Make overflow scroll springy on mobile
+ *
+ */
+
+ /* ==========================================================================
+   1. Card
+   ========================================================================== */
+
+ @mixin card{
+  background: $white;
+  box-shadow: $box-shadow;
+  border-radius: $border-radius;
+ }
+
+  /* ==========================================================================
+   2. Breakpoints
+   ========================================================================== */
+
+ @mixin breakpoint($minWidth: 0, $maxWidth: 0, $minHeight: 0, $maxHeight: 0) {
+  $type: type-of($minWidth);
+
+  @if $type == string {
+    $class: $minWidth;
+
+    @if $class == mobile {
+      // Handheld devices (phones, less than 600px)
+      @media (max-width: 600px) { @content; }
+    }
+
+    @else if $class == mobile-large {
+      // Small devices (landscape phones, phablets, less than 768px)
+      @media (max-width: 768px) { @content; }
+    }
+
+    @else if $class == tablet {
+      // Medium devices (ipads, tablets less than 992px)
+      @media (max-width: 992px) { @content; }
+    }
+
+    @else if $class == laptop {
+      // Large devices (laptops, less than 1200px)
+      @media (max-width: 1200px) { @content; }
+    }
+
+    @else if $class == desktop {
+      // Huge devices (desktops, more than 1200px)
+      @media (min-width: 1200px) { @content; }
+    }
+
+    @else {
+      @warn "Breakpoint mixin supports: mobile, mobile-large, tablet, laptop, desktop";
+    }
+  }
+  @else if $type == number {
+    $widthQuery: "all" !default;
+
+    // width
+    @if $minWidth != 0 and $maxWidth != 0 {
+      $widthQuery: "(min-width: #{$minWidth}) and (max-width: #{$maxWidth})";
+    }
+    @else if $minWidth != 0 and $maxWidth == 0 {
+      $widthQuery: "(min-width: #{$minWidth})";
+    }
+    @else if $minWidth == 0 and $maxWidth != 0 {
+      $widthQuery: "(max-width: #{$maxWidth})";
+    }
+
+    // height
+    $heightQuery: 0;
+    @if $minHeight != 0 and $maxHeight != 0 {
+      $heightQuery: "(min-height: #{$minHeight}) and (max-height: #{$maxHeight})";
+    }
+    @else if $minHeight != 0 and $maxHeight == 0 {
+      $heightQuery: "(min-height: #{$minHeight})";
+    }
+    @else if $minHeight == 0 and $maxHeight != 0 {
+      $heightQuery: "(max-height: #{$maxHeight})";
+    }
+
+    @if $minHeight != 0{
+      @media #{$widthQuery} and #{$heightQuery} {
+        @content;
+      }
+    }
+    @else if $maxHeight != 0{
+      @media #{$widthQuery} and #{$heightQuery} {
+        @content;
+      }
+    }
+    @else if $minHeight != 0 and $maxHeight != 0{
+      @media #{$widthQuery} and #{$heightQuery} {
+        @content;
+      }
+    }
+    @else {
+      @media #{$widthQuery} {
+        @content;
+      }
+    }
+
+  }
+}
+
+/* ==========================================================================
+   3. Pseudo element absolute
+   ========================================================================== */
+
+ @mixin pseudo-absolute{
+  position: relative;
+
+  &:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+  }
+ }
+
+ /* ==========================================================================
+   4. Border Hover
+   ========================================================================== */
+
+@mixin link-border{
+  transition: border 0s;
+  &:hover{
+    border-bottom: 2px solid #73859F;
+  }
+}
+
+/* ==========================================================================
+5. Mobile scroll
+========================================================================== */
+
+@mixin mobile-scroll{
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ==========================================================================
+6. Hide Scrollbar
+========================================================================== */
+
+@mixin hide-scrollbar{
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar { width: 0 !important }
+}

@@ -1,23 +1,95 @@
-<div>
-  <div class="l-block l-block--1080 l-collection-hero l-book-hero">
-    <div class="l-collection-hero__wrapper">
-      <div class="l-collection-hero__artwork">
-        <figure>
-          <img style="width:300px" src="<%= book.cover_image_url&.first&.url || 'https://lorempixel.com/300/388/abstract/' %>">
-        </figure>
-      </div>
-      <div class="l-collection-hero__copy">
-        <h1><%= book.title %></h1>
-        <span class="l-font-24 l-font-italic l-margin-3 l-font-header l-display-block">
-          <%= book.version_description %>
-        </span>
+<div class="l-margin-60 l-margin-mobile-large-40 l-padding-bottom-120">
 
-        <p class="l-margin-18 l-font-header l-collection-hero__copy-markdown"><%= book.short_description %></p>
+  <div class="l-book-sales-grid l-block-padding-1200">
+
+    <div class="l-book-sales-left">
+      <div class="l-book-sales-left-top">
+
+        <div class="l-book-meta">
+          <div>
+            <span>Version</span>
+            <span><%= book.version_description %></span>
+          </div>
+          <div>
+            <span>Platform</span>
+            <span><%= book.platform %></span>
+          </div>
+          <div>
+            <span>Language</span>
+            <span><%= book.language %></span>
+          </div>
+          <div>
+            <span>Editor</span>
+            <span><%= book.editor %></span>
+          </div>
+        </div>
+        <div class="l-book-art">
+          <div class="l-relative l-inline-block">
+            <img style="width:594px" src="<%= book.cover_image_url&.first&.url || 'https://lorempixel.com/594/768/abstract/' %>" class="c-tutorial-item__art-image--primary">
+          </div>
+        </div>
+      </div>
+
+      <div class="l-margin-60 l-margin-mobile-large-40 l-book-sales-copy">
+        <%= book.description %>
+      </div>
+
+      <%= erb :'books/_index_table_of_contents.html', locals: { book: book } %>
+
+      <div class="l-collection-modules__pitch-cards">
+        <div>
+          <h2 class="l-font-36 l-font-22--mobile l-margin-60 l-margin-mobile-large-40"><span>Who is this book for</span></h2>
+          <div class="c-card-pitch l-margin-18">
+            <%= book.who_is_this_for %>
+          </div>
+        </div>
+        <div>
+          <h2 class="l-font-36 l-font-22--mobile l-margin-mobile-large-40 l-margin-60"><span>Concepts covered in this book</span></h2>
+          <div class="c-item-list-icon c-item-list-icon--checkmark l-margin-18">
+            <%= book.covered_concepts %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="l-book-sales-right">
+      <div class="l-book-sales-right--container">
+
+        <div class="l-flex">
+
+          <% if book.professional %>
+            <div class="l-margin-bottom-12">
+              <span class="o-badge o-badge--pro">Pro</span>
+            </div>
+          <% end %>
+        </div>
+
+        <h1><%= book.title %></h1>
+        <p class="l-book-sales-right-authors l-margin-6 l-font-header l-font-18 l-font-16--mobile">
+          By* <%= book.contributors.map(&:username).to_sentence(two_words_connector: ' & ', last_word_connector: ' and ') %>
+        </p>
+
+        <p class="l-margin-36 l-font-header l-markdown-description l-collection-hero__copy-markdown l-font-16--mobile">
+          <%= book.short_description %>
+        </p>
+
+        <% if book.forum_url %>
+          <div class="l-book-sales-cta l-book-sales-cta-secondary">
+            <a href="<%= book.forum_url %>" class="o-button o-text-button o-text-button--green o-button--full-col l-text-align-center">
+              <span class="o-button--full-col l-text-align-center">Discuss on the forums</span>
+            </a>
+          </div>
+        <% end %>
+
+        <% if (amazon_url = book.amazon_url) %>
+          <div class="l-book-sales-cta l-book-sales-cta-secondary l-no-border">
+            <a href="<= amazon_url %>" class="o-button o-text-button o-text-button--green o-button--full-col l-text-align-center">
+              <span class="o-button--full-col l-text-align-center">Buy Paperback (Amazon)</span>
+            </a>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
 </div>
 
-<div class="l-padding-bottom-120">
-  <%= erb :'_index_table_of_contents.html', locals: { book: book } %>
-</div>

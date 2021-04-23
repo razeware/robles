@@ -41,5 +41,19 @@ module Renderer
       width = width_match[1].to_i.round(-1).clamp(0, 100)
       "l-image-#{width}"
     end
+
+    # Importing SVGs directly inline
+    def svg_url(relative_url)
+      relative_svg_url = relative_url.gsub(Pathname(relative_url).extname, '.svg')
+      "#{root_path}/#{relative_svg_url}"
+    end
+
+    def svg?(alt_text, relative_url)
+      alt_text.split(' ').include?('svg') && Pathname(svg_url(relative_url)).exist?
+    end
+
+    def svg_content(relative_url)
+      File.read(svg_url(relative_url))
+    end
   end
 end

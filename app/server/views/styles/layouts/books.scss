@@ -1,0 +1,1370 @@
+/**
+ *
+ * Books
+ *
+ * For use on book sales and chapters pages
+ *
+ * 1. Sidebar
+ *
+ * 2. End of chapter message
+ *
+ * 3. Materials
+ *
+ * 4. Chapter font style
+ *
+ * 5. Chapter page color
+ *
+ * 6. Chapter font size
+ *
+ * 7. Chapter page size
+ *
+ * 8. Chapter image size
+ *
+ * 9. Book hero
+ *
+ * 10. Book sales
+ *
+ **/
+
+/* ==========================================================================
+1. Sidebar
+========================================================================== */
+
+.l-book-chapter {
+
+  .l-admin {
+    padding-left: 0;
+  }
+
+  .l-admin--sidebar-open {
+    padding-left: 320px;
+
+    @include breakpoint($maxWidth: 1080px){
+        padding-left: 270px;
+      }
+
+      @include breakpoint("tablet"){
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .c-nav-sidebar--article{
+        width: 320px !important;
+
+        .c-sidebar-navigator, .c-nav-sidebar__title{
+          display: block;
+        }
+
+        @include breakpoint($maxWidth: 1080px){
+          width: 270px !important;
+        }
+
+      }
+
+      .o-button-chapter {
+        display: none;
+      }
+
+      .c-written-tutorial{
+
+        @include breakpoint("laptop"){
+          padding-left: 48px;
+          padding-right: 48px;
+        }
+
+        @include breakpoint("tablet"){
+          padding-left: 24px;
+          padding-right: 24px;
+        }
+
+      }
+
+      .c-nav-sidebar__nav-action{
+
+        .o-button__label--open{
+          display: inline-flex !important;
+        }
+
+        .o-button__label--close{
+          display: none;
+        }
+
+        i{
+          margin-right: 10px !important;
+        }
+      }
+  }
+
+  .c-written-tutorial__introduction {
+    h1 {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: flex-start;
+    }
+
+    h1 > span:first-child {
+      font-size: 5.2rem; /* 90/16 */
+      margin-right: 15px;
+      letter-spacing: -5px;
+    }
+
+    h1 span {
+      display: block;
+    }
+
+    > div {
+      span:first-child {
+        font-size: 2.5rem;
+      }
+    }
+
+  }
+
+  .c-written-tutorial__content {
+    @include breakpoint("mobile-large"){
+      margin-top: 0 !important;
+    }
+
+    h1, h2, h3, h4, h5 {
+
+        @include breakpoint("mobile-large"){
+            margin-top: 30px !important;
+          }
+    }
+
+  }
+
+}
+
+.l-book-chapter {
+  .l-book-header--hide {
+    display: none !important;
+  }
+
+  .l-book-header--margin {
+    margin-left: -3px !important;
+  }
+}
+
+/* ==========================================================================
+2. End of chapter message
+========================================================================== */
+
+.l-book-chapter-end-message {
+  padding: 60px 24px 60px;
+  border-top: 1px solid $grey-catskill;
+  margin-top: 0;
+
+  @include breakpoint("mobile-large"){
+    padding: 60px 0;
+  }
+
+  p {
+    font-size: 0.9375rem !important; /* 15/16 */
+    color: $grey-raven;
+  }
+}
+
+/* ==========================================================================
+3. Materials
+========================================================================== */
+
+.l-book-materials-download {
+  a, button {
+    background: $grey-bright !important;
+
+      &:hover{
+        background: lighten($grey-bright, 3%) !important;
+      }
+
+    svg {
+      fill: $black-mine-shaft !important;
+    }
+
+  }
+
+  .c-modal {
+
+    .c-modal__close {
+      background: none !important;
+
+      @include breakpoint($maxWidth: 800px){
+        width: 36px !important;
+      }
+
+    }
+
+    .c-modal__description {
+      a {
+        background: none !important;
+      }
+    }
+
+    .o-button--green {
+      background: $green-brand !important;
+
+      @include breakpoint($maxWidth: 800px){
+        width: auto !important;
+      }
+
+      .o-button__icon--right {
+        @include breakpoint($maxWidth: 800px){
+          margin-left: 10px !important;
+        }
+      }
+
+      svg {
+        fill: $green-brand !important;
+      }
+
+    }
+  }
+}
+
+/* ==========================================================================
+4. Chapter font style
+========================================================================== */
+
+.l-chapter-font-serif {
+  .c-book-chapter .c-written-tutorial__content {
+    p, ul, ol, .note, figcaption {
+      font-family: $article !important;
+    }
+  }
+
+}
+
+.c-reading-experience-selector .l-chapter-font-serif label {
+  font-family: $article !important;
+}
+
+.l-chapter-font-sans-serif {
+  .c-book-chapter .c-written-tutorial__content {
+    p, ul, ol, .note, figcaption {
+      font-family: $body !important;
+    }
+  }
+}
+
+/* ==========================================================================
+6. Chapter text size
+========================================================================== */
+
+.l-book-chapter article.c-written-tutorial .c-written-tutorial__content { 
+
+  h1, h2 {
+    font-size: 1.875em;
+
+    @include breakpoint("mobile-large"){
+          font-size: 1.5em; /* 24/16 */
+        }
+
+  }
+
+  h3 {
+    font-size: 1.5em;
+
+    @include breakpoint("mobile-large"){
+          font-size: 1.25em; /* 21/16 */
+      }
+
+  }
+
+  h4{
+      font-size: 1.188em;
+
+      @include breakpoint("mobile-large"){ 
+      font-size: 1.0625em;
+    } 
+
+    }
+
+  ul, ol, p, blockquote {
+    font-size: 1.0625em;
+
+    @include breakpoint("mobile-large"){ 
+      font-size: 0.9375em; /* 15/16 */
+      margin-top: 18px;
+    } 
+
+    p {
+      font-size: 1em;
+    }
+
+    li {
+      p {
+        margin-top: .5rem;
+        font-size: 1em;
+      }
+    } 
+
+    ul, ol {
+      font-size: 1em;
+    }
+
+  }
+
+  pre {
+    font-size: 0.8125em;
+
+    code {
+      font-size: 1em;
+    }
+
+  }
+
+  code {
+    font-size: 0.875em;
+  }
+
+  blockquote {
+    font-size: 1em;
+
+    @include breakpoint("mobile-large"){ 
+      font-size: 0.9375em; /* 15/16 */
+    }
+
+  }
+}
+
+.l-chapter-text-size-75 { 
+  .c-book-chapter .c-written-tutorial__content { 
+    font-size: 75%;
+
+    h1, h2, h3, h4, h5 {
+      margin-top: 30px;
+    }
+
+    ul, ol, p, blockquote {
+      margin-top: 18px
+    }
+
+    blockquote p:first-child {
+      margin-top: 0 !important;
+    }
+
+  }
+}
+
+.l-chapter-text-size-80 { 
+  .c-book-chapter .c-written-tutorial__content { 
+    font-size: 80%;
+
+    h1, h2, h3, h4, h5 {
+      margin-top: 30px;
+    }
+
+    ul, ol, p, blockquote {
+      margin-top: 18px
+    }
+
+    blockquote p:first-child {
+      margin-top: 0 !important;
+    }
+
+  }
+}
+
+.l-chapter-text-size-85 {
+  .c-book-chapter .c-written-tutorial__content {
+    font-size: 85%;
+  }
+}
+
+.l-chapter-text-size-90 {
+  .c-book-chapter .c-written-tutorial__content {
+    font-size: 90%;
+  }
+}
+
+.l-chapter-text-size-100 {
+  .c-book-chapter .c-written-tutorial__content {
+    font-size: 100%;
+  }
+}
+
+.l-chapter-text-size-110 {
+  .c-book-chapter .c-written-tutorial__content {
+    font-size: 110%;
+  }
+}
+
+.l-chapter-text-size-120 {
+  .c-book-chapter .c-written-tutorial__content {
+    font-size: 120%;    
+  }
+}
+
+.l-chapter-text-size-130 {
+  .c-book-chapter .c-written-tutorial__content {
+    font-size: 130%;
+
+    h1, h2, h3, h4, h5 {
+      margin-top: 42px;
+
+      @include breakpoint("mobile-large"){ 
+        margin-top: 30px !important;
+      }
+
+    }
+
+    ul, ol, p, blockquote {
+      margin-top: 30px;
+
+      @include breakpoint("mobile-large"){ 
+        margin-top: 24px !important;
+      } 
+
+    }
+
+    blockquote p:first-child {
+      margin-top: 0 !important;
+    }
+
+  }
+}
+
+.l-chapter-text-size-140 {
+  .c-book-chapter .c-written-tutorial__content {
+    font-size: 140%;
+
+    h1, h2, h3, h4, h5 {
+      margin-top: 42px;
+
+      @include breakpoint("mobile-large"){ 
+        margin-top: 30px !important;
+      }
+
+    }
+
+    ul, ol, p, blockquote {
+      margin-top: 30px;
+
+      @include breakpoint("mobile-large"){ 
+        margin-top: 24px !important;
+      } 
+
+    }
+
+    blockquote p:first-child {
+      margin-top: 0 !important;
+    }
+
+  }
+}
+
+/* ==========================================================================
+7. Chapter page size
+========================================================================== */
+
+.l-page-size-456 {
+  .c-book-chapter, .c-written-tutorial__content {
+    max-width: 456px;
+  }
+}
+
+.l-page-size-572 {
+  .c-book-chapter, .c-written-tutorial__content{
+    max-width: 572px;
+  }
+
+}
+
+.l-page-size-688 {
+  .c-book-chapter, .c-written-tutorial__content{
+    max-width: 688px;
+  }
+
+}
+
+.l-page-size-920 {
+
+  .l-admin--sidebar-open {
+    .c-book-chapter, .c-written-tutorial__content {
+      max-width: 820px !important;
+
+      @include breakpoint($minWidth: 1440px){
+        max-width: 920px !important;
+      }
+
+    }
+
+  }
+
+  .c-book-chapter, .c-written-tutorial__content {
+    max-width: 920px;
+  }
+
+  .o-button-chapter {
+    @include breakpoint($maxWidth: 1280px){
+      width: 60px;
+    }
+
+    @include breakpoint($maxWidth: 1120px){
+      display: none;
+    }
+
+  }
+
+}
+
+.l-page-size-1036 {
+
+  .l-admin--sidebar-open {
+    padding-left: 320px;
+
+    @include breakpoint($maxWidth: 1080px){
+      padding-left: 270px;
+    }
+
+    @include breakpoint("tablet"){
+      padding-left: 0;
+    }
+
+    .c-book-chapter, .c-written-tutorial__content {
+      max-width: 820px !important;
+
+      @include breakpoint($minWidth: 1440px){
+        max-width: 1036px !important;
+      }
+
+    }
+
+  }
+
+  .c-book-chapter, .c-written-tutorial__content {
+    max-width: 1036px;
+  } 
+
+  .c-book-chapter {
+    @include breakpoint($maxWidth: 1120px){
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+  }
+
+  .o-button-chapter {
+
+    @include breakpoint($maxWidth: 1350px){
+      width: 60px;
+    }
+
+    @include breakpoint($maxWidth: 1280px){
+      display: none;
+    }
+  }
+
+}
+
+/* ==========================================================================
+8. Chapter image size
+========================================================================== */
+
+.c-book-chapter {
+
+  .l-image-100 {
+    img {
+      max-width: 100% !important;
+    }
+  }
+
+  .l-image-90 {
+    img {
+      max-width: 90% !important;
+    }
+  }
+
+  .l-image-80 {
+    img {
+      max-width: 80% !important;
+    }
+  }
+
+  .l-image-70 {
+    img {
+      max-width: 70% !important;
+    }
+  }
+
+  .l-image-60 {
+    img {
+      max-width: 60% !important;
+    }
+  }
+
+  .l-image-50 {
+    img {
+      max-width: 50% !important;
+    }
+  }
+
+  .l-image-40 {
+    img {
+      max-width: 40% !important;
+    }
+  }
+
+  .l-image-30 {
+    img {
+      max-width: 30% !important;
+    }
+  }
+
+  .l-image-20 {
+    img {
+      max-width: 20% !important;
+    }
+  }
+
+  .l-image-10 {
+    img {
+      max-width: 10% !important;
+    }
+  }
+
+}
+
+/* ==========================================================================
+9. Book Hero
+========================================================================== */
+
+.l-book-hero {
+  padding-bottom: 0 !important;
+
+  @include breakpoint("tablet"){
+    padding-bottom: 45px !important;
+  }
+
+  @include breakpoint("mobile-large"){
+    padding-top: 45px !important;
+  }
+
+  @include breakpoint("mobile"){
+    padding-top: 30px !important;
+    padding-bottom: 15px !important;
+  }
+
+  .l-collection-hero__wrapper {
+    grid-template-columns: 300px 1fr !important;
+    align-items: flex-start !important;
+
+    @include breakpoint("tablet"){
+      grid-column-gap: 0 !important;
+      grid-template-columns: 285px 1fr !important;
+    }
+
+    @include breakpoint("mobile-large"){
+      grid-template-columns: 1fr !important;
+    }
+
+  }
+
+  .l-collection-hero__artwork {
+    @include breakpoint("mobile-large"){
+      width: 100% !important;
+      margin-left: 0 !important;
+      text-align: center;
+    }
+  }
+
+  .l-collection-hero__copy {
+    @include breakpoint("mobile-large"){
+      background: none !important;
+      margin-left: 0 !important;
+      margin-top: 0 !important;
+      padding: 0 !important;
+
+      h1, > span {
+        text-align: center;
+      }
+
+    }
+
+    .rating {
+      color: $black-mine-shaft !important;
+
+      .l-button__svg-empty-star {
+        fill: $grey-dark-iron;
+      }
+
+    }
+
+  }
+
+  .l-collection-hero__copy-markdown {
+    font-size: 1.1875em !important; /* 21/16 */ /* 19/16 */
+
+    @include breakpoint("mobile-large"){
+        font-size: 1rem !important; /* 17/16 */
+    }
+
+  }
+
+  .l-collection-hero__artwork {
+      img {
+        @include breakpoint("tablet"){
+          max-width: 240px !important;
+        }
+
+        @include breakpoint("mobile-large"){
+          max-width: 180px !important;
+        }
+
+      }
+  }
+
+  .l-book-hero__buttons {
+    @include breakpoint($maxWidth: 800px){
+      display: flex;
+      flex-wrap: wrap;
+
+      > div {
+        width: 100%;
+      }
+
+      .l-margin-right-9 {
+        margin-right: 0 !important;
+      }
+
+      a, button {
+        width: 100%;
+
+        .o-button__label {
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        .o-button__icon--left {
+          margin-right: -24px;
+        }
+
+        .o-button__icon--right {
+          margin-left: -24px;
+        }
+
+      }
+
+      .l-book-materials-download {
+        order: 2;
+        margin-top: 15px;
+      }
+
+    }
+
+    .l-book-materials-download {
+      .u-hide-mobile {
+        @include breakpoint("mobile"){
+          display: inline-block !important;
+        }
+      }
+    }
+
+  }
+
+}
+
+.l-book-modules {
+
+  .l-collection-modules__module {
+    grid-template-columns: 300px 1fr !important;
+    grid-column-gap: 90px !important;
+
+    @include breakpoint("tablet"){
+      grid-template-columns: 1fr !important;
+    }
+
+  }
+
+  .l-collection-modules__pitch-cards {
+    @include breakpoint("tablet"){
+      order: 2;
+    }
+  }
+
+}
+
+/* ==========================================================================
+10. Book Sales
+========================================================================== */
+
+.l-book-sales-grid {
+  max-width: 1152px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 6fr 4fr;
+  grid-column-gap: 16px;
+
+  @include breakpoint("mobile-large"){
+    grid-template-columns: 1fr;
+  }
+
+}
+
+.l-book-sales-left {
+  padding-right: 50px;
+
+  @include breakpoint($maxWidth: 1200px){
+    padding-right: 24px;
+  }
+
+  @include breakpoint("mobile-large"){
+    padding-right: 0;
+  }
+
+}
+
+.l-book-sales-left-top {
+  display: grid;
+  grid-template-columns: 0.25fr 0.75fr;
+  grid-column-gap: 8px;
+
+  @include breakpoint($maxWidth: 1200px){
+    grid-column-gap: 24px;
+  }
+
+  @include breakpoint("mobile-large"){
+    grid-template-columns: 2fr 8fr;
+  }
+
+}
+
+.l-collection-hero__copy-markdown {
+
+  @include breakpoint("tablet"){
+    font-size: 0.9375rem; /* 15/16 */
+  }
+
+  @include breakpoint("mobile-large"){
+    display: none;
+  }
+}
+
+.l-book-meta {
+
+  > div {
+    margin-top: 30px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+  }
+
+  span {
+    display: block;
+    font-size: 0.9375rem; /* 15/16 */
+    text-align: right;
+
+    @include breakpoint("mobile-large"){
+      font-size: 0.875rem; /* 14/16 */
+    }
+
+    &:last-child {
+      font-weight: 700;
+      margin-top: 3px;
+    }
+
+  }
+}
+
+.l-book-art {
+
+  text-align: right;
+
+  @include breakpoint("mobile-large"){
+    text-align: left;
+  }
+
+  img {
+    max-width: 396px;
+    width: 100%;
+    border-radius: 0.9375rem; /* 15/16 */
+    box-shadow: $big-box-shadow;
+
+    @include breakpoint("mobile-large"){
+      max-width: 324px;
+    }
+
+  }
+
+  .l-button-look-inside {
+    margin: -38px 0 0 -96px;
+    
+    .o-button__icon--left {
+      width: 32px;
+      height: 32px;
+      margin-right: 12px;
+    }
+  }
+
+}
+
+.l-book-sales-copy {
+
+  h2 {
+    font-size: 1.5rem; /* 24/16 */
+    margin-top: 18px;
+
+    @include breakpoint("mobile-large"){
+      font-size: 1.375rem; /* 22/16 */
+    }
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+  }
+
+  h3 {
+    font-size: 1.25rem; /* 20/16 */
+    margin-top: 15px;
+
+    @include breakpoint("mobile-large"){
+      font-size: 1.1875rem; /* 19/16 */
+    }
+
+  }
+
+  h4 {
+    font-size: 1.0625rem; /* 17/16 */
+    margin-top: 12px;
+  }
+
+  p {
+    margin-top: 18px;
+
+    @include breakpoint("mobile-large"){
+      font-size: 1rem; /* 15/16 */
+    }
+
+  }
+
+  ul, ol {
+    margin-top: 18px;
+    list-style: inherit;
+    padding-left: 18px;
+
+    li {
+      margin-top: 10px;
+    }
+
+  }
+
+  ul {
+    list-style: disc;
+  }
+
+  ol {
+    list-style: decimal;
+  }
+
+  a {
+    color: $green-brand;
+  }
+
+}
+
+.l-book-toc {
+  h2 {
+    margin-top: 45px;
+
+    @include breakpoint("mobile-large"){
+      font-size: 1.375rem; /* 22/16 */
+    }
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+  }
+
+  h4 {
+
+    line-height: 1.25;
+
+    @include breakpoint("mobile-large"){
+      font-size: 1.1875rem !important; /* 19/16 */
+    }
+  }
+
+  .c-tutorial-episode {
+    margin-top: 20px;
+
+    &:before{
+        height: calc(100% - 33px);
+      }
+
+  }
+
+  .c-tutorial-episode p {
+    margin-top: 6px;
+    font-size: 0.9375em; /* 15/16 */
+  }
+
+  .l-book-toc-section-description {
+
+    position: relative;
+    padding-left: 64px;
+    margin-top: 20px;
+
+    &:before{
+      content: "";
+        position: absolute;
+        left: 20px;
+        top: 0;
+        width: 6px;
+        height: 100%;
+        background: #DFE7F0;
+        border-radius: 100px;
+      transition: .75s all;
+    }
+
+    h1, h2, h3, h4, h5 {
+      margin-top: 15px;
+    }
+
+    p, ul, ol {
+      font-size: 0.9375em;
+      margin-top: 15px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      em {
+        font-style: italic;
+        font-weight: 400;
+      }
+
+      strong {
+        font-weight: 700;
+      }
+
+      em {
+        strong {
+          font-style: italic;
+          font-weight: 700;
+        }
+      }
+
+      strong {
+        em {
+          font-style: italic;
+          font-weight: 700;
+        }
+      }
+
+    }
+
+    ul, ol {
+      padding-left: 20px;
+
+      li {
+        margin-top: 3px;
+      }
+
+    }
+
+    ul {
+      list-style: disc;
+    }
+
+    ol {
+      list-style: lower-roman;
+    }
+  }
+
+}
+
+.l-book-contributors {
+
+  .l-grid-3 {
+    grid-template-columns: 1fr 1fr;
+
+    @include breakpoint("mobile-large"){
+      grid-template-columns: 1fr;
+      grid-row-gap: 0;
+    }
+
+  }
+
+  .c-content-author {
+    &:first-child {
+      @include breakpoint("mobile-large"){
+        margin-top: 0;
+      }
+    }
+  }
+
+  h3 {
+    display: none;
+  }
+
+  .c-authors {
+    background: none;
+    padding: 0;
+  }
+
+  .l-block-wrapper {
+    padding: 0;
+  }
+
+  .c-content-author p {
+    display: none;
+  }
+
+  .c-content-author__title {
+    font-size: 21px !important;
+    line-height: 1.125;
+    max-width: 96px;
+
+    @include breakpoint("mobile-large"){
+      max-width: none;
+      font-size: 1.1875rem !important; /* 19/16 */
+    }
+
+  }
+
+  .c-content-author img {
+    width: 90px;
+    height: 90px;
+    border-radius: 0.5625rem; /* 9/16 */
+    border: 0;
+    box-shadow: 0;
+
+    @include breakpoint("mobile-large"){
+      width: 72px;
+      height: 72px;
+    }
+
+  }
+
+}
+
+.l-book-sales-right {
+
+  margin-top: -24px;
+
+  .l-book-sales-right--container:hover {
+    overflow-y: auto;
+  }
+
+  .l-book-sales-right--container {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    padding-top: 24px;
+    height: 100vh;
+    overflow-y: scroll;
+    @include mobile-scroll;
+    @include hide-scrollbar;
+
+    @include breakpoint("mobile-large"){
+      padding-top: 0;
+      height: auto;
+    }
+
+  }
+
+  @include breakpoint("mobile-large"){
+    position: fixed;
+    z-index: 99999999;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 18px 24px;
+    background: $white;
+    box-shadow: $big-box-shadow;
+  }
+
+  h1 {
+    line-height: 1;
+
+    @include breakpoint("tablet"){
+      font-size: 2.5rem;
+    }
+
+    @include breakpoint("mobile-large"){
+      font-size: 1.375rem; /* 22/16 */
+    }
+
+  }
+
+  .o-badge--pro {
+    border-color: $blue-curious;
+    margin-right: 5px;
+  }
+
+  a.rating {
+    flex-wrap: wrap;
+    margin-top: 10px;
+
+    @include breakpoint("mobile-large"){
+      display: none;
+    }
+
+    .l-font-17 {
+      font-size: 1.5rem; /* 24/16 */
+      top: 2px;
+      position: relative;
+
+      @include breakpoint("tablet"){
+        font-size: 1.1875rem; /* 19/16 */
+      }
+
+    }
+
+    svg {
+      width: 20px;
+      height: 19px;
+
+      @include breakpoint("tablet"){
+        width: 16px;
+      }
+
+    }
+
+    .l-font-15 {
+      display: block;
+      white-space: nowrap;
+      width: 100%;
+      margin: 0;
+      font-family: $body;
+      color: $green-brand;
+      letter-spacing: 0;
+    }
+
+  }
+
+  .l-book-sales-right-authors {
+    @include breakpoint("tablet"){
+      font-size: 1rem;
+    }
+
+    @include breakpoint("mobile-large"){
+      font-size: 0.875rem !important; /* 14/16 */
+    }
+
+  }
+}
+
+.l-book-sales-right--show {
+
+  @include breakpoint("mobile-large"){
+    overflow-y: scroll;
+    height: 100%;
+  }
+
+  .l-book-sales-cta-secondary {
+    @include breakpoint("mobile-large"){
+      display: block !important;
+    }
+  }
+
+  .l-book-sales-cta-tertiary {
+    @include breakpoint("mobile-large"){
+      display: none !important;
+    }
+  }
+
+  .l-book-sales-cta-close {
+    @include breakpoint("mobile-large"){
+      display: block !important;
+    }
+  }
+
+  .l-no-border {
+    @include breakpoint("mobile-large"){
+      border-bottom: 1px solid $grey-catskill !important;
+    }
+  }
+
+  .o-button--huge {
+    @include breakpoint("mobile-large"){
+      padding-top: 14px !important;
+      padding-bottom: 14px !important;
+    }
+  }
+
+}
+
+.l-book-sales-cta {
+  border-bottom: 1px solid $grey-catskill;
+  margin-top: 15px;
+  padding-bottom: 15px;
+
+  @include breakpoint("mobile-large"){
+    margin-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  .o-button--huge {
+    @include breakpoint("mobile-large"){
+      height: auto;
+      line-height: 1.25;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+  }
+
+  &.l-book-sales-cta-secondary {
+    @include breakpoint("mobile-large"){
+      display: none;
+    }
+  }
+
+  &.l-book-sales-cta-tertiary {
+    display: none;
+    
+    @include breakpoint("mobile-large"){
+      display: block;
+    }
+  }
+
+  &.l-book-sales-cta-open {
+    padding-bottom: 0;
+  }
+
+  &.l-book-sales-cta-close {
+    display: none;
+  }
+
+  .l-book-sales-right-info {
+    @include breakpoint("mobile-large"){
+      font-size: 0.8125rem; /* 13/16 */
+    }
+  }
+
+  .o-button {
+    @include breakpoint("mobile-large"){
+      font-size: 0.875rem; /* 14/16 */
+    }
+  }
+
+}
+
+.l-book-sales-related {
+  max-width: 1152px;
+  margin: 0 auto;
+
+  .l-grid-4 {
+    @include breakpoint("tablet"){
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @include breakpoint("mobile-large"){
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @include breakpoint("mobile"){
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+  }
+
+}

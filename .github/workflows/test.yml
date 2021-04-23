@@ -21,7 +21,7 @@ jobs:
           else
             docker build . --file Dockerfile
           fi
-      
+
       - name: Notify slack - test results
         uses: voxmedia/github-action-slack-notify-build@v1
         if: failure()

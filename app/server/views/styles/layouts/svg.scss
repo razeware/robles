@@ -1,0 +1,73 @@
+/**
+ *
+ * SVG
+ *
+ *
+ *
+ * 1. Custom Sizes
+ *
+ * 2. Colors
+ *
+ *
+ **/
+
+/* ==========================================================================
+1. Custom sizes
+========================================================================== */
+
+.l-svg-collection {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  margin-right: 9px;
+}
+
+.l-svg-notebook-bin {
+  width: 17px;
+  height: 21px;
+}
+
+.l-svg-breadcrumb {
+  width: 10px;
+  transform: rotate(90deg);
+  height: 10px;
+  fill: $grey-raven;
+}
+
+.l-svg-nub-down {
+  width: 10px;
+  height: 10px;
+  margin-top: -6px;
+  margin-left: -6px;
+  position: relative;
+}
+
+.l-svg-more {
+  width: 20px;
+  height: 5px;
+}
+
+.l-svg-empty-state-bookmark {
+  width: 13px;
+  height: 18px;
+  top: 5px;
+  position: relative;
+  margin: 0 5px;
+}
+
+/* ==========================================================================
+2. Colors
+========================================================================== */
+
+.l-svg-color-white {
+  fill: $white !important;
+}
+
+.l-svg-color-grey-regent {
+  fill: $grey-regent !important;
+}
+
+.l-svg-color-grey-raven {
+  fill: $grey-raven !important;
+}

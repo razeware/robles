@@ -1,0 +1,546 @@
+/* ==========================================================================
+X. Typography
+========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@500&display=swap');
+
+.c-written-tutorial__content {
+
+  > figure svg {
+    max-width: 688px;
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+  }
+
+  figure svg {
+    max-width: 688px;
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+  }
+
+}
+
+.l-prefers-color-scheme--dark {
+
+  .c-written-tutorial__content {
+
+    /* ==========================================================================
+    X. Labels
+    ========================================================================== */
+
+    text {
+      fill: white;
+    }
+
+    /* ==========================================================================
+    X. Shapes
+    ========================================================================== */
+
+    #Shape rect:nth-of-type(1) {
+      fill: #333333;
+    }
+
+    #Shape rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='Shape_'] rect:nth-of-type(1) {
+      fill: #333333;
+    }
+
+    [id^='Shape_'] rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    /* ==========================================================================
+    X. Shapes w/ Inner
+    ========================================================================== */
+
+    #ShapeInner > rect:nth-of-type(1) {
+      fill: #333333;
+    }
+
+    #ShapeInner > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeInner_'] > rect:nth-of-type(1) {
+      fill: #333333;
+    }
+
+    [id^='ShapeInner_'] > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    #ShapeInnerFore > rect:nth-of-type(1) {
+      fill: #333333;
+    }
+
+    #ShapeInnerFore > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeInnerFore_'] > rect:nth-of-type(1) {
+      fill: #333333;
+    }
+
+    [id^='ShapeInnerFore_'] > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    #ShapeInnerClear > rect {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeInnerClear_'] > rect {
+      stroke: #ffffff;
+    }
+
+    /* ==========================================================================
+    X. Shapes w/ Patterns
+    ========================================================================== */
+
+    #ShapeInnerPattern #ShapeInnerBack > rect:nth-of-type(1) {
+      stroke: #ffffff;
+    }
+
+    #ShapeInnerPattern #ShapeInnerFore > rect:nth-of-type(1) {
+      fill: #333333;
+    }
+
+    #ShapeInnerPattern #ShapeInnerFore > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeInnerPattern_'] [id^='ShapeInnerBack_'] > rect:nth-of-type(1) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeInnerPattern_'] [id^='ShapeInnerFore_'] > rect:nth-of-type(1) {
+      fill: #333333;
+    }
+
+    [id^='ShapeInnerPattern_'] [id^='ShapeInnerFore_'] > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    #ShapePattern path {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapePattern_'] path {
+      stroke: #ffffff;
+    }
+
+    #ShapePattern rect:nth-of-type(1) {
+      fill: #333333;
+    }
+
+    [id^='ShapePattern_'] rect:nth-of-type(1) {
+      fill: #333333;
+    }
+
+    #ShapePattern rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapePattern_'] rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    #ShapeInnerPattern #ShapeBackground {
+      fill: #333333;
+    }
+
+    [id^='ShapeInnerPattern_'] [id^='ShapeBackground_'] {
+      fill: #333333;
+    }
+
+
+
+    /* ==========================================================================
+    X. Arrows
+    ========================================================================== */
+
+    #Arrow circle {
+      fill: #333333;
+      stroke: #ffffff;
+    }
+
+    [id^='Arrow_'] circle {
+      fill: #333333;
+      stroke: #ffffff;
+    }
+
+    #Arrow [id^='Line'] {
+      stroke: #ffffff
+    }
+
+    [id^='Arrow_'] [id^='Line'] {
+      stroke: #ffffff
+    }
+
+    #Arrow [id^='Tip'] {
+      fill: #333333;
+      stroke: #ffffff;
+    }
+
+    [id^='Arrow_'] [id^='Tip'] {
+      fill: #333333;
+      stroke: #ffffff;
+    }
+
+    /* ==========================================================================
+    X. Lines
+    ========================================================================== */
+
+    #ShapeLine {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeLine_'] {
+      stroke: #ffffff;
+    }
+
+    /* ==========================================================================
+    X. Shadows
+    ========================================================================== */
+
+    #ShapeShadow rect {
+      fill: #ffffff;
+    }
+
+    [id^='ShapeShadow_'] rect {
+      fill: #ffffff;
+    }
+
+    /* ==========================================================================
+    X. Color Conversion (Grey)
+    ========================================================================== */
+
+    #ShapeGrey rect:nth-of-type(1) {
+      fill: #717680;
+    }
+
+    #ShapeGrey rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeGrey_'] rect:nth-of-type(1) {
+      fill: #717680;
+    }
+
+    [id^='ShapeGrey_'] rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    #ShapeInnerForeGrey > rect:nth-of-type(1) {
+      fill: #717680;
+    }
+
+    #ShapeInnerForeGrey > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeInnerForeGrey_'] > rect:nth-of-type(1) {
+      fill: #717680;
+    }
+
+    [id^='ShapeInnerForeGrey_'] > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    /* ==========================================================================
+    X. Color Conversion (Green)
+    ========================================================================== */
+
+    #ShapeGreen rect:nth-of-type(1) {
+      fill: #598131;
+    }
+
+    #ShapeGreen rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeGreen_'] rect:nth-of-type(1) {
+      fill: #598131;
+    }
+
+    [id^='ShapeGreen_'] rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    #ShapeInnerForeGreen > rect:nth-of-type(1) {
+      fill: #598131;
+    }
+
+    #ShapeInnerForeGreen > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeInnerForeGreen_'] > rect:nth-of-type(1) {
+      fill: #598131;
+    }
+
+    [id^='ShapeInnerForeGreen_'] > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    /* ==========================================================================
+    X. Color Conversion (Turquoise)
+    ========================================================================== */
+
+    #ShapeTurquoise rect:nth-of-type(1) {
+      fill: #417D86;
+    }
+
+    #ShapeTurquoise rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeTurquoise_'] rect:nth-of-type(1) {
+      fill: #417D86;
+    }
+
+    [id^='ShapeTurquoise_'] rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    #ShapeInnerForeTurquoise > rect:nth-of-type(1) {
+      fill: #417D86;
+    }
+
+    #ShapeInnerForeTurquoise > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeInnerForeTurquoise_'] > rect:nth-of-type(1) {
+      fill: #417D86;
+    }
+
+    [id^='ShapeInnerForeTurquoise_'] > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    /* ==========================================================================
+    X. Color Conversion (Light Blue)
+    ========================================================================== */
+
+    #ShapeLightBlue rect:nth-of-type(1) {
+      fill: #26809C;
+    }
+
+    #ShapeLightBlue rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeLightBlue_'] rect:nth-of-type(1) {
+      fill: #26809C;
+    }
+
+    [id^='ShapeLightBlue_'] rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    #ShapeInnerForeLightBlue > rect:nth-of-type(1) {
+      fill: #26809C;
+    }
+
+    #ShapeInnerForeLightBlue > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeInnerForeLightBlue_'] > rect:nth-of-type(1) {
+      fill: #26809C;
+    }
+
+    [id^='ShapeInnerForeLightBlue_'] > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    /* ==========================================================================
+    X. Color Conversion (Dark Blue)
+    ========================================================================== */
+
+    #ShapeDarkBlue rect:nth-of-type(1) {
+      fill: #0074E0;
+    }
+
+    #ShapeDarkBlue rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeDarkBlue_'] rect:nth-of-type(1) {
+      fill: #0074E0;
+    }
+
+    [id^='ShapeDarkBlue_'] rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    #ShapeInnerForeDarkBlue > rect:nth-of-type(1) {
+      fill: #0074E0;
+    }
+
+    #ShapeInnerForeDarkBlue > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeInnerForeDarkBlue_'] > rect:nth-of-type(1) {
+      fill: #0074E0;
+    }
+
+    [id^='ShapeInnerForeDarkBlue_'] > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    /* ==========================================================================
+    X. Color Conversion (Purple)
+    ========================================================================== */
+
+    #ShapePurple rect:nth-of-type(1) {
+      fill: #9A53B2;
+    }
+
+    #ShapePurple rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapePurple_'] rect:nth-of-type(1) {
+      fill: #9A53B2;
+    }
+
+    [id^='ShapePurple_'] rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    #ShapeInnerForePurple > rect:nth-of-type(1) {
+      fill: #9A53B2;
+    }
+
+    #ShapeInnerForePurple > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeInnerForePurple_'] > rect:nth-of-type(1) {
+      fill: #9A53B2;
+    }
+
+    [id^='ShapeInnerForePurple_'] > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    /* ==========================================================================
+    X. Color Conversion (Pink)
+    ========================================================================== */
+
+    #ShapePink rect:nth-of-type(1) {
+      fill: #C34693;
+    }
+
+    #ShapePink rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapePink_'] rect:nth-of-type(1) {
+      fill: #C34693;
+    }
+
+    [id^='ShapePink_'] rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    #ShapeInnerForePink > rect:nth-of-type(1) {
+      fill: #C34693;
+    }
+
+    #ShapeInnerForePink > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeInnerForePink_'] > rect:nth-of-type(1) {
+      fill: #C34693;
+    }
+
+    [id^='ShapeInnerForePink_'] > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    /* ==========================================================================
+    X. Color Conversion (Red)
+    ========================================================================== */
+
+    #ShapeRed rect:nth-of-type(1) {
+      fill: #C23100;
+    }
+
+    #ShapeRed rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeRed_'] rect:nth-of-type(1) {
+      fill: #C23100;
+    }
+
+    [id^='ShapeRed_'] rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    #ShapeInnerForeRed > rect:nth-of-type(1) {
+      fill: #C23100;
+    }
+
+    #ShapeInnerForeRed > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeInnerForeRed_'] > rect:nth-of-type(1) {
+      fill: #C23100;
+    }
+
+    [id^='ShapeInnerForeRed_'] > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    /* ==========================================================================
+    X. Color Conversion (Yellow)
+    ========================================================================== */
+
+    #ShapeYellow rect:nth-of-type(1) {
+      fill: #9E6B05;
+    }
+
+    #ShapeYellow rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeYellow_'] rect:nth-of-type(1) {
+      fill: #9E6B05;
+    }
+
+    [id^='ShapeYellow_'] rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    #ShapeInnerForeYellow > rect:nth-of-type(1) {
+      fill: #9E6B05;
+    }
+
+    #ShapeInnerForeYellow > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+    [id^='ShapeInnerForeYellow_'] > rect:nth-of-type(1) {
+      fill: #9E6B05;
+    }
+
+    [id^='ShapeInnerForeYellow_'] > rect:nth-of-type(2) {
+      stroke: #ffffff;
+    }
+
+  }
+
+}
+

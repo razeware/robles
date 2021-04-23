@@ -22,7 +22,7 @@ class LocalImageProvider
 
   def extract(image_paths)
     image_paths.map do |path|
-      Image.with_original_representation(local_url: path[:absolute_path], sku: 'NOT_NEEDED')
+      Image.with_original_representation(local_url: path[:absolute_path])
     end
   end
 

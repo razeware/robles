@@ -2,15 +2,14 @@
  * Sets some base rules for typography
  */
 
- body {
-	font-family: $body;
+body{
+  font-family: $body;
   font-display: auto;
   font-size: 1rem;
   font-weight: normal;
   line-height: 1.45;
   color: $black-mine-shaft;
   -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
   text-shadow: 0 -1px 1px rgba(255, 255, 255, 0.01);
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -25,18 +24,23 @@ h1, h2, h3, h4, h5{
 }
 
 h1{
-	font-size: 3rem;
-	line-height: 1.125;
+  font-size: 3rem;
+  line-height: 1.125;
+
+  @include breakpoint("mobile"){
+    font-size: 1.875rem;
+  }
+
 }
 
 h2{
-	font-size: 1.875rem;
-	line-height: 1.25;
+  font-size: 1.875rem;
+  line-height: 1.25;
 }
 
 h3{
-	font-size: 1.5rem;
-	line-height: 1.35;
+  font-size: 1.5rem;
+  line-height: 1.35;
 }
 
 h4{
@@ -44,6 +48,11 @@ h4{
   line-height: 1.35;
 }
 
-p {
-	font-size: 1.0625rem;
+p{
+  font-size: 1.0625rem;
+
+  @include breakpoint("mobile"){
+    font-size: 0.9375rem;
+  }
+
 }

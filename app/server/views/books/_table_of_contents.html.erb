@@ -1,21 +1,44 @@
 <div class="c-nav-sidebar--article c-nav-sidebar--book">
-  <% book.sections.each do |section| %>
-  
-    <nav class="c-video-player__lessons">
-      <div class= "c-video-player__lessons-section">
-        <span class="c-video-player__lessons-header">
-          <h4 class="c-video-player__lessons-title"><%= section.title %></h4>
-        </span>
-        <ul class="c-sidebar-navigator">
-          <% section.chapters.each do |chapter| %>
-            <li>
-              <a href="<%= url(chapter_path(chapter)) %>">
-                <span class="c-box-list__item-number"><%= chapter.number %></span>.<span class="c-box-list__item-title"><%= chapter.title %></span>
-              </a>
-            </li>
+  <div>
+    <div class="c-nav-sidebar__wrapper">
+      <nav class="c-video-player__lessons">
+        <div class="c-video-player__lessons-section">
+          <% if book.professional %>
+            <div class="l-margin-20 l-margin-bottom-n-10">
+              <span class="o-badge o-badge--pro">Pro</span>
+            </div>
           <% end %>
-        </ul>
-      </div>
-    </nav>
-  <% end %>
-  </div>  
+
+          <h4 class="c-video-player__lessons-title l-flex-align-center--force">
+            <a href="/" class="l-font-19"><%= book.title %></a>
+          </h4>
+
+          <span class="l-display-block l-margin-3 l-color-grey l-font-14"><%= book.version_description %></span>
+          <span class="l-display-block l-margin-3 l-color-grey l-font-14"><%= book.platform %>, <%= book.language %>, <%= book.editor %></span>
+        </div>
+
+
+
+
+        <% book.sections.each do |section| %>
+          <div class= "c-video-player__lessons-section">
+            <span class="c-video-player__lessons-header c-video-player__lessons-header--open">
+              <h4 class="c-video-player__lessons-title"><%= section.title %></h4>
+              <span class="c-video-player__lessons-sum"><%= section.number.present? ? "Section #{section.number}:" : '' %> <%= 'chapter'.pluralize(section.chapters.count) %></span>
+            </span>
+            <ul class="c-box-list c-box-list--linked c-video-player__lesson-list c-video-player__lesson-list--open">
+              <% section.chapters.each do |chapter| %>
+                <li class="<%= 'c-box-list__item--active' if chapter == current_chapter %>">
+                  <a href="<%= url(chapter_path(chapter)) %>">
+                    <span class="c-box-list__item-number"><%= chapter.number %>.</span>
+                    <span class="c-box-list__item-title"><%= chapter.title %></span>
+                  </a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </nav>
+    </div>
+  </div>
+</div>
