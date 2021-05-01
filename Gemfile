@@ -55,5 +55,5 @@ group :development do
   # Auto-reloading when serving locally
   gem 'guard', '~> 2', '>= 2.16.2'
   gem 'guard-livereload', git: 'https://github.com/guard/guard-livereload'
-  gem 'rack-livereload'
+  gem 'rack-livereload', git: 'https://github.com/jaredmdobson/rack-livereload'
 end
