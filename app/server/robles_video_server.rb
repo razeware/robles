@@ -1,14 +1,15 @@
 # frozen_string_literal: true
+
 require 'rack-livereload'
 
 # A local preview server for robles
 class RoblesVideoServer < Sinatra::Application
   set :bind, '0.0.0.0'
-  set :views, __dir__ + '/views'
-  set :public_folder, __dir__ + '/public'
+  set :views, "#{__dir__}/views"
+  set :public_folder, "#{__dir__}/public"
   set :static_cache_control, [max_age: 0]
 
-  use Rack::LiveReload, host: '0.0.0.0'
+  use Rack::LiveReload, host: 'localhost', source: :vendored
 
   helpers do
     def slide_path(episode)
