@@ -6,8 +6,7 @@ module Renderer
     include Util::Logging
     include Parser::FrontmatterMetadataFinder
 
-    attr_reader :path
-    attr_reader :image_provider
+    attr_reader :path, :image_provider
 
     def initialize(path:, image_provider: nil)
       @path = path
@@ -17,7 +16,7 @@ module Renderer
     def render
       logger.debug 'MarkdownFileRenderer::render'
       remove_h1(doc)
-      rw_renderer.render(doc)
+      fix_team_bio_markup(rw_renderer.render(doc))
     end
 
     def rw_renderer
@@ -53,6 +52,11 @@ module Renderer
         node.delete if node.type == :header && node.header_level.to_i == 1
       end
       document
+    end
+
+    def fix_team_bio_markup(html)
+      # It'd be nice to do this pre-render, but that involves allowing unsafe rendering of HTML
+      html.gsub(/<p>\$\[#tb\]<\/p>/, '<div>').gsub(/<p>\$\[tb#\]<\/p>/, '</div>')
     end
 
     def root_directory
