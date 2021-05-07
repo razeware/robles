@@ -1194,6 +1194,10 @@ article.c-written-tutorial{
  ========================================================================== */
 
  .c-book-chapter__team {
+  h2 {
+    margin-bottom: 24px;
+  }
+
   padding-top: 24px;
 
   @include breakpoint("mobile-large"){
@@ -1212,13 +1216,11 @@ article.c-written-tutorial{
   figure {
     width: 180px;
     min-width: 180px;
-    height: 180px;
     margin-right: 24px;
 
     @include breakpoint("mobile-large"){
       width: 60px;
       min-width: 60px;
-      height: 60px;
       margin-right: 15px;
     }
 
@@ -1237,6 +1239,7 @@ article.c-written-tutorial{
         font-size: 1.6875rem; /* 27/16 */
         font-family: $header;
         font-weight: 700;
+        line-height: 0;
 
         @include breakpoint("mobile-large"){
           font-size: 1.1875rem; /* 19/16 */
