@@ -37,11 +37,10 @@ class Chapter
 
   # For wrapping content
   def wrapper_class
-    p kind
     {
       'chapter': nil,
       'dedications': 'c-book-chapter__dedications',
       'team-bios': 'c-book-chapter__team'
-    }[kind.to_sym]
+    }[kind&.to_sym]
   end
 end
