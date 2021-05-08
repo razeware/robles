@@ -63,7 +63,9 @@
             <div>
               <span class="l-font-42 l-margin-6"><%= chapter.title %></span>
               <span class="l-font-header l-font-17 l-font-normal l-no-font-spacing l-margin-6 l-line-height-1125">
-                Written by <%= chapter.authors.map(&:username).to_sentence %>
+                <% if chapter.authors.filter { |author| author.role == 'author' }.present? %>
+                  Written by <%= chapter.authors.filter { |author| author.role == 'author' }.map(&:username).to_sentence %>
+                <% end %>
               </span>
             </div>
           </h1>

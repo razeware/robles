@@ -11,8 +11,8 @@ module Concerns
 
     class_methods do
       # Specify the name of the attribute that markdown should be rendered into
-      def attr_markdown(attribute, source:, file: false)
-        _markdown_renderable_attributes.push({ destination: attribute, source: source, file: file })
+      def attr_markdown(attribute, source:, file: false, wrapper_class: nil)
+        _markdown_renderable_attributes.push({ destination: attribute, source: source, file: file, wrapper_class: wrapper_class })
         attr_accessor attribute
       end
     end
@@ -23,8 +23,25 @@ module Concerns
       _markdown_renderable_attributes.each do |attribute|
         content = send(attribute[:source])
         rendered = block.call(content, attribute[:file])
+        rendered = wrap_render(rendered, attribute[:wrapper_class])
+
         send("#{attribute[:destination]}=".to_sym, rendered)
       end
+    end
+
+    def wrap_render(rendered, wrapper_class)
+      class_string = if wrapper_class.is_a?(Symbol) && respond_to?(wrapper_class)
+                       send(wrapper_class)
+                     elsif wrapper_class.is_a?(String)
+                       wrapper_class
+                     end
+      return rendered unless class_string.is_a?(String)
+
+      %(
+      <div class="#{class_string}">
+        #{rendered}
+      </div>
+      )
     end
   end
 end
