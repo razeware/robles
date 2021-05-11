@@ -17,7 +17,7 @@ module ImageProvider
     end
 
     def uploaded_image_root_path
-      "videos/#{video_course.shortcode}/images"
+      "videos/#{Digest::SHA2.hexdigest(video_course.shortcode)}/images"
     end
 
     def image_paths
