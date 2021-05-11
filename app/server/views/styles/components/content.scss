@@ -17,6 +17,8 @@
  *
  * 5. Book Chapter
  *
+ * 5a. Book Chapter (Dedications)
+ *
  */
 
 /* ==========================================================================
@@ -177,6 +179,24 @@ article.c-written-tutorial{
     @include breakpoint("mobile-large"){
       padding: 0;
       margin-top: 24px;
+    }
+
+    .c-draper-obfuscate-nudge {
+      padding-top: 18px !important;
+      margin-top: 30px !important;
+      margin-bottom: 30px !important;
+
+      p {
+        font-family: $header !important;
+      }
+
+      .l-obfuscated-text {
+        display: inline-block;
+        width: 104px;
+        text-align: center;
+        background: #F4C3C3;
+      }
+
     }
 
     .c-written-tutorial__content-footer{
@@ -1147,4 +1167,97 @@ article.c-written-tutorial{
   }
 
 }
+
+/* ==========================================================================
+ 5a. Book Chapter (Dedications)
+ ========================================================================== */
+
+.c-book-chapter__dedications {
+  max-width: 568px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 18px;
+
+  p {
+    text-align: center;
+
+    &:nth-child(even) {
+      margin-top: 12px !important;
+      margin-bottom: 48px;
+    }
+
+  }
+}
+
+/* ==========================================================================
+ 5b. Book Chapter (Team)
+ ========================================================================== */
+
+ .c-book-chapter__team {
+  h2 {
+    margin-bottom: 24px;
+  }
+
+  padding-top: 24px;
+
+  @include breakpoint("mobile-large"){
+    padding-top: 15px;
+  }
+
+  > div {
+    display: flex;
+    margin-bottom: 45px;
+
+    @include breakpoint("mobile-large"){
+      margin-bottom: 24px;
+    }
+  }
+
+  figure {
+    width: 180px;
+    min-width: 180px;
+    margin-right: 24px;
+
+    @include breakpoint("mobile-large"){
+      width: 60px;
+      min-width: 60px;
+      margin-right: 15px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+  }
+
+  p {
+    margin: 0 !important;
+
+    strong {
+      &:first-child {
+        font-size: 1.6875rem; /* 27/16 */
+        font-family: $header;
+        font-weight: 700;
+        line-height: 0;
+
+        @include breakpoint("mobile-large"){
+          font-size: 1.1875rem; /* 19/16 */
+        }
+
+      }
+    }
+
+  }
+
+  .l-image-bordered {
+    img {
+      @include breakpoint("mobile-large"){
+        border-width: 4px !important;
+      }
+    }
+  }
+
+
+ }
 

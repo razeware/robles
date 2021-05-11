@@ -21,7 +21,7 @@ module ImageProvider
     end
 
     def uploaded_image_root_path
-      "books/#{book.sku}/images"
+      "books/#{Digest::SHA2.hexdigest(book.sku)}/images"
     end
 
     def image_paths # rubocop:disable Metrics/AbcSize

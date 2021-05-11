@@ -6,7 +6,7 @@ module Parser
     include Util::PathExtraction
     include Util::GitHashable
 
-    VALID_SEGMENTS = %w[section chapter].freeze
+    VALID_SEGMENTS = %w[section chapter dedications team-bios].freeze
 
     def parse
       sections = grouped_segments.map.with_index { |segments, idx| parse_section(segments, idx) }
@@ -26,10 +26,10 @@ module Parser
     end
 
     def parse_chapter(segment, index)
-      raise 'Invalid segment kind' unless segment[:kind] == 'chapter'
+      raise 'Invalid segment kind' unless %w[chapter dedications team-bios].include?(segment[:kind])
 
       markdown_file = apply_path(segment[:path])
-      Chapter.new(markdown_file: markdown_file, ordinal: index, root_path: Pathname.new(markdown_file).dirname.to_s).tap do |chapter|
+      Chapter.new(markdown_file: markdown_file, ordinal: index, root_path: Pathname.new(markdown_file).dirname.to_s, kind: segment[:kind]).tap do |chapter|
         ChapterMetadata.new(chapter).apply!
       end
     end
