@@ -8,14 +8,14 @@ class Book
   include Concerns::MarkdownRenderable
 
   attr_accessor :sku, :edition, :title, :description_md, :released_at, :sections, :git_commit_hash,
-                :materials_url, :cover_image, :gallery_image, :twitter_card_image, :artwork_image,
+                :materials_url, :cover_image, :email_mockup_image, :twitter_card_image, :artwork_image,
                 :icon_image, :trailer_video_url, :version_description, :professional, :difficulty,
                 :platform, :language, :editor, :domains, :categories, :who_is_this_for_md,
                 :covered_concepts_md, :root_path, :hide_chapter_numbers, :in_flux, :deprecated,
                 :forum_url, :pages, :short_description, :recommended_skus, :contributors,
                 :price_band, :isbn, :amazon_url
   attr_image :cover_image_url, source: :cover_image, variants: %i[original w594 w300]
-  attr_image :gallery_image_url, source: :gallery_image
+  attr_image :email_mockup_image_url, source: :email_mockup_image, variants: %i[original w180 w300 w594]
   attr_image :twitter_card_image_url, source: :twitter_card_image, variants: %i[original w1800]
   attr_image :artwork_image_url, source: :artwork_image, variants: %i[original w180]
   attr_image :icon_image_url, source: :icon_image, variants: %i[original w180]
@@ -38,7 +38,7 @@ class Book
   # Used for serialisation
   def attributes
     { sku: nil, edition: nil, title: nil, description: nil, released_at: nil, sections: [],
-      git_commit_hash: nil, materials_url: nil, cover_image_url: [], gallery_image_url: [],
+      git_commit_hash: nil, materials_url: nil, cover_image_url: [], email_mockup_image_url: [],
       twitter_card_image_url: [], artwork_image_url: [], icon_image_url: [],
       trailer_video_url: nil, version_description: nil, professional: nil, difficulty: nil,
       platform: nil, language: nil, editor: nil, domains: [], categories: [], who_is_this_for: nil,
