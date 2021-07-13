@@ -1,4 +1,4 @@
-FROM ruby:3.0-alpine
+FROM ruby:3.0-alpine3.13
 LABEL maintainer=engineering@razeware.com
 
 LABEL com.github.actions.name="robles"
