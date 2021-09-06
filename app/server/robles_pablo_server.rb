@@ -22,7 +22,9 @@ class RoblesPabloServer < Sinatra::Application
   end
 
   get '/' do
-    erb :'pablo/index.html', locals: { images: image_list, categories: categories }, layout: :'pablo/layout.html'
+    erb :'pablo/index.html',
+        locals: { images: image_list, categories: categories },
+        layout: :'pablo/layout.html'
   end
 
   get '/assets/*' do
@@ -35,6 +37,18 @@ class RoblesPabloServer < Sinatra::Application
   get '/styles.css' do
     scss :'pablo/styles/pablo', style: :expanded
   end
+
+  get '/:category' do
+    category = params[:category]
+    raise Sinatra::NotFound unless categories.include?(category)
+
+    filtered_image_list = image_list.filter { |image| image.category == category }
+
+    erb :'pablo/index.html',
+        locals: { images: filtered_image_list, categories: categories, selected_category: category },
+        layout: :'pablo/layout.html'
+  end
+
 
   def image_list
     @image_list ||= begin
