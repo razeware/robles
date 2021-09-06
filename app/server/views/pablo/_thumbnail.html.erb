@@ -1,0 +1,24 @@
+<div class="card">
+  <div class="card-image">
+    <figure class="image is-square">
+      <img src="<%= image_url(image) %>" alt="Placeholder image">
+    </figure>
+  </div>
+  <div class="card-content">
+    <div class="content">
+      <p>
+        <strong><%= image.title %></strong>
+        <% if image.category.present? %>
+          <span class="tag is-info"><%= image.category %></span>
+        <% end %>
+      </p>
+    </div>
+  </div>
+
+  <footer class="card-footer">
+    <a href="#" class="card-footer-item">sm</a>
+    <a href="#" class="card-footer-item">med</a>
+    <a href="#" class="card-footer-item">lg</a>
+    <a href="#" class="card-footer-item">orig</a>
+  </footer>
+</div>

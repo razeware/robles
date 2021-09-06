@@ -1,0 +1,11 @@
+<div class="tag-cloud">
+  <% categories.each do |category| %>
+    <a class="tag is-light is-link"><%= category %></a>
+  <% end %>
+</div>
+
+<div class="grid">
+  <% images.each do |image| %>
+    <%= erb :'pablo/_thumbnail.html', locals: { image: image } %>
+  <% end %>
+</div>

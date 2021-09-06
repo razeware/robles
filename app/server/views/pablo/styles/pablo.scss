@@ -1,0 +1,14 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(192px, 1fr));
+  row-gap: 40px;
+  column-gap: 20px;
+}
+
+.tag-cloud {
+  padding-bottom: 1rem;
+
+  .tag {
+    margin-bottom: 0.25rem;
+  }
+}
