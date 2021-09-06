@@ -1,4 +1,6 @@
-<div class="card is-flex is-flex-direction-column">
+<div class="card is-flex is-flex-direction-column"
+     data-search-target="thumbnail"
+     data-thumbnail-name='<%= "#{image.category} #{image.title}" %>'>
   <div class="card-image is-flex-grow-0">
     <figure class="image is-square">
       <img src="<%= image_url(image) %>" alt="<%= image.title %>" loading="lazy">

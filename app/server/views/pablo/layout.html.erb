@@ -12,9 +12,12 @@
     <link rel="stylesheet" href="/styles.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://unpkg.com/@hotwired/stimulus/dist/stimulus.umd.js" defer></script>
+    <script src="/javascript/search.js" defer></script>
   </head>
 
-  <body>
+  <body data-controller="search">
     <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
       <div class="container">
         <div class="navbar-brand">
@@ -30,11 +33,18 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="field">
-              <p class="control has-icons-left">
-                <input class="input" type="text" placeholder="Find an image">
+              <p class="control has-icons-left has-icons-right">
+                <input class="input" type="text" placeholder="Find an image"
+                       data-search-target="query"
+                       data-action="search#updateFilter">
                 <span class="icon is-small is-left">
                   <i class="fas fa-search"></i>
                 </span>
+                <a class="icon is-small is-right has-pointer-events-auto"
+                   data-action="search#clearFilter"
+                   data-search-target="clearFilter">
+                  <i class="fas fa-times-circle"></i>
+                </a>
               </p>
             </div>
           </div>
