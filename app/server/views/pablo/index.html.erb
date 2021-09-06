@@ -1,10 +1,10 @@
-<div class="tag-cloud">
-  <a class="tag <%= 'is-light' if defined?(selected_category) %> is-link"
+<div class="pb-4">
+  <a class="tag <%= 'is-light' if defined?(selected_category) %> is-link mb-1"
       href="/">
     all
   </a>
   <% categories.each do |category| %>
-    <a class="tag <%= 'is-light' unless defined?(selected_category) && category == selected_category %> is-link"
+    <a class="tag <%= 'is-light' unless defined?(selected_category) && category == selected_category %> is-link mb-1"
        href="/<%= category %>">
       <%= category %>
     </a>
