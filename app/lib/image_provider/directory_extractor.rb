@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ImageProvider
-  # Extract all images from a video course
+  # Extract all images from a directory
   class DirectoryExtractor
     attr_reader :directory, :images
 
@@ -12,12 +12,14 @@ module ImageProvider
 
     def extract
       @images = image_paths.map do |path|
-        GalleryImage.with_representations({ local_url: path, uploaded_image_root_path: uploaded_image_root_path }, variants: ImageRepresentation::DEFAULT_WIDTHS)
+        GalleryImage.with_representations(
+          { local_url: path, uploaded_image_root_path: uploaded_image_root_path },
+          representation_attributes: { include_source_filename: true })
       end
     end
 
     def uploaded_image_root_path
-      'images'
+      'pablo'
     end
 
     def image_paths

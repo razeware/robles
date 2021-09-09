@@ -15,8 +15,10 @@ class PabloCli < Thor
   end
 
   desc 'publish', 'renders and publishes pablo'
+  option :source, type: :string, desc: 'Directory to scan for input images'
+  option :output, type: :string, desc: 'Output directory for static site'
   def publish
-    runner.publish_book(publish_file: options['publish_file'])
+    runner.publish_pablo(source: options['source'], output: options['output'])
   end
 
   private

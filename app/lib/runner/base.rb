@@ -96,11 +96,30 @@ module Runner
       output
     end
 
+    # pablo
+    def publish_pablo(source:, output:)
+      source ||= default_pablo_source
+      output ||= default_pablo_output
+
+      image_extractor = ImageProvider::DirectoryExtractor.new(source)
+      image_provider = ImageProvider::Provider.new(extractor: image_extractor)
+      image_provider.process
+
+    end
+
     def default_publish_file
       raise 'Override this in a subclass please'
     end
 
     def default_release_file
+      raise 'Override this in a subclass please'
+    end
+
+    def default_pablo_source
+      raise 'Override this in a subclass please'
+    end
+
+    def default_pablo_output
       raise 'Override this in a subclass please'
     end
   end
