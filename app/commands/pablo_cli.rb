@@ -7,11 +7,12 @@ require 'guard/commander' # needed because of https://github.com/guard/guard/iss
 # CLI for managing pablo
 class PabloCli < Thor
   desc 'serve', 'starts local preview server'
+  option :source, type: :string, desc: 'Directory to scan for input images'
   def serve
     fork do
       Guard.start(no_interactions: true)
     end
-    RoblesPabloServer.run!
+    RoblesPabloServer.run!(source_directory: options['source'] || '/data/src/images')
   end
 
   desc 'publish', 'renders and publishes pablo'

@@ -13,7 +13,7 @@ class RoblesPabloServer < Sinatra::Application
 
   helpers do
     def image_url(image)
-      image.local_url.gsub(%r{/data/src/razefaces}, '/assets')
+      image.local_url.gsub(settings.source_directory, '/assets')
     end
   end
 
@@ -28,7 +28,7 @@ class RoblesPabloServer < Sinatra::Application
   end
 
   get '/assets/*' do
-    local_url = File.join('/data/src/razefaces/', params[:splat])
+    local_url = File.join(settings.source_directory, params[:splat])
     raise Sinatra::NotFound unless File.exist?(local_url)
 
     send_file(local_url)
@@ -52,7 +52,7 @@ class RoblesPabloServer < Sinatra::Application
 
   def image_list
     @image_list ||= begin
-      extractor = ImageProvider::DirectoryExtractor.new('/data/src/razefaces')
+      extractor = ImageProvider::DirectoryExtractor.new(settings.source_directory)
       extractor.extract
       extractor.images
     end
