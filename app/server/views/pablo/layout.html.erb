@@ -1,0 +1,71 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>pablo: robles Preview</title>
+    <meta name="description" content="robles local preview of pablo">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="https://unpkg.com/@hotwired/stimulus/dist/stimulus.umd.js" defer></script>
+    <script src="/javascript/search.js" defer></script>
+  </head>
+
+  <body data-controller="search">
+    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+      <div class="container">
+        <div class="navbar-brand">
+          <div class="navbar-item">
+            <span class="icon-text is-medium has-text-warning">
+              <span class="icon">
+                <i class="fas fa-lg fa-swatchbook"></i>
+              </span>
+              <span class="is-size-5 has-text-weight-semibold is-family-code">pablo</span>
+            </span>
+          </div>
+        </div>
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="field">
+              <p class="control has-icons-left has-icons-right">
+                <input class="input" type="text" placeholder="Find an image"
+                       data-search-target="query"
+                       data-action="search#updateFilter">
+                <span class="icon is-small is-left">
+                  <i class="fas fa-search"></i>
+                </span>
+                <a class="icon is-small is-right has-pointer-events-auto"
+                   data-action="search#clearFilter"
+                   data-search-target="clearFilter">
+                  <i class="fas fa-times-circle"></i>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+
+    <section class="section">
+      <div class="container">
+        <%= yield %>
+      </div>
+    </section>
+
+
+    <footer class="footer">
+      <div class="content has-text-centered">
+        <p>
+          <strong>pablo</strong> by <a href="https://www.raywenderlich.com">raywenderlich.com</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -22,5 +22,5 @@ guard 'livereload' do
 
   # file needing a full reload of the page anyway
   watch(%r{app/server/views/.+\.erb$})
-  watch(%r{app/server/views/styles/.+\.scss$})
+  watch(%r{app/server/views/.+\.scss$})
 end

@@ -1,0 +1,10 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(192px, 1fr));
+  row-gap: 40px;
+  column-gap: 20px;
+}
+
+.has-pointer-events-auto {
+  pointer-events: auto !important;
+}

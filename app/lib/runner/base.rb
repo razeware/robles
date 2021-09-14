@@ -96,11 +96,52 @@ module Runner
       output
     end
 
+    # pablo
+    def serve_pable(source:)
+      source ||= default_pablo_source
+
+      extractor = ImageProvider::DirectoryExtractor.new(
+        source,
+        local_server: true
+      )
+      RoblesPabloServer.run!(image_extractor: extractor)
+    end
+
+    def publish_pablo(source:, output:)
+      source ||= default_pablo_source
+      output ||= default_pablo_output
+
+      image_extractor = ImageProvider::DirectoryExtractor.new(source)
+      image_provider = ImageProvider::Provider.new(extractor: image_extractor)
+      image_provider.process
+
+      paths = image_extractor.categories.map { "/#{_1}" }.concat(
+        [
+          '/',
+          '/styles.css',
+          '/javascript/search.js'
+        ]
+      )
+
+      ENV['DISABLE_LIVERELOAD'] = 'true'
+      RoblesPabloServer.save!(paths: paths, destination: output, options: {
+        image_extractor: image_extractor
+      })
+    end
+
     def default_publish_file
       raise 'Override this in a subclass please'
     end
 
     def default_release_file
+      raise 'Override this in a subclass please'
+    end
+
+    def default_pablo_source
+      raise 'Override this in a subclass please'
+    end
+
+    def default_pablo_output
       raise 'Override this in a subclass please'
     end
   end

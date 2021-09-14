@@ -16,7 +16,7 @@ module ImageProvider
 
       def remote_url
         return image&.local_url&.gsub(%r{/data/src}, '/assets') if local_server
-        return unless uploaded? && IMAGES_CDN_HOST.present?
+        return unless IMAGES_CDN_HOST.present?
 
         "https://#{IMAGES_CDN_HOST}/#{key}"
       end

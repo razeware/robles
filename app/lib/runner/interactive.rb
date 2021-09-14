@@ -10,5 +10,13 @@ module Runner
     def default_release_file
       '/data/src/release.yaml'
     end
+
+    def default_pablo_source
+      '/data/src/images'
+    end
+
+    def default_pablo_output
+      '/data/src/dist'
+    end
   end
 end

@@ -1,0 +1,25 @@
+<div class="card is-flex is-flex-direction-column"
+     data-search-target="thumbnail"
+     data-thumbnail-name='<%= "#{image.category} #{image.title}" %>'>
+  <div class="card-image is-flex-grow-0">
+    <figure class="image is-square">
+      <img src="<%= image_url(image, variant: :medium) %>" alt="<%= image.title %>" loading="lazy">
+    </figure>
+  </div>
+
+  <div class="card-content is-flex-grow-1 p-3">
+    <div class="is-flex is-flex-direction-row is-align-content-flex-start">
+      <span class="is-flex-grow-1 has-text-weight-semibold"><%= image.title %></span>
+      <% if image.category.present? %>
+        <span class="tag is-info is-flex-grow-0"><%= image.category %></span>
+      <% end %>
+      </p>
+    </div>
+  </div>
+
+  <footer class="card-footer is-flex-grow-0">
+    <a href="<%= image_url(image, variant: :small) %>" class="card-footer-item is-size-7" target="_blank">Thumbnail</a>
+    <a href="<%= image_url(image, variant: :large) %>" class="card-footer-item is-size-7" target="_blank">Large</a>
+    <a href="<%= image_url(image, variant: :original) %>" class="card-footer-item is-size-7" target="_blank">Original</a>
+  </footer>
+</div>

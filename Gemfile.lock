@@ -124,6 +124,8 @@ GEM
       rack
     rack-protection (2.1.0)
       rack
+    rack-test (1.1.0)
+      rack (>= 1.0, < 3)
     rainbow (3.0.0)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
@@ -209,6 +211,7 @@ DEPENDENCIES
   mini_magick
   octokit (~> 4.19)
   rack-livereload
+  rack-test
   rbnacl
   rubocop (~> 1.0)
   sassc

@@ -28,7 +28,7 @@ class ImageRepresentation
 
   WIDTHS = DEFAULT_WIDTHS.merge(OTHER_WIDTHS).freeze
 
-  attr_accessor :width, :image
+  attr_accessor :width, :image, :include_source_filename
 
   validates :width, inclusion: { in: WIDTHS.keys }, presence: true
   validates :image, presence: true
@@ -36,8 +36,9 @@ class ImageRepresentation
   delegate :uploaded_image_root_path, to: :image
 
   def filename
-    width_name = original? ? 'original' : "w#{width_px}"
-    "#{image.key}/#{width_name}#{image.extension}"
+    basename = original? ? 'original' : "w#{width_px}"
+    basename = "#{image.source_filename}_#{basename}" if include_source_filename
+    "#{image.key}/#{basename}#{image.extension}"
   end
 
   def key
