@@ -8,12 +8,16 @@ class RoblesPabloServer < Sinatra::Application
   set :views, "#{__dir__}/views"
   set :public_folder, "#{__dir__}/public"
   set :static_cache_control, [max_age: 0]
+  set :image_extractor, nil
+  set :local, true
 
-  use Rack::LiveReload, host: 'localhost', source: :vendored
+  use Rack::LiveReload, host: 'localhost', source: :vendored unless ENV['DISABLE_LIVERELOAD']
+
+  register Sinatra::Pablo
 
   helpers do
-    def image_url(image)
-      image.local_url.gsub(settings.source_directory, '/assets')
+    def image_url(image, variant: :small)
+      image.representations.find { _1.variant == variant }&.remote_url
     end
   end
 
@@ -28,7 +32,7 @@ class RoblesPabloServer < Sinatra::Application
   end
 
   get '/assets/*' do
-    local_url = File.join(settings.source_directory, params[:splat])
+    local_url = File.join('/data/src', params[:splat])
     raise Sinatra::NotFound unless File.exist?(local_url)
 
     send_file(local_url)
@@ -49,16 +53,17 @@ class RoblesPabloServer < Sinatra::Application
         layout: :'pablo/layout.html'
   end
 
+  private
 
   def image_list
-    @image_list ||= begin
-      extractor = ImageProvider::DirectoryExtractor.new(settings.source_directory)
-      extractor.extract
-      extractor.images
-    end
+    extractor.images
   end
 
   def categories
-    image_list.map(&:category).uniq.compact_blank
+    extractor.categories
+  end
+
+  def extractor
+    @extractor ||= settings.image_extractor.extract
   end
 end

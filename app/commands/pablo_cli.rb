@@ -12,7 +12,7 @@ class PabloCli < Thor
     fork do
       Guard.start(no_interactions: true)
     end
-    RoblesPabloServer.run!(source_directory: options['source'] || '/data/src/images')
+    runner.serve_pable(source: options['source'])
   end
 
   desc 'publish', 'renders and publishes pablo'

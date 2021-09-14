@@ -3,7 +3,7 @@
      data-thumbnail-name='<%= "#{image.category} #{image.title}" %>'>
   <div class="card-image is-flex-grow-0">
     <figure class="image is-square">
-      <img src="<%= image_url(image) %>" alt="<%= image.title %>" loading="lazy">
+      <img src="<%= image_url(image, variant: :medium) %>" alt="<%= image.title %>" loading="lazy">
     </figure>
   </div>
 
@@ -18,8 +18,8 @@
   </div>
 
   <footer class="card-footer is-flex-grow-0">
-    <a href="#" class="card-footer-item is-size-7">Thumbnail</a>
-    <a href="#" class="card-footer-item is-size-7">Large</a>
-    <a href="#" class="card-footer-item is-size-7">Original</a>
+    <a href="<%= image_url(image, variant: :small) %>" class="card-footer-item is-size-7" target="_blank">Thumbnail</a>
+    <a href="<%= image_url(image, variant: :large) %>" class="card-footer-item is-size-7" target="_blank">Large</a>
+    <a href="<%= image_url(image, variant: :original) %>" class="card-footer-item is-size-7" target="_blank">Original</a>
   </footer>
 </div>

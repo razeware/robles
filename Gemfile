@@ -47,6 +47,9 @@ gem 'thin'
 # Controlling Chrome to create snapshots
 gem 'ferrum'
 
+# Saving pablo as a static site
+gem 'rack-test'
+
 group :development do
   # For integration with VSCode
   gem 'rubocop', '~> 1.0'
