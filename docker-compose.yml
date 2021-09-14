@@ -8,6 +8,8 @@ services:
       #- ../../books/mad:/data/src
     command: bin/robles video serve
     env_file: .env
+    environment:
+      - IMAGES_CDN_HOST=assets.pablo.raywenderlich.com
     ports:
       - "4567:4567"
       - "35729:35729"
