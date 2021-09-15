@@ -24,6 +24,10 @@ module Linting
       def exceeds_word_limit?
         count > WORD_LIMIT
       end
+
+      def word_limit
+        WORD_LIMIT
+      end
     end
   end
 end

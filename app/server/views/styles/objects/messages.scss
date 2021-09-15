@@ -1,0 +1,212 @@
+/**
+* Feedback banners and messages
+*
+* Notify the user when they've made a change via a form or to highlight news and announcements
+*
+* 1. Base DO NOT EDIT
+*
+* 2. Class Modifiers for success, warning, danger and info messages
+*
+* 3. Custom layout classes
+*/
+
+/* ==========================================================================
+1. Base
+========================================================================== */
+
+.o-alert{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: $border-radius;
+  min-height: 48px;
+  color: $white;
+  padding: 14px 15px;
+  position: relative;
+  font-size: 0.9375em;
+  margin-top: 10px;
+  
+  a{
+    color: $white;
+  }
+  
+  @include breakpoint("mobile"){
+    font-size: 0.875rem;
+  }
+  
+  .o-alert__close{
+    order: 10;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    position: relative;
+    
+    svg{
+      width: 16px;
+      height: 16px;
+      fill: $white;
+      margin: -8px 0 0 -8px;
+    }
+  }
+  
+}
+
+@mixin badge{
+  position: absolute;
+  left: 15px;
+  top: 12px;
+  border-radius: $border-radius;
+  background: $white;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .33px;
+  padding: 5px 8px 4px;
+}
+
+/* ==========================================================================
+2. Class Modifiers for success, warning, danger and info messages
+========================================================================== */
+
+.o-alert--success{
+  background: $green-brand;
+  padding-left: 94px;
+  
+  &:before{
+    content: "success";
+    color: $green-brand;
+    @include badge;
+  }
+  
+}
+
+.o-alert--danger{
+  background: $red-pomegranate;
+  padding-left: 78px;
+  
+  &:before{
+    content: "error";
+    color: $red-pomegranate;
+    @include badge;
+  }
+  
+}
+
+.o-alert--warning{
+  background: $yellow-sin;
+  padding-left: 94px;
+  
+  &:before{
+    content: "warning";
+    color: $yellow-sin;
+    @include badge;
+  }
+  
+}
+
+.o-alert--tip{
+  background: $black-slate;
+  padding-left: 58px;
+  
+  &:before{
+    content: "tip";
+    color: $black-slate;
+    @include badge;
+  }
+  
+}
+
+.o-alert--info{
+  background: $black-slate;
+  padding-left: 68px;
+  
+  &:before{
+    content: "info";
+    color: $black-slate;
+    @include badge;
+  }
+  
+}
+
+.o-alert--archive{
+  background: $red-pomegranate;
+  padding-left: 90px;
+  
+  &:before{
+    content: "archive";
+    color: $red-pomegranate;
+    @include badge;
+  }
+  
+}
+
+.o-alert--announce{
+  background: $purple-scampi;
+  padding-left: 138px;
+  
+  &:before{
+    content: "announcement";
+    color: $purple-scampi;
+    @include badge;
+  }
+  
+}
+
+.o-alert--subscription{
+  background: $yellow-grandis;
+  color: $black-mine-shaft;
+  padding-left: 68px;
+  
+  &:before{
+    content: "info";
+    color: $yellow-grandis;
+    @include badge;
+    background: $black-mine-shaft;
+  }
+  
+}
+
+.o-alert--pro{
+  background: $blue-curious;
+  padding-left: 68px;
+  
+  &:before{
+    content: "pro";
+    @include badge;
+    background: $blue-curious;
+    border-radius: 0.5625rem; /* 9/16 */
+    border: 2px solid $white;
+    color: $white;
+    padding: 2px 7px;
+    top: 13px;
+  }
+  
+}
+
+
+/* ==========================================================================
+3. Custom layout classes
+========================================================================== */
+
+.l-alert-admin-top{
+  margin-bottom: 27px;
+}
+
+.l-alert-sticky{
+  position: fixed;
+  z-index: 999999;
+  bottom: 0;
+  width: 100%;
+  border-radius: 0;
+  
+  @include breakpoint("tablet"){
+    left: 0;
+    width: 100%;
+  }
+  
+}
+
+.l-alert-banner{
+  border-radius: 0;
+  margin-top: 0;
+}

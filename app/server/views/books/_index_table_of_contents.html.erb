@@ -13,6 +13,9 @@
         <div class="l-flex-align-start">
           <h4><a href="<%= url(chapter_path(chapter)) %>"><%= chapter.title %></a></h4>
           <% if chapter.free %><span class="o-badge">Free</span><% end %>
+          <% if exceeds_word_limit?(chapter) %>
+            <span class="o-badge o-badge-product o-badge-product--highlight">Word Count Exceeded</span>
+          <% end %>
         </div>
         <p><%= chapter.description %></p>
         <span class="c-tutorial-episode__number-badge data-tooltip--top-left">
