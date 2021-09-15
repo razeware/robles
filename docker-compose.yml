@@ -4,12 +4,16 @@ services:
     build: .
     volumes:
       - .:/app/robles
-      - ../video-aiar:/data/src
-      #- ../../books/mad:/data/src
+      # When working on videos
+      #- ../video-aiar:/data/src
+      # When working on books
+      - ../../books/alg:/data/src
+      # When working on pablo
+      #- ../../sites/pablo:/data/src
     command: bin/robles video serve
     env_file: .env
     environment:
-      - IMAGES_CDN_HOST=assets.pablo.raywenderlich.com
+      - IMAGES_CDN_HOST=assets.robles.raywenderlich.com
     ports:
       - "4567:4567"
       - "35729:35729"
@@ -17,5 +21,6 @@ services:
     image: browserless/chrome
     ports:
       - "3000:3000"
-    volumes:
-      - ../video-aiar:/data/src
+    # volumes:
+    # When working on videos
+    #   - ../video-aiar:/data/src
