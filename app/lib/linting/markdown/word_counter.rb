@@ -3,6 +3,8 @@
 module Linting
   module Markdown
     class WordCounter
+      WORD_LIMIT = 4000
+
       attr_reader :markdown, :doc
 
       def initialize(markdown)
@@ -17,6 +19,10 @@ module Linting
                       .join
                       .scan(/\S+/)
                       .size
+      end
+
+      def exceeds_word_limit?
+        count > WORD_LIMIT
       end
     end
   end
