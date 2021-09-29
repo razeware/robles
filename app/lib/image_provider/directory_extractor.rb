@@ -17,6 +17,7 @@ module ImageProvider
       @images = image_paths.map do |path|
         GalleryImage.with_representations(
           {
+            directory: directory,
             local_url: path,
             uploaded_image_root_path: uploaded_image_root_path
           },

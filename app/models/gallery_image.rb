@@ -2,15 +2,24 @@
 
 # Subclass of image suitable for creating a gallery view
 class GalleryImage < Image
+  attr_accessor :directory
+
   def category
-    filename.split('_').first if filename.include?('_')
+    dir = relative_path.dirname.to_s
+    return nil if dir == '.'
+
+    dir
   end
 
   def title
-    filename.delete_prefix(category || '').titleize
+    filename.gsub('-', ' ')
+  end
+
+  def relative_path
+    Pathname.new(local_url).relative_path_from(directory)
   end
 
   def filename
-    Pathname.new(local_url).basename('.*').to_s.downcase
+    Pathname.new(local_url).basename('.*').to_s
   end
 end
