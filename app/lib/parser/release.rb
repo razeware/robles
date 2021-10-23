@@ -15,17 +15,11 @@ module Parser
     end
 
     def load_course
-      @video_course = Parser::VideoCourse.new(release_file.merge(git_commit_hash: git_hash)).parse
+      @video_course = Parser::VideoCourse.new(file: file).parse
     end
 
     def apply_additional_metadata
       video_course.root_path = root_directory
-    end
-
-    private
-
-    def release_file
-      @release_file ||= Psych.load_file(file).deep_symbolize_keys
     end
   end
 end
