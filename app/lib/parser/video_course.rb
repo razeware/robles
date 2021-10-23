@@ -46,6 +46,7 @@ module Parser
     def parse_episode(metadata)
       script_file = apply_path(metadata[:script_file]) if metadata[:script_file].present?
       root_path = Pathname.new(script_file).dirname.to_s if script_file.present?
+      metadata[:captions_file] = apply_path(metadata[:captions_file]) if metadata[:captions_file].present?
 
       Episode.new(script_file: script_file, root_path: root_path).tap do |episode|
         EpisodeMetadata.new(episode, metadata).apply!
