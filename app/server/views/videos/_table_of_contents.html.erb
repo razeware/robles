@@ -1,0 +1,41 @@
+<div class="c-nav-sidebar--article c-nav-sidebar--book">
+  <div>
+    <div class="c-nav-sidebar__wrapper">
+      <nav class="c-video-player__lessons">
+        <div class="c-video-player__lessons-section">
+          <% if video_course.professional %>
+            <div class="l-margin-20 l-margin-bottom-n-10">
+              <span class="o-badge o-badge--pro">Pro</span>
+            </div>
+          <% end %>
+
+          <h4 class="c-video-player__lessons-title l-flex-align-center--force">
+            <a href="/" class="l-font-19"><%= video_course.title %></a>
+          </h4>
+
+          <span class="l-display-block l-margin-3 l-color-grey l-font-14"><%= video_course.version_description %></span>
+          <span class="l-display-block l-margin-3 l-color-grey l-font-14"><%= video_course.platform %>, <%= video_course.language %>, <%= video_course.editor %></span>
+        </div>
+
+        <% video_course.parts.each do |part| %>
+          <div class= "c-video-player__lessons-section">
+            <span class="c-video-player__lessons-header c-video-player__lessons-header--open">
+              <h4 class="c-video-player__lessons-title"><%= part.title %></h4>
+              <span class="c-video-player__lessons-sum"><%= part.ordinal.present? ? "Section #{part.ordinal}:" : '' %> <%= 'episode'.pluralize(part.episodes.count) %></span>
+            </span>
+            <ul class="c-box-list c-box-list--linked c-video-player__lesson-list c-video-player__lesson-list--open">
+              <% part.episodes.each do |episode| %>
+                <li class="<%= 'c-box-list__item--active' if episode == current_episode %>">
+                  <a href="<%= url(transcript_path(episode)) %>">
+                    <span class="c-box-list__item-number"><%= episode.ordinal %>.</span>
+                    <span class="c-box-list__item-title"><%= episode.title %></span>
+                  </a>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </nav>
+    </div>
+  </div>
+</div>
