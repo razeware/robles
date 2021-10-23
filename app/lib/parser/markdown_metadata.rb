@@ -24,7 +24,7 @@ module Parser
         Psych.load(extract_metadata, symbolize_names: true).tap do |header_metadata|
           # If can't metadata, and also don't have a provided hash, then raise error
           raise Parser::Error.new(file: path, msg: 'Unable to locate metadata at the top of the markdown') if header_metadata.blank? && @metadata.blank?
-        end
+        end || {}
       end
     rescue Psych::SyntaxError => e
       raise Parser::Error.new(file: path, error: e)

@@ -34,5 +34,16 @@ module Renderer
       out('  <figcaption>', title, '</figcaption>')
       out('</figure>')
     end
+
+    def text(node)
+      # If no timestamp, just move on
+      return super(node) unless node.string_content.match?(/\$\[t=[\d:.]+\]/)
+
+      # Find the timestamp and turn it into a data tag on a span
+      timestamp = node.string_content.match(/\$\[t=([\d:.]+)\]/)[1]
+      out("<span data-video-timestamp=\"#{timestamp}\"></span>")
+
+      out(escape_html(node.string_content.gsub(/\$\[t=[\d:.]+\]/, '')))
+    end
   end
 end
