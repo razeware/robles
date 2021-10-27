@@ -13,6 +13,8 @@ module Renderer
 
     def render
       logger.debug 'MarkdownStringRenderer::render'
+      return '' if content.blank?
+
       doc = CommonMarker.render_doc(
         content,
         %i[SMART STRIKETHROUGH_DOUBLE_TILDE],

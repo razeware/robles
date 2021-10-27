@@ -89,6 +89,8 @@ GEM
       rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
+    levenshtein-ffi (1.1.0)
+      ffi (~> 1.9)
     listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -190,6 +192,7 @@ GEM
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    webvtt-ruby (0.3.2)
     yard (0.9.26)
     zeitwerk (2.4.2)
 
@@ -208,6 +211,7 @@ DEPENDENCIES
   git
   guard (~> 2, >= 2.16.2)
   guard-livereload!
+  levenshtein-ffi
   mini_magick
   octokit (~> 4.19)
   rack-livereload
@@ -220,6 +224,7 @@ DEPENDENCIES
   solargraph (~> 0.39)
   thin
   thor (~> 1.0, >= 1.0.1)
+  webvtt-ruby
   zeitwerk (~> 2.3)
 
 BUNDLED WITH

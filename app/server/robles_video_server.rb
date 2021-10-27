@@ -16,6 +16,10 @@ class RoblesVideoServer < Sinatra::Application
       "/slides/#{episode.slug}"
     end
 
+    def transcript_path(episode)
+      "/transcripts/#{episode.slug}"
+    end
+
     def marketing_name_for_domain(domain)
       case domain
       when 'ios'
@@ -45,6 +49,17 @@ class RoblesVideoServer < Sinatra::Application
     part = video_course.parts.find { |p| p.episodes.include?(episode) }
 
     erb :'videos/episode_slide.html',
+        locals: { episode: episode, part: part, video_course: video_course, title: "robles Preview: #{episode.title}" },
+        layout: :'videos/layout.html'
+  end
+
+  get '/transcripts/:slug' do
+    episode = episode_for_slug(params[:slug])
+    raise Sinatra::NotFound unless episode.present?
+
+    part = video_course.parts.find { |p| p.episodes.include?(episode) }
+
+    erb :'videos/episode_transcript.html',
         locals: { episode: episode, part: part, video_course: video_course, title: "robles Preview: #{episode.title}" },
         layout: :'videos/layout.html'
   end

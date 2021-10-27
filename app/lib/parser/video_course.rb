@@ -4,6 +4,8 @@ module Parser
   # Parse a symbolised hash into a VideoCourse
   class VideoCourse
     include Parser::SimpleAttributes
+    include Util::PathExtraction
+    include Util::GitHashable
 
     VALID_SIMPLE_ATTRIBUTES = %i[shortcode version version_description title course_type
                                  description_md short_description released_at materials_url
@@ -11,24 +13,43 @@ module Parser
                                  categories who_is_this_for_md covered_concepts_md git_commit_hash
                                  card_artwork_image featured_banner_image twitter_card_image].freeze
 
-    attr_accessor :video_course, :metadata
-
-    def initialize(attributes)
-      @metadata = attributes
-    end
+    attr_accessor :video_course
 
     def parse
-      @video_course = ::VideoCourse.new
-      load_parts
+      parts = metadata[:parts].map.with_index do |part, idx|
+        parse_part(part, idx)
+      end
+
+      @video_course = ::VideoCourse.new(parts: parts)
       apply_episode_ordinals
       load_authors
       apply_additional_metadata
       video_course
     end
 
-    def load_parts
-      video_course.parts = metadata[:parts].each_with_index.map do |part, index|
-        Parser::Part.new(part.merge(ordinal: index + 1)).parse
+    def metadata
+      @metadata = Psych.load_file(file)
+                       .deep_symbolize_keys
+                       .merge(git_commit_hash: git_hash)
+    end
+
+    def parse_part(metadata, index)
+      episodes = metadata[:episodes].map do |episode|
+        parse_episode(episode)
+      end
+
+      Part.new(ordinal: index, episodes: episodes).tap do |part|
+        PartMetadata.new(part, metadata).apply!
+      end
+    end
+
+    def parse_episode(metadata)
+      script_file = apply_path(metadata[:script_file]) if metadata[:script_file].present?
+      root_path = Pathname.new(script_file).dirname.to_s if script_file.present?
+      metadata[:captions_file] = apply_path(metadata[:captions_file]) if metadata[:captions_file].present?
+
+      Episode.new(script_file: script_file, root_path: root_path).tap do |episode|
+        EpisodeMetadata.new(episode, metadata).apply!
       end
     end
 

@@ -50,6 +50,10 @@ gem 'ferrum'
 # Saving pablo as a static site
 gem 'rack-test'
 
+# Creating transcripts
+gem 'levenshtein-ffi', require: 'levenshtein'
+gem 'webvtt-ruby', require: 'webvtt'
+
 group :development do
   # For integration with VSCode
   gem 'rubocop', '~> 1.0'
