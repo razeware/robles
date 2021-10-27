@@ -17,17 +17,25 @@
     <script src="/javascript/search.js" defer></script>
   </head>
 
-  <body data-controller="search">
-    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+  <body data-controller="search" class="has-navbar-fixed-top">
+    <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
       <div class="container">
         <div class="navbar-brand">
-          <div class="navbar-item">
+          <a class="navbar-item" href="/home">
             <span class="icon-text is-medium has-text-warning">
               <span class="icon">
                 <i class="fas fa-lg fa-swatchbook"></i>
               </span>
               <span class="is-size-5 has-text-weight-semibold is-family-code">pablo</span>
             </span>
+          </a>
+          <div class="navbar-start">
+            <a class="navbar-item" href="/license">
+              License
+            </a>
+            <a class="navbar-item" href="/instructions">
+              How to use?
+            </a>
           </div>
         </div>
         <div class="navbar-end">
