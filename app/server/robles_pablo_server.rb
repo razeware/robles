@@ -31,11 +31,7 @@ class RoblesPabloServer < Sinatra::Application
         layout: :'pablo/layout.html'
   end
 
-  get '/home' do
-    erb :'pablo/index.html',
-        locals: { images: image_list, categories: categories },
-        layout: :'pablo/layout.html'
-  end
+
 
   get '/license' do
     erb :'pablo/license.html',
