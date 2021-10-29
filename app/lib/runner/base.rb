@@ -118,6 +118,8 @@ module Runner
       paths = image_extractor.categories.map { "/#{_1}" }.concat(
         [
           '/',
+          '/license',
+          '/instructions',
           '/styles.css',
           '/javascript/search.js'
         ]

@@ -31,6 +31,18 @@ class RoblesPabloServer < Sinatra::Application
         layout: :'pablo/layout.html'
   end
 
+
+
+  get '/license' do
+    erb :'pablo/license.html',
+        layout: :'pablo/layout.html'
+  end
+
+  get '/instructions' do
+    erb :'pablo/instructions.html',
+        layout: :'pablo/layout.html'
+  end
+
   get '/assets/*' do
     local_url = File.join('/data/src', params[:splat])
     raise Sinatra::NotFound unless File.exist?(local_url)
