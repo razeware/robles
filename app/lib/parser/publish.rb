@@ -56,7 +56,7 @@ module Parser
     end
 
     def authors
-      @authors = publish_file[:authors].map do |author|
+      @authors = Array.wrap(publish_file[:authors]).map do |author|
         Author.new(author)
       end
     end

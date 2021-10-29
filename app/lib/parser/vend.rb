@@ -16,7 +16,7 @@ module Parser
     def contributors
       return [] unless vend_file[:contributors].present?
 
-      vend_file[:contributors].map do |contributor_attributes|
+      Array.wrap(vend_file[:contributors]).map do |contributor_attributes|
         Contributor.new(contributor_attributes)
       end
     end
