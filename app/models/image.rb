@@ -30,7 +30,7 @@ class Image
   end
 
   def key
-    @key ||= Digest::SHA256.file(local_url).hexdigest
+    @key ||= Digest::MD5.file(local_url).hexdigest
   end
 
   def extension
