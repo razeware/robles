@@ -9,11 +9,7 @@ module Linting
       attr_reader :markdown_file
 
       def lint_markdown_images
-        non_existent_images.flat_map do |image|
-          locate_errors(image[:relative_path]).map do |location|
-            annotation(image, location)
-          end
-        end
+        generate_annotations(non_existent_images, :non_existent) + generate_annotations(images_missing_width, :missing_width)
       end
 
       def locate_errors(image) # rubocop:disable Metrics/MethodLength
@@ -32,26 +28,46 @@ module Linting
         end
       end
 
-      def message_for_image(image)
-        return 'This file does not exist.' unless file_exists?(image[:absolute_path], case_insensitive: true)
+      def message_for_image(image, type)
+        if type == :non_existent
+          return 'This file does not exist.' unless file_exists?(image[:absolute_path], case_insensitive: true)
 
-        'This file does not exist. Check for case sensitivity—a very similarly named file does exist, but has different case.'
+          'This file does not exist. Check for case sensitivity—a very similarly named file does exist, but has different case.'
+        elsif type == :missing_width
+          'This image is missing a width attribute. Please provide one in the form of [width=50%]'
+        end
       end
 
-      def annotation(image, location)
+      def annotation(image, location, type)
         Linting::Annotation.new(
           location.merge(
             absolute_path: markdown_file,
             annotation_level: 'failure',
-            message: message_for_image(image),
+            message: message_for_image(image, type),
             title: 'Invalid image reference'
           )
         )
       end
 
+      def generate_annotations(images, type)
+        images.flat_map do |image|
+          locate_errors(image[:relative_path]).map do |location|
+            annotation(image, location, type)
+          end
+        end
+      end
+
       def non_existent_images
         @non_existent_images ||= image_extractor.images.reject do |image|
           file_exists?(image[:absolute_path], case_insensitive: false)
+        end
+      end
+
+      def images_missing_width
+        @images_missing_width ||= image_extractor.images.reject do |image|
+          # Either has width=x% or portrait
+          width_match = /width=(\d+)%/.match(image[:alt_text])
+          width_match.present? || image[:alt_text].include?('portrait')
         end
       end
 

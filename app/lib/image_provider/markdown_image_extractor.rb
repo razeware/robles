@@ -12,15 +12,19 @@ module ImageProvider
     def images
       [].tap do |images|
         doc.walk do |node|
-          images << image_record(node.url) if node.type == :image
+          next unless node.type == :image
+
+          alt_text = node.each.select { |child| child.type == :text }.map(&:string_content).join(' ')
+          images << image_record(node.url, alt_text)
         end
       end
     end
 
-    def image_record(url)
+    def image_record(url, alt_text)
       {
         relative_path: cleanpath(url),
         absolute_path: cleanpath(apply_path(url)),
+        alt_text: alt_text,
         variants: ImageRepresentation::DEFAULT_WIDTHS.keys
       }
     end
