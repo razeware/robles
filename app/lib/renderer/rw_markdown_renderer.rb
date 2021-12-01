@@ -22,17 +22,25 @@ module Renderer
       alt_text = node.each.select { |child| child.type == :text }.map { |child| escape_html(child.string_content) }.join(' ')
       classes = class_list(alt_text)
 
-      out('<figure title="', title, '"', ' class="', classes, '">')
-      out('  <picture>')
-      if svg?(alt_text, node.url)
-        out(svg_content(node.url))
+      if !has_width_class?(alt_text)
+        out('<blockquote>')
+          out('  <h3 style="color: red; margin-top: 0;">Error: This image is missing a width attribute</h3>')
+          out('  <p style="color: red;">Please provide one in the form of <code>![width=50%](', node.url, ')</code></p>')
+          out('  <p style="color: red;">The image has been hidden until this issue is resolved.</p>')
+        out('</blockquote>')
       else
-        out('    <img src="', src(node.url), '" alt="', title, '" title="', title, '">')
-        out('    <source srcset="', srcset(node.url), '">')
+        out('<figure title="', title, '"', ' class="', classes, '">')
+        out('  <picture>')
+        if svg?(alt_text, node.url)
+          out(svg_content(node.url))
+        else
+          out('    <img src="', src(node.url), '" alt="', title, '" title="', title, '">')
+          out('    <source srcset="', srcset(node.url), '">')
+        end
+        out('  </picture>')
+        out('  <figcaption>', title, '</figcaption>')
+        out('</figure>')
       end
-      out('  </picture>')
-      out('  <figcaption>', title, '</figcaption>')
-      out('</figure>')
     end
 
     def text(node)
