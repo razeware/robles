@@ -18,7 +18,7 @@ module Renderer
       document.walk.each do |node|
         # We only care about paragraph nodes
         next unless node.type == :paragraph
-       
+
         # Get the plain text for this paragraph and tidy it up
         paragraph = node.to_plaintext.gsub("\n", ' ').strip
 
@@ -26,7 +26,7 @@ module Renderer
         next if paragraph.match?(/\$\[t=[\d:.]+\]/)
 
         word_count = paragraph.split.length
-      
+
         # Search the captions for a match for this paragraph
         match = (0..vtt.cues.length).map do |offset|
           vtt_wc = 0
@@ -38,14 +38,14 @@ module Renderer
             vtt_wc = caption.split.length
             i += 1
           end
-      
+
           # Match the word count
           caption = caption.split[0...paragraph.split.length].join(' ')
-          
+
           # Calculate the similarity
           [offset, Levenshtein.distance(caption, paragraph), caption, paragraph]
         end.min { |a, b| a[1] <=> b[1] }
-      
+
         cue = vtt.cues[match[0]]
         text = CommonMarker::Node.new(:text)
         text.string_content = "$[t=#{cue.start}]"
