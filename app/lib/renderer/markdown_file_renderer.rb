@@ -37,7 +37,9 @@ module Renderer
     def preproccessed_markdown
       @preproccessed_markdown ||= begin
         removing_pagesetting_notation = raw_content.gsub(/\$\[=[=sp]=\]/, '')
-        without_metadata(removing_pagesetting_notation.each_line)
+        # Any lines that include $[//] will be stripped from the raw markdown. Use these to make comments
+        removing_comments = removing_pagesetting_notation.each_line.reject { |line| line.include?('$[//]') }
+        without_metadata(removing_comments)
       end
     end
 
