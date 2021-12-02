@@ -45,12 +45,13 @@ module Parser
 
     def parse_episode(metadata)
       script_file = apply_path(metadata[:script_file]) if metadata[:script_file].present?
-      raise RuntimeError, "Script file (#{metadata[:script_file]}}) not found" if script_file.present? && !File.file?(script_file)
+      raise Parser::Error.new(file: file, msg: "Script file (#{metadata[:script_file]}}) not found") if script_file.present? && !File.file?(script_file)
 
       root_path = Pathname.new(script_file).dirname.to_s if script_file.present?
-      metadata[:captions_file] = apply_path(metadata[:captions_file]) if metadata[:captions_file].present?
-      raise RuntimeError, "Captions file (#{metadata[:captions_file]}) not found" if metadata[:captions_file].present? && !File.file?(metadata[:captions_file])
+      captions_file = apply_path(metadata[:captions_file]) if metadata[:captions_file].present?
+      raise Parser::Error.new(file: file, msg: "Captions file (#{metadata[:captions_file]}) not found") if captions_file.present? && !File.file?(captions_file)
 
+      metadata[:captions_file] = captions_file if captions_file.present?
       Episode.new(script_file: script_file, root_path: root_path).tap do |episode|
         EpisodeMetadata.new(episode, metadata).apply!
       end
