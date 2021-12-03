@@ -22,9 +22,98 @@ X. Typography
 
 }
 
+/* ==========================================================================
+X. Arrows
+========================================================================== */
+
+#Arrow [id^='Tip'] {
+  fill: #ffffff;
+}
+
+[id^='Arrow_'] [id^='Tip'] {
+  fill: #ffffff;
+}
+
+#ArrowGrey [id^='Tip'] {
+  fill: #ffffff;
+}
+
+[id^='ArrowGrey_'] [id^='Tip'] {
+  fill: #ffffff;
+}
+
+#ArrowGreen [id^='Tip'] {
+  fill: #ffffff;
+}
+
+[id^='ArrowGreen_'] [id^='Tip'] {
+  fill: #ffffff;
+}
+
+#ArrowTurquoise [id^='Tip'] {
+  fill: #ffffff;
+}
+
+[id^='ArrowTurquoise_'] [id^='Tip'] {
+  fill: #ffffff;
+}
+
+#ArrowLightBlue [id^='Tip'] {
+  fill: #ffffff;
+}
+
+[id^='ArrowLightBlue_'] [id^='Tip'] {
+  fill: #ffffff;
+}
+
+#ArrowDarkBlue [id^='Tip'] {
+  fill: #ffffff;
+}
+
+[id^='ArrowDarkBlue_'] [id^='Tip'] {
+  fill: #ffffff;
+}
+
+#ArrowPurple [id^='Tip'] {
+  fill: #ffffff;
+}
+
+[id^='ArrowPurple_'] [id^='Tip'] {
+  fill: #ffffff;
+}
+
+#ArrowPink [id^='Tip'] {
+  fill: #ffffff;
+}
+
+[id^='ArrowPink_'] [id^='Tip'] {
+  fill: #ffffff;
+}
+
+#ArrowRed [id^='Tip'] {
+  fill: #ffffff;
+}
+
+[id^='ArrowRed_'] [id^='Tip'] {
+  fill: #ffffff;
+}
+
+#ArrowYellow [id^='Tip'] {
+  fill: #ffffff;
+}
+
+[id^='ArrowYellow_'] [id^='Tip'] {
+  fill: #ffffff;
+}
+
+/* ==========================================================================
+X. Night Mode
+========================================================================== */
+
 .l-prefers-color-scheme--dark {
 
   .c-written-tutorial__content {
+  
 
     /* ==========================================================================
     X. Labels
@@ -32,6 +121,78 @@ X. Typography
 
     text {
       fill: white;
+    }
+
+    text#TextGrey {
+      fill: #D8DBE1 !important; 
+    }
+    
+    text[id^='TextGrey_'] {
+      fill: #D8DBE1 !important;
+    }
+    
+    text#TextGreen {
+      fill: #D6E18D !important; 
+    }
+    
+    text[id^='TextGreen_'] {
+      fill: #D6E18D !important;
+    }
+    
+    text#TextTurquoise {
+      fill: #97CFC1 !important; 
+    }
+    
+    text[id^='TextTurquoise_'] {
+      fill: #97CFC1 !important;
+    }
+    
+    text#TextLightBlue {
+      fill: #A6D9E2 !important; 
+    }
+    
+    text[id^='TextLightBlue_'] {
+      fill: #A6D9E2 !important;
+    }
+    
+    text#TextDarkBlue {
+      fill: #B9C3E4 !important; 
+    }
+    
+    text[id^='TextDarkBlue_'] {
+      fill: #B9C3E4 !important;
+    }
+    
+    text#TextPurple {
+      fill: #D3BDDB !important; 
+    }
+    
+    text[id^='TextPurple_'] {
+      fill: #D3BDDB !important;
+    }
+    
+    text#TextPink {
+      fill: #F2BCD7 !important; 
+    }
+    
+    text[id^='TextPink_'] {
+      fill: #F2BCD7 !important;
+    }
+    
+    text#TextRed {
+      fill: #F7B39C !important; 
+    }
+    
+    text[id^='TextRed_'] {
+      fill: #F7B39C !important;
+    }
+    
+    text#TextYellow {
+      fill: #FFD46F !important; 
+    }
+    
+    text[id^='TextYellow_'] {
+      fill: #FFD46F !important;
     }
 
     /* ==========================================================================
@@ -193,6 +354,295 @@ X. Typography
     }
 
     /* ==========================================================================
+X. Arrow (Grey)
+========================================================================== */
+
+#ArrowGrey circle {
+  fill: #333333;
+  stroke: #D8DBE1;
+}
+
+[id^='ArrowGrey_'] circle {
+  fill: #333333;
+  stroke: #D8DBE1;
+}
+
+#ArrowGrey [id^='Line'] {
+  stroke: #D8DBE1
+}
+
+[id^='ArrowGrey_'] [id^='Line'] {
+  stroke: #D8DBE1
+}
+
+#ArrowGrey [id^='Tip'] {
+  fill: #333333;
+  stroke: #D8DBE1;
+}
+
+[id^='ArrowGrey_'] [id^='Tip'] {
+  fill: #333333;
+  stroke: #D8DBE1;
+}
+
+/* ==========================================================================
+X. Arrow (Green)
+========================================================================== */
+
+#ArrowGreen circle {
+  fill: #333333;
+  stroke: #D6E18D;
+}
+
+[id^='ArrowGreen_'] circle {
+  fill: #333333;
+  stroke: #D6E18D;
+}
+
+#ArrowGreen [id^='Line'] {
+  stroke: #D6E18D
+}
+
+[id^='ArrowGreen_'] [id^='Line'] {
+  stroke: #D6E18D
+}
+
+#ArrowGreen [id^='Tip'] {
+  fill: #333333;
+  stroke: #D6E18D;
+}
+
+[id^='ArrowGreen_'] [id^='Tip'] {
+  fill: #333333;
+  stroke: #D6E18D;
+}
+
+/* ==========================================================================
+X. Arrow (Turquoise)
+========================================================================== */
+
+#ArrowTurquoise circle {
+  fill: #333333;
+  stroke: #97CFC1;
+}
+
+[id^='ArrowTurquoise_'] circle {
+  fill: #333333;
+  stroke: #97CFC1;
+}
+
+#ArrowTurquoise [id^='Line'] {
+  stroke: #97CFC1
+}
+
+[id^='ArrowTurquoise_'] [id^='Line'] {
+  stroke: #97CFC1
+}
+
+#ArrowTurquoise [id^='Tip'] {
+  fill: #333333;
+  stroke: #97CFC1;
+}
+
+[id^='ArrowTurquoise_'] [id^='Tip'] {
+  fill: #333333;
+  stroke: #97CFC1;
+}
+
+/* ==========================================================================
+X. Arrow (LightBlue)
+========================================================================== */
+
+#ArrowLightBlue circle {
+  fill: #333333;
+  stroke: #A6D9E2;
+}
+
+[id^='ArrowLightBlue_'] circle {
+  fill: #333333;
+  stroke: #A6D9E2;
+}
+
+#ArrowLightBlue [id^='Line'] {
+  stroke: #A6D9E2
+}
+
+[id^='ArrowLightBlue_'] [id^='Line'] {
+  stroke: #A6D9E2
+}
+
+#ArrowLightBlue [id^='Tip'] {
+  fill: #333333;
+  stroke: #A6D9E2;
+}
+
+[id^='ArrowLightBlue_'] [id^='Tip'] {
+  fill: #333333;
+  stroke: #A6D9E2;
+}
+
+/* ==========================================================================
+X. Arrow (DarkBlue)
+========================================================================== */
+
+#ArrowDarkBlue circle {
+  fill: #333333;
+  stroke: #B9C3E4;
+}
+
+[id^='ArrowDarkBlue_'] circle {
+  fill: #333333;
+  stroke: #B9C3E4;
+}
+
+#ArrowDarkBlue [id^='Line'] {
+  stroke: #B9C3E4
+}
+
+[id^='ArrowDarkBlue_'] [id^='Line'] {
+  stroke: #B9C3E4
+}
+
+#ArrowDarkBlue [id^='Tip'] {
+  fill: #333333;
+  stroke: #B9C3E4;
+}
+
+[id^='ArrowDarkBlue_'] [id^='Tip'] {
+  fill: #333333;
+  stroke: #B9C3E4;
+}
+
+/* ==========================================================================
+X. Arrow (Purple)
+========================================================================== */
+
+#ArrowPurple circle {
+  fill: #333333;
+  stroke: #D3BDDB;
+}
+
+[id^='ArrowPurple_'] circle {
+  fill: #333333;
+  stroke: #D3BDDB;
+}
+
+#ArrowPurple [id^='Line'] {
+  stroke: #D3BDDB
+}
+
+[id^='ArrowPurple_'] [id^='Line'] {
+  stroke: #D3BDDB
+}
+
+#ArrowPurple [id^='Tip'] {
+  fill: #333333;
+  stroke: #D3BDDB;
+}
+
+[id^='ArrowPurple_'] [id^='Tip'] {
+  fill: #333333;
+  stroke: #D3BDDB;
+}
+
+/* ==========================================================================
+X. Arrow (Pink)
+========================================================================== */
+
+#ArrowPink circle {
+  fill: #333333;
+  stroke: #F2BCD7;
+}
+
+[id^='ArrowPink_'] circle {
+  fill: #333333;
+  stroke: #F2BCD7;
+}
+
+#ArrowPink [id^='Line'] {
+  stroke: #F2BCD7
+}
+
+[id^='ArrowPink_'] [id^='Line'] {
+  stroke: #F2BCD7
+}
+
+#ArrowPink [id^='Tip'] {
+  fill: #333333;
+  stroke: #F2BCD7;
+}
+
+[id^='ArrowPink_'] [id^='Tip'] {
+  fill: #333333;
+  stroke: #F2BCD7;
+}
+
+/* ==========================================================================
+X. Arrow (Red)
+========================================================================== */
+
+#ArrowRed circle {
+  fill: #333333;
+  stroke: #F7B39C;
+}
+
+[id^='ArrowRed_'] circle {
+  fill: #333333;
+  stroke: #F7B39C;
+}
+
+#ArrowRed [id^='Line'] {
+  stroke: #F7B39C
+}
+
+[id^='ArrowRed_'] [id^='Line'] {
+  stroke: #F7B39C
+}
+
+#ArrowRed [id^='Tip'] {
+  fill: #333333;
+  stroke: #F7B39C;
+}
+
+[id^='ArrowRed_'] [id^='Tip'] {
+  fill: #333333;
+  stroke: #F7B39C;
+}
+
+/* ==========================================================================
+X. Arrow (Yellow)
+========================================================================== */
+
+#ArrowYellow circle {
+  fill: #333333;
+  stroke: #FFD46F;
+}
+
+[id^='ArrowYellow_'] circle {
+  fill: #333333;
+  stroke: #FFD46F;
+}
+
+#ArrowYellow [id^='Line'] {
+  stroke: #FFD46F
+}
+
+[id^='ArrowYellow_'] [id^='Line'] {
+  stroke: #FFD46F
+}
+
+#ArrowYellow [id^='Tip'] {
+  fill: #333333;
+  stroke: #FFD46F;
+}
+
+[id^='ArrowYellow_'] [id^='Tip'] {
+  fill: #333333;
+  stroke: #FFD46F;
+}
+
+
+    /* ==========================================================================
     X. Lines
     ========================================================================== */
 
@@ -202,6 +652,78 @@ X. Typography
 
     [id^='ShapeLine_'] {
       stroke: #ffffff;
+    }
+
+    #ShapeLineGrey {
+      stroke: #D8DBE1;
+    }
+    
+    [id^='ShapeLineGrey_'] {
+      stroke: #D8DBE1;
+    }
+    
+    #ShapeLineGreen {
+      stroke: #D6E18D;
+    }
+    
+    [id^='ShapeLineGreen_'] {
+      stroke: #D6E18D;
+    }
+    
+    #ShapeLineTurquoise {
+      stroke: #97CFC1;
+    }
+    
+    [id^='ShapeLineTurquoise_'] {
+      stroke: #97CFC1;
+    }
+    
+    #ShapeLineLightBlue {
+      stroke: #A6D9E2;
+    }
+    
+    [id^='ShapeLineLightBlue_'] {
+      stroke: #A6D9E2;
+    }
+    
+    #ShapeLineDarkBlue {
+      stroke: #B9C3E4;
+    }
+    
+    [id^='ShapeLineDarkBlue_'] {
+      stroke: #B9C3E4;
+    }
+    
+    #ShapeLinePurple {
+      stroke: #D3BDDB;
+    }
+    
+    [id^='ShapeLinePurple_'] {
+      stroke: #D3BDDB;
+    }
+    
+    #ShapeLinePink {
+      stroke: #F2BCD7;
+    }
+    
+    [id^='ShapeLinePink_'] {
+      stroke: #F2BCD7;
+    }
+    
+    #ShapeLineRed {
+      stroke: #F7B39C;
+    }
+    
+    [id^='ShapeLineRed_'] {
+      stroke: #F7B39C;
+    }
+    
+    #ShapeLineYellow {
+      stroke: #FFD46F;
+    }
+    
+    [id^='ShapeLineYellow_'] {
+      stroke: #FFD46F;
     }
 
     /* ==========================================================================

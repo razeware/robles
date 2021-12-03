@@ -7,11 +7,11 @@ class Image
 
   attr_accessor :local_url, :representations, :uploaded_image_root_path
 
-  def self.with_representations(attributes = {}, variants: nil)
+  def self.with_representations(attributes = {}, variants: nil, representation_attributes: {})
     variants ||= ImageRepresentation::DEFAULT_WIDTHS.keys
     new(attributes).tap do |image|
       image.representations = variants.map do |width|
-        ImageRepresentation.new(width: width, image: image)
+        ImageRepresentation.new(representation_attributes.merge(width: width, image: image))
       end
     end
   end
@@ -30,11 +30,15 @@ class Image
   end
 
   def key
-    @key ||= Digest::SHA256.file(local_url).hexdigest
+    @key ||= Digest::MD5.file(local_url).hexdigest
   end
 
   def extension
     @extension ||= Pathname.new(local_url).extname
+  end
+
+  def source_filename
+    @source_filename ||= Pathname.new(local_url).basename('.*')
   end
 
   def remote_urls
@@ -47,7 +51,6 @@ class Image
         logger.info "Skipping #{local_url}"
         next
       end
-
       logger.info "Generating #{representation.width} variant for #{local_url}"
       representation.generate
       logger.info "Uploading #{representation.width} variant for #{local_url}"

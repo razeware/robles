@@ -11,8 +11,14 @@ module Concerns
 
     class_methods do
       # Specify the name of the attribute that markdown should be rendered into
-      def attr_markdown(attribute, source:, file: false, wrapper_class: nil)
-        _markdown_renderable_attributes.push({ destination: attribute, source: source, file: file, wrapper_class: wrapper_class })
+      def attr_markdown(attribute, source:, file: false, wrapper_class: nil, vtt_attr: nil)
+        _markdown_renderable_attributes.push({
+          destination: attribute,
+          source: source,
+          file: file,
+          wrapper_class: wrapper_class,
+          vtt_attr: vtt_attr
+        })
         attr_accessor attribute
       end
     end
@@ -22,7 +28,8 @@ module Concerns
     def markdown_render_loop(&block)
       _markdown_renderable_attributes.each do |attribute|
         content = send(attribute[:source])
-        rendered = block.call(content, attribute[:file])
+        vtt_file = send(attribute[:vtt_attr]) if attribute[:vtt_attr]
+        rendered = block.call(content, attribute[:file], vtt_file)
         rendered = wrap_render(rendered, attribute[:wrapper_class])
 
         send("#{attribute[:destination]}=".to_sym, rendered)

@@ -19,7 +19,7 @@ GEM
       minitest (>= 5.1)
       tzinfo (~> 2.0)
       zeitwerk (~> 2.3)
-    addressable (2.7.0)
+    addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.2)
     aws-eventstream (1.1.1)
@@ -89,21 +89,23 @@ GEM
       rexml
     kramdown-parser-gfm (1.1.0)
       kramdown (~> 2.0)
+    levenshtein-ffi (1.1.0)
+      ffi (~> 1.9)
     listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     lumberjack (1.2.8)
     method_source (1.0.0)
     mini_magick (4.11.0)
-    mini_portile2 (2.5.1)
+    mini_portile2 (2.6.1)
     minitest (5.14.4)
     multi_json (1.15.0)
     multipart-post (2.1.1)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     nenv (0.3.0)
-    nokogiri (1.11.5)
-      mini_portile2 (~> 2.5.0)
+    nokogiri (1.12.5)
+      mini_portile2 (~> 2.6.1)
       racc (~> 1.4)
     notiffany (0.1.3)
       nenv (~> 0.1)
@@ -124,6 +126,8 @@ GEM
       rack
     rack-protection (2.1.0)
       rack
+    rack-test (1.1.0)
+      rack (>= 1.0, < 3)
     rainbow (3.0.0)
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
@@ -188,6 +192,7 @@ GEM
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    webvtt-ruby (0.3.2)
     yard (0.9.26)
     zeitwerk (2.4.2)
 
@@ -206,9 +211,11 @@ DEPENDENCIES
   git
   guard (~> 2, >= 2.16.2)
   guard-livereload!
+  levenshtein-ffi
   mini_magick
   octokit (~> 4.19)
   rack-livereload
+  rack-test
   rbnacl
   rubocop (~> 1.0)
   sassc
@@ -217,6 +224,7 @@ DEPENDENCIES
   solargraph (~> 0.39)
   thin
   thor (~> 1.0, >= 1.0.1)
+  webvtt-ruby
   zeitwerk (~> 2.3)
 
 BUNDLED WITH

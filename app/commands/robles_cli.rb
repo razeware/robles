@@ -13,6 +13,9 @@ class RoblesCli < Thor
   desc 'video SUBCOMMAND ...ARGS', 'manage publication of videos'
   subcommand 'video', VideoCli
 
+  desc 'pablo SUBCOMMAND ...ARGS', 'manage publication of pablo'
+  subcommand 'pablo', PabloCli
+
   ## We leave these in for now--they're deprecated. They should be removed later
   desc 'serve', '[DEPRECATED: use `robles book serve` instead] starts local preview server'
   option :dev, type: :boolean, desc: 'Run in development mode (watch robles files, not book files)'

@@ -6,16 +6,18 @@ module Renderer
     include Util::Logging
     include Parser::FrontmatterMetadataFinder
 
-    attr_reader :path, :image_provider
+    attr_reader :path, :image_provider, :vtt_file
 
-    def initialize(path:, image_provider: nil)
+    def initialize(path:, image_provider: nil, vtt_file: nil)
       @path = path
       @image_provider = image_provider
+      @vtt_file = vtt_file
     end
 
     def render
       logger.debug 'MarkdownFileRenderer::render'
       remove_h1(doc)
+      apply_vtt_timestamps(doc)
       fix_team_bio_markup(rw_renderer.render(doc))
     end
 
@@ -35,7 +37,9 @@ module Renderer
     def preproccessed_markdown
       @preproccessed_markdown ||= begin
         removing_pagesetting_notation = raw_content.gsub(/\$\[=[=sp]=\]/, '')
-        without_metadata(removing_pagesetting_notation.each_line)
+        # Any lines that include $[//] will be stripped from the raw markdown. Use these to make comments
+        removing_comments = removing_pagesetting_notation.each_line.reject { |line| line.include?('$[//]') }
+        without_metadata(removing_comments)
       end
     end
 
@@ -52,6 +56,13 @@ module Renderer
         node.delete if node.type == :header && node.header_level.to_i == 1
       end
       document
+    end
+
+    def apply_vtt_timestamps(document)
+      return unless vtt_file.present?
+
+      timestamper = MarkdownTimestamper.new(document, vtt_file)
+      timestamper.apply!
     end
 
     def fix_team_bio_markup(html)

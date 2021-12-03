@@ -13,12 +13,27 @@ module Linting
       end
 
       def lint_markdown_attributes
-        object.markdown_render_loop do |content, is_file|
-          markdown = is_file ? File.read(content) : content
-          # TODO: Do some checking here
-          content
+        [].tap do |annotations|
+          object.markdown_render_loop do |content, is_file|
+            markdown = is_file ? File.read(content) : content
+            
+            if is_file
+              counter = Linting::Markdown::WordCounter.new(markdown)
+              annotations << word_count_annotation(content, counter.count) if counter.exceeds_word_limit?
+            end
+          end
         end
-        []
+      end
+
+      def word_count_annotation(file, word_count)
+        Linting::Annotation.new(
+          start_line: 0,
+          end_line: 0,
+          absolute_path: file,
+          annotation_level: 'warning',
+          message: "The word count in #{Pathname.new(file).basename} is #{word_count}. This exceeds the allowable limit of #{Linting::Markdown::WordCounter::WORD_LIMIT}",
+          title: "Word limit exceeded in #{Pathname.new(file).basename}"
+        )
       end
     end
   end

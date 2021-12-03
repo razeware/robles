@@ -18,5 +18,13 @@ module Runner
     def default_release_file
       (Pathname.new(GITHUB_WORKSPACE) + 'release.yaml').to_s
     end
+
+    def default_pablo_source
+      (Pathname.new(GITHUB_WORKSPACE) + 'images').to_s
+    end
+
+    def default_pablo_output
+      (Pathname.new(GITHUB_WORKSPACE) + 'dist').to_s
+    end
   end
 end

@@ -17,6 +17,10 @@ class RoblesBookServer < Sinatra::Application
     def chapter_path(chapter)
       "/chapters/#{chapter.slug}"
     end
+
+    def exceeds_word_limit?(chapter)
+      word_counter_for_chapter(chapter).exceeds_word_limit?
+    end
   end
 
   before do
@@ -32,8 +36,14 @@ class RoblesBookServer < Sinatra::Application
     raise Sinatra::NotFound unless chapter.present?
 
     render_chapter(chapter)
+    counter = word_counter_for_chapter(chapter)
     erb :'books/chapter.html',
-        locals: { chapter: chapter, book: book, title: "robles Preview: #{chapter.title}" },
+        locals: { 
+          chapter: chapter,
+          book: book,
+          title: "robles Preview: #{chapter.title}",
+          word_counter: counter
+        },
         layout: :'books/layout.html'
   end
 
@@ -73,6 +83,11 @@ class RoblesBookServer < Sinatra::Application
     image_provider.process
     renderer = Renderer::Chapter.new(chapter, image_provider: image_provider)
     renderer.render
+  end
+
+  def word_counter_for_chapter(chapter)
+    markdown = File.read(chapter.markdown_file)
+    Linting::Markdown::WordCounter.new(markdown)
   end
 
   def publish_file

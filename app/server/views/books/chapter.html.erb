@@ -1,3 +1,9 @@
+<div class="o-alert l-alert-sticky <%= word_counter.exceeds_word_limit? ? 'o-alert--warning' : 'o-alert--info' %>">
+  Word count: <%= "#{word_counter.count} / #{word_counter.word_limit}" %>.
+  <%= "This chapter exceeds the word limit." if word_counter.exceeds_word_limit? %>
+</div>
+
+
 <header id="c-global-header" class="c-book-header" role="banner">
   <div class="l-flex-align-center--force">
 

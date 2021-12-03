@@ -14,9 +14,14 @@ module Cli
     end
 
     def render
-      return success if output.validated
-
-      failure
+      case [output.validated, output.annotations.blank?]
+      when [true, true]
+        success
+      when [true, false]
+        warnings
+      else
+        failure
+      end
     end
 
     def success
@@ -25,6 +30,17 @@ module Cli
         puts output.summary
         CLI::UI::Frame.divider('Details')
         puts output.text
+      end
+    end
+
+    def warnings
+      CLI::UI::Frame.open('{{x}} {{bold:robles}} Linting Warnings', color: :yellow) do
+        puts CLI::UI.fmt("{{warning:#{output.title}}}")
+        puts output.summary
+        CLI::UI::Frame.divider('Details')
+        puts output.text
+        CLI::UI::Frame.divider('{{x}} Individual Annotations')
+        output.annotations.each { |annotation| render_annotation(annotation) }
       end
     end
 

@@ -43,7 +43,7 @@ directory structure:
 Then to get a shell:
 
 ```
-$ docker-compose run --rm app bash
+$ docker-compose run --rm --service-ports app bash
 ```
 
 You can then use `bin/robles` to see the different CLI options available, including the `publish`
