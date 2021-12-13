@@ -9,10 +9,12 @@ module Linting
       attr_reader :markdown_file
 
       def lint_markdown_images
-        generate_annotations(non_existent_images, :non_existent) + generate_annotations(images_missing_width, :missing_width)
+        _md_generate_annotations(_md_non_existent_images, :non_existent) + _md_generate_annotations(_md_images_missing_width, :missing_width)
       end
 
-      def locate_errors(image) # rubocop:disable Metrics/MethodLength
+      private
+
+      def _md_locate_errors(image) # rubocop:disable Metrics/MethodLength
         [].tap do |locations|
           IO.foreach(markdown_file).with_index do |line, line_number|
             next unless line.include?(image)
@@ -28,51 +30,51 @@ module Linting
         end
       end
 
-      def message_for_image(image, type)
+      def _md_message_for_image(image, type)
         if type == :non_existent
-          return 'This file does not exist.' unless file_exists?(image[:absolute_path], case_insensitive: true)
+          return "This file (#{image[:relative_path]}) does not exist." unless file_exists?(image[:absolute_path], case_insensitive: true)
 
-          'This file does not exist. Check for case sensitivity—a very similarly named file does exist, but has different case.'
+          "This file (#{image[:relative_path]}) does not exist. Check for case sensitivity—a very similarly named file does exist, but has different case."
         elsif type == :missing_width
-          'This image is missing a width attribute. Please provide one in the form of [width=50%]'
+          "This image (#{image[:relative_path]}) is missing a width attribute. Please provide one in the form of [width=50%]"
         end
       end
 
-      def annotation(image, location, type)
+      def _md_annotation(image, location, type)
         Linting::Annotation.new(
           location.merge(
             absolute_path: markdown_file,
             annotation_level: 'failure',
-            message: message_for_image(image, type),
+            message: _md_message_for_image(image, type),
             title: 'Invalid image reference'
           )
         )
       end
 
-      def generate_annotations(images, type)
+      def _md_generate_annotations(images, type)
         images.flat_map do |image|
-          locate_errors(image[:relative_path]).map do |location|
-            annotation(image, location, type)
+          _md_locate_errors(image[:relative_path]).map do |location|
+            _md_annotation(image, location, type)
           end
         end
       end
 
-      def non_existent_images
-        @non_existent_images ||= image_extractor.images.reject do |image|
+      def _md_non_existent_images
+        @_md_non_existent_images ||= _md_image_extractor.images.reject do |image|
           file_exists?(image[:absolute_path], case_insensitive: false)
         end
       end
 
-      def images_missing_width
-        @images_missing_width ||= image_extractor.images.reject do |image|
+      def _md_images_missing_width
+        @_md_images_missing_width ||= _md_image_extractor.images.reject do |image|
           # Either has width=x% or portrait
           width_match = /width=(\d+)%/.match(image[:alt_text])
           width_match.present? || image[:alt_text].include?('portrait')
         end
       end
 
-      def image_extractor
-        @image_extractor ||= ImageProvider::MarkdownImageExtractor.new(file: markdown_file)
+      def _md_image_extractor
+        @_md_image_extractor ||= ImageProvider::MarkdownImageExtractor.new(file: markdown_file)
       end
     end
   end
