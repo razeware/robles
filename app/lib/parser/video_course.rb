@@ -38,7 +38,7 @@ module Parser
         parse_episode(episode)
       end
 
-      Part.new(ordinal: index, episodes: episodes).tap do |part|
+      Part.new(ordinal: index + 1, episodes: episodes).tap do |part|
         PartMetadata.new(part, metadata).apply!
       end
     end
