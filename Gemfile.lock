@@ -68,7 +68,7 @@ GEM
       websocket-driver (>= 0.6, < 0.8)
     ffi (1.15.0)
     formatador (0.2.5)
-    git (1.8.1)
+    git (1.11.0)
       rchardet (~> 1.8)
     guard (2.16.2)
       formatador (>= 0.2.4)
