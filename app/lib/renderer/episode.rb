@@ -7,13 +7,6 @@ module Renderer
     include MarkdownRenderable
     include Util::Logging
 
-    attr_reader :object, :vtt_path
-
-    def initialize(object, vtt_path)
-      @object = object
-      @vtt_path = vtt_path
-    end
-
     def render
       logger.info "Beginning episode render: #{object.ordinal}: #{object.title}"
       attach_images
@@ -31,7 +24,7 @@ module Renderer
 
     # Open vtt file
     def vtt
-      @vtt = WebVTT::File.open(vtt_path) if vtt_path.present?
+      @vtt = WebVTT::File.open(object.captions_file) if object.captions_file.present?
     end
   end
 end
