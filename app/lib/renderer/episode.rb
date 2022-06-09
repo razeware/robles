@@ -17,7 +17,7 @@ module Renderer
     def generate_vtt_text
       vtt_data = vtt.read
       vtt_data.cues.each do |cue|
-        logger.info "Text: #{cue.text}"
+        logger.info object.transcript << "#{cue.text}"
         logger.info "--"
       end
     end
