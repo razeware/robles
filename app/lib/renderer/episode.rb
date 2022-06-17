@@ -15,16 +15,18 @@ module Renderer
 
     # Extract vtt file
     def generate_vtt_text
-      vtt_data = vtt.read
-      vtt_data.cues.each do |cue|
-        logger.info object.transcript << "#{cue.text}"
-        logger.info "--"
-      end
+      return if vtt.blank?
+
+      transcript = " ".dup
+      transcript = object.transcript.dup unless object.transcript.nil?
+      cue_texts = vtt.cues.collect(&:text).join(' ')
+      transcript << cue_texts
+      object.transcript = transcript
     end
 
     # Open vtt file
     def vtt
-      @vtt = WebVTT::File.open(object.captions_file) if object.captions_file.present?
+      @vtt ||= WebVTT.read(object.captions_file) if object.captions_file.present?
     end
   end
 end
