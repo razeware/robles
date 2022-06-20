@@ -10,7 +10,7 @@ module Renderer
     def render
       logger.info "Beginning episode render: #{object.ordinal}: #{object.title}"
       attach_images
-      logger.info generate_vtt_text
+      generate_vtt_text
       render_markdown
     end
 
