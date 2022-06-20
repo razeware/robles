@@ -10,6 +10,7 @@ module Renderer
     def render
       logger.info "Beginning episode render: #{object.ordinal}: #{object.title}"
       attach_images
+      generate_vtt_text
       render_markdown
     end
 
@@ -18,7 +19,6 @@ module Renderer
       return if vtt.blank?
 
       transcript = " ".dup
-      transcript = object.transcript.dup unless object.transcript.nil?
       cue_texts = vtt.cues.collect(&:text).join(' ')
       transcript << cue_texts
       object.transcript = transcript
