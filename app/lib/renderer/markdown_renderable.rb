@@ -4,7 +4,7 @@ module Renderer
   # Methods that make it possible to render markdown from an object
   module MarkdownRenderable
     # This object should include Concerns::MarkdownRenderable
-    attr_reader :object, :image_provider
+    attr_reader :object, :image_provider, :disable_transcripts
 
     def initialize(object, image_provider: nil)
       @object = object
@@ -20,7 +20,8 @@ module Renderer
     def render_file(filename, vtt_file)
       return '' if filename.blank?
 
-      MarkdownFileRenderer.new(path: filename, image_provider: image_provider, vtt_file: vtt_file).render
+      vtt = disable_transcripts ? nil : vtt_file
+      MarkdownFileRenderer.new(path: filename, image_provider: image_provider, vtt_file: vtt).render
     end
 
     def render_string(content)
