@@ -7,6 +7,8 @@ module Renderer
     include MarkdownRenderable
     include Util::Logging
 
+    attr_accessor :disable_transcripts
+
     def render
       logger.info "Beginning episode render: #{object.ordinal}: #{object.title}"
       attach_images

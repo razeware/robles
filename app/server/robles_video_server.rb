@@ -39,28 +39,31 @@ class RoblesVideoServer < Sinatra::Application
   end
 
   get '/' do
-    erb :'videos/index.html', locals: { video_course: video_course, title: "robles Preview: #{video_course.title}" }, layout: :'videos/layout.html'
+    @video_course = video_course(with_transcript: false)
+    erb :'videos/index.html', locals: { video_course: @video_course, title: "robles Preview: #{@video_course.title}" }, layout: :'videos/layout.html'
   end
 
   get '/slides/:slug' do
+    @video_course = video_course(with_transcript: false)
     episode = episode_for_slug(params[:slug])
     raise Sinatra::NotFound unless episode.present?
 
-    part = video_course.parts.find { |p| p.episodes.include?(episode) }
+    part = @video_course.parts.find { |p| p.episodes.include?(episode) }
 
     erb :'videos/episode_slide.html',
-        locals: { episode: episode, part: part, video_course: video_course, title: "robles Preview: #{episode.title}" },
+        locals: { episode: episode, part: part, video_course: @video_course, title: "robles Preview: #{episode.title}" },
         layout: :'videos/layout.html'
   end
 
   get '/transcripts/:slug' do
+    @video_course = video_course(with_transcript: true)
     episode = episode_for_slug(params[:slug])
     raise Sinatra::NotFound unless episode.present?
 
-    part = video_course.parts.find { |p| p.episodes.include?(episode) }
+    part = @video_course.parts.find { |p| p.episodes.include?(episode) }
 
     erb :'videos/episode_transcript.html',
-        locals: { episode: episode, part: part, video_course: video_course, title: "robles Preview: #{episode.title}" },
+        locals: { episode: episode, part: part, video_course: @video_course, title: "robles Preview: #{episode.title}" },
         layout: :'videos/layout.html'
   end
 
@@ -75,14 +78,14 @@ class RoblesVideoServer < Sinatra::Application
     scss :'styles/application', style: :expanded
   end
 
-  def video_course
-    @video_course ||= begin
-      parser = Parser::Release.new(file: release_file)
-      video_course = parser.parse
-      Renderer::VideoCourse.new(video_course, image_provider: nil).render
-      video_course.image_attachment_loop { |local_url| servable_image_url(local_url) }
-      video_course
-    end
+  def video_course(with_transcript: true)
+    parser = Parser::Release.new(file: release_file)
+    video_course = parser.parse
+    renderer = Renderer::VideoCourse.new(video_course, image_provider: nil)
+    renderer.disable_transcripts = !with_transcript
+    renderer.render
+    video_course.image_attachment_loop { |local_url| servable_image_url(local_url) }
+    video_course
   end
 
   def render_string(content)
@@ -90,7 +93,7 @@ class RoblesVideoServer < Sinatra::Application
   end
 
   def episode_for_slug(slug)
-    video_course.parts.flat_map(&:episodes).find { |episode| episode.slug == slug }
+    @video_course.parts.flat_map(&:episodes).find { |episode| episode.slug == slug }
   end
 
   def release_file
