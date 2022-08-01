@@ -16,7 +16,7 @@ gem 'thor', '~> 1.0', '>= 1.0.1'
 gem 'commonmarker'
 
 # HTTP Client
-gem 'faraday'
+gem 'faraday', '~> 1'
 
 # Git Client
 gem 'git'
