@@ -17,7 +17,7 @@ module Snapshotter
     end
 
     def generate
-      browser = Ferrum::Browser.new(url: "http://#{snapshot_host}:#{snapshot_port}", window_size: [1920, 1080])
+      browser = Ferrum::Browser.new(url: "http://#{snapshot_host}:#{snapshot_port}", window_size: [1920, 1080], timeout: 15)
       video_course.parts.flat_map(&:episodes).each do |episode|
         browser.goto("#{app_base}/slides/#{episode.slug}")
         browser.screenshot(path: "#{out_dir}/#{episode.slug}.png", selector: '#slide-to-snapshot')

@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 # Stealing some bits from rails
-gem 'activemodel', '~> 6.0'
-gem 'activesupport', '~> 6.0'
+gem 'activemodel', '~> 7.0'
+gem 'activesupport', '~> 7.0'
 # Autoloading explictly will use zeitwerk
 gem 'zeitwerk', '~> 2.3'
 
@@ -31,7 +31,7 @@ gem 'aws-sdk-s3', '~> 1.64'
 gem 'concurrent-ruby', '~> 1.1'
 
 # Interacting with github
-gem 'octokit', '~> 4.19'
+gem 'octokit', '~> 5'
 
 # Interface with libsodium
 gem 'rbnacl'
