@@ -1,7 +1,8 @@
 /**
- * Styles for auto-generated slide 
+ * Styles for auto-generated slide
  *
  * 1. Slide
+ * 2. Kodeco Slide
  *
  */
 
@@ -63,7 +64,7 @@
     top: 60px;
     left: 60px;
     max-width: 1600px;
-    overflow: hidden;
+    overflow: wrap;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
@@ -104,4 +105,75 @@
 
   }
 
+}
+
+
+/* ==========================================================================
+   2. Kodeco Slide
+   ========================================================================== */
+
+.title-slide {
+  height: 1080px;
+  width: 1920px;
+  background-color: #14161E;
+  color: white;
+  padding: 60px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  z-index: 0;
+
+  h1 {
+    font-size: 40px;
+    line-height: 1.25;
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    max-width: 506px;
+  }
+
+  .slide-episode {
+    position: absolute;
+    left: 32px;
+    bottom: 32px;
+
+    h2 {
+      font-size: 16px;
+      line-height: 1;
+      text-align: left;
+      padding-bottom: 16px;
+    }
+
+    h3 {
+      font-size: 40px;
+      line-height: 1;
+    }
+  }
+
+  figure {
+    width: 252px;
+    height: 252px;
+    position: absolute;
+    bottom: 32px;
+    right: 32px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .slide-domain {
+
+    svg {
+      height: 602px;
+      width: 1072px;
+      opacity: 0.2;
+      z-index: -1;
+      fill: #8763D2;
+    }
+
+  }
 }
