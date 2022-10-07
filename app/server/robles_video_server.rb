@@ -32,6 +32,14 @@ class RoblesVideoServer < Sinatra::Application
         domain.titleize
       end
     end
+
+    def class_for_domain(course)
+      if course.domains.count > 1
+        'multi-domain'
+      else
+         course.domains.first
+      end
+    end
   end
 
   before do
