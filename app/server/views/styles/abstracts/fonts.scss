@@ -8,11 +8,12 @@
  * 1. Bitter
  * 2. IBM Plex Sans
  * 3. IBM Plex Serif
+ * 4. Relative (Kodeco fonts)
  */
 
 
 
- /* NOTE
+/* NOTE
   *
   * Creating these fonts (Bitter) was somewhat challenging, because they were updated in
   * Google Fonts with different spacing and weight. It was then very hard to find the
@@ -42,24 +43,32 @@
   font-family: 'Bitter';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/bitter-1.300-latin_ext-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('../fonts/bitter-1.300-latin_ext-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: url('../fonts/bitter-1.300-latin_ext-regular.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/bitter-1.300-latin_ext-regular.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
+
 /* bitter-italic - latin-ext_latin */
 @font-face {
   font-family: 'Bitter';
   font-style: italic;
   font-weight: 400;
-  src: url('../fonts/bitter-1.002-latin_ext-italic.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('../fonts/bitter-1.002-latin_ext-italic.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: url('../fonts/bitter-1.002-latin_ext-italic.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/bitter-1.002-latin_ext-italic.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
+
 /* bitter-700 - latin-ext_latin */
 @font-face {
   font-family: 'Bitter';
   font-style: normal;
   font-weight: 700;
-  src: url('../fonts/bitter-2.110-latin_ext-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('../fonts/bitter-2.110-latin_ext-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: url('../fonts/bitter-2.110-latin_ext-700.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/bitter-2.110-latin_ext-700.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
 /* ==========================================================================
@@ -70,8 +79,10 @@
   font-family: 'IBM Plex Sans';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/ibm-plex-sans-v3-latin-ext_latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('../fonts/ibm-plex-sans-v3-latin-ext_latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: url('../fonts/ibm-plex-sans-v3-latin-ext_latin-regular.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/ibm-plex-sans-v3-latin-ext_latin-regular.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
 /* ibm-plex-sans-500 - latin-ext_latin */
@@ -79,8 +90,10 @@
   font-family: 'IBM Plex Sans';
   font-style: normal;
   font-weight: 500;
-  src: url('../fonts/ibm-plex-sans-v3-latin-ext_latin-500.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('../fonts/ibm-plex-sans-v3-latin-ext_latin-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: url('../fonts/ibm-plex-sans-v3-latin-ext_latin-500.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/ibm-plex-sans-v3-latin-ext_latin-500.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
 /* ibm-plex-sans-700 - latin-ext_latin */
@@ -88,8 +101,10 @@
   font-family: 'IBM Plex Sans';
   font-style: normal;
   font-weight: 700;
-  src: url('../fonts/ibm-plex-sans-v3-latin-ext_latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('../fonts/ibm-plex-sans-v3-latin-ext_latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: url('../fonts/ibm-plex-sans-v3-latin-ext_latin-700.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/ibm-plex-sans-v3-latin-ext_latin-700.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
 /* ==========================================================================
@@ -100,24 +115,32 @@
   font-family: 'IBM Plex Serif';
   font-style: normal;
   font-weight: 400;
-  src: url('../fonts/ibm-plex-serif-v4-latin-ext_latin-regular.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('../fonts/ibm-plex-serif-v4-latin-ext_latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: url('../fonts/ibm-plex-serif-v4-latin-ext_latin-regular.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/ibm-plex-serif-v4-latin-ext_latin-regular.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
+
 /* ibm-plex-serif-500 - latin-ext_latin */
 @font-face {
   font-family: 'IBM Plex Serif';
   font-style: normal;
   font-weight: 500;
-  src: url('../fonts/ibm-plex-serif-v4-latin-ext_latin-500.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('../fonts/ibm-plex-serif-v4-latin-ext_latin-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: url('../fonts/ibm-plex-serif-v4-latin-ext_latin-500.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/ibm-plex-serif-v4-latin-ext_latin-500.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
+
 /* ibm-plex-serif-700 - latin-ext_latin */
 @font-face {
   font-family: 'IBM Plex Serif';
   font-style: normal;
   font-weight: 700;
-  src: url('../fonts/ibm-plex-serif-v4-latin-ext_latin-700.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('../fonts/ibm-plex-serif-v4-latin-ext_latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: url('../fonts/ibm-plex-serif-v4-latin-ext_latin-700.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/ibm-plex-serif-v4-latin-ext_latin-700.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
 /* ==========================================================================
@@ -129,6 +152,96 @@
   font-family: 'IBM Plex Mono';
   font-style: normal;
   font-weight: 500;
-  src: url('../fonts/ibm-plex-mono-v1-500.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-       url('../fonts/ibm-plex-mono-v1-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+  src: url('../fonts/ibm-plex-mono-v1-500.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/ibm-plex-mono-v1-500.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* ==========================================================================
+   4. Relative — The Kodeco Font
+========================================================================== */
+
+/* relative-book */
+
+@font-face {
+  font-family: 'Relative';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/relative-book-pro.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/relative-book-pro.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* relative-italic */
+
+@font-face {
+  font-family: 'Relative';
+  font-style: italic;
+  font-weight: 400;
+  src: url('../fonts/relative-italic-pro.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/relative-italic-pro.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* relative-medium */
+
+@font-face {
+  font-family: 'Relative';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../fonts/relative-medium-pro.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/relative-medium-pro.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* relative-medium-italic */
+
+@font-face {
+  font-family: 'Relative';
+  font-style: italic;
+  font-weight: 500;
+  src: url('../fonts/relative-medium-italic-pro.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/relative-medium-italic-pro.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* relative-bold */
+
+@font-face {
+  font-family: 'Relative';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../fonts/relative-bold-pro.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/relative-bold-pro.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* relative-bold-italic */
+
+@font-face {
+  font-family: 'Relative';
+  font-style: italic;
+  font-weight: 700;
+  src: url('../fonts/relative-bold-italic-pro.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/relative-bold-italic-pro.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+/* relative-mono-10 */
+
+@font-face {
+  font-family: 'Relative Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/relative-mono-10-pitch-pro.woff2') format('woff2'),
+    /* Chrome 26+, Opera 23+, Firefox 39+ */
+    url('../fonts/relative-mono-10-pitch-pro.woff') format('woff');
+  /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
