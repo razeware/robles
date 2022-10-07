@@ -188,6 +188,7 @@ $slide-ratio: 1.8;
     left: 10%;
     height: 100%;
     width: 100%;
+    z-index: -1;
 
     &--ios {
       @extend .slide-domain;
