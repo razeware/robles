@@ -1,20 +1,24 @@
-<div class="c-slide" id="slide-to-snapshot">
-  <h1><%= video_course.title %></h1>
-  <div>
-    <% if video_course.parts.count > 1 %>
-      <h2>Part <%= part.ordinal %>: <%= part.title %></h2>
-    <% end %>
-    <h3><%= episode.title %></h3>
+<div class="title-slide" id="slide-to-snapshot">
+  <h1>
+    <%= video_course.title %>
+  </h1>
+  <div class="slide-episode">
+    <% if video_course.parts.count> 1 %>
+      <h2>Part <%= part.ordinal %>: <%= part.title %>
+      </h2>
+      <% end %>
+        <h3>
+          <%=episode.ordinal%>. <%= episode.title %>
+        </h3>
   </div>
 
-  <div class="c-slide__domains">
-    <span>&mdash;</span>
-    <span><%= video_course.domains.map { |domain| marketing_name_for_domain(domain) }.join(', ') %></span>
+  <div class="slide-domain--<%= class_for_domain(video_course) %>">
+
   </div>
 
   <% if video_course.featured_banner_image_url&.first&.url.present? %>
     <figure>
       <img src="<%= video_course.featured_banner_image_url&.first&.url %>">
     </figure>
-  <% end %>
+    <% end %>
 </div>
