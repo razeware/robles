@@ -146,18 +146,22 @@ $slide-ratio: 1.8;
 
     h2 {
       font-size: 16px * $slide-ratio;
-      line-height: 1;
+      line-height: 1.25;
       font-family: 'Relative', sans-serif;
       font-weight: 400;
       text-align: left;
       padding-bottom: 16px * $slide-ratio;
+      /* Max-width is roughly 55%, but percentage doesn't work cos absolute positioning... */
+      max-width: 587px * $slide-ratio;
     }
 
     h3 {
       font-size: 40px * $slide-ratio;
       font-family: 'Relative', sans-serif;
       font-weight: 400;
-      line-height: 1;
+      line-height: 1.25;
+      /* Max-width is roughly 55%, but percentage doesn't work cos absolute positioning... */
+      max-width: 587px * $slide-ratio;
     }
   }
 
