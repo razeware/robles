@@ -11,7 +11,7 @@ class RoblesVideoServer < Sinatra::Application
 
   use Rack::LiveReload, host: 'localhost', source: :vendored
 
-  helpers do
+  helpers do # rubocop:disable Metrics/BlockLength
     def slide_path(episode)
       "/slides/#{episode.slug}"
     end
@@ -38,6 +38,14 @@ class RoblesVideoServer < Sinatra::Application
         'multi-domain'
       else
         course.domains.first
+      end
+    end
+
+    def scss(template, options = {}, locals = {})
+      options.merge!(layout: false, exclude_outvar: true)
+      # Set the content type to css
+      render(:scss, template, options, locals).dup.tap do |css|
+        css.extend(ContentTyped).content_type = :css
       end
     end
   end

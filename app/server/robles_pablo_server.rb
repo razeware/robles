@@ -19,6 +19,14 @@ class RoblesPabloServer < Sinatra::Application
     def image_url(image, variant: :small)
       image.representations.find { _1.variant == variant }&.remote_url
     end
+
+    def scss(template, options = {}, locals = {})
+      options.merge!(layout: false, exclude_outvar: true)
+      # Set the content type to css
+      render(:scss, template, options, locals).dup.tap do |css|
+        css.extend(ContentTyped).content_type = :css
+      end
+    end
   end
 
   before do

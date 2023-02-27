@@ -41,7 +41,7 @@ gem 'rbnacl'
 gem 'slack-notifier', '~> 2.3', '>= 2.3.2'
 
 # Local previewing
-gem 'sassc'
+gem 'sass-embedded', '~> 1.58'
 gem 'sinatra', '~> 3'
 gem 'thin'
 
@@ -52,8 +52,12 @@ gem 'ferrum'
 gem 'rack-test'
 
 # Creating transcripts
-gem 'levenshtein-ffi', require: 'levenshtein'
-gem 'webvtt-ruby', require: 'webvtt'
+# Note: This is waiting for support for bundler 3.4 and ruby 3.2 on upstream.
+# https://github.com/dbalatero/levenshtein-ffi/pull/12
+gem 'levenshtein-ffi', require: 'levenshtein', git: 'https://github.com/razeware/levenshtein-ffi.git'
+# Note: This is waiting for 3.2 support on upstream.
+# https://github.com/opencoconut/webvtt-ruby/pull/20
+gem 'webvtt-ruby', require: 'webvtt', git: 'https://github.com/razeware/webvtt-ruby.git'
 
 group :development do
   # For integration with VSCode
@@ -62,6 +66,6 @@ group :development do
 
   # Auto-reloading when serving locally
   gem 'guard', '~> 2', '>= 2.16.2'
-  gem 'guard-livereload', git: 'https://github.com/guard/guard-livereload'
+  gem 'guard-livereload'
   gem 'rack-livereload'
 end
