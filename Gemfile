@@ -9,7 +9,7 @@ gem 'activesupport', '~> 7.0'
 gem 'zeitwerk', '~> 2.3'
 
 # Building a CLI
-gem 'cli-ui', '~> 1.3'
+gem 'cli-ui', '~> 2'
 gem 'thor', '~> 1.0', '>= 1.0.1'
 
 # Markdown processing
