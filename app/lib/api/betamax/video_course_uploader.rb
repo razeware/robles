@@ -42,8 +42,9 @@ module Api
             logger.filter(/(Token token=\\\")(\w+)/, '\1[REMOVED]')
           end
           faraday.response(:raise_error)
-          faraday.token_auth(BETAMAX_SERVICE_API_TOKEN)
           faraday.adapter(Faraday.default_adapter)
+          faraday.request(:authorization, 'Bearer', BETAMAX_SERVICE_API_TOKEN)
+          faraday.request(:retry)
         end
       end
 
