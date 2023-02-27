@@ -2,7 +2,7 @@
 
 module Linting
   # Overall linter that combines all other linters
-  class BookLinter
+  class BookLinter # rubocop:disable Metrics/ClassLength
     include Util::PathExtraction
     include Util::Logging
     include Linting::FileExistenceChecker

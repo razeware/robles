@@ -95,7 +95,7 @@ class RoblesBookServer < Sinatra::Application
   end
 
   def servable_image_url(local_url)
-    [OpenStruct.new(url: local_url&.gsub(%r{/data/src}, '/assets'), variant: :original)]
+    [OpenStruct.new(url: local_url&.gsub(%r{/data/src}, '/assets'), variant: :original)] # rubocop:disable Style/OpenStructUse
   end
 
   def acceptable_image_extension(extension)

@@ -11,10 +11,10 @@ module Parser
     end
 
     def without_metadata(lines_enumerator)
-      metadata_locator(lines_enumerator, false)
+      metadata_locator(lines_enumerator, keep: false)
     end
 
-    def metadata_locator(lines_enumerator, keep = true) # rubocop:disable Metrics/MethodLength
+    def metadata_locator(lines_enumerator, keep: true) # rubocop:disable Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       [].tap do |output|
         metadata_started = false
         metadata_ended = false
@@ -37,10 +37,10 @@ module Parser
           in [true, false, END_DELIMITER, true]
             # We're only interest in the meta section, so we're done
             break
-          in [true, false, _, true]
+          in [true, false, _, true] # rubocop:disable Lint/DuplicateBranch
             # We're in the metadata section, and we're collecting the metadata section
             output << line
-          in [true, true, _, false]
+          in [true, true, _, false] # rubocop:disable Lint/DuplicateBranch
             # We've finished the meta section--collect the remaining lines
             output << line
           in [_, _, _, _]

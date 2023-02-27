@@ -43,7 +43,7 @@ module Parser
       end
     end
 
-    def parse_episode(metadata)
+    def parse_episode(metadata) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       script_file = apply_path(metadata[:script_file]) if metadata[:script_file].present?
       raise Parser::Error.new(file:, msg: "Script file (#{metadata[:script_file]}}) not found") if script_file.present? && !File.file?(script_file)
 

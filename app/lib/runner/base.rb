@@ -2,7 +2,7 @@
 
 module Runner
   # Base class with shared functionality
-  class Base
+  class Base # rubocop:disable Metrics/ClassLength
     include Util::Logging
     include Util::SlackNotifiable
 

@@ -42,7 +42,7 @@ module Renderer
       "l-image-#{width}"
     end
 
-    def has_width_class?(alt_text)
+    def width_class?(alt_text)
       # Must either specify an actual width, or use the portrait attribute
       width_class(alt_text).present? || alt_text.include?('portrait')
     end

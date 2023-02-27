@@ -15,14 +15,14 @@ module Renderer
       @root_path = root_path
     end
 
-    def image(node) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    def image(node) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
       return super(node) if image_provider.blank?
 
       title = node.title.present? ? escape_html(node.title) : ''
       alt_text = node.each.select { |child| child.type == :text }.map { |child| escape_html(child.string_content) }.join(' ')
       classes = class_list(alt_text)
 
-      if has_width_class?(alt_text)
+      if width_class?(alt_text)
         out('<figure title="', title, '"', ' class="', classes, '">')
         out('  <picture>')
         if svg?(alt_text, node.url)
