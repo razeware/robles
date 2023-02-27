@@ -35,7 +35,7 @@ class RoblesCli < Thor
   method_options 'without-edition': :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
   method_options silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
   def lint
-    output = runner.lint_book(publish_file: options['publish_file'], options: options)
+    output = runner.lint_book(publish_file: options['publish_file'], options:)
     exit 1 unless output.validated || ENVIRONMENT == 'staging'
   end
 
@@ -48,8 +48,8 @@ class RoblesCli < Thor
   def book_guardfile
     <<~GUARDFILE
       guard 'livereload' do
-        watch(%r{[a-zA-Z0-9\-_]+\.yaml$})
-        watch(%r{.+\.(md|markdown)$})
+        watch(%r{[a-zA-Z0-9-_]+.yaml$})
+        watch(%r{.+.(md|markdown)$})
       end
     GUARDFILE
   end

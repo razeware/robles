@@ -6,6 +6,7 @@ class Author
   include ActiveModel::Serializers::JSON
 
   attr_accessor :username, :role
+
   validates :username, :role, presence: true
 
   # Used for serialisation

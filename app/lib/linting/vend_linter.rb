@@ -81,7 +81,7 @@ module Linting
       )
     end
 
-    def check_for_razeware_user # rubocop:disable Metrics/MethodLength
+    def check_for_razeware_user
       return unless vend_file[:contributors].any? { |contributor| contributor.username == 'razeware' }
 
       @annotations.push(
@@ -98,9 +98,9 @@ module Linting
 
     private
 
-    def load_file # rubocop:disable Metrics/MethodLength
+    def load_file
       @vend_file ||= begin
-        parser = Parser::Vend.new(file: file)
+        parser = Parser::Vend.new(file:)
         parser.parse
       end
     rescue Parser::Error => e
@@ -118,7 +118,7 @@ module Linting
     end
 
     def locate_razeware_username
-      IO.foreach(file).with_index do |line, line_number|
+      File.foreach(file).with_index do |line, line_number|
         next unless line[/username:\s*razeware/]
 
         start_column = line.index('razeware')

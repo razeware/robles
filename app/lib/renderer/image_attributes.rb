@@ -28,7 +28,7 @@ module Renderer
     end
 
     def display_classes(alt_text)
-      alt_text.split(' ')
+      alt_text.split
               .intersection(VALID_MODIFIERS)
               .map { |modifier| "l-image-#{modifier}" }
     end
@@ -54,7 +54,7 @@ module Renderer
     end
 
     def svg?(alt_text, relative_url)
-      alt_text.split(' ').include?('svg') && Pathname(svg_url(relative_url)).exist?
+      alt_text.split.include?('svg') && Pathname(svg_url(relative_url)).exist?
     end
 
     def svg_content(relative_url)

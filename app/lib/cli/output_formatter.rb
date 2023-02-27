@@ -6,7 +6,7 @@ module Cli
     attr_reader :output
 
     def self.render(output)
-      new(output: output).render
+      new(output:).render
     end
 
     def initialize(output:)

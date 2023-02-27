@@ -7,7 +7,7 @@ module Linting
       attr_reader :file, :attributes, :version_attribute
 
       def self.lint(file:, attributes:, version_attribute:)
-        new(file: file, attributes: attributes, version_attribute: version_attribute).lint
+        new(file:, attributes:, version_attribute:).lint
       end
 
       def initialize(file:, attributes:, version_attribute:)
@@ -41,10 +41,10 @@ module Linting
         )
       end
 
-      def locate_version_reference # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+      def locate_version_reference # rubocop:disable Metrics/AbcSize
         return { start_line: 0, end_line: 0 } unless attributes[version_attribute].present?
 
-        IO.foreach(file).with_index do |line, line_number|
+        File.foreach(file).with_index do |line, line_number|
           next unless line.include?("#{version_attribute}:")
 
           start_column = line.index(version_from_metadata.to_s)

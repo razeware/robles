@@ -6,7 +6,7 @@ module ImageProvider
     include Util::PathExtraction
 
     def self.images_from(file)
-      new(file: file).images
+      new(file:).images
     end
 
     def images
@@ -24,7 +24,7 @@ module ImageProvider
       {
         relative_path: cleanpath(url),
         absolute_path: cleanpath(apply_path(url)),
-        alt_text: alt_text,
+        alt_text:,
         variants: ImageRepresentation::DEFAULT_WIDTHS.keys
       }
     end

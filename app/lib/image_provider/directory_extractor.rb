@@ -17,13 +17,13 @@ module ImageProvider
       @images = image_paths.map do |path|
         GalleryImage.with_representations(
           {
-            directory: directory,
+            directory:,
             local_url: path,
-            uploaded_image_root_path: uploaded_image_root_path
+            uploaded_image_root_path:
           },
           representation_attributes: {
             include_source_filename: true,
-            local_server: local_server
+            local_server:
           }
         )
       end

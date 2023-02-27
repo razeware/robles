@@ -6,6 +6,7 @@ class Contributor
   include ActiveModel::Serializers::JSON
 
   attr_accessor :username, :percentage
+
   validates :username, :percentage, presence: true
 
   def proportion

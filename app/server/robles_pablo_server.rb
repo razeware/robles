@@ -27,11 +27,9 @@ class RoblesPabloServer < Sinatra::Application
 
   get '/' do
     erb :'pablo/index.html',
-        locals: { images: image_list, categories: categories },
+        locals: { images: image_list, categories: },
         layout: :'pablo/layout.html'
   end
-
-
 
   get '/license' do
     erb :'pablo/license.html',
@@ -61,7 +59,7 @@ class RoblesPabloServer < Sinatra::Application
     filtered_image_list = image_list.filter { |image| image.category == category }
 
     erb :'pablo/index.html',
-        locals: { images: filtered_image_list, categories: categories, selected_category: category },
+        locals: { images: filtered_image_list, categories:, selected_category: category },
         layout: :'pablo/layout.html'
   end
 

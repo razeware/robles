@@ -10,6 +10,7 @@ class Section
   include Concerns::TitleCleanser
 
   attr_accessor :title, :number, :ordinal, :chapters, :markdown_file, :root_path
+
   attr_markdown :description, source: :markdown_file, file: true
   validates :title, :number, :ordinal, presence: true
 

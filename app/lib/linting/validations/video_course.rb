@@ -11,7 +11,7 @@ module Linting
         @file = file
       end
 
-      def lint # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+      def lint # rubocop:disable Metrics/AbcSize
         [].tap do |annotations|
           video_course.parts.each do |part|
             part.episodes.each do |episode|
@@ -36,7 +36,7 @@ module Linting
         end.compact
       end
 
-      def annotations_from_errors(object) # rubocop:disable Metrics/MethodLength
+      def annotations_from_errors(object)
         title = "#{object.class} (#{object&.validation_name || 'unknown'})"
         object.errors.full_messages.map do |error|
           Linting::Annotation.new(

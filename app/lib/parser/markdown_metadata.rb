@@ -9,7 +9,7 @@ module Parser
     attr_reader :path
 
     def extract_metadata
-      find_metadata(IO.foreach(path))
+      find_metadata(File.foreach(path))
     end
 
     def metadata
@@ -20,12 +20,10 @@ module Parser
     def markdown_metadata
       return {} if path.blank?
 
-      @markdown_metadata ||= begin
-        Psych.load(extract_metadata, symbolize_names: true).tap do |header_metadata|
-          # If can't metadata, and also don't have a provided hash, then raise error
-          raise Parser::Error.new(file: path, msg: 'Unable to locate metadata at the top of the markdown') if header_metadata.blank? && @metadata.blank?
-        end || {}
-      end
+      @markdown_metadata ||= Psych.load(extract_metadata, symbolize_names: true).tap do |header_metadata|
+        # If can't metadata, and also don't have a provided hash, then raise error
+        raise Parser::Error.new(file: path, msg: 'Unable to locate metadata at the top of the markdown') if header_metadata.blank? && @metadata.blank?
+      end || {}
     rescue Psych::SyntaxError => e
       raise Parser::Error.new(file: path, error: e)
     end

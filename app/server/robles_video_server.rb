@@ -37,7 +37,7 @@ class RoblesVideoServer < Sinatra::Application
       if course.domains.count > 1
         'multi-domain'
       else
-         course.domains.first
+        course.domains.first
       end
     end
   end
@@ -59,7 +59,7 @@ class RoblesVideoServer < Sinatra::Application
     part = @video_course.parts.find { |p| p.episodes.include?(episode) }
 
     erb :'videos/episode_slide.html',
-        locals: { episode: episode, part: part, video_course: @video_course, title: "robles Preview: #{episode.title}" },
+        locals: { episode:, part:, video_course: @video_course, title: "robles Preview: #{episode.title}" },
         layout: :'videos/layout.html'
   end
 
@@ -71,7 +71,7 @@ class RoblesVideoServer < Sinatra::Application
     part = @video_course.parts.find { |p| p.episodes.include?(episode) }
 
     erb :'videos/episode_transcript.html',
-        locals: { episode: episode, part: part, video_course: @video_course, title: "robles Preview: #{episode.title}" },
+        locals: { episode:, part:, video_course: @video_course, title: "robles Preview: #{episode.title}" },
         layout: :'videos/layout.html'
   end
 
@@ -97,7 +97,7 @@ class RoblesVideoServer < Sinatra::Application
   end
 
   def render_string(content)
-    Renderer::MarkdownStringRenderer.new(content: content).render
+    Renderer::MarkdownStringRenderer.new(content:).render
   end
 
   def episode_for_slug(slug)

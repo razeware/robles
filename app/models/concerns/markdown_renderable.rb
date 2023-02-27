@@ -13,12 +13,12 @@ module Concerns
       # Specify the name of the attribute that markdown should be rendered into
       def attr_markdown(attribute, source:, file: false, wrapper_class: nil, vtt_attr: nil)
         _markdown_renderable_attributes.push({
-          destination: attribute,
-          source: source,
-          file: file,
-          wrapper_class: wrapper_class,
-          vtt_attr: vtt_attr
-        })
+                                               destination: attribute,
+                                               source:,
+                                               file:,
+                                               wrapper_class:,
+                                               vtt_attr:
+                                             })
         attr_accessor attribute
       end
     end

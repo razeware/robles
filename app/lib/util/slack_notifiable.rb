@@ -14,25 +14,25 @@ module Util
     def notify_book_success(book:)
       return unless notifiable?
 
-      notifier.post(blocks: book_success_blocks(book: book))
+      notifier.post(blocks: book_success_blocks(book:))
     end
 
     def notify_book_failure(book:, details: nil)
       return unless notifiable?
 
-      notifier.post(blocks: book_failure_blocks(book: book, details: details || 'N/A'))
+      notifier.post(blocks: book_failure_blocks(book:, details: details || 'N/A'))
     end
 
     def notify_video_course_success(video_course:)
       return unless notifiable?
 
-      notifier.post(blocks: video_course_success_blocks(video_course: video_course))
+      notifier.post(blocks: video_course_success_blocks(video_course:))
     end
 
     def notify_video_course_failure(video_course:, details: nil)
       return unless notifiable?
 
-      notifier.post(blocks: video_course_failure_blocks(video_course: video_course, details: details || 'N/A'))
+      notifier.post(blocks: video_course_failure_blocks(video_course:, details: details || 'N/A'))
     end
 
     def notifiable?
@@ -45,7 +45,7 @@ module Util
 
     def book_success_blocks(book:)
       [
-        intro_section(fields: standard_book_fields(book: book),
+        intro_section(fields: standard_book_fields(book:),
                       message: ':white_check_mark: Book publication successful!',
                       image_url: BOOK_SUCCESS_IMAGE_URL,
                       alt_text: 'Publication successful'),
@@ -56,9 +56,9 @@ module Util
       ]
     end
 
-    def book_failure_blocks(book:, details:) # rubocop:disable Metrics/MethodLength
+    def book_failure_blocks(book:, details:)
       [
-        intro_section(fields: standard_book_fields(book: book),
+        intro_section(fields: standard_book_fields(book:),
                       message: ':x: Book publication failed!',
                       image_url: FAILURE_IMAGE_URL,
                       alt_text: 'Publication failed'),
@@ -78,7 +78,7 @@ module Util
 
     def video_course_success_blocks(video_course:)
       [
-        intro_section(fields: standard_video_course_fields(video_course: video_course),
+        intro_section(fields: standard_video_course_fields(video_course:),
                       message: ':white_check_mark: Video course upload successful!',
                       image_url: VIDEO_COURSE_SUCCESS_IMAGE_URL,
                       alt_text: 'Upload successful'),
@@ -89,9 +89,9 @@ module Util
       ]
     end
 
-    def video_course_failure_blocks(video_course:, details:) # rubocop:disable Metrics/MethodLength
+    def video_course_failure_blocks(video_course:, details:)
       [
-        intro_section(fields: standard_video_course_fields(video_course: video_course),
+        intro_section(fields: standard_video_course_fields(video_course:),
                       message: ':x: Video course upload failed!',
                       image_url: FAILURE_IMAGE_URL,
                       alt_text: 'Upload failed'),
@@ -109,7 +109,7 @@ module Util
       ]
     end
 
-    def standard_book_fields(book:) # rubocop:disable Metrics/MethodLength
+    def standard_book_fields(book:)
       [
         {
           type: 'mrkdwn',
@@ -130,7 +130,7 @@ module Util
       ]
     end
 
-    def standard_video_course_fields(video_course:) # rubocop:disable Metrics/MethodLength
+    def standard_video_course_fields(video_course:)
       [
         {
           type: 'mrkdwn',
@@ -151,23 +151,23 @@ module Util
       ]
     end
 
-    def intro_section(fields:, message:, image_url:, alt_text:) # rubocop:disable Metrics/MethodLength
+    def intro_section(fields:, message:, image_url:, alt_text:)
       {
         type: 'section',
         text: {
           type: 'mrkdwn',
           text: message
         },
-        fields: fields,
+        fields:,
         accessory: {
           type: 'image',
-          image_url: image_url,
-          alt_text: alt_text
+          image_url:,
+          alt_text:
         }
       }
     end
 
-    def context(image) # rubocop:disable Metrics/MethodLength
+    def context(image)
       {
         type: 'context',
         elements: [

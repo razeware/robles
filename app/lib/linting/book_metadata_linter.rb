@@ -7,8 +7,8 @@ module Linting
 
     def lint(options: {})
       [].tap do |annotations|
-        annotations.concat Linting::Metadata::PublishAttributes.lint(file: file, attributes: publish_attributes)
-        annotations.concat Linting::Metadata::BranchName.lint(file: file, attributes: publish_attributes, version_attribute: :edition) unless options['without-edition']
+        annotations.concat Linting::Metadata::PublishAttributes.lint(file:, attributes: publish_attributes)
+        annotations.concat Linting::Metadata::BranchName.lint(file:, attributes: publish_attributes, version_attribute: :edition) unless options['without-edition']
       end
     end
 

@@ -7,7 +7,7 @@ module Parser
 
     def parse
       {
-        contributors: contributors,
+        contributors:,
         price_band: vend_file[:price_band],
         edition: vend_file[:edition]
       }
