@@ -28,7 +28,7 @@ module Parser
     end
 
     def metadata
-      @metadata = Psych.load_file(file)
+      @metadata = Psych.load_file(file, permitted_classes: [Date])
                        .deep_symbolize_keys
                        .merge(git_commit_hash: git_hash)
     end

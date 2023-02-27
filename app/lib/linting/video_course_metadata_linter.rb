@@ -13,7 +13,7 @@ module Linting
     end
 
     def release_attributes
-      @release_attributes ||= Psych.load_file(file).deep_symbolize_keys
+      @release_attributes ||= Psych.load_file(file, permitted_classes: [Date]).deep_symbolize_keys
     end
   end
 end

@@ -48,7 +48,7 @@ module Parser
     private
 
     def publish_file
-      @publish_file ||= Psych.load_file(file).deep_symbolize_keys
+      @publish_file ||= Psych.load_file(file, permitted_classes: [Date]).deep_symbolize_keys
     end
 
     def vend_file_path

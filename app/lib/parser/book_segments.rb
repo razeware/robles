@@ -37,7 +37,7 @@ module Parser
     private
 
     def yaml
-      @yaml ||= Psych.load_file(file).deep_symbolize_keys
+      @yaml ||= Psych.load_file(file, permitted_classes: [Date]).deep_symbolize_keys
     end
 
     def grouped_segments
