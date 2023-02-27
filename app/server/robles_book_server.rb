@@ -22,6 +22,8 @@ class RoblesBookServer < Sinatra::Application
       word_counter_for_chapter(chapter).exceeds_word_limit?
     end
 
+    # scss is no longer a built-in helper in sinatra
+    # However, we can almost just proxy it to Tilt
     def scss(template, options = {}, locals = {})
       options.merge!(layout: false, exclude_outvar: true)
       # Set the content type to css

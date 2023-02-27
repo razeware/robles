@@ -20,6 +20,8 @@ class RoblesPabloServer < Sinatra::Application
       image.representations.find { _1.variant == variant }&.remote_url
     end
 
+    # scss is no longer a built-in helper in sinatra
+    # However, we can almost just proxy it to Tilt
     def scss(template, options = {}, locals = {})
       options.merge!(layout: false, exclude_outvar: true)
       # Set the content type to css
