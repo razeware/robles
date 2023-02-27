@@ -1,9 +1,9 @@
-FROM ruby:3.0-alpine
-LABEL maintainer=engineering@razeware.com
+FROM ruby:3.2-alpine
+LABEL maintainer=engineering@kodeco.com
 
 LABEL com.github.actions.name="robles"
-LABEL com.github.actions.author="razeware <engineering@razeware.com>"
-LABEL com.github.actions.description="Build raywenderlich.com books"
+LABEL com.github.actions.author="Kodeco <engineering@kodeco.com>"
+LABEL com.github.actions.description="Content publication for kodeco.com"
 LABEL com.github.actions.color="purple"
 LABEL com.github.actions.icon="book"
 
