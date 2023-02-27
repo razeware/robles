@@ -38,8 +38,8 @@ class Chapter
   # For wrapping content
   def wrapper_class
     {
-      'chapter': nil,
-      'dedications': 'c-book-chapter__dedications',
+      chapter: nil,
+      dedications: 'c-book-chapter__dedications',
       'team-bios': 'c-book-chapter__team'
     }[kind&.to_sym]
   end

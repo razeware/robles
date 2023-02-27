@@ -6,7 +6,7 @@ require 'rack/test'
 module Sinatra
   module Pablo
     def self.registered(app)
-      app.set :export_extensions, %w(css js xml json html csv)
+      app.set :export_extensions, %w[css js xml json html csv]
       app.extend ClassMethods
       app.set :builder, nil
     end
@@ -14,12 +14,8 @@ module Sinatra
     module ClassMethods
       def save!(paths:, destination: nil, options: {})
         set options
-        @builder ||= 
-          if self.builder
-            self.builder
-          else
-            Builder.new(self, paths: paths, destination: destination)
-          end
+        @builder ||=
+          builder || Builder.new(self, paths:, destination:)
         @builder.build!
       end
     end
@@ -31,7 +27,7 @@ module Sinatra
 
       def initialize(app, paths: [], destination: nil)
         @app = app
-        @paths  = paths
+        @paths = paths
         @destination = destination
       end
 
@@ -46,17 +42,20 @@ module Sinatra
 
         paths.each do |path|
           response = get(path)
-          save_path(path: path, dir: dir, response: response)
+          save_path(path:, dir:, response:)
         end
       end
 
       def save_path(path:, dir:, response:)
         body = response.body
-        mtime = response.headers.key?("Last-Modified") ?
-          Time.httpdate(response.headers["Last-Modified"]) : Time.now
+        mtime = if response.headers.key?('Last-Modified')
+                  Time.httpdate(response.headers['Last-Modified'])
+                else
+                  Time.now
+                end
 
         pattern = %r{
-          [^/\.]+
+          [^/.]+
           \.
           (
             #{app.settings.export_extensions.join("|")}
@@ -65,10 +64,8 @@ module Sinatra
         file_path = Pathname(File.join(dir, path))
         file_path = file_path.join('index.html') unless path.match(pattern)
         ::FileUtils.mkdir_p(file_path.dirname)
-        ::File.open(file_path, 'w+') do |f|
-          f.write(body)
-        end
-        ::FileUtils.touch(file_path, mtime: mtime)
+        ::File.write(file_path, body)
+        ::FileUtils.touch(file_path, mtime:)
         file_path
       end
     end
@@ -76,4 +73,3 @@ module Sinatra
 
   register Pablo
 end
-

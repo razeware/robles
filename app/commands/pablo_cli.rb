@@ -31,8 +31,8 @@ class PabloCli < Thor
   def book_guardfile
     <<~GUARDFILE
       guard 'livereload' do
-        watch(%r{[a-zA-Z0-9\-_]+\.yaml$})
-        watch(%r{.+\.(md|markdown)$})
+        watch(%r{[a-zA-Z0-9-_]+.yaml$})
+        watch(%r{.+.(md|markdown)$})
       end
     GUARDFILE
   end

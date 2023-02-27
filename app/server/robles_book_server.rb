@@ -21,6 +21,16 @@ class RoblesBookServer < Sinatra::Application
     def exceeds_word_limit?(chapter)
       word_counter_for_chapter(chapter).exceeds_word_limit?
     end
+
+    # scss is no longer a built-in helper in sinatra
+    # However, we can almost just proxy it to Tilt
+    def scss(template, options = {}, locals = {})
+      options.merge!(layout: false, exclude_outvar: true)
+      # Set the content type to css
+      render(:scss, template, options, locals).dup.tap do |css|
+        css.extend(ContentTyped).content_type = :css
+      end
+    end
   end
 
   before do
@@ -28,7 +38,7 @@ class RoblesBookServer < Sinatra::Application
   end
 
   get '/' do
-    erb :'books/index.html', locals: { book: book, title: "robles Preview: #{book.title}" }, layout: :'books/layout.html'
+    erb :'books/index.html', locals: { book:, title: "robles Preview: #{book.title}" }, layout: :'books/layout.html'
   end
 
   get '/chapters/:slug' do
@@ -38,9 +48,9 @@ class RoblesBookServer < Sinatra::Application
     render_chapter(chapter)
     counter = word_counter_for_chapter(chapter)
     erb :'books/chapter.html',
-        locals: { 
-          chapter: chapter,
-          book: book,
+        locals: {
+          chapter:,
+          book:,
           title: "robles Preview: #{chapter.title}",
           word_counter: counter
         },
@@ -71,7 +81,7 @@ class RoblesBookServer < Sinatra::Application
   end
 
   def render_string(content)
-    Renderer::MarkdownStringRenderer.new(content: content).render
+    Renderer::MarkdownStringRenderer.new(content:).render
   end
 
   def chapter_for_slug(slug)
@@ -79,9 +89,9 @@ class RoblesBookServer < Sinatra::Application
   end
 
   def render_chapter(chapter)
-    image_provider = LocalImageProvider.new(chapter: chapter)
+    image_provider = LocalImageProvider.new(chapter:)
     image_provider.process
-    renderer = Renderer::Chapter.new(chapter, image_provider: image_provider)
+    renderer = Renderer::Chapter.new(chapter, image_provider:)
     renderer.render
   end
 
@@ -95,7 +105,7 @@ class RoblesBookServer < Sinatra::Application
   end
 
   def servable_image_url(local_url)
-    [OpenStruct.new(url: local_url&.gsub(%r{/data/src}, '/assets'), variant: :original)]
+    [OpenStruct.new(url: local_url&.gsub(%r{/data/src}, '/assets'), variant: :original)] # rubocop:disable Style/OpenStructUse
   end
 
   def acceptable_image_extension(extension)

@@ -6,7 +6,7 @@ module Util
     extend ActiveSupport::Concern
 
     included do
-      class_attribute :logger, instance_writer: false, default: Logger.new(STDOUT)
+      class_attribute :logger, instance_writer: false, default: Logger.new($stdout)
     end
   end
 end

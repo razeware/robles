@@ -12,7 +12,7 @@ module Renderer
       @vtt_path = vtt_path
     end
 
-    def apply!
+    def apply! # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       return if vtt.blank?
 
       document.walk.each do |node|
@@ -44,7 +44,8 @@ module Renderer
 
           # Calculate the similarity
           [offset, Levenshtein.distance(caption, paragraph), caption, paragraph]
-        end.min { |a, b| a[1] <=> b[1] }
+        end
+        match = match.min { |a, b| a[1] <=> b[1] }
 
         cue = vtt.cues[match[0]]
         text = CommonMarker::Node.new(:text)

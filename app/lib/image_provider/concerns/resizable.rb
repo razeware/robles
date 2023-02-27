@@ -28,7 +28,7 @@ module ImageProvider
       end
 
       def mm_image
-        # We keep a reference to this so that the temporary images persist for the duration of the 
+        # We keep a reference to this so that the temporary images persist for the duration of the
         # run of the program. Not sure this is the best idea. But we'll try it.
         @mm_image ||= MiniMagick::Image.open(source_url)
       end

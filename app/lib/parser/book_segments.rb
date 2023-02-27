@@ -11,7 +11,7 @@ module Parser
     def parse
       sections = grouped_segments.map.with_index { |segments, idx| parse_section(segments, idx) }
       apply_auto_numbering(sections)
-      Book.new(title: yaml[:title], sections: sections, git_commit_hash: git_hash)
+      Book.new(title: yaml[:title], sections:, git_commit_hash: git_hash)
     end
 
     def parse_section(segments, index)
@@ -20,7 +20,7 @@ module Parser
 
       chapters = segments.map.with_index { |segment, idx| parse_chapter(segment, idx) }
       markdown_file = apply_path(section_segment[:path])
-      Section.new(markdown_file: markdown_file, ordinal: index, chapters: chapters, root_path: Pathname.new(markdown_file).dirname.to_s).tap do |section|
+      Section.new(markdown_file:, ordinal: index, chapters:, root_path: Pathname.new(markdown_file).dirname.to_s).tap do |section|
         SectionMetadata.new(section).apply!
       end
     end
@@ -29,7 +29,7 @@ module Parser
       raise 'Invalid segment kind' unless %w[chapter dedications team-bios].include?(segment[:kind])
 
       markdown_file = apply_path(segment[:path])
-      Chapter.new(markdown_file: markdown_file, ordinal: index, root_path: Pathname.new(markdown_file).dirname.to_s, kind: segment[:kind]).tap do |chapter|
+      Chapter.new(markdown_file:, ordinal: index, root_path: Pathname.new(markdown_file).dirname.to_s, kind: segment[:kind]).tap do |chapter|
         ChapterMetadata.new(chapter).apply!
       end
     end
@@ -37,7 +37,7 @@ module Parser
     private
 
     def yaml
-      @yaml ||= Psych.load_file(file).deep_symbolize_keys
+      @yaml ||= Psych.load_file(file, permitted_classes: [Date]).deep_symbolize_keys
     end
 
     def grouped_segments

@@ -9,7 +9,7 @@ require 'active_model'
 require 'psych'
 
 # Load the initialisers
-Dir[File.join(__dir__, 'initialisers', '*.rb')].sort.each { |file| require file }
+Dir[File.join(__dir__, 'initialisers', '*.rb')].each { |file| require file }
 
 # Configure the autoloader
 @loader = Zeitwerk::Loader.new

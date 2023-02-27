@@ -14,6 +14,7 @@ class Book
                 :covered_concepts_md, :root_path, :hide_chapter_numbers, :in_flux, :deprecated,
                 :forum_url, :pages, :short_description, :recommended_skus, :contributors,
                 :price_band, :isbn, :amazon_url
+
   attr_image :cover_image_url, source: :cover_image, variants: %i[original w594 w300]
   attr_image :email_mockup_image_url, source: :email_mockup_image, variants: %i[original w180 w300 w594]
   attr_image :twitter_card_image_url, source: :twitter_card_image, variants: %i[original w1800]
@@ -44,7 +45,7 @@ class Book
       platform: nil, language: nil, editor: nil, domains: [], categories: [], who_is_this_for: nil,
       covered_concepts: nil, hide_chapter_numbers: nil, in_flux: nil, forum_url: nil, pages: nil,
       short_description: nil, recommended_skus: [], contributors: [], price_band: nil, isbn: nil,
-      amazon_url: nil, deprecated: nil, }.stringify_keys
+      amazon_url: nil, deprecated: nil }.stringify_keys
   end
 
   # Used for linting

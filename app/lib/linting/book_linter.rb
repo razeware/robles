@@ -2,7 +2,7 @@
 
 module Linting
   # Overall linter that combines all other linters
-  class BookLinter
+  class BookLinter # rubocop:disable Metrics/ClassLength
     include Util::PathExtraction
     include Util::Logging
     include Linting::FileExistenceChecker
@@ -16,7 +16,7 @@ module Linting
 
     def lint(options: {})
       @annotations = []
-      lint_with_ui(options: options, show_ui: !options['silent'])
+      lint_with_ui(options:, show_ui: !options['silent'])
       output
     end
 
@@ -27,7 +27,7 @@ module Linting
       return if output_details.present?
 
       with_spinner(title: 'Validating metadata in {{bold:publish.yaml}}', show: show_ui) do
-        annotations.concat(Linting::BookMetadataLinter.new(file: file).lint(options: options))
+        annotations.concat(Linting::BookMetadataLinter.new(file:).lint(options:))
       end
       return unless annotations.blank?
 
@@ -37,32 +37,32 @@ module Linting
       return unless annotations.blank?
 
       with_spinner(title: 'Validating markdown', show: show_ui) do
-        annotations.concat(Linting::MarkdownLinter.new(book: book).lint)
+        annotations.concat(Linting::MarkdownLinter.new(book:).lint)
       end
 
       with_spinner(title: 'Validating image references', show: show_ui) do
-        annotations.concat(Linting::ImageLinter.new(book: book).lint)
+        annotations.concat(Linting::ImageLinter.new(book:).lint)
       end
 
       if file_exists?(vend_file)
         with_spinner(title: 'Validating {{bold:vend.yaml}}', show: show_ui) do
-          annotations.concat(Linting::VendLinter.new(file: vend_file).lint(options: options))
+          annotations.concat(Linting::VendLinter.new(file: vend_file).lint(options:))
         end
       else
         puts CLI::UI.fmt('{{x}} Unable to find {{bold:vend.yaml}}--skipping validation.')
       end
     end
 
-    def with_spinner(title:, show: true)
+    def with_spinner(title:, show: true, &block)
       if show
-        CLI::UI::Spinner.spin(title) { yield }
+        CLI::UI::Spinner.spin(title, &block)
       else
         yield
       end
     end
 
     def output # rubocop:disable Metrics/MethodLength
-      return Linting::Output.new(output_details.merge(annotations: annotations)) if output_details.present?
+      return Linting::Output.new(output_details.merge(annotations:)) if output_details.present?
 
       if annotations.blank?
         Linting::Output.new(
@@ -76,7 +76,7 @@ module Linting
           title: 'robles Linting Failure',
           summary: 'There was a problem with your book repository',
           text: 'Please check the individual file annotations for details',
-          annotations: annotations,
+          annotations:,
           validated: false
         )
       else
@@ -84,7 +84,7 @@ module Linting
           title: 'robles Linting Results',
           summary: 'There are some warnings for your book repository',
           text: 'There are no failures—but some warnings for you to take a look at. Please check the individual file annotations for details',
-          annotations: annotations,
+          annotations:,
           validated: true
         )
       end
@@ -104,12 +104,12 @@ module Linting
     end
 
     def vend_file
-      Pathname.new(file).dirname + 'vend.yaml'
+      "#{Pathname.new(file).dirname}vend.yaml"
     end
 
-    def book # rubocop:disable Metrics/MethodLength
+    def book
       @book ||= begin
-        parser = Parser::Publish.new(file: file)
+        parser = Parser::Publish.new(file:)
         parser.parse
       end
     rescue Parser::Error => e

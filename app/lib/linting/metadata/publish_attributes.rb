@@ -11,7 +11,7 @@ module Linting
       attr_reader :file, :attributes
 
       def self.lint(file:, attributes:)
-        new(file: file, attributes: attributes).lint
+        new(file:, attributes:).lint
       end
 
       def initialize(file:, attributes:)

@@ -15,7 +15,7 @@ module Concerns
         _image_attachable_attributes.push(
           {
             destination: attribute,
-            source: source,
+            source:,
             variants: variants.presence || %i[original]
           }
         )

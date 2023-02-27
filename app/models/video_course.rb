@@ -12,6 +12,7 @@ class VideoCourse
                 :platform, :language, :editor, :domains, :categories, :who_is_this_for_md,
                 :covered_concepts_md, :authors, :parts, :git_commit_hash, :card_artwork_image,
                 :featured_banner_image, :twitter_card_image, :root_path
+
   attr_markdown :who_is_this_for, source: :who_is_this_for_md, file: false
   attr_markdown :covered_concepts, source: :covered_concepts_md, file: false
   attr_markdown :description, source: :description_md, file: false

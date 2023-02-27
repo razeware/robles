@@ -7,7 +7,7 @@ module Parser
 
     def parse
       {
-        contributors: contributors,
+        contributors:,
         price_band: vend_file[:price_band],
         edition: vend_file[:edition]
       }
@@ -24,7 +24,7 @@ module Parser
     private
 
     def vend_file
-      @vend_file ||= Psych.load_file(file).deep_symbolize_keys
+      @vend_file ||= Psych.load_file(file, permitted_classes: [Date]).deep_symbolize_keys
     end
   end
 end

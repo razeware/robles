@@ -15,7 +15,7 @@ module Parser
     end
 
     def load_course
-      @video_course = Parser::VideoCourse.new(file: file).parse
+      @video_course = Parser::VideoCourse.new(file:).parse
     end
 
     def apply_additional_metadata

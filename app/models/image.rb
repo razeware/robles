@@ -11,7 +11,7 @@ class Image
     variants ||= ImageRepresentation::DEFAULT_WIDTHS.keys
     new(attributes).tap do |image|
       image.representations = variants.map do |width|
-        ImageRepresentation.new(representation_attributes.merge(width: width, image: image))
+        ImageRepresentation.new(representation_attributes.merge(width:, image:))
       end
     end
   end
@@ -19,7 +19,7 @@ class Image
   def self.with_original_representation(attributes = {})
     new(attributes).tap do |image|
       image.representations = [
-        ImageRepresentation.new(width: :original, image: image, local_server: true)
+        ImageRepresentation.new(width: :original, image:, local_server: true)
       ]
     end
   end

@@ -7,7 +7,7 @@ module Snapshotter
   class Slides
     attr_reader :video_course, :app_host, :app_port, :snapshot_host, :snapshot_port, :out_dir
 
-    def initialize(video_course:, app_host: 'app', app_port: 4567, snapshot_host: 'snapshot', snapshot_port: 3000, out_dir: '/data/src/slides')
+    def initialize(video_course:, app_host: 'app', app_port: 4567, snapshot_host: 'snapshot', snapshot_port: 3000, out_dir: '/data/src/slides') # rubocop:disable Metrics/ParameterLists
       @video_course = video_course
       @app_host = app_host
       @app_port = app_port

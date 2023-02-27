@@ -8,6 +8,7 @@ class Part
   include Concerns::MarkdownRenderable
 
   attr_accessor :title, :description, :ordinal, :episodes
+
   validates :title, :ordinal, presence: true
 
   def initialize(attributes = {})

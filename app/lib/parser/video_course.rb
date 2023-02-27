@@ -20,7 +20,7 @@ module Parser
         parse_part(part, idx)
       end
 
-      @video_course = ::VideoCourse.new(parts: parts)
+      @video_course = ::VideoCourse.new(parts:)
       apply_episode_ordinals
       load_authors
       apply_additional_metadata
@@ -28,7 +28,7 @@ module Parser
     end
 
     def metadata
-      @metadata = Psych.load_file(file)
+      @metadata = Psych.load_file(file, permitted_classes: [Date])
                        .deep_symbolize_keys
                        .merge(git_commit_hash: git_hash)
     end
@@ -38,21 +38,21 @@ module Parser
         parse_episode(episode)
       end
 
-      Part.new(ordinal: index + 1, episodes: episodes).tap do |part|
+      Part.new(ordinal: index + 1, episodes:).tap do |part|
         PartMetadata.new(part, metadata).apply!
       end
     end
 
-    def parse_episode(metadata)
+    def parse_episode(metadata) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       script_file = apply_path(metadata[:script_file]) if metadata[:script_file].present?
-      raise Parser::Error.new(file: file, msg: "Script file (#{metadata[:script_file]}}) not found") if script_file.present? && !File.file?(script_file)
+      raise Parser::Error.new(file:, msg: "Script file (#{metadata[:script_file]}}) not found") if script_file.present? && !File.file?(script_file)
 
       root_path = Pathname.new(script_file).dirname.to_s if script_file.present?
       captions_file = apply_path(metadata[:captions_file]) if metadata[:captions_file].present?
-      raise Parser::Error.new(file: file, msg: "Captions file (#{metadata[:captions_file]}) not found") if captions_file.present? && !File.file?(captions_file)
+      raise Parser::Error.new(file:, msg: "Captions file (#{metadata[:captions_file]}) not found") if captions_file.present? && !File.file?(captions_file)
 
       metadata[:captions_file] = captions_file if captions_file.present?
-      Episode.new(script_file: script_file, root_path: root_path).tap do |episode|
+      Episode.new(script_file:, root_path:).tap do |episode|
         EpisodeMetadata.new(episode, metadata).apply!
       end
     end

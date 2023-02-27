@@ -14,9 +14,9 @@ module Linting
 
       private
 
-      def _md_locate_errors(image) # rubocop:disable Metrics/MethodLength
+      def _md_locate_errors(image)
         [].tap do |locations|
-          IO.foreach(markdown_file).with_index do |line, line_number|
+          File.foreach(markdown_file).with_index do |line, line_number|
             next unless line.include?(image)
 
             start_column = line.index(image)
@@ -31,11 +31,12 @@ module Linting
       end
 
       def _md_message_for_image(image, type)
-        if type == :non_existent
+        case type
+        when :non_existent
           return "This file (#{image[:relative_path]}) does not exist." unless file_exists?(image[:absolute_path], case_insensitive: true)
 
           "This file (#{image[:relative_path]}) does not exist. Check for case sensitivity—a very similarly named file does exist, but has different case."
-        elsif type == :missing_width
+        when :missing_width
           "This image (#{image[:relative_path]}) is missing a width attribute. Please provide one in the form of [width=50%]"
         end
       end
