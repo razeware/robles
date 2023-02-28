@@ -8,7 +8,7 @@ class Video
   include Concerns::MarkdownRenderable
 
   attr_accessor :title, :ordinal, :free, :description_md, :short_description, :authors_notes_md,
-                :authors, :script_file, :root_path, :captions_file
+                :authors, :script_file, :root_path, :captions_file, :ref
 
   attr_markdown :description, source: :description_md, file: false
   attr_markdown :authors_notes, source: :authors_notes_md, file: false
@@ -19,6 +19,7 @@ class Video
     super
     @authors ||= []
     @free ||= false
+    @ref ||= ordinal
   end
 
   def slug
@@ -27,7 +28,8 @@ class Video
 
   # Used for serialisation
   def attributes
-    { title: nil, ordinal: nil, free: false, description: nil, short_description: nil, authors_notes: nil, authors: [], transcript: nil }.stringify_keys
+    { title: nil, ordinal: nil, free: false, description: nil, short_description: nil, authors_notes: nil,
+      authors: [], transcript: nil, ref: nil }.stringify_keys
   end
 
   # Used for linting

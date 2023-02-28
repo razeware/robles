@@ -13,5 +13,6 @@ class Assessment::Quiz < Assessment
   # Used for serialisation
   def attributes
     super.merge({ questions: [] }.stringify_keys)
+    @ref ||= ordinal
   end
 end

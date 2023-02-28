@@ -29,7 +29,7 @@ class Assessment
 
   # Used for serialisation
   def attributes
-    { title: nil, ordinal: nil, description: nil, short_description: nil }.stringify_keys
+    { title: nil, ordinal: nil, description: nil, short_description: nil, ref: nil }.stringify_keys
   end
 
   # Used for linting
