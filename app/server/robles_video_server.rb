@@ -3,7 +3,7 @@
 require 'rack-livereload'
 
 # A local preview server for robles
-class RoblesVideoServer < Sinatra::Application
+class RoblesVideoServer < Sinatra::Application # rubocop:disable Metrics/ClassLength
   set :bind, '0.0.0.0'
   set :views, "#{__dir__}/views"
   set :public_folder, "#{__dir__}/public"
@@ -18,6 +18,10 @@ class RoblesVideoServer < Sinatra::Application
 
     def transcript_path(episode)
       "/transcripts/#{episode.slug}"
+    end
+
+    def assessment_path(episode)
+      "/assessments/#{episode.slug}"
     end
 
     def marketing_name_for_domain(domain)
@@ -81,6 +85,18 @@ class RoblesVideoServer < Sinatra::Application
     part = @video_course.parts.find { |p| p.episodes.include?(episode) }
 
     erb :'videos/episode_transcript.html',
+        locals: { episode:, part:, video_course: @video_course, title: "robles Preview: #{episode.title}" },
+        layout: :'videos/layout.html'
+  end
+
+  get '/assessments/:slug' do
+    @video_course = video_course(with_transcript: false)
+    episode = episode_for_slug(params[:slug])
+    raise Sinatra::NotFound unless episode.present?
+
+    part = @video_course.parts.find { |p| p.episodes.include?(episode) }
+
+    erb :'videos/assessment.html',
         locals: { episode:, part:, video_course: @video_course, title: "robles Preview: #{episode.title}" },
         layout: :'videos/layout.html'
   end

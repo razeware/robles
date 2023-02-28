@@ -11,9 +11,13 @@
     <% part.episodes.each do |episode| %>
       <div class="c-tutorial-episode">
         <div class="l-flex-align-start">
-          <h4><a href="<%= url(transcript_path(episode)) %>"><%= episode.title %></a></h4>
-          <% if episode.free %><span class="o-badge">Free</span><% end %>
-          <a href="<%= url(slide_path(episode)) %>" class="o-badge o-badge-product--highlight">slide</a>
+          <% if episode.is_a?(Video) %>
+            <h4><a href="<%= url(transcript_path(episode)) %>"><%= episode.title %></a></h4>
+            <% if episode.free %><span class="o-badge">Free</span><% end %>
+            <a href="<%= url(slide_path(episode)) %>" class="o-badge o-badge-product--highlight">slide</a>
+          <% elsif episode.is_a?(Assessment) %>
+            <h4><a href="<%= url(assessment_path(episode)) %>"><%= episode.title %></a></h4>
+          <% end %>
         </div>
         <p><%= episode.description %></p>
         <span class="c-tutorial-episode__number-badge data-tooltip--top-left">
