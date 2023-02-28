@@ -5,7 +5,6 @@ class Assessment::Quiz < Assessment
   attr_accessor :questions
 
   def initialize(attributes = {})
-    p attributes
     super
     @questions ||= []
   end

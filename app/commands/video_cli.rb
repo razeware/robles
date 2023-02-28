@@ -7,7 +7,7 @@ class VideoCli < Thor
   option :local, type: :boolean
   def render
     video_course = runner.render_video_course(release_file: options['release_file'], local: options['local'])
-    p video_course.to_json
+    puts video_course.to_json
   end
 
   desc 'serve', 'starts local preview server'
