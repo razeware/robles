@@ -52,8 +52,8 @@ module Parser
       raise Parser::Error.new(file:, msg: "Captions file (#{metadata[:captions_file]}) not found") if captions_file.present? && !File.file?(captions_file)
 
       metadata[:captions_file] = captions_file if captions_file.present?
-      Episode.new(script_file:, root_path:).tap do |episode|
-        EpisodeMetadata.new(episode, metadata).apply!
+      Video.new(script_file:, root_path:).tap do |video|
+        VideoMetadata.new(video, metadata).apply!
       end
     end
 

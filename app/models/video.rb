@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# An episode represents a single video in a course
-class Episode
+# A video represents a single video in a course
+class Video
   include ActiveModel::Model
   include ActiveModel::Serializers::JSON
   include Concerns::ImageAttachable

@@ -2,7 +2,7 @@
 
 module Parser
   # Parse a symbolised hash into an Episode
-  class EpisodeMetadata
+  class VideoMetadata
     include Parser::MarkdownMetadata
 
     VALID_SIMPLE_ATTRIBUTES = %i[title free description_md short_description authors_notes_md captions_file].freeze

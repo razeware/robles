@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Renderer
-  # Takes an episode model, and updates it with markdown
-  class Episode
+  # Takes an video model, and updates it with markdown
+  class Video
     include ImageAttachable
     include MarkdownRenderable
     include Util::Logging
@@ -10,7 +10,7 @@ module Renderer
     attr_accessor :disable_transcripts
 
     def render
-      logger.info "Beginning episode render: #{object.ordinal}: #{object.title}"
+      logger.info "Beginning video render: #{object.ordinal}: #{object.title}"
       attach_images
       generate_vtt_text
       render_markdown
