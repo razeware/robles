@@ -104,7 +104,7 @@ module Linting
     end
 
     def vend_file
-      "#{Pathname.new(file).dirname}vend.yaml"
+      Pathname.new(file).dirname.join('vend.yaml').to_s
     end
 
     def book

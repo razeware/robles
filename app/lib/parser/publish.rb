@@ -52,7 +52,7 @@ module Parser
     end
 
     def vend_file_path
-      "#{Pathname.new(file).dirname}vend.yaml"
+      Pathname.new(file).dirname.join(vend.yaml).to_s
     end
 
     def authors
