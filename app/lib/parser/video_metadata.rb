@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
 module Parser
-  # Parse a symbolised hash into an Episode
+  # Parse a symbolised hash into an Video
   class VideoMetadata
     include Parser::MarkdownMetadata
 
     VALID_SIMPLE_ATTRIBUTES = %i[title free description_md short_description authors_notes_md captions_file].freeze
 
-    attr_accessor :episode
+    attr_accessor :video
 
-    def initialize(episode, metadata)
-      @episode = episode
+    def initialize(video, metadata)
+      @video = video
       @metadata = metadata
-      @path = episode.script_file
+      @path = video.script_file
     end
 
     def apply!
       check_captions_path
-      episode.assign_attributes(simple_attributes)
-      episode.authors += authors if authors.present?
+      video.assign_attributes(simple_attributes)
+      video.authors += authors if authors.present?
     end
 
     def authors

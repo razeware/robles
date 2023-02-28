@@ -43,7 +43,15 @@ module Parser
       end
     end
 
-    def parse_episode(metadata) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    def parse_episode(metadata)
+      if metadata[:assessment_file].present?
+        parse_assessment(metadata)
+      else
+        parse_video(metadata)
+      end
+    end
+
+    def parse_video(metadata) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       script_file = apply_path(metadata[:script_file]) if metadata[:script_file].present?
       raise Parser::Error.new(file:, msg: "Script file (#{metadata[:script_file]}}) not found") if script_file.present? && !File.file?(script_file)
 
@@ -54,6 +62,17 @@ module Parser
       metadata[:captions_file] = captions_file if captions_file.present?
       Video.new(script_file:, root_path:).tap do |video|
         VideoMetadata.new(video, metadata).apply!
+      end
+    end
+
+    def parse_assessment(metadata)
+      assessment_file = apply_path(metadata[:assessment_file]) if metadata[:assessment_file].present?
+      raise Parser::Error.new(file:, msg: "Assessment file (#{metadata[:assessment_file]}}) not found") if assessment_file.present? && !File.file?(assessment_file)
+
+      assessment_metadata = Psych.load_file(assessment_file, permitted_classes: [Date]).deep_symbolize_keys.merge(metadata)
+
+      Assessment.create(assessment_metadata).tap do |assessment|
+        AssessmentMetadata.new(assessment, assessment_metadata).apply!
       end
     end
 
