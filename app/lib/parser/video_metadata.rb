@@ -5,7 +5,7 @@ module Parser
   class VideoMetadata
     include Parser::MarkdownMetadata
 
-    VALID_SIMPLE_ATTRIBUTES = %i[title free description_md short_description authors_notes_md captions_file].freeze
+    VALID_SIMPLE_ATTRIBUTES = %i[title free description_md short_description authors_notes_md captions_file ref].freeze
 
     attr_accessor :video
 

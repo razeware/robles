@@ -7,7 +7,7 @@ class Assessment
   include Concerns::MarkdownRenderable
 
   attr_accessor :title, :ordinal, :description_md, :short_description, :assessment_file, :root_path,
-                :assessment, :ref
+                :assessment_type, :ref
 
   attr_markdown :description, source: :description_md, file: false
   validates :title, :ordinal, :description_md, :short_description, presence: true
@@ -15,11 +15,11 @@ class Assessment
   # Rather than making a factory, we'll just use this method to create the correct
   # subclass of Assessment
   def self.create(attributes = {})
-    case attributes[:assessment]
+    case attributes[:assessment_type]
     when 'quiz'
       Assessment::Quiz.new(attributes)
     else
-      raise "Unknown assessment type: #{attributes[:assessment]}"
+      raise "Unknown assessment type: #{attributes[:assessment_type]}"
     end
   end
 
