@@ -7,11 +7,11 @@ class Assessment::Quiz < Assessment
   def initialize(attributes = {})
     super
     @questions ||= []
+    @ref ||= ordinal
   end
 
   # Used for serialisation
   def attributes
     super.merge({ questions: [] }.stringify_keys)
-    @ref ||= ordinal
   end
 end
