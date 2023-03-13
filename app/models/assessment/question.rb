@@ -19,6 +19,6 @@ class Assessment::Question
 
   # Used for serialisation
   def attributes
-    { question: nil, explanation: nil, choices: [] }.stringify_keys
+    { question: nil, explanation: nil, choices: [], ordinal: nil }.stringify_keys
   end
 end

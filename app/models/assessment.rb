@@ -27,9 +27,13 @@ class Assessment
     "#{ordinal.to_s.rjust(2, '0')}-#{title.parameterize}"
   end
 
+  def episode_type
+    'assessment'
+  end
+
   # Used for serialisation
   def attributes
-    { title: nil, ordinal: nil, description: nil, short_description: nil, ref: nil }.stringify_keys
+    { title: nil, ordinal: nil, description: nil, short_description: nil, ref: nil, episode_type: nil, assessment_type: nil }.stringify_keys
   end
 
   # Used for linting

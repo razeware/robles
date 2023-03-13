@@ -26,10 +26,14 @@ class Video
     "#{ordinal.to_s.rjust(2, '0')}-#{title.parameterize}"
   end
 
+  def episode_type
+    'video'
+  end
+
   # Used for serialisation
   def attributes
     { title: nil, ordinal: nil, free: false, description: nil, short_description: nil, authors_notes: nil,
-      authors: [], transcript: nil, ref: nil }.stringify_keys
+      authors: [], transcript: nil, ref: nil, episode_type: }.stringify_keys
   end
 
   # Used for linting
