@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-# An episode represents a single video in a course
-class Episode
+# A video represents a single video in a course
+class Video
   include ActiveModel::Model
   include ActiveModel::Serializers::JSON
   include Concerns::ImageAttachable
   include Concerns::MarkdownRenderable
 
   attr_accessor :title, :ordinal, :free, :description_md, :short_description, :authors_notes_md,
-                :authors, :script_file, :root_path, :captions_file
+                :authors, :script_file, :root_path, :captions_file, :ref
 
   attr_markdown :description, source: :description_md, file: false
   attr_markdown :authors_notes, source: :authors_notes_md, file: false
@@ -19,15 +19,21 @@ class Episode
     super
     @authors ||= []
     @free ||= false
+    @ref ||= ordinal
   end
 
   def slug
     "#{ordinal.to_s.rjust(2, '0')}-#{title.parameterize}"
   end
 
+  def episode_type
+    'video'
+  end
+
   # Used for serialisation
   def attributes
-    { title: nil, ordinal: nil, free: false, description: nil, short_description: nil, authors_notes: nil, authors: [], transcript: nil }.stringify_keys
+    { title: nil, ordinal: nil, free: false, description: nil, short_description: nil, authors_notes: nil,
+      authors: [], transcript: nil, ref: nil, episode_type: }.stringify_keys
   end
 
   # Used for linting

@@ -40,16 +40,12 @@
             <a href="#"><%= episode.title %></a>
           </span>
 
-
-
           <h1>
             <span class="l-whitespace"><%= episode.ref %></span>
             <div>
               <span class="l-font-42 l-margin-6"><%= episode.title %></span>
               <span class="l-font-header l-font-17 l-font-normal l-no-font-spacing l-margin-6 l-line-height-1125">
-                <% if episode.authors.filter { |author| author.role == 'author' }.present? %>
-                  Written by <%= episode.authors.filter { |author| author.role == 'author' }.map(&:username).to_sentence %>
-                <% end %>
+                It's a quiz!
               </span>
             </div>
           </h1>
@@ -57,7 +53,21 @@
       </header>
 
       <div class="c-written-tutorial__content l-block l-block--card-medium">
-        <%= episode.transcript %>
+        <% episode.questions.each do |question| %>
+          <div>
+            <h3><%= question.question %></h3>
+            <ul>
+              <% question.choices.each do |choice| %>
+                <li>
+                  <span><%= choice.ref %></span>
+                  <span><%= choice.option %></span>
+                  <% if choice.correct %><span class="o-badge o-badge-product--highlight">correct</span><% end %>
+                </li>
+              <% end %>
+            </ul>
+            <%= question.explanation %>
+          </div>
+        <% end %>
       </div>
 
     </article>

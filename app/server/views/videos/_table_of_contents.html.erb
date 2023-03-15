@@ -27,7 +27,7 @@
               <% part.episodes.each do |episode| %>
                 <li class="<%= 'c-box-list__item--active' if episode == current_episode %>">
                   <a href="<%= url(transcript_path(episode)) %>">
-                    <span class="c-box-list__item-number"><%= episode.ordinal %>.</span>
+                    <span class="c-box-list__item-number"><%= episode.ref %>.</span>
                     <span class="c-box-list__item-title"><%= episode.title %></span>
                   </a>
                 </li>
