@@ -15,7 +15,7 @@ module Linting
         [].tap do |annotations|
           video_course.parts.each do |part|
             part.episodes.each do |episode|
-              annotations.concat(validate_children(episode, :authors))
+              annotations.concat(validate_children(episode, :authors)) if episode.is_a?(Video)
             end
 
             annotations.concat(validate_children(part, :episodes))
