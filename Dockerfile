@@ -23,6 +23,9 @@ RUN apk update \
     && apk add --update --no-cache $BUILD_PACKAGES $DEV_PACKAGES \
        $RUBY_PACKAGES
 
+# Configure git
+RUN git config --global --add safe.directory *
+
 # Configure the main working directory. This is the base
 # directory used in any further RUN, COPY, and ENTRYPOINT
 # commands.
