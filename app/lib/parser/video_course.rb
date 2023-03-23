@@ -79,7 +79,7 @@ module Parser
     def apply_episode_ordinals
       video_course.parts.flat_map(&:episodes).each_with_index do |episode, index|
         episode.ordinal = index + 1
-        episode.ref ||= episode.ordinal
+        episode.ref ||= episode.ordinal.to_s.rjust(2, '0')
       end
     end
 

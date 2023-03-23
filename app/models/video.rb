@@ -19,7 +19,7 @@ class Video
     super
     @authors ||= []
     @free ||= false
-    @ref ||= ordinal
+    @ref ||= ordinal.to_s.rjust(2, '0')
   end
 
   def slug
