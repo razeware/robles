@@ -6,7 +6,7 @@ class Assessment::Question
   include ActiveModel::Serializers::JSON
   include Concerns::MarkdownRenderable
 
-  attr_accessor :ordinal, :question_md, :explanation_md, :choices
+  attr_accessor :ordinal, :question_md, :explanation_md, :choices, :learning_objective
 
   attr_markdown :question, source: :question_md, file: false
   attr_markdown :explanation, source: :explanation_md, file: false
