@@ -7,7 +7,6 @@ class Assessment::Quiz < Assessment
   def initialize(attributes = {})
     super
     @questions ||= []
-    @ref ||= ordinal
   end
 
   # Used for serialisation

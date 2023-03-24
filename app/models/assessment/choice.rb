@@ -15,4 +15,9 @@ class Assessment::Choice
   def attributes
     { ordinal: nil, ref: nil, option: nil, correct: nil }.stringify_keys
   end
+
+  # And for validation
+  def validation_name
+    "#{ref} (#{option_md})".chomp
+  end
 end

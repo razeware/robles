@@ -11,6 +11,7 @@ class Assessment::Question
   attr_markdown :question, source: :question_md, file: false
   attr_markdown :explanation, source: :explanation_md, file: false
   validates :question_md, :explanation_md, presence: true
+  validates :choices, length: { minimum: 2 }, allow_blank: false, choices: true
 
   def initialize(attributes = {})
     super
@@ -20,5 +21,10 @@ class Assessment::Question
   # Used for serialisation
   def attributes
     { question: nil, explanation: nil, choices: [], ordinal: nil }.stringify_keys
+  end
+
+  # For validation
+  def validation_name
+    "#{ordinal} #{question_md}".chomp
   end
 end

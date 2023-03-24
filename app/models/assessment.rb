@@ -10,7 +10,7 @@ class Assessment
                 :assessment_type, :ref
 
   attr_markdown :description, source: :description_md, file: false
-  validates :title, :ordinal, :description_md, :short_description, presence: true
+  validates :title, :ordinal, :description_md, :ref, presence: true
 
   # Rather than making a factory, we'll just use this method to create the correct
   # subclass of Assessment
@@ -38,6 +38,6 @@ class Assessment
 
   # Used for linting
   def validation_name
-    title
+    "#{ref} #{title}".chomp
   end
 end

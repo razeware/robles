@@ -13,13 +13,12 @@ class Video
   attr_markdown :description, source: :description_md, file: false
   attr_markdown :authors_notes, source: :authors_notes_md, file: false
   attr_markdown :transcript, source: :script_file, file: true, vtt_attr: :captions_file
-  validates :title, :ordinal, :description_md, :short_description, presence: true
+  validates :title, :ordinal, :description_md, :ref, presence: true
 
   def initialize(attributes = {})
     super
     @authors ||= []
     @free ||= false
-    @ref ||= ordinal.to_s.rjust(2, '0')
   end
 
   def slug
