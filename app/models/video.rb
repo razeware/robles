@@ -14,6 +14,10 @@ class Video
   attr_markdown :authors_notes, source: :authors_notes_md, file: false
   attr_markdown :transcript, source: :script_file, file: true, vtt_attr: :captions_file
   validates :title, :ordinal, :description_md, :ref, presence: true
+  validate do |video|
+    # Check the ref is a string
+    errors.add(:ref, 'must be a string') unless video.ref.is_a?(String)
+  end
 
   def initialize(attributes = {})
     super

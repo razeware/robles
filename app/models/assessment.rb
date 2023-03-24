@@ -11,6 +11,10 @@ class Assessment
 
   attr_markdown :description, source: :description_md, file: false
   validates :title, :ordinal, :description_md, :ref, presence: true
+  validate do |assessment|
+    # Check the ref is a string
+    errors.add(:ref, 'must be a string') unless assessment.ref.is_a?(String)
+  end
 
   # Rather than making a factory, we'll just use this method to create the correct
   # subclass of Assessment

@@ -10,6 +10,10 @@ class Assessment::Choice
 
   attr_markdown :option, source: :option_md, file: false
   validates :option_md, :ref, presence: true
+  validate do |choice|
+    # Check the ref is a string
+    errors.add(:ref, 'must be a string') unless choice.ref.is_a?(String)
+  end
 
   # Used for serialisation
   def attributes
