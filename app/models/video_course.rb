@@ -24,6 +24,7 @@ class VideoCourse
             :categories, presence: true
   validates_inclusion_of :difficulty, in: %w[beginner intermediate advanced]
   validates_inclusion_of :course_type, in: %w[core spotlight]
+  validates :parts, length: { minimum: 1 }, allow_blank: false, parts: true
   validates_each :domains do |record, attr, value|
     value.each do |domain|
       record.errors.add(attr, "(#{domain}) not included in the list") unless %w[ios android flutter server-side-swift unity macos].include?(domain)

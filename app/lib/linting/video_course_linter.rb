@@ -2,10 +2,11 @@
 
 module Linting
   # Overall linter that combines all other linters
-  class VideoCourseLinter
+  class VideoCourseLinter # rubocop:disable Metrics/ClassLength
     include Util::PathExtraction
     include Util::Logging
     include Linting::FileExistenceChecker
+    include Linting::YamlSyntaxChecker
 
     attr_reader :annotations, :output_details
 
@@ -23,6 +24,11 @@ module Linting
     def lint_with_ui(options:, show_ui: true) # rubocop:disable Metrics/AbcSize
       with_spinner(title: 'Checking {{bold:release.yaml}} exists', show: show_ui) do
         check_release_file_exists
+      end
+      return if output_details.present?
+
+      with_spinner(title: 'Checking {{bold:release.yaml}} is valid YAML', show: show_ui) do
+        check_release_file_valid_yaml
       end
       return if output_details.present?
 
@@ -78,6 +84,20 @@ module Linting
         title: 'robles Linting Failure',
         summary: 'Unable to locate the `release.yaml` file',
         text: "There should be a `release.yaml` file in the root of your book repository. Looking here: #{file}",
+        validated: false
+      }
+      false
+    end
+
+    def check_release_file_valid_yaml
+      logger.debug "Checking for validity of #{file}"
+      error = valid_yaml?(file)
+      return true unless error
+
+      @output_details = {
+        title: 'robles Linting Failure',
+        summary: 'Unable to parse `release.yaml`',
+        text: "There was a problem parsing the `release.yaml` file. Check the indentation. Details:\n\n  > #{error}",
         validated: false
       }
       false
