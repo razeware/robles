@@ -13,6 +13,8 @@ class Assessment::Choice
   validate do |choice|
     # Check the ref is a string
     errors.add(:ref, 'must be a string') unless choice.ref.is_a?(String)
+    # Check that the option_md is a string
+    errors.add(:option_md, 'must be a string') unless choice.option_md.is_a?(String)
   end
 
   # Used for serialisation
