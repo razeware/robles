@@ -11,7 +11,7 @@ module Linting
       @annotations = []
     end
 
-    def lint(_options: {})
+    def lint(*)
       load_file
       return @annotations unless @annotations.empty?
 

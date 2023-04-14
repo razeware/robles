@@ -51,6 +51,10 @@ module Linting
       else
         puts CLI::UI.fmt('{{x}} Unable to find {{bold:vend.yaml}}--skipping validation.')
       end
+
+      with_spinner(title: 'Validating data models', show: show_ui) do
+        annotations.concat(Linting::Validations::Book.new(book:, file:).lint)
+      end
     end
 
     def with_spinner(title:, show: true, &block)

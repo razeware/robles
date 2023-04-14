@@ -11,7 +11,8 @@ module Parser
                                trailer_video_url version_description professional difficulty
                                platform language editor domains categories who_is_this_for_md
                                covered_concepts_md hide_chapter_numbers in_flux forum_url
-                               pages short_description recommended_skus isbn amazon_url deprecated].freeze
+                               pages short_description recommended_skus isbn amazon_url deprecated
+                               access_personal access_team].freeze
 
     attr_reader :book
 
@@ -52,7 +53,7 @@ module Parser
     end
 
     def vend_file_path
-      Pathname.new(file).dirname.join(vend.yaml).to_s
+      Pathname.new(file).dirname.join('vend.yaml').to_s
     end
 
     def authors
