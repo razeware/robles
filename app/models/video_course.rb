@@ -11,7 +11,8 @@ class VideoCourse
                 :short_description, :released_at, :materials_url, :professional, :difficulty,
                 :platform, :language, :editor, :domains, :categories, :who_is_this_for_md,
                 :covered_concepts_md, :authors, :parts, :git_commit_hash, :card_artwork_image,
-                :featured_banner_image, :twitter_card_image, :root_path
+                :featured_banner_image, :twitter_card_image, :root_path, :access_personal,
+                :access_team
 
   attr_markdown :who_is_this_for, source: :who_is_this_for_md, file: false
   attr_markdown :covered_concepts, source: :covered_concepts_md, file: false
@@ -24,6 +25,7 @@ class VideoCourse
             :categories, presence: true
   validates_inclusion_of :difficulty, in: %w[beginner intermediate advanced]
   validates_inclusion_of :course_type, in: %w[core spotlight]
+  validates_inclusion_of :professional, :access_personal, :access_team, in: [true, false]
   validates :parts, length: { minimum: 1 }, allow_blank: false, parts: true
   validates_each :domains do |record, attr, value|
     value.each do |domain|
@@ -43,7 +45,7 @@ class VideoCourse
       professional: nil, difficulty: nil, platform: nil, language: nil, editor: nil, domains: [],
       categories: [], who_is_this_for: nil, covered_concepts: nil, authors: [], parts: [],
       git_commit_hash: nil, card_artwork_image_url: [], featured_banner_image_url: [],
-      twitter_card_image_url: [] }.stringify_keys
+      twitter_card_image_url: [], access_personal: nil, access_team: nil }.stringify_keys
   end
 
   # Used for linting

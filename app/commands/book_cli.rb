@@ -11,7 +11,7 @@ class BookCli < Thor
   option :local, type: :boolean
   def render
     book = runner.render_book(publish_file: options['publish_file'], local: options['local'])
-    p book.cover_image_url.to_json
+    p book.to_json
   end
 
   desc 'serve', 'starts local preview server'
