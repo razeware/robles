@@ -11,7 +11,7 @@ module Linting
         @file = file
       end
 
-      def lint # rubocop:disable Metrics/AbcSize
+      def lint # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
         [].tap do |annotations|
           video_course.parts.each do |part|
             part.episodes.each do |episode|
@@ -19,7 +19,8 @@ module Linting
                 annotations.concat(validate_children(episode, :authors))
               elsif episode.is_a?(Assessment::Quiz)
                 episode.questions.each do |question|
-                  annotations.concat(validate_children(question, :choices))
+                  context = "Assessment::Quiz (#{episode&.validation_name || 'unknown'})"
+                  annotations.concat(validate_children(question, :choices, context:))
                 end
 
                 annotations.concat(validate_children(episode, :questions))
@@ -36,15 +37,16 @@ module Linting
         end.compact.reverse
       end
 
-      def validate_children(object, attribute)
+      def validate_children(object, attribute, context: nil)
         Array.wrap(object.send(attribute)).flat_map do |child|
           next if child.valid?
 
-          annotations_from_errors(child)
+          context = "#{context}\n#{object.class} (#{object&.validation_name || 'unknown'})"
+          annotations_from_errors(child, context:)
         end.compact
       end
 
-      def annotations_from_errors(object)
+      def annotations_from_errors(object, context: nil)
         title = "#{object.class} (#{object&.validation_name || 'unknown'})"
         object.errors.full_messages.map do |error|
           Linting::Annotation.new(
@@ -52,7 +54,7 @@ module Linting
             end_line: 0,
             absolute_path: file,
             annotation_level: 'failure',
-            message: "#{title}: #{error}",
+            message: "#{context}\n#{title}: #{error}",
             title: "#{title} Validation Error"
           )
         end

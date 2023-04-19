@@ -26,15 +26,16 @@ module Linting
         end.compact.reverse
       end
 
-      def validate_children(object, attribute)
+      def validate_children(object, attribute, context: nil)
         Array.wrap(object.send(attribute)).flat_map do |child|
           next if child.valid?
 
-          annotations_from_errors(child)
+          context = "#{context}\n#{object.class} (#{object&.validation_name || 'unknown'})"
+          annotations_from_errors(child, context:)
         end.compact
       end
 
-      def annotations_from_errors(object)
+      def annotations_from_errors(object, context: nil)
         title = "#{object.class} (#{object&.validation_name || 'unknown'})"
         object.errors.full_messages.map do |error|
           Linting::Annotation.new(
@@ -42,7 +43,7 @@ module Linting
             end_line: 0,
             absolute_path: file,
             annotation_level: 'failure',
-            message: "#{title}: #{error}",
+            message: "#{context}\n#{title}: #{error}",
             title: "#{title} Validation Error"
           )
         end
