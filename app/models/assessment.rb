@@ -28,7 +28,7 @@ class Assessment
   end
 
   def slug
-    "#{ordinal.to_s.rjust(2, '0')}-#{title.parameterize}"
+    "#{ref}-#{title.parameterize}"
   end
 
   def episode_type
