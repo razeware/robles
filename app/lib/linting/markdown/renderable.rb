@@ -16,7 +16,7 @@ module Linting
         [].tap do |annotations|
           object.markdown_render_loop do |content, is_file|
             markdown = is_file ? File.read(content) : content
-            
+
             if is_file
               counter = Linting::Markdown::WordCounter.new(markdown)
               annotations << word_count_annotation(content, counter.count) if counter.exceeds_word_limit?

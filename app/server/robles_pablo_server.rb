@@ -19,6 +19,16 @@ class RoblesPabloServer < Sinatra::Application
     def image_url(image, variant: :small)
       image.representations.find { _1.variant == variant }&.remote_url
     end
+
+    # scss is no longer a built-in helper in sinatra
+    # However, we can almost just proxy it to Tilt
+    def scss(template, options = {}, locals = {})
+      options.merge!(layout: false, exclude_outvar: true)
+      # Set the content type to css
+      render(:scss, template, options, locals).dup.tap do |css|
+        css.extend(ContentTyped).content_type = :css
+      end
+    end
   end
 
   before do
@@ -27,11 +37,9 @@ class RoblesPabloServer < Sinatra::Application
 
   get '/' do
     erb :'pablo/index.html',
-        locals: { images: image_list, categories: categories },
+        locals: { images: image_list, categories: },
         layout: :'pablo/layout.html'
   end
-
-
 
   get '/license' do
     erb :'pablo/license.html',
@@ -61,7 +69,7 @@ class RoblesPabloServer < Sinatra::Application
     filtered_image_list = image_list.filter { |image| image.category == category }
 
     erb :'pablo/index.html',
-        locals: { images: filtered_image_list, categories: categories, selected_category: category },
+        locals: { images: filtered_image_list, categories:, selected_category: category },
         layout: :'pablo/layout.html'
   end
 

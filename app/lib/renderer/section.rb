@@ -12,7 +12,7 @@ module Renderer
       attach_images
       render_markdown
       object.chapters.each do |chapter|
-        chapter_renderer = Renderer::Chapter.new(chapter, image_provider: image_provider)
+        chapter_renderer = Renderer::Chapter.new(chapter, image_provider:)
         chapter_renderer.render
       end
     end

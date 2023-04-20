@@ -25,7 +25,7 @@ module Renderer
       @rw_renderer ||= Renderer::RWMarkdownRenderer.new(
         options: %i[TABLE_PREFER_STYLE_ATTRIBUTES],
         extensions: %i[table strikethrough autolink],
-        image_provider: image_provider,
+        image_provider:,
         root_path: root_directory
       )
     end
@@ -67,7 +67,7 @@ module Renderer
 
     def fix_team_bio_markup(html)
       # It'd be nice to do this pre-render, but that involves allowing unsafe rendering of HTML
-      html.gsub(/<p>\$\[#tb\]<\/p>/, '<div>').gsub(/<p>\$\[tb#\]<\/p>/, '</div>')
+      html.gsub(%r{<p>\$\[#tb\]</p>}, '<div>').gsub(%r{<p>\$\[tb#\]</p>}, '</div>')
     end
 
     def root_directory

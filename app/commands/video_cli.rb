@@ -7,7 +7,7 @@ class VideoCli < Thor
   option :local, type: :boolean
   def render
     video_course = runner.render_video_course(release_file: options['release_file'], local: options['local'])
-    p video_course.to_json
+    puts video_course.to_json
   end
 
   desc 'serve', 'starts local preview server'
@@ -43,7 +43,7 @@ class VideoCli < Thor
   method_option 'without-version': :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
   method_option silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
   def lint
-    output = runner.lint_video_course(release_file: options['publish_file'], options: options)
+    output = runner.lint_video_course(release_file: options['publish_file'], options:)
     exit 1 unless output.validated || ENVIRONMENT == 'staging'
   end
 
@@ -58,7 +58,7 @@ class VideoCli < Thor
     release_file = options.fetch('release_file', runner.default_release_file)
     parser = Parser::Release.new(file: release_file)
     video_course = parser.parse
-    args = options.merge(video_course: video_course).symbolize_keys
+    args = options.merge(video_course:).symbolize_keys
     snapshotter = Snapshotter::Slides.new(**args)
     snapshotter.generate
   end
@@ -82,7 +82,7 @@ class VideoCli < Thor
     REPO_SLACK_WEBHOOK_URL=
   LONGDESC
   def secrets(repo)
-    secrets_manager = RepoManagement::Secrets.new(repo: repo, mode: :video_course)
+    secrets_manager = RepoManagement::Secrets.new(repo:, mode: :video_course)
     secrets_manager.apply_secrets
   end
 
@@ -95,7 +95,7 @@ class VideoCli < Thor
   def video_guardfile
     <<~GUARDFILE
       guard 'livereload' do
-        watch(%r{[a-zA-Z0-9\-_]+\.yaml$})
+        watch(%r{[a-zA-Z0-9-_]+.yaml$})
       end
     GUARDFILE
   end

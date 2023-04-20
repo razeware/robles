@@ -28,7 +28,7 @@ module Renderer
     end
 
     def display_classes(alt_text)
-      alt_text.split(' ')
+      alt_text.split
               .intersection(VALID_MODIFIERS)
               .map { |modifier| "l-image-#{modifier}" }
     end
@@ -42,7 +42,7 @@ module Renderer
       "l-image-#{width}"
     end
 
-    def has_width_class?(alt_text)
+    def width_class?(alt_text)
       # Must either specify an actual width, or use the portrait attribute
       width_class(alt_text).present? || alt_text.include?('portrait')
     end
@@ -54,7 +54,7 @@ module Renderer
     end
 
     def svg?(alt_text, relative_url)
-      alt_text.split(' ').include?('svg') && Pathname(svg_url(relative_url)).exist?
+      alt_text.split.include?('svg') && Pathname(svg_url(relative_url)).exist?
     end
 
     def svg_content(relative_url)

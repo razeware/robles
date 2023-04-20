@@ -39,16 +39,17 @@ module Api
       def conn
         @conn ||= Faraday.new(headers: { 'Content-Type' => 'application/json' }) do |faraday|
           faraday.response(:logger, logger) do |logger|
-            logger.filter(/(Token token=\\\")(\w+)/, '\1[REMOVED]')
+            logger.filter(/(Token token=\\")(\w+)/, '\1[REMOVED]')
           end
           faraday.response(:raise_error)
-          faraday.token_auth(ALEXANDRIA_SERVICE_API_TOKEN)
           faraday.adapter(Faraday.default_adapter)
+          faraday.request(:authorization, 'Bearer', ALEXANDRIA_SERVICE_API_TOKEN)
+          faraday.request(:retry)
         end
       end
 
       def payload
-        { book: book }.to_json
+        { book: }.to_json
       end
     end
   end

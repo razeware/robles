@@ -21,13 +21,13 @@ module Renderer
       return '' if filename.blank?
 
       vtt = disable_transcripts ? nil : vtt_file
-      MarkdownFileRenderer.new(path: filename, image_provider: image_provider, vtt_file: vtt).render
+      MarkdownFileRenderer.new(path: filename, image_provider:, vtt_file: vtt).render
     end
 
     def render_string(content)
       return '' if content.blank?
 
-      MarkdownStringRenderer.new(content: content).render
+      MarkdownStringRenderer.new(content:).render
     end
   end
 end

@@ -2,10 +2,11 @@
 
 module Linting
   # Overall linter that combines all other linters
-  class VideoCourseLinter
+  class VideoCourseLinter # rubocop:disable Metrics/ClassLength
     include Util::PathExtraction
     include Util::Logging
     include Linting::FileExistenceChecker
+    include Linting::YamlSyntaxChecker
 
     attr_reader :annotations, :output_details
 
@@ -16,18 +17,23 @@ module Linting
 
     def lint(options: {})
       @annotations = []
-      lint_with_ui(options: options, show_ui: !options['silent'])
+      lint_with_ui(options:, show_ui: !options['silent'])
       output
     end
 
-    def lint_with_ui(options:, show_ui: true) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+    def lint_with_ui(options:, show_ui: true) # rubocop:disable Metrics/AbcSize
       with_spinner(title: 'Checking {{bold:release.yaml}} exists', show: show_ui) do
         check_release_file_exists
       end
       return if output_details.present?
 
+      with_spinner(title: 'Checking {{bold:release.yaml}} is valid YAML', show: show_ui) do
+        check_release_file_valid_yaml
+      end
+      return if output_details.present?
+
       with_spinner(title: 'Validating metadata in {{bold:release.yaml}}', show: show_ui) do
-        annotations.concat(Linting::VideoCourseMetadataLinter.new(file: file).lint(options: options))
+        annotations.concat(Linting::VideoCourseMetadataLinter.new(file:).lint(options:))
       end
       return unless annotations.blank?
 
@@ -37,27 +43,27 @@ module Linting
       return unless annotations.blank?
 
       with_spinner(title: 'Validating data models', show: show_ui) do
-        annotations.concat(Linting::Validations::VideoCourse.new(video_course: video_course, file: file).lint)
+        annotations.concat(Linting::Validations::VideoCourse.new(video_course:, file:).lint)
       end
     end
 
-    def with_spinner(title:, show: true)
+    def with_spinner(title:, show: true, &block)
       if show
-        CLI::UI::Spinner.spin(title) { yield }
+        CLI::UI::Spinner.spin(title, &block)
       else
         yield
       end
     end
 
-    def output # rubocop:disable Metrics/MethodLength
-      return Linting::Output.new(output_details.merge(annotations: annotations)) if output_details.present?
+    def output
+      return Linting::Output.new(output_details.merge(annotations:)) if output_details.present?
 
       if annotations.present?
         Linting::Output.new(
           title: 'robles Linting Failure',
           summary: 'There was a problem with your video course repository',
           text: 'Please check the individual file annotations for details',
-          annotations: annotations,
+          annotations:,
           validated: false
         )
       else
@@ -83,9 +89,23 @@ module Linting
       false
     end
 
-    def video_course # rubocop:disable Metrics/MethodLength
+    def check_release_file_valid_yaml
+      logger.debug "Checking for validity of #{file}"
+      error = valid_yaml?(file)
+      return true unless error
+
+      @output_details = {
+        title: 'robles Linting Failure',
+        summary: 'Unable to parse `release.yaml`',
+        text: "There was a problem parsing the `release.yaml` file. Check the indentation. Details:\n\n  > #{error}",
+        validated: false
+      }
+      false
+    end
+
+    def video_course
       @video_course ||= begin
-        parser = Parser::Release.new(file: file)
+        parser = Parser::Release.new(file:)
         parser.parse
       end
     rescue Parser::Error => e

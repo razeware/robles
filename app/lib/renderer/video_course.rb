@@ -14,7 +14,7 @@ module Renderer
       attach_images
       render_markdown
       object.parts.each do |part|
-        part_renderer = Renderer::Part.new(part, image_provider: image_provider)
+        part_renderer = Renderer::Part.new(part, image_provider:)
         part_renderer.disable_transcripts = disable_transcripts
         part_renderer.render
       end

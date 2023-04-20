@@ -12,7 +12,7 @@ module Renderer
       attach_images
       render_markdown
       object.sections.each do |section|
-        section_renderer = Renderer::Section.new(section, image_provider: image_provider)
+        section_renderer = Renderer::Section.new(section, image_provider:)
         section_renderer.render
       end
       logger.info 'Completed book render'

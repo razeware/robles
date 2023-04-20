@@ -14,8 +14,8 @@ module Renderer
       attach_images
       render_markdown
       object.episodes.each do |episode|
-        episode_renderer = Renderer::Episode.new(episode, image_provider: image_provider)
-        episode_renderer.disable_transcripts = disable_transcripts
+        episode_renderer = Renderer::Episode.create(episode, image_provider:)
+        episode_renderer.disable_transcripts = disable_transcripts if episode_renderer.respond_to?(:disable_transcripts=)
         episode_renderer.render
       end
     end

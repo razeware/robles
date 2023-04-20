@@ -2,7 +2,7 @@
 
 module Runner
   # Base class with shared functionality
-  class Base
+  class Base # rubocop:disable Metrics/ClassLength
     include Util::Logging
     include Util::SlackNotifiable
 
@@ -21,21 +21,21 @@ module Runner
       image_extractor = ImageProvider::BookExtractor.new(book)
       image_provider = local ? nil : ImageProvider::Provider.new(extractor: image_extractor)
       image_provider&.process
-      renderer = Renderer::Book.new(book, image_provider: image_provider)
+      renderer = Renderer::Book.new(book, image_provider:)
       renderer.render
       book
     end
 
-    def publish_book(publish_file:) # rubocop:disable Metrics/MethodLength
+    def publish_book(publish_file:)
       publish_file ||= default_publish_file
       parser = Parser::Publish.new(file: publish_file)
       book = parser.parse
       image_extractor = ImageProvider::BookExtractor.new(book)
       image_provider = ImageProvider::Provider.new(extractor: image_extractor)
       image_provider.process
-      Renderer::Book.new(book, image_provider: image_provider).render
+      Renderer::Book.new(book, image_provider:).render
       Api::Alexandria::BookUploader.upload(book)
-      notify_book_success(book: book)
+      notify_book_success(book:)
     rescue StandardError => e
       notify_book_failure(book: defined?(book) ? book : nil, details: e.full_message)
       raise e
@@ -48,7 +48,7 @@ module Runner
       CLI::UI::StdoutRouter.enable unless options['silent']
 
       linter = Linting::BookLinter.new(file: publish_file)
-      output = linter.lint(options: options)
+      output = linter.lint(options:)
       Cli::OutputFormatter.render(output) unless options['silent']
       output
     end
@@ -62,12 +62,12 @@ module Runner
       image_extractor = ImageProvider::VideoCourseExtractor.new(video_course)
       image_provider = local ? nil : ImageProvider::Provider.new(extractor: image_extractor)
       image_provider&.process
-      renderer = Renderer::VideoCourse.new(video_course, image_provider: image_provider)
+      renderer = Renderer::VideoCourse.new(video_course, image_provider:)
       renderer.render
       video_course
     end
 
-    def upload_video_course(release_file:) # rubocop:disable Metrics/MethodLength
+    def upload_video_course(release_file:)
       release_file ||= default_release_file
 
       parser = Parser::Release.new(file: release_file)
@@ -76,9 +76,9 @@ module Runner
       image_extractor = ImageProvider::VideoCourseExtractor.new(video_course)
       image_provider = ImageProvider::Provider.new(extractor: image_extractor)
       image_provider.process
-      Renderer::VideoCourse.new(video_course, image_provider: image_provider).render
+      Renderer::VideoCourse.new(video_course, image_provider:).render
       Api::Betamax::VideoCourseUploader.upload(video_course)
-      notify_video_course_success(video_course: video_course)
+      notify_video_course_success(video_course:)
     rescue StandardError => e
       notify_video_course_failure(video_course: defined?(video_course) ? video_course : nil, details: e.full_message)
       raise e
@@ -91,7 +91,7 @@ module Runner
       CLI::UI::StdoutRouter.enable unless options['silent']
 
       linter = Linting::VideoCourseLinter.new(file: release_file)
-      output = linter.lint(options: options)
+      output = linter.lint(options:)
       Cli::OutputFormatter.render(output) unless options['silent']
       output
     end
@@ -115,20 +115,12 @@ module Runner
       image_provider = ImageProvider::Provider.new(extractor: image_extractor)
       image_provider.process
 
-      paths = image_extractor.categories.map { "/#{_1}" }.concat(
-        [
-          '/',
-          '/license',
-          '/instructions',
-          '/styles.css',
-          '/javascript/search.js'
-        ]
-      )
+      paths = image_extractor.categories.map { "/#{_1}" }.push('/', '/license', '/instructions', '/styles.css', '/javascript/search.js')
 
       ENV['DISABLE_LIVERELOAD'] = 'true'
-      RoblesPabloServer.save!(paths: paths, destination: output, options: {
-        image_extractor: image_extractor
-      })
+      RoblesPabloServer.save!(paths:, destination: output, options: {
+                                image_extractor:
+                              })
     end
 
     def default_publish_file
