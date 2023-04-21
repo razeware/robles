@@ -77,7 +77,6 @@ module RepoManagement
 
     def middleware
       @middleware ||= Faraday::RackBuilder.new do |builder|
-        builder.use Faraday::Request::Retry, exceptions: [Octokit::ServerError]
         builder.use Octokit::Middleware::FollowRedirects
         builder.use Octokit::Response::RaiseError
         builder.use Octokit::Response::FeedParser
