@@ -29,7 +29,7 @@ class VideoCourse
   validates :parts, length: { minimum: 1 }, allow_blank: false, parts: true
   validates_each :domains do |record, attr, value|
     value.each do |domain|
-      record.errors.add(attr, "(#{domain}) not included in the list") unless %w[ios android flutter server-side-swift unity macos].include?(domain)
+      record.errors.add(attr, "(#{domain}) not included in the list") unless %w[ios android flutter server-side-swift unity macos professional-growth].include?(domain)
     end
   end
 
