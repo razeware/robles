@@ -24,19 +24,6 @@ class RoblesVideoServer < Sinatra::Application # rubocop:disable Metrics/ClassLe
       "/assessments/#{episode.slug}"
     end
 
-    def marketing_name_for_domain(domain)
-      case domain
-      when 'ios'
-        'iOS & Swift'
-      when 'android'
-        'Android & Kotlin'
-      when 'server-side-swift'
-        'Sever-Side Swift'
-      else
-        domain.titleize
-      end
-    end
-
     def class_for_domain(course)
       if course.domains.count > 1
         'multi-domain'
