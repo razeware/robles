@@ -15,6 +15,7 @@ module Renderer
 
     # Extract vtt file
     def generate_vtt_text
+      return if object.transcript.present?
       return if vtt.blank?
 
       cue_texts = vtt.cues.collect(&:text).join(' ')
