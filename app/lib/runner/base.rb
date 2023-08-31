@@ -123,7 +123,25 @@ module Runner
                               })
     end
 
+    # module
+    def render_content_module(module_file:, local: false)
+      module_file ||= default_module_file
+
+      parser = Parser::Circulate.new(file: module_file)
+      content_modules = parser.parse
+      image_extractor = ImageProvider::ContentModuleExtractor.new(content_modules)
+      image_provider = local ? nil : ImageProvider::Provider.new(extractor: image_extractor)
+      image_provider&.process
+      renderer = Renderer::ContentModule.new(content_modules, image_provider:)
+      renderer.render
+      content_modules
+    end
+
     def default_publish_file
+      raise 'Override this in a subclass please'
+    end
+
+    def default_module_file
       raise 'Override this in a subclass please'
     end
 

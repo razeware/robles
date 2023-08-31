@@ -18,5 +18,9 @@ module Runner
     def default_pablo_output
       '/data/src/dist'
     end
+
+    def default_module_file
+      '/data/src/module.yaml'
+    end
   end
 end
