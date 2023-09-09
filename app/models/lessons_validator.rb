@@ -10,17 +10,17 @@ class LessonsValidator < ActiveModel::EachValidator
   end
 
   def check_correct_class(record, attribute, value)
-    value.each do |part|
-      record.errors.add(attribute, "part #{choice} is not a Part") unless part.is_a?(Part)
+    value.each do |choice|
+      record.errors.add(attribute, "lesson #{choice} is not a Lesson") unless choice.is_a?(Lesson)
     end
   end
 
   def check_unique_refs(record, attribute, value)
     return unless value.is_a?(Array)
 
-    episodes = value.flat_map(&:episodes)
+    segments = value.flat_map(&:segments)
 
-    ref_counts = episodes.map(&:ref).each_with_object(Hash.new(0)) { |ref, counts| counts[ref] += 1 }
+    ref_counts = segments.map(&:ref).each_with_object(Hash.new(0)) { |ref, counts| counts[ref] += 1 }
     ref_counts.each do |ref, count|
       next if count == 1
 

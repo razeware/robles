@@ -23,12 +23,31 @@ module Linting
 
       # Find the script file references in each episode in the release.yaml
       def file_path_list
-        @file_path_list ||=
-          attributes[:parts].flat_map do |part|
-            part[:episodes].map do |episode|
-              episode[:assessment_file]
-            end
-          end.compact
+        @file_path_list ||= content_module? ? module_assessments : video_course_assessments
+      end
+
+      def video_course_assessments
+        attributes[:parts].flat_map do |part|
+          part[:episodes].map do |episode|
+            episode[:assessment_file]
+          end
+        end.compact
+      end
+
+      def module_assessments
+        attributes[:lessons].flat_map do |lesson|
+          ModuleFile.new(file:, attributes:).segments(lesson).flat_map do |segment|
+            segment[:relative_path] if assessment?(segment)
+          end
+        end.compact
+      end
+
+      def content_module?
+        attributes.key?(:lessons)
+      end
+
+      def assessment?(segment)
+        segment[:type] == 'assessment'
       end
 
       # What kind of files are we looking for?

@@ -128,13 +128,25 @@ module Runner
       module_file ||= default_module_file
 
       parser = Parser::Circulate.new(file: module_file)
-      content_modules = parser.parse
-      image_extractor = ImageProvider::ContentModuleExtractor.new(content_modules)
+      content_module = parser.parse
+      image_extractor = ImageProvider::ContentModuleExtractor.new(content_module)
       image_provider = local ? nil : ImageProvider::Provider.new(extractor: image_extractor)
       image_provider&.process
-      renderer = Renderer::ContentModule.new(content_modules, image_provider:)
+      renderer = Renderer::ContentModule.new(content_module, image_provider:)
       renderer.render
-      content_modules
+      content_module
+    end
+
+    def lint_content_module(module_file:, options: {})
+      module_file ||= default_module_file
+      logger.info("Attempting to lint using release file at #{module_file}")
+
+      CLI::UI::StdoutRouter.enable unless options['silent']
+
+      linter = Linting::ContentModuleLinter.new(file: module_file)
+      output = linter.lint(options:)
+      Cli::OutputFormatter.render(output) unless options['silent']
+      output
     end
 
     def default_publish_file
