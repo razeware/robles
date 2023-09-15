@@ -7,7 +7,7 @@ module Parser
     include Util::PathExtraction
     include Util::GitHashable
 
-    VALID_SIMPLE_ATTRIBUTES = %i[shortcode version version_description title course_type
+    VALID_SIMPLE_ATTRIBUTES = %i[shortcode version version_description title
                                  description_md short_description released_at materials_url
                                  professional difficulty platform language editor domains
                                  categories who_is_this_for_md covered_concepts_md git_commit_hash
@@ -35,10 +35,9 @@ module Parser
     def parse_lesson(metadata, index)
       segments = parse_segments(metadata[:segments_path])
 
-      puts segments
-
       Lesson.new(ordinal: index + 1, segments:).tap do |lesson|
-        LessonMetadata.new(lesson, metadata).apply!
+        lesson_metadata = load_yaml_file(apply_path((metadata[:segments_path])))
+        LessonMetadata.new(lesson, lesson_metadata).apply!
       end
     end
 
@@ -52,8 +51,8 @@ module Parser
       end
     end
 
-    def parse_text(text)
-      markdown_file = apply_path(text)
+    def parse_text(file)
+      markdown_file = apply_path(file)
 
       Text.new(markdown_file:, root_path: Pathname.new(markdown_file).dirname.to_s).tap do |text|
         TextMetadata.new(text).apply!
@@ -86,9 +85,15 @@ module Parser
     end
 
     def apply_segment_ordinals
-      content_module.lessons.flat_map(&:segments).each_with_index do |episode, index|
-        episode.ordinal = index + 1
-        episode.ref ||= episode.ordinal.to_s.rjust(2, '0')
+      content_module.lessons.flat_map(&:segments).each_with_index do |segment, index|
+        segment.ordinal = index + 1
+      end
+
+      # ref is reset for each lesson
+      content_module.lessons.each do |lesson|
+        lesson.segments.each_with_index do |segment, index|
+          segment.ref ||= (index + 1).to_s.rjust(2, '0')
+        end
       end
     end
 
@@ -105,8 +110,7 @@ module Parser
     private
 
     def load_yaml_file(file)
-      Psych.load_file(file, permitted_classes: [Date])
-                       .deep_symbolize_keys
+      Psych.load_file(file, permitted_classes: [Date]).deep_symbolize_keys
     end
   end
 end

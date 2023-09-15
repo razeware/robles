@@ -3,7 +3,7 @@
 module Parser
   # Parse a symbolised hash into a Part, with nested Episodes
   class LessonMetadata
-    include Parser::SimpleAttributes
+    include SimpleAttributes
 
     VALID_SIMPLE_ATTRIBUTES = %i[title description ordinal].freeze
 

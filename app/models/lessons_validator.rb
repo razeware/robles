@@ -18,13 +18,12 @@ class LessonsValidator < ActiveModel::EachValidator
   def check_unique_refs(record, attribute, value)
     return unless value.is_a?(Array)
 
-    segments = value.flat_map(&:segments)
+    value.each do |lesson|
+      ref_counts = Hash.new(0)
+      lesson.segments.each { |segment| ref_counts[segment.ref] += 1 }
+      non_unique_refs = ref_counts.select { |_, count| count > 1 }.keys
 
-    ref_counts = segments.map(&:ref).each_with_object(Hash.new(0)) { |ref, counts| counts[ref] += 1 }
-    ref_counts.each do |ref, count|
-      next if count == 1
-
-      record.errors.add(attribute, "episode ref #{ref} is not unique")
+      non_unique_refs.each { |ref| record.errors.add(attribute, "segment ref #{ref} is not unique") }
     end
   end
 end
