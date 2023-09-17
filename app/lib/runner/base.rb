@@ -149,6 +149,23 @@ module Runner
       output
     end
 
+    def circulate_content_module(module_file:)
+      module_file ||= default_module_file
+
+      parser = Parser::Circulate.new(file: module_file)
+      content_module = parser.parse
+
+      image_extractor = ImageProvider::ContentModuleExtractor.new(content_module)
+      image_provider = ImageProvider::Provider.new(extractor: image_extractor)
+      image_provider.process
+      Renderer::ContentModule.new(content_module, image_provider:).render
+      Api::Alexandria::ContentModuleUploader.upload(content_module)
+      notify_content_module_success(content_module:)
+    rescue StandardError => e
+      notify_content_module_failure(content_module: defined?(content_module) ? content_module : nil, details: e.full_message)
+      raise e
+    end
+
     def default_publish_file
       raise 'Override this in a subclass please'
     end

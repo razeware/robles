@@ -10,6 +10,7 @@ module Util
     FAILURE_IMAGE_URL = 'https://wolverine.raywenderlich.com/v3-resources/razebot/images/object_errors.png'
     BOOK_ROBLES_CONTEXT_IMAGE_URL = 'https://wolverine.raywenderlich.com/v3-resources/razebot/images/object_box-of-books.png'
     VIDEO_COURSE_ROBLES_CONTEXT_IMAGE_URL = 'https://wolverine.raywenderlich.com/v3-resources/razebot/images/object-box-videos.png'
+    CONTENT_MODULE_ROBLES_CONTEXT_IMAGE_URL = 'https://wolverine.raywenderlich.com/v3-resources/razebot/images/object-box-content-module.png'
 
     def notify_book_success(book:)
       return unless notifiable?
@@ -33,6 +34,18 @@ module Util
       return unless notifiable?
 
       notifier.post(blocks: video_course_failure_blocks(video_course:, details: details || 'N/A'))
+    end
+
+    def notify_content_module_success(content_module:)
+      return unless notifiable?
+
+      notifier.post(blocks: content_module_success_blocks(content_module:))
+    end
+
+    def notify_content_module_failure(content_module:, details: nil)
+      return unless notifiable?
+
+      notifier.post(blocks: content_module_failure_blocks(content_module:, details: details || 'N/A'))
     end
 
     def notifiable?
@@ -106,6 +119,39 @@ module Util
           type: 'divider'
         },
         context(VIDEO_COURSE_ROBLES_CONTEXT_IMAGE_URL)
+      ]
+    end
+
+    def content_module_success_blocks(content_module:)
+      [
+        intro_section(fields: standard_content_module_fields(content_module:),
+                      message: ':white_check_mark: Content module upload successful!',
+                      image_url: CONTENT_MODULE_ROBLES_CONTEXT_IMAGE_URL,
+                      alt_text: 'Upload successful'),
+        {
+          type: 'divider'
+        },
+        context(CONTENT_MODULE_ROBLES_CONTEXT_IMAGE_URL)
+      ]
+    end
+
+    def content_module_failure_blocks(content_module:, details:)
+      [
+        intro_section(fields: standard_content_module_fields(content_module:),
+                      message: ':x: Content module upload failed!',
+                      image_url: FAILURE_IMAGE_URL,
+                      alt_text: 'Upload failed'),
+        {
+          type: 'section',
+          text: {
+            type: 'mrkdwn',
+            text: "```#{details}```"
+          }
+        },
+        {
+          type: 'divider'
+        },
+        context(CONTENT_MODULE_ROBLES_CONTEXT_IMAGE_URL)
       ]
     end
 

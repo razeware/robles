@@ -4,7 +4,7 @@
 
 class ContentModuleCli < Thor
   desc 'render', 'renders content modules'
-  option :'module_file', type: :string, desc: 'Location of the module.yaml file'
+  option :module_file, type: :string, desc: 'Location of the module.yaml file'
   option :local, type: :boolean
   def render
     runner.render_content_module(module_file: options['module_file'], local: options['local'])
@@ -24,12 +24,18 @@ class ContentModuleCli < Thor
   end
 
   desc 'lint [MODULE_FILE]', 'runs a selection of linters on the module'
-  option :'module_file', type: :string, desc: 'Location of the module.yaml file'
+  option :module_file, type: :string, desc: 'Location of the module.yaml file'
   method_options 'without-version': :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
   method_options silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
   def lint
     output = runner.lint_content_module(module_file: options['module_file'], options:)
     exit 1 unless output.validated || ENVIRONMENT == 'staging'
+  end
+
+  desc 'circulate [MODULE_FILE]', 'renders and circulates a content module'
+  option :module_file, type: :string, desc: 'Location of the module.yaml file'
+  def circulate
+    runner.circulate_content_module(module_file: options['module_file'])
   end
 
   private

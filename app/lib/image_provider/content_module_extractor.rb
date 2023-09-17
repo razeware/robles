@@ -3,10 +3,10 @@
 module ImageProvider
   # Extract all images from a video course
   class ContentModuleExtractor
-    attr_reader :video_course, :images
+    attr_reader :content_module, :images
 
-    def initialize(video_course)
-      @video_course = video_course
+    def initialize(content_module)
+      @content_module = content_module
       @images = []
     end
 
@@ -16,12 +16,24 @@ module ImageProvider
       end
     end
 
+    def extract_images_from_markdown(file)
+      MarkdownImageExtractor.images_from(file) if file && File.exist?(file)
+    end
+
     def uploaded_image_root_path
-      "videos/#{Digest::SHA2.hexdigest(video_course.shortcode)}/images"
+      "content_module/#{Digest::SHA2.hexdigest(content_module.shortcode)}/images"
     end
 
     def image_paths
-      video_course.image_attachment_paths
+      content_module.lessons.map do |lesson|
+        from_segments = lesson.segments.map do |segment|
+          next unless segment.respond_to?(:markdown_file)
+
+          extract_images_from_markdown(segment.markdown_file) + segment.image_attachment_paths
+        end
+
+        from_segments + lesson.image_attachment_paths
+      end.flatten.compact.uniq + content_module.image_attachment_paths
     end
   end
 end
