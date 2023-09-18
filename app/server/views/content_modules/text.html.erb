@@ -1,3 +1,9 @@
+<div class="o-alert l-alert-sticky <%= word_counter.exceeds_word_limit? ? 'o-alert--warning' : 'o-alert--info' %>">
+  Word count: <%= "#{word_counter.count} / #{word_counter.word_limit}" %>.
+  <%= "This chapter exceeds the word limit." if word_counter.exceeds_word_limit? %>
+</div>
+
+
 <header id="c-global-header" class="c-book-header" role="banner">
   <div class="l-flex-align-center--force">
 
@@ -14,7 +20,7 @@
       <li class="l-margin-all-0">
         <span class="l-font-header l-font-bold l-font-18 l-flex c-book-header__chapter-intro">
           <span class="c-book-header__chapter-title">
-            <span><%= segment.ordinal %>.</span> <span><%= segment.title %></span>
+            <span><%= segment.number %>.</span> <span><%= segment.title %></span>
           </span>
         </span>
       </li>
@@ -22,11 +28,26 @@
   </nav>
 
   <div class="c-global-header__user">
+    <div class="c-global-header__user-control l-margin-right-9">
+      <button class="o-text-button o-button-tooltip c-global-header__search" id="sun-button">
+        <i class="o-button__icon--left l-button__search-nav">
+          <svg class="o-button__svg--grey-regent"><title>Light</title><use xlink:href="#sun"/></svg>
+        </i>
+        <span class="o-tooltip o-tooltip--arrow-top o-tooltip--slim l-tooltip-book-tools">Light</span>
+      </button>
+
+      <button class="o-text-button o-button-tooltip c-global-header__search" id="moon-button">
+        <i class="o-button__icon--left l-button__search-nav">
+          <svg class="o-button__svg--grey-regent"><title>Dark</title><use xlink:href="#moon"/></svg>
+        </i>
+        <span class="o-tooltip o-tooltip--arrow-top o-tooltip--slim l-tooltip-book-tools">Dark</span>
+      </button>
+    </div>
   </div>
+
 </header>
 
 <div class="l-admin l-admin--sidebar-open">
-  <%= erb :'content_modules/_table_of_contents.html', locals: { content_module: content_module, current_segment: segment } %>
 
   <div class="l-book-chapter-content l-relative">
     <article class="c-written-tutorial c-book-chapter l-block l-block--688">
@@ -43,7 +64,6 @@
 
 
           <h1>
-            <span class="l-whitespace"><%= segment.ref %></span>
             <div>
               <span class="l-font-42 l-margin-6"><%= segment.title %></span>
               <span class="l-font-header l-font-17 l-font-normal l-no-font-spacing l-margin-6 l-line-height-1125">
@@ -57,7 +77,7 @@
       </header>
 
       <div class="c-written-tutorial__content l-block l-block--card-medium">
-        <%= segment.transcript %>
+        <%= segment.body %>
       </div>
 
     </article>

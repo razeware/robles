@@ -24,6 +24,10 @@ class RoblesContentModuleServer < Sinatra::Application
       "/assessments/#{segment.slug}"
     end
 
+    def text_path(segment)
+      "/texts/#{segment.slug}"
+    end
+
     def class_for_domain(course)
       if course.domains.count > 1
         'multi-domain'
@@ -88,6 +92,23 @@ class RoblesContentModuleServer < Sinatra::Application
         layout: :'content_modules/layout.html'
   end
 
+  get '/texts/:slug' do
+    @content_module = content_module(with_transcript: false)
+    segment = segment_for_slug(params[:slug])
+    raise Sinatra::NotFound unless segment.present?
+
+    lesson = @content_module.lessons.find { |p| p.segments.include?(segment) }
+
+    erb :'content_modules/text.html',
+        locals: {
+          segment:,
+          content_module: @content_module,
+          title: "robles Preview: #{segment.title}",
+          word_counter: word_counter_for_segment(segment)
+        },
+        layout: :'content_modules/layout.html'
+  end
+
   get '/assets/*' do
     local_url = File.join('/data/src/', params[:splat])
     raise Sinatra::NotFound unless acceptable_image_extension(File.extname(local_url)) && File.exist?(local_url)
@@ -111,6 +132,11 @@ class RoblesContentModuleServer < Sinatra::Application
 
   def render_string(content)
     Renderer::MarkdownStringRenderer.new(content:).render
+  end
+
+  def word_counter_for_segment(segment)
+    markdown = File.read(segment.markdown_file)
+    Linting::Markdown::WordCounter.new(markdown)
   end
 
   def segment_for_slug(slug)
