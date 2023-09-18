@@ -17,7 +17,7 @@ class ContentModuleCli < Thor
       if options[:dev]
         Guard.start(no_interactions: true)
       else
-        Guard.start(guardfile_contents: content_module_guardfile, watchdir: '../m3-devtest', no_interactions: true)
+        Guard.start(guardfile_contents: content_module_guardfile, watchdir: '/data/src', no_interactions: true)
       end
     end
     RoblesContentModuleServer.run!

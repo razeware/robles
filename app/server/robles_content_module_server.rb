@@ -144,7 +144,7 @@ class RoblesContentModuleServer < Sinatra::Application
   end
 
   def module_file
-    '../m3-devtest/module.yaml'
+    '/data/src/module.yaml'
   end
 
   def servable_image_url(local_url)
