@@ -12,16 +12,16 @@ class RoblesContentModuleServer < Sinatra::Application
   use Rack::LiveReload, host: 'localhost', source: :vendored
 
   helpers do
-    def slide_path(episode)
-      "/slides/#{episode.slug}"
+    def slide_path(segment)
+      "/slides/#{segment.slug}"
     end
 
-    def transcript_path(episode)
-      "/transcripts/#{episode.slug}"
+    def transcript_path(segment)
+      "/transcripts/#{segment.slug}"
     end
 
-    def assessment_path(episode)
-      "/assessments/#{episode.slug}"
+    def assessment_path(segment)
+      "/assessments/#{segment.slug}"
     end
 
     def class_for_domain(course)
@@ -49,43 +49,43 @@ class RoblesContentModuleServer < Sinatra::Application
 
   get '/' do
     @content_module = content_module(with_transcript: false)
-    erb :'videos/index.html', locals: { content_module: @content_module, title: "robles Preview: #{@content_module.title}" }, layout: :'videos/layout.html'
+    erb :'content_modules/index.html', locals: { content_module: @content_module, title: "robles Preview: #{@content_module.title}" }, layout: :'content_modules/layout.html'
   end
 
   get '/slides/:slug' do
     @content_module = content_module(with_transcript: false)
-    episode = episode_for_slug(params[:slug])
-    raise Sinatra::NotFound unless episode.present?
+    segment = segment_for_slug(params[:slug])
+    raise Sinatra::NotFound unless segment.present?
 
-    part = @content_module.parts.find { |p| p.episodes.include?(episode) }
+    lesson = @content_module.lessons.find { |p| p.segments.include?(segment) }
 
-    erb :'videos/episode_slide.html',
-        locals: { episode:, part:, content_module: @content_module, title: "robles Preview: #{episode.title}" },
-        layout: :'videos/layout.html'
+    erb :'content_modules/segment_slide.html',
+        locals: { segment:, lesson:, content_module: @content_module, title: "robles Preview: #{segment.title}" },
+        layout: :'content_modules/layout.html'
   end
 
   get '/transcripts/:slug' do
     @content_module = content_module(with_transcript: true)
-    episode = episode_for_slug(params[:slug])
-    raise Sinatra::NotFound unless episode.present?
+    segment = segment_for_slug(params[:slug])
+    raise Sinatra::NotFound unless segment.present?
 
-    part = @content_module.parts.find { |p| p.episodes.include?(episode) }
+    lesson = @content_module.lessons.find { |p| p.segments.include?(segment) }
 
-    erb :'videos/episode_transcript.html',
-        locals: { episode:, part:, content_module: @content_module, title: "robles Preview: #{episode.title}" },
-        layout: :'videos/layout.html'
+    erb :'content_modules/segment_transcript.html',
+        locals: { segment:, lesson:, content_module: @content_module, title: "robles Preview: #{segment.title}" },
+        layout: :'content_modules/layout.html'
   end
 
   get '/assessments/:slug' do
     @content_module = content_module(with_transcript: false)
-    episode = episode_for_slug(params[:slug])
-    raise Sinatra::NotFound unless episode.present?
+    segment = segment_for_slug(params[:slug])
+    raise Sinatra::NotFound unless segment.present?
 
-    part = @content_module.parts.find { |p| p.episodes.include?(episode) }
+    lesson = @content_module.lessons.find { |p| p.segments.include?(segment) }
 
-    erb :'videos/assessment.html',
-        locals: { episode:, part:, content_module: @content_module, title: "robles Preview: #{episode.title}" },
-        layout: :'videos/layout.html'
+    erb :'content_modules/assessment.html',
+        locals: { segment:, lesson:, content_module: @content_module, title: "robles Preview: #{segment.title}" },
+        layout: :'content_modules/layout.html'
   end
 
   get '/assets/*' do
@@ -113,12 +113,12 @@ class RoblesContentModuleServer < Sinatra::Application
     Renderer::MarkdownStringRenderer.new(content:).render
   end
 
-  def episode_for_slug(slug)
-    @content_module.parts.flat_map(&:episodes).find { |episode| episode.slug == slug }
+  def segment_for_slug(slug)
+    @content_module.lessons.flat_map(&:segments).find { |segment| segment.slug == slug }
   end
 
   def module_file
-    '/data/src/module.yaml'
+    '../m3-devtest/module.yaml'
   end
 
   def servable_image_url(local_url)

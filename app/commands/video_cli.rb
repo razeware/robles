@@ -57,7 +57,7 @@ class VideoCli < Thor
     release_file = options.fetch('release_file', runner.default_release_file)
     parser = Parser::Release.new(file: release_file)
     video_course = parser.parse
-    args = options.merge(video_course:).symbolize_keys
+    args = options.merge(data: video_course.parts.flat_map(&:episodes)).symbolize_keys
     snapshotter = Snapshotter::Slides.new(**args)
     snapshotter.generate
   end
