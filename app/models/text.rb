@@ -27,7 +27,7 @@ class Text
 
   # Used for serialisation
   def attributes
-    { title: nil, ordinal: nil, description: nil, body: nil, authors: [], free: false }.stringify_keys
+    { title: nil, ordinal: nil, description: nil, body: nil, authors: [], free: false, episode_type: nil }.stringify_keys
   end
 
   # Used for linting
@@ -42,5 +42,9 @@ class Text
       dedications: 'c-book-chapter__dedications',
       'team-bios': 'c-book-chapter__team'
     }[kind&.to_sym]
+  end
+
+  def episode_type
+    'text'
   end
 end
