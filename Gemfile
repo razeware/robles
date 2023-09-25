@@ -32,7 +32,7 @@ gem 'aws-sdk-s3', '~> 1.64'
 gem 'concurrent-ruby', '~> 1.1'
 
 # Interacting with github
-gem 'octokit', '~> 6'
+gem 'octokit', '~> 7'
 
 # Interface with libsodium
 gem 'rbnacl'
@@ -44,6 +44,9 @@ gem 'slack-notifier', '~> 2.3', '>= 2.3.2'
 gem 'sass-embedded', '~> 1.58'
 gem 'sinatra', '~> 3'
 gem 'thin'
+
+# Pinning google-protobuf so that it continues to build on ARM devices
+gem 'google-protobuf', '=3.22.0'
 
 # Controlling Chrome to create snapshots
 gem 'ferrum'
