@@ -29,7 +29,7 @@ module Parser
 
     # If we've read the captions path from the script file, it needs adjusting to be absolute
     def check_captions_path
-      return unless markdown_metadata&.include?(:captions_file)
+      return unless markdown_metadata&.include?(:captions_file) && markdown_metadata[:captions_file].present?
 
       @markdown_metadata[:captions_file] = apply_path(@markdown_metadata[:captions_file])
     end

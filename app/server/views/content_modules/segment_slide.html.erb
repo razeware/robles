@@ -1,0 +1,24 @@
+<div class="title-slide" id="slide-to-snapshot">
+  <h1>
+    <%= content_module.title %>
+  </h1>
+  <div class="slide-episode">
+    <% if content_module.lessons.count> 1 %>
+      <h2>Lesson <%= lesson.ordinal %>: <%= lesson.title %>
+      </h2>
+      <% end %>
+        <h3>
+          <%=segment.ref%>. <%= segment.title %>
+        </h3>
+  </div>
+
+  <div class="slide-domain--<%= class_for_domain(content_module) %>">
+
+  </div>
+
+  <% if content_module.featured_banner_image_url&.first&.url.present? %>
+    <figure>
+      <img src="<%= content_module.featured_banner_image_url&.first&.url %>">
+    </figure>
+    <% end %>
+</div>

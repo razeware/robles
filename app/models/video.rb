@@ -43,4 +43,9 @@ class Video
   def validation_name
     title
   end
+
+  # Content module videos are markdown files containing metadata
+  def markdown_file
+    script_file
+  end
 end
