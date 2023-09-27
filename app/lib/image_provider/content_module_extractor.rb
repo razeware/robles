@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ImageProvider
-  # Extract all images from a video course
+  # Extract all images from a content module
   class ContentModuleExtractor
     attr_reader :content_module, :images
 

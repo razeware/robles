@@ -14,7 +14,7 @@ class RoblesCli < Thor
   subcommand 'video', VideoCli
 
   desc 'module [SUBCOMMAND] ...ARGS', 'manage publication of content modules'
-  subcommand 'lo', ContentModuleCli
+  subcommand 'module', ContentModuleCli
 
   desc 'pablo [SUBCOMMAND] ...ARGS', 'manage publication of pablo'
   subcommand 'pablo', PabloCli
