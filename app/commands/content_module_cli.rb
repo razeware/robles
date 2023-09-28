@@ -11,7 +11,7 @@ class ContentModuleCli < Thor
   end
 
   desc 'serve', 'starts local preview server'
-  option :dev, type: :boolean, desc: 'Run in development mode (watch robles files, not book files)'
+  option :dev, type: :boolean, desc: 'Run in development mode (watch robles files, not module files)'
   def serve
     fork do
       if options[:dev]
@@ -57,7 +57,7 @@ class ContentModuleCli < Thor
 
 
   desc 'serve', 'starts local preview server'
-  option :dev, type: :boolean, desc: 'Run in development mode (watch robles files, not book files)'
+  option :dev, type: :boolean, desc: 'Run in development mode (watch robles files, not module files)'
   def serve
     fork do
       if options[:dev]
@@ -67,6 +67,29 @@ class ContentModuleCli < Thor
       end
     end
     RoblesContentModuleServer.run!
+  end
+
+  desc 'secrets [REPO]', 'configures a module repo with the necessary secrets'
+  long_desc <<-LONGDESC
+    `robles module secrets [REPO]` will upload the secrets requires to run robles on a
+    git repository containing a module.
+
+    You must ensure that the required secrets are provided as environment variables
+    before running this command:
+
+    GITHUB_TOKEN=
+    REPO_ALEXANDRIA_SERVICE_API_TOKEN_PRODUCTION=
+    REPO_ALEXANDRIA_SERVICE_API_TOKEN_STAGING=
+    REPO_AWS_ACCESS_KEY_ID_PRODUCTION=
+    REPO_AWS_ACCESS_KEY_ID_STAGING=
+    REPO_AWS_SECRET_ACCESS_KEY_PRODUCTION=
+    REPO_AWS_SECRET_ACCESS_KEY_STAGING=
+    REPO_SLACK_BOT_TOKEN=
+    REPO_SLACK_WEBHOOK_URL=
+  LONGDESC
+  def secrets(repo)
+    secrets_manager = RepoManagement::Secrets.new(repo:, mode: :content_module)
+    secrets_manager.apply_secrets
   end
 
   private
