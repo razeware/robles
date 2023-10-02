@@ -9,15 +9,15 @@ class ContentModule
 
   attr_accessor :shortcode, :version, :version_description, :title, :description_md,
                 :short_description, :released_at, :materials_url, :professional, :difficulty,
-                :platform, :language, :editor, :domains, :categories, :who_is_this_for_md,
-                :covered_concepts_md, :authors, :lessons, :git_commit_hash, :card_artwork_image,
+                :platform, :language, :editor, :domains, :categories, :who_is_this_for_md, :module_outcomes_md,
+                :covered_concepts_md, :authors, :lessons, :git_commit_hash,
                 :featured_banner_image, :twitter_card_image, :root_path, :access_personal,
                 :access_team
 
   attr_markdown :who_is_this_for, source: :who_is_this_for_md, file: false
   attr_markdown :covered_concepts, source: :covered_concepts_md, file: false
+  attr_markdown :outcomes, source: :module_outcomes_md, file: false
   attr_markdown :description, source: :description_md, file: false
-  attr_image :card_artwork_image_url, source: :card_artwork_image, variants: %i[original w560 w240]
   attr_image :featured_banner_image_url, source: :featured_banner_image, variants: %i[original w750 w225 w90]
   attr_image :twitter_card_image_url, source: :twitter_card_image, variants: %i[original w1800]
 
@@ -42,8 +42,8 @@ class ContentModule
     { shortcode: nil, version: nil, version_description: nil, title: nil,
       description: nil, short_description: nil, released_at: nil, materials_url: nil,
       professional: nil, difficulty: nil, platform: nil, language: nil, editor: nil, domains: [],
-      categories: [], who_is_this_for: nil, covered_concepts: nil, authors: [], lessons: [],
-      git_commit_hash: nil, card_artwork_image_url: [], featured_banner_image_url: [],
+      categories: [], who_is_this_for: nil, covered_concepts: nil, outcomes: nil, authors: [], lessons: [],
+      git_commit_hash: nil, featured_banner_image_url: [],
       twitter_card_image_url: [], access_personal: nil, access_team: nil }.stringify_keys
   end
 
