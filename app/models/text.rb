@@ -27,7 +27,7 @@ class Text
 
   # Used for serialisation
   def attributes
-    { title: nil, ordinal: nil, description: nil, body: nil, authors: [], free: false, episode_type: nil }.stringify_keys
+    { title: nil, ordinal: nil, description: nil, body: nil, authors: [], free: false, episode_type: nil, ref: nil }.stringify_keys
   end
 
   # Used for linting

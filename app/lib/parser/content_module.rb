@@ -10,7 +10,7 @@ module Parser
     VALID_SIMPLE_ATTRIBUTES = %i[shortcode version version_description title
                                  description_md short_description released_at materials_url
                                  professional difficulty platform language editor domains
-                                 categories who_is_this_for_md covered_concepts_md git_commit_hash
+                                 categories who_is_this_for_md module_outcomes_md covered_concepts_md git_commit_hash
                                  card_artwork_image featured_banner_image twitter_card_image
                                  access_personal access_team].freeze
 

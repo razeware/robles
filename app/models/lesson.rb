@@ -7,7 +7,7 @@ class Lesson
   include Concerns::ImageAttachable
   include Concerns::MarkdownRenderable
 
-  attr_accessor :title, :description, :ordinal, :segments
+  attr_accessor :title, :description, :ordinal, :ref, :segments
 
   validates :title, :ordinal, presence: true
 
@@ -18,7 +18,7 @@ class Lesson
 
   # Used for serialisation
   def attributes
-    { title: nil, description: nil, ordinal: nil, segments: [] }.stringify_keys
+    { title: nil, description: nil, ordinal: nil, segments: [], ref: nil }.stringify_keys
   end
 
   # Used for linting

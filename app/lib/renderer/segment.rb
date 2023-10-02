@@ -20,7 +20,7 @@ module Renderer
     end
 
     def render
-      logger.info "Beginning episode render: #{object.ordinal}: #{object.title}"
+      logger.info "Beginning segment render: #{object.ref}: #{object.title}"
       render_markdown
     end
   end
