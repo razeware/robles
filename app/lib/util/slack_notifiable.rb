@@ -197,6 +197,27 @@ module Util
       ]
     end
 
+    def standard_content_module_fields(content_module:)
+      [
+        {
+          type: 'mrkdwn',
+          text: "*Content Module*\n#{content_module&.title || '_unknown_'}"
+        },
+        {
+          type: 'mrkdwn',
+          text: "*Short Code*\n`#{content_module&.shortcode || 'unknown'}`"
+        },
+        {
+          type: 'mrkdwn',
+          text: "*Version*\n#{content_module&.version || '_unknown_'}"
+        },
+        {
+          type: 'mrkdwn',
+          text: "*Environment*\n`#{ENVIRONMENT}`"
+        }
+      ]
+    end
+
     def intro_section(fields:, message:, image_url:, alt_text:)
       {
         type: 'section',
