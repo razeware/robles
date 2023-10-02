@@ -35,9 +35,13 @@ class Assessment
     'assessment'
   end
 
+  def segment_type
+    'assessment'
+  end
+
   # Used for serialisation
   def attributes
-    { title: nil, ordinal: nil, description: nil, short_description: nil, ref: nil, episode_type: nil, assessment_type: nil }.stringify_keys
+    { title: nil, ordinal: nil, description: nil, short_description: nil, ref: nil, episode_type:, segment_type:, assessment_type: nil }.stringify_keys
   end
 
   # Used for linting

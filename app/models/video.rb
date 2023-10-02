@@ -33,10 +33,14 @@ class Video
     'video'
   end
 
+  def segment_type
+    'video'
+  end
+
   # Used for serialisation
   def attributes
     { title: nil, ordinal: nil, free: false, description: nil, short_description: nil, authors_notes: nil,
-      authors: [], transcript: nil, ref: nil, episode_type: }.stringify_keys
+      authors: [], transcript: nil, ref: nil, episode_type:, segment_type: }.stringify_keys
   end
 
   # Used for linting
