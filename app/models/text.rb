@@ -12,7 +12,11 @@ class Text
   attr_accessor :title, :ordinal, :ref, :description, :authors, :markdown_file, :root_path, :free, :kind
 
   attr_markdown :body, source: :markdown_file, file: true, wrapper_class: :wrapper_class
-  validates :title, :ordinal, :markdown_file, presence: true
+  validates :title, :ordinal, :ref, :markdown_file, presence: true
+  validate do |text|
+    # Check the ref is a string
+    errors.add(:ref, 'must be a string') unless text.ref.is_a?(String)
+  end
 
   def initialize(attributes = {})
     super

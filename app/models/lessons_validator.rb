@@ -23,7 +23,7 @@ class LessonsValidator < ActiveModel::EachValidator
       lesson.segments.each { |segment| ref_counts[segment.ref] += 1 }
       non_unique_refs = ref_counts.select { |_, count| count > 1 }.keys
 
-      non_unique_refs.each { |ref| record.errors.add(attribute, "segment ref #{ref} is not unique") }
+      non_unique_refs.each { |ref| record.errors.add(attribute, "(#{lesson.title}) segment ref #{ref} is not unique") }
     end
   end
 end
