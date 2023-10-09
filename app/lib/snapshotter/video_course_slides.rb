@@ -2,7 +2,7 @@
 
 module Snapshotter
   # Creates snapshots of all the slides in a video course
-  class ContentModule < Slides
+  class VideoCourseSlides < Slides
     def generate
       data.each do |episode|
         next unless episode.is_a?(Video)
