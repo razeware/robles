@@ -12,20 +12,20 @@ class RoblesContentModuleServer < Sinatra::Application
   use Rack::LiveReload, host: 'localhost', source: :vendored
 
   helpers do
-    def slide_path(segment)
-      "/slides/#{segment.slug}"
+    def slide_path(lesson, segment)
+      "/slides/#{lesson.slug}/#{segment.slug}"
     end
 
-    def transcript_path(segment)
-      "/transcripts/#{segment.slug}"
+    def transcript_path(lesson, segment)
+      "/transcripts/#{lesson.slug}/#{segment.slug}"
     end
 
-    def assessment_path(segment)
-      "/assessments/#{segment.slug}"
+    def assessment_path(lesson, segment)
+      "/assessments/#{lesson.slug}/#{segment.slug}"
     end
 
-    def text_path(segment)
-      "/texts/#{segment.slug}"
+    def text_path(lesson, segment)
+      "/texts/#{lesson.slug}/#{segment.slug}"
     end
 
     def class_for_domain(course)
@@ -56,48 +56,44 @@ class RoblesContentModuleServer < Sinatra::Application
     erb :'content_modules/index.html', locals: { content_module: @content_module, title: "robles Preview: #{@content_module.title}" }, layout: :'content_modules/layout.html'
   end
 
-  get '/slides/:slug' do
+  get '/slides/:lesson_slug/:slug' do
     @content_module = content_module(with_transcript: false)
-    segment = segment_for_slug(params[:slug])
+    lesson = lesson_for_slug(params[:lesson_slug])
+    segment = segment_for_slug(lesson, params[:slug])
     raise Sinatra::NotFound unless segment.present?
-
-    lesson = @content_module.lessons.find { |p| p.segments.include?(segment) }
 
     erb :'content_modules/segment_slide.html',
         locals: { segment:, lesson:, content_module: @content_module, title: "robles Preview: #{segment.title}" },
         layout: :'content_modules/layout.html'
   end
 
-  get '/transcripts/:slug' do
+  get '/transcripts/:lesson_slug/:slug' do
     @content_module = content_module(with_transcript: true)
-    segment = segment_for_slug(params[:slug])
+    lesson = lesson_for_slug(params[:lesson_slug])
+    segment = segment_for_slug(lesson, params[:slug])
     raise Sinatra::NotFound unless segment.present?
-
-    lesson = @content_module.lessons.find { |p| p.segments.include?(segment) }
 
     erb :'content_modules/segment_transcript.html',
         locals: { segment:, lesson:, content_module: @content_module, title: "robles Preview: #{segment.title}" },
         layout: :'content_modules/layout.html'
   end
 
-  get '/assessments/:slug' do
+  get '/assessments/:lesson_slug/:slug' do
     @content_module = content_module(with_transcript: false)
-    segment = segment_for_slug(params[:slug])
+    lesson = lesson_for_slug(params[:lesson_slug])
+    segment = segment_for_slug(lesson, params[:slug])
     raise Sinatra::NotFound unless segment.present?
-
-    lesson = @content_module.lessons.find { |p| p.segments.include?(segment) }
 
     erb :'content_modules/assessment.html',
         locals: { segment:, lesson:, content_module: @content_module, title: "robles Preview: #{segment.title}" },
         layout: :'content_modules/layout.html'
   end
 
-  get '/texts/:slug' do
+  get '/texts/:lesson_slug/:slug' do
     @content_module = content_module(with_transcript: false)
-    segment = segment_for_slug(params[:slug])
+    lesson = lesson_for_slug(params[:lesson_slug])
+    segment = segment_for_slug(lesson, params[:slug])
     raise Sinatra::NotFound unless segment.present?
-
-    lesson = @content_module.lessons.find { |p| p.segments.include?(segment) }
 
     erb :'content_modules/text.html',
         locals: {
@@ -139,8 +135,12 @@ class RoblesContentModuleServer < Sinatra::Application
     Linting::Markdown::WordCounter.new(markdown)
   end
 
-  def segment_for_slug(slug)
-    @content_module.lessons.flat_map(&:segments).find { |segment| segment.slug == slug }
+  def lesson_for_slug(slug)
+    @content_module.lessons.find { |lesson| lesson.slug == slug }
+  end
+
+  def segment_for_slug(lesson, slug)
+    lesson.segments.find { |segment| segment.slug == slug }
   end
 
   def module_file

@@ -44,14 +44,14 @@ class ContentModuleCli < Thor
   option :app_port, type: :string, default: '4567', desc: 'Port of host running robles app server'
   option :snapshot_host, type: :string, default: 'snapshot', desc: 'Hostname of host running headless chrome'
   option :snapshot_port, type: :string, default: '3000', desc: 'Port of host running headless chrome'
-  option :out_dir, type: :string, default: '/data/src/artwork/slides', desc: 'Location to save the output slides'
+  option :out_dir, type: :string, default: '/data/src/artwork/video-title-slides', desc: 'Location to save the output slides'
   def slides
     module_file = options.fetch('module_file', runner.default_module_file)
     parser = Parser::Circulate.new(file: module_file)
     content_module = parser.parse
     options.delete('module_file')
     args = options.merge(data: content_module.lessons.flat_map(&:segments), snapshot_host: 'localhost').symbolize_keys
-    snapshotter = Snapshotter::Slides.new(**args)
+    snapshotter = Snapshotter::ContentModuleSlides.new(**args)
     snapshotter.generate
   end
 

@@ -17,13 +17,11 @@ module Snapshotter
     end
 
     def generate
-      browser = Ferrum::Browser.new(url: "http://#{snapshot_host}:#{snapshot_port}", window_size: [1920, 1080], timeout: 15)
-      data.each do |episode|
-        next unless episode.is_a?(Video)
+      raise 'Override this in a subclass please'
+    end
 
-        browser.goto("#{app_base}/slides/#{episode.slug}")
-        browser.screenshot(path: "#{out_dir}/#{episode.slug}.png", selector: '#slide-to-snapshot')
-      end
+    def browser
+      @browser ||= Ferrum::Browser.new(url: "http://#{snapshot_host}:#{snapshot_port}", window_size: [1920, 1080], timeout: 15)
     end
 
     def app_base
