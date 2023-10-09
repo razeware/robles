@@ -5,7 +5,7 @@ require 'resolv'
 module Snapshotter
   # Creates snapshots of all the slides in a video course
   class Slides
-    attr_reader :app_host, :app_port, :snapshot_host, :snapshot_port, :out_dir
+    attr_reader :data, :app_host, :app_port, :snapshot_host, :snapshot_port, :out_dir
 
     def initialize(data:, app_host: 'app', app_port: 4567, snapshot_host: 'snapshot', snapshot_port: 3000, out_dir: '/data/src/slides') # rubocop:disable Metrics/ParameterLists
       @data = data
