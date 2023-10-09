@@ -2,7 +2,7 @@
 
 module Snapshotter
   # Creates snapshots of all the slides in a content module
-  class ContentModule < Slides
+  class ContentModuleSlides < Slides
     def generate
       data.each do |lesson|
         lesson.segments.each do |segment|
