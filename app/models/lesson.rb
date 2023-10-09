@@ -16,6 +16,10 @@ class Lesson
     @segments ||= []
   end
 
+  def slug
+    "#{ref}-#{title.parameterize}"
+  end
+
   # Used for serialisation
   def attributes
     { title: nil, description: nil, ordinal: nil, segments: [], ref: nil }.stringify_keys

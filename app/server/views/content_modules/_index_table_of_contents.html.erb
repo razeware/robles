@@ -12,13 +12,13 @@
       <div class="c-tutorial-segment">
         <div class="l-flex-align-start">
           <% if segment.is_a?(Video) %>
-            <h4><a href="<%= url(transcript_path(segment)) %>"><%= segment.title %></a></h4>
+            <h4><a href="<%= url(transcript_path(lesson, segment)) %>"><%= segment.title %></a></h4>
             <% if segment.free %><span class="o-badge">Free</span><% end %>
-            <a href="<%= url(slide_path(segment)) %>" class="o-badge o-badge-product--highlight">slide</a>
+            <a href="<%= url(slide_path(lesson, segment)) %>" class="o-badge o-badge-product--highlight">slide</a>
           <% elsif segment.is_a?(Assessment) %>
-            <h4><a href="<%= url(assessment_path(segment)) %>"><%= segment.title %></a></h4>
+            <h4><a href="<%= url(assessment_path(lesson, segment)) %>"><%= segment.title %></a></h4>
           <% elsif segment.is_a?(Text) %>
-            <h4><a href="<%= url(text_path(segment)) %>"><%= segment.title %></a></h4>
+            <h4><a href="<%= url(text_path(lesson, segment)) %>"><%= segment.title %></a></h4>
           <% end %>
         </div>
         <p><%= segment.description %></p>

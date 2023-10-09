@@ -26,7 +26,7 @@
             <ul class="c-box-list c-box-list--linked c-video-player__lesson-list c-video-player__lesson-list--open">
               <% lesson.segments.each do |segment| %>
                 <li class="<%= 'c-box-list__item--active' if segment == current_segment %>">
-                  <a href="<%= url(transcript_path(segment)) %>">
+                  <a href="<%= url(transcript_path(lesson, segment)) %>">
                     <span class="c-box-list__item-number"><%= segment.ref %>.</span>
                     <span class="c-box-list__item-title"><%= segment.title %></span>
                   </a>
