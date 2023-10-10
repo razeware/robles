@@ -9,7 +9,7 @@ module Snapshotter
           next unless segment.is_a?(Video)
 
           browser.goto("#{app_base}/slides/#{lesson.slug}/#{segment.slug}")
-          browser.screenshot(path: "#{out_dir}/#{lesson-ref}-#{segment.slug}.png", selector: '#slide-to-snapshot')
+          browser.screenshot(path: "#{out_dir}/#{lesson.ref}-#{segment.slug}.png", selector: '#slide-to-snapshot')
         end
       end
     end
