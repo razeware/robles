@@ -8,8 +8,8 @@ module Snapshotter
         lesson.segments.each do |segment|
           next unless segment.is_a?(Video)
 
-          browser.goto("#{app_base}/slides/#{lesson.slug}/#{episode.slug}")
-          browser.screenshot(path: "#{out_dir}/#{lesson-ref}-#{episode.slug}.png", selector: '#slide-to-snapshot')
+          browser.goto("#{app_base}/slides/#{lesson.slug}/#{segment.slug}")
+          browser.screenshot(path: "#{out_dir}/#{lesson-ref}-#{segment.slug}.png", selector: '#slide-to-snapshot')
         end
       end
     end
