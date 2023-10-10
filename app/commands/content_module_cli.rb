@@ -50,7 +50,7 @@ class ContentModuleCli < Thor
     parser = Parser::Circulate.new(file: module_file)
     content_module = parser.parse
     options.delete('module_file')
-    args = options.merge(data: content_module.lessons, snapshot_host: 'localhost').symbolize_keys
+    args = options.merge(data: content_module.lessons).symbolize_keys
     snapshotter = Snapshotter::ContentModuleSlides.new(**args)
     snapshotter.generate
   end
