@@ -8,15 +8,21 @@ module Linting
 
       def file_attribute_annotations
         file_path_list.map do |path|
-          next if relative_file_exists?(path)
+          if path.is_a?(Array)
+            relative_to = path.second
+            path = path.first
+          else
+            relative_to = file
+          end
+          next if relative_file_exists?(path, relative_to:)
 
           line = missing_file_line(path)
           Annotation.new(
             start_line: line,
             end_line: line,
-            absolute_path: file,
+            absolute_path: relative_to,
             annotation_level: 'failure',
-            message: "`release.yaml` includes references to unknown #{file_description} file: `#{path}",
+            message: "`#{relative_to}` includes references to unknown #{file_description} file: `#{path}",
             title: "Missing #{file_description} file"
           )
         end.compact
@@ -33,9 +39,9 @@ module Linting
       private
 
       # Check whether script file exists
-      def relative_file_exists?(path)
+      def relative_file_exists?(path, relative_to: nil)
         # Find path relative to the release.yaml file
-        file_path = Pathname.new(file).dirname.join(path)
+        file_path = Pathname.new(relative_to || file).dirname.join(path)
         # Check whether this exists
         file_exists?(file_path)
       end
@@ -43,7 +49,7 @@ module Linting
       # Search release.yaml line by line to find the file references
       def missing_file_line(path)
         File.readlines(file).each_with_index do |line, index|
-          return index + 1 if line.include?(path)
+          return index + 1 if line.include?(path.to_s)
         end
       end
     end
