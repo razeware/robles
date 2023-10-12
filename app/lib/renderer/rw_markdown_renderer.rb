@@ -22,7 +22,7 @@ module Renderer
       alt_text = node.each.select { |child| child.type == :text }.map { |child| escape_html(child.string_content) }.join(' ')
       classes = class_list(alt_text)
 
-      if width_class?(alt_text)
+      if width_class?(alt_text) || @image_provider.width_required == false
         out('<figure title="', title, '"', ' class="', classes, '">')
         out('  <picture>')
         if svg?(alt_text, node.url)

@@ -19,7 +19,7 @@ module Runner
       parser = Parser::Publish.new(file: publish_file)
       book = parser.parse
       image_extractor = ImageProvider::BookExtractor.new(book)
-      image_provider = local ? nil : ImageProvider::Provider.new(extractor: image_extractor)
+      image_provider = local ? nil : ImageProvider::Provider.new(extractor: image_extractor, width_required: true)
       image_provider&.process
       renderer = Renderer::Book.new(book, image_provider:)
       renderer.render
@@ -31,7 +31,7 @@ module Runner
       parser = Parser::Publish.new(file: publish_file)
       book = parser.parse
       image_extractor = ImageProvider::BookExtractor.new(book)
-      image_provider = ImageProvider::Provider.new(extractor: image_extractor)
+      image_provider = ImageProvider::Provider.new(extractor: image_extractor, width_required: true)
       image_provider.process
       Renderer::Book.new(book, image_provider:).render
       Api::Alexandria::BookUploader.upload(book)
@@ -60,7 +60,7 @@ module Runner
       parser = Parser::Release.new(file: release_file)
       video_course = parser.parse
       image_extractor = ImageProvider::VideoCourseExtractor.new(video_course)
-      image_provider = local ? nil : ImageProvider::Provider.new(extractor: image_extractor)
+      image_provider = local ? nil : ImageProvider::Provider.new(extractor: image_extractor, width_required: false)
       image_provider&.process
       renderer = Renderer::VideoCourse.new(video_course, image_provider:)
       renderer.render
@@ -112,7 +112,7 @@ module Runner
       output ||= default_pablo_output
 
       image_extractor = ImageProvider::DirectoryExtractor.new(source)
-      image_provider = ImageProvider::Provider.new(extractor: image_extractor)
+      image_provider = ImageProvider::Provider.new(extractor: image_extractor, width_required: false)
       image_provider.process
 
       paths = image_extractor.categories.map { "/#{_1}" }.push('/', '/license', '/instructions', '/styles.css', '/javascript/search.js')
@@ -130,7 +130,7 @@ module Runner
       parser = Parser::Circulate.new(file: module_file)
       content_module = parser.parse
       image_extractor = ImageProvider::ContentModuleExtractor.new(content_module)
-      image_provider = local ? nil : ImageProvider::Provider.new(extractor: image_extractor)
+      image_provider = local ? nil : ImageProvider::Provider.new(extractor: image_extractor, width_required: false)
       image_provider&.process
       renderer = Renderer::ContentModule.new(content_module, image_provider:)
       renderer.render
@@ -156,7 +156,7 @@ module Runner
       content_module = parser.parse
 
       image_extractor = ImageProvider::ContentModuleExtractor.new(content_module)
-      image_provider = ImageProvider::Provider.new(extractor: image_extractor)
+      image_provider = ImageProvider::Provider.new(extractor: image_extractor, width_required: false)
       image_provider.process
       Renderer::ContentModule.new(content_module, image_provider:).render
       Api::Alexandria::ContentModuleUploader.upload(content_module)

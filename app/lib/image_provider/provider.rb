@@ -5,10 +5,11 @@ module ImageProvider
   class Provider
     include Util::Logging
 
-    attr_reader :extractor
+    attr_reader :extractor, :width_required
 
-    def initialize(extractor:)
+    def initialize(extractor:, width_required:)
       @extractor = extractor
+      @width_required = width_required
     end
 
     def process
