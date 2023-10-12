@@ -18,6 +18,8 @@ module Parser
     def apply!
       check_captions_path
       video.assign_attributes(simple_attributes)
+      # Need to extract the ID from the URL, if one has been provided
+      video.vimeo_id = metadata[:vimeo_id]&.to_s&.match(/(\d+)$/)&.values_at(1)&.first
       video.authors += authors if authors.present?
     end
 
