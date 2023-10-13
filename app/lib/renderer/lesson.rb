@@ -10,7 +10,7 @@ module Renderer
     attr_accessor :disable_transcripts
 
     def render
-      logger.info "Beginning lesson render: #{object.title}"
+      logger.info "Beginning lesson render: #{object.ref} #{object.title}"
       attach_images
       render_markdown
       object.segments.each do |segment|
