@@ -36,7 +36,7 @@ class LessonsValidator < ActiveModel::EachValidator
       lesson.segments.each { |segment| title_counts[segment.title] += 1 }
       non_unique_titles = title_counts.select { |_, count| count > 1 }.keys
 
-      non_unique_titles.each { |title| record.errors.add(attribute, "(#{lesson}) segment title #{title} is not unique") }
+      non_unique_titles.each { |title| record.errors.add(attribute, "(#{lesson.title}) segment title #{title} is not unique") }
     end
   end
 end
