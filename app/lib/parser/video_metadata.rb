@@ -18,6 +18,8 @@ module Parser
     def apply!
       check_captions_path
       video.assign_attributes(simple_attributes)
+      # Need to extract the ID from the URL, if one has been provided
+      video.vimeo_id = metadata[:vimeo_id]&.to_s&.match(/(\d+)$/)&.values_at(1)&.first
       video.authors += authors if authors.present?
     end
 
@@ -29,7 +31,7 @@ module Parser
 
     # If we've read the captions path from the script file, it needs adjusting to be absolute
     def check_captions_path
-      return unless markdown_metadata&.include?(:captions_file)
+      return unless markdown_metadata&.include?(:captions_file) && markdown_metadata[:captions_file].present?
 
       @markdown_metadata[:captions_file] = apply_path(@markdown_metadata[:captions_file])
     end

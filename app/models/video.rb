@@ -8,7 +8,7 @@ class Video
   include Concerns::MarkdownRenderable
 
   attr_accessor :title, :ordinal, :free, :description_md, :short_description, :authors_notes_md,
-                :authors, :script_file, :root_path, :captions_file, :ref
+                :authors, :script_file, :root_path, :captions_file, :ref, :vimeo_id
 
   attr_markdown :description, source: :description_md, file: false
   attr_markdown :authors_notes, source: :authors_notes_md, file: false
@@ -33,14 +33,23 @@ class Video
     'video'
   end
 
+  def segment_type
+    'video'
+  end
+
   # Used for serialisation
   def attributes
     { title: nil, ordinal: nil, free: false, description: nil, short_description: nil, authors_notes: nil,
-      authors: [], transcript: nil, ref: nil, episode_type: }.stringify_keys
+      authors: [], transcript: nil, ref: nil, vimeo_id: nil, episode_type:, segment_type: }.stringify_keys
   end
 
   # Used for linting
   def validation_name
     title
+  end
+
+  # Content module videos are markdown files containing metadata
+  def markdown_file
+    script_file
   end
 end

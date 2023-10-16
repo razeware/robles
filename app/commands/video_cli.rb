@@ -7,7 +7,6 @@ class VideoCli < Thor
   option :local, type: :boolean
   def render
     video_course = runner.render_video_course(release_file: options['release_file'], local: options['local'])
-    puts video_course.to_json
   end
 
   desc 'serve', 'starts local preview server'
@@ -58,8 +57,8 @@ class VideoCli < Thor
     release_file = options.fetch('release_file', runner.default_release_file)
     parser = Parser::Release.new(file: release_file)
     video_course = parser.parse
-    args = options.merge(video_course:).symbolize_keys
-    snapshotter = Snapshotter::Slides.new(**args)
+    args = options.merge(data: video_course.parts.flat_map(&:episodes)).symbolize_keys
+    snapshotter = Snapshotter::VideoCourseSlides.new(**args)
     snapshotter.generate
   end
 

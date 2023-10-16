@@ -19,6 +19,10 @@ module Runner
       Pathname.new(GITHUB_WORKSPACE).join('release.yaml').to_s
     end
 
+    def default_module_file
+      Pathname.new(GITHUB_WORKSPACE).join('module.yaml').to_s
+    end
+
     def default_pablo_source
       Pathname.new(GITHUB_WORKSPACE).join('images').to_s
     end

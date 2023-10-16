@@ -19,7 +19,7 @@ module Runner
       parser = Parser::Publish.new(file: publish_file)
       book = parser.parse
       image_extractor = ImageProvider::BookExtractor.new(book)
-      image_provider = local ? nil : ImageProvider::Provider.new(extractor: image_extractor)
+      image_provider = local ? nil : ImageProvider::Provider.new(extractor: image_extractor, width_required: true)
       image_provider&.process
       renderer = Renderer::Book.new(book, image_provider:)
       renderer.render
@@ -31,7 +31,7 @@ module Runner
       parser = Parser::Publish.new(file: publish_file)
       book = parser.parse
       image_extractor = ImageProvider::BookExtractor.new(book)
-      image_provider = ImageProvider::Provider.new(extractor: image_extractor)
+      image_provider = ImageProvider::Provider.new(extractor: image_extractor, width_required: true)
       image_provider.process
       Renderer::Book.new(book, image_provider:).render
       Api::Alexandria::BookUploader.upload(book)
@@ -60,7 +60,7 @@ module Runner
       parser = Parser::Release.new(file: release_file)
       video_course = parser.parse
       image_extractor = ImageProvider::VideoCourseExtractor.new(video_course)
-      image_provider = local ? nil : ImageProvider::Provider.new(extractor: image_extractor)
+      image_provider = local ? nil : ImageProvider::Provider.new(extractor: image_extractor, width_required: false)
       image_provider&.process
       renderer = Renderer::VideoCourse.new(video_course, image_provider:)
       renderer.render
@@ -74,7 +74,7 @@ module Runner
       video_course = parser.parse
 
       image_extractor = ImageProvider::VideoCourseExtractor.new(video_course)
-      image_provider = ImageProvider::Provider.new(extractor: image_extractor)
+      image_provider = ImageProvider::Provider.new(extractor: image_extractor, width_required: false)
       image_provider.process
       Renderer::VideoCourse.new(video_course, image_provider:).render
       Api::Betamax::VideoCourseUploader.upload(video_course)
@@ -112,7 +112,7 @@ module Runner
       output ||= default_pablo_output
 
       image_extractor = ImageProvider::DirectoryExtractor.new(source)
-      image_provider = ImageProvider::Provider.new(extractor: image_extractor)
+      image_provider = ImageProvider::Provider.new(extractor: image_extractor, width_required: false)
       image_provider.process
 
       paths = image_extractor.categories.map { "/#{_1}" }.push('/', '/license', '/instructions', '/styles.css', '/javascript/search.js')
@@ -123,7 +123,54 @@ module Runner
                               })
     end
 
+    # module
+    def render_content_module(module_file:, local: false)
+      module_file ||= default_module_file
+
+      parser = Parser::Circulate.new(file: module_file)
+      content_module = parser.parse
+      image_extractor = ImageProvider::ContentModuleExtractor.new(content_module)
+      image_provider = local ? nil : ImageProvider::Provider.new(extractor: image_extractor, width_required: false)
+      image_provider&.process
+      renderer = Renderer::ContentModule.new(content_module, image_provider:)
+      renderer.render
+      content_module
+    end
+
+    def lint_content_module(module_file:, options: {})
+      module_file ||= default_module_file
+      logger.info("Attempting to lint using release file at #{module_file}")
+
+      CLI::UI::StdoutRouter.enable unless options['silent']
+
+      linter = Linting::ContentModuleLinter.new(file: module_file)
+      output = linter.lint(options:)
+      Cli::OutputFormatter.render(output) unless options['silent']
+      output
+    end
+
+    def circulate_content_module(module_file:)
+      module_file ||= default_module_file
+
+      parser = Parser::Circulate.new(file: module_file)
+      content_module = parser.parse
+
+      image_extractor = ImageProvider::ContentModuleExtractor.new(content_module)
+      image_provider = ImageProvider::Provider.new(extractor: image_extractor, width_required: false)
+      image_provider.process
+      Renderer::ContentModule.new(content_module, image_provider:).render
+      Api::Alexandria::ContentModuleUploader.upload(content_module)
+      notify_content_module_success(content_module:)
+    rescue StandardError => e
+      notify_content_module_failure(content_module: defined?(content_module) ? content_module : nil, details: e.full_message)
+      raise e
+    end
+
     def default_publish_file
+      raise 'Override this in a subclass please'
+    end
+
+    def default_module_file
       raise 'Override this in a subclass please'
     end
 

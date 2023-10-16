@@ -7,13 +7,15 @@ services:
       # When working on videos
       #- ../videos/video-aiar:/data/src
       # When working on books
-      - ../../books/alg:/data/src
+      #- ../../books/alg:/data/src
       # When working on pablo
       #- ../../sites/pablo:/data/src
-    command: bin/robles video serve
+      # When working on m3
+      - ../../m3/m3-devtest:/data/src
+    command: bin/robles module serve
     env_file: .env
     environment:
-      - IMAGES_CDN_HOST=assets.robles.raywenderlich.com
+      - IMAGES_CDN_HOST=assets.robles.kodeco.com
     ports:
       - "4567:4567"
       - "35729:35729"

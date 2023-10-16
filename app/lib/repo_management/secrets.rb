@@ -44,7 +44,7 @@ module RepoManagement
     end
 
     def apply_secret(name, value)
-      client.create_or_update_secret(repo, name.upcase, options_for_secret(value))
+      client.create_or_update_actions_secret(repo, name.upcase, options_for_secret(value))
     end
 
     def options_for_secret(value)
@@ -65,7 +65,7 @@ module RepoManagement
     end
 
     def public_key
-      @public_key ||= client.get_public_key(repo)
+      @public_key ||= client.get_actions_public_key(repo)
     end
 
     def client
