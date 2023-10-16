@@ -113,7 +113,7 @@
    ========================================================================== */
 
 /* Title slide is a bigger size than video to go to a video file. So we need to scale all the sizes up */
-/* 2022 Oct sizing for carolus is height: 602px, width: 1072px.*/
+/* 2022 Oct sizing for carolus is height: 588px, width: 1036px.*/
 $slide-ratio: 1.8;
 
 .title-slide {
@@ -145,29 +145,29 @@ $slide-ratio: 1.8;
     bottom: 32px * $slide-ratio;
 
     h2 {
-      font-size: 16px * $slide-ratio;
-      line-height: 1.25;
+      font-size: 12px * $slide-ratio;
+      line-height: 1;
+      letter-spacing: 2px !important;
+      text-transform: uppercase;
       font-family: 'Relative', sans-serif;
-      font-weight: 400;
+      font-weight: 500;
       text-align: left;
-      padding-bottom: 16px * $slide-ratio;
-      /* Max-width is roughly 55%, but percentage doesn't work cos absolute positioning... */
-      max-width: 587px * $slide-ratio;
+      padding-bottom: 8px * $slide-ratio;
+      /* Max-width is roughly 75%, but percentage doesn't work cos absolute positioning... */
+      max-width: 713px * $slide-ratio;
     }
 
     h3 {
       font-size: 40px * $slide-ratio;
       font-family: 'Relative', sans-serif;
-      font-weight: 400;
       line-height: 1.25;
-      /* Max-width is roughly 55%, but percentage doesn't work cos absolute positioning... */
-      max-width: 587px * $slide-ratio;
+      /* Max-width is roughly 75%, but percentage doesn't work cos absolute positioning... and -64px to match carolus */
+      max-width: 713px * $slide-ratio;
     }
   }
 
   figure {
-    width: 252px * $slide-ratio;
-    height: 252px * $slide-ratio;
+    width: 21%;
     position: absolute;
     bottom: 32px * $slide-ratio;
     right: 32px * $slide-ratio;
@@ -227,6 +227,24 @@ $slide-ratio: 1.8;
     &--multi-domain {
       @extend .slide-domain;
       background-color: #AC9FAB;
+    }
+  }
+}
+
+.segment-slide {
+  h1 {
+    max-width: 100%;
+    padding-right: 32px * $slide-ratio;
+  }
+  .slide-episode {
+    h2 {
+      text-transform: unset;
+      letter-spacing: normal !important;
+      font-weight: 400;
+    }
+
+    h3 {
+      font-size: 24px * $slide-ratio;
     }
   }
 }
