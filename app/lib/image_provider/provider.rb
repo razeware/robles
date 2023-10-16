@@ -7,7 +7,7 @@ module ImageProvider
 
     attr_reader :extractor, :width_required
 
-    def initialize(extractor:, width_required:)
+    def initialize(extractor:, width_required: true)
       @extractor = extractor
       @width_required = width_required
     end

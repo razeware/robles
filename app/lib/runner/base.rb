@@ -74,7 +74,7 @@ module Runner
       video_course = parser.parse
 
       image_extractor = ImageProvider::VideoCourseExtractor.new(video_course)
-      image_provider = ImageProvider::Provider.new(extractor: image_extractor)
+      image_provider = ImageProvider::Provider.new(extractor: image_extractor, width_required: false)
       image_provider.process
       Renderer::VideoCourse.new(video_course, image_provider:).render
       Api::Betamax::VideoCourseUploader.upload(video_course)
