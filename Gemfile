@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 # Stealing some bits from rails
-gem 'activemodel', '~> 7.0'
-gem 'activesupport', '~> 7.0'
+gem 'activemodel', '< 7.2'
+gem 'activesupport', '< 7.2'
 # Autoloading explictly will use zeitwerk
 gem 'zeitwerk', '~> 2.3'
 
