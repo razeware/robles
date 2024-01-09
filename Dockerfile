@@ -1,4 +1,4 @@
-FROM ruby:3.2-alpine
+FROM ruby:3.3-alpine
 LABEL maintainer=engineering@kodeco.com
 
 LABEL com.github.actions.name="robles"
