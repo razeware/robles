@@ -13,7 +13,9 @@ gem 'cli-ui', '~> 2'
 gem 'thor', '~> 1.0', '>= 1.0.1'
 
 # Markdown processing
-gem 'commonmarker'
+# >= 1 switches out the underlying library to one that does not support musl
+# Currently, there are no plans to support it, so let's lock to < 1
+gem 'commonmarker', '< 1'
 
 # HTTP Client
 gem 'faraday', '~> 2'

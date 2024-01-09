@@ -47,7 +47,7 @@ module Parser
 
       lesson[:segments].map do |segment|
         segment_path = "#{lesson_path}/#{segment[:path]}"
-        send("parse_#{segment[:type]}".to_sym, segment_path)
+        send(:"parse_#{segment[:type]}", segment_path)
       end
     end
 

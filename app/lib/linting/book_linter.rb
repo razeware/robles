@@ -117,7 +117,7 @@ module Linting
         parser.parse
       end
     rescue Parser::Error => e
-      line_number = (e.message.match(/at line (\d+)/)&.captures&.first&.to_i || 0) + 1
+      line_number = e.message.match(/at line (\d+)/)&.captures&.first.to_i + 1
       annotations.push(
         Annotation.new(
           absolute_path: e.file,

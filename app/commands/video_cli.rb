@@ -6,7 +6,7 @@ class VideoCli < Thor
   option :'release-file', type: :string, desc: 'Location of the release.yaml file'
   option :local, type: :boolean
   def render
-    video_course = runner.render_video_course(release_file: options['release_file'], local: options['local'])
+    runner.render_video_course(release_file: options['release_file'], local: options['local'])
   end
 
   desc 'serve', 'starts local preview server'
@@ -39,8 +39,8 @@ class VideoCli < Thor
 
   desc 'lint [RELEASE_FILE]', 'runs a selection of linters on the video course'
   option :'release-file', type: :string, desc: 'Location of the release.yaml file'
-  method_option 'without-version': :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
-  method_option silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
+  method_option :'without-version', type: :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
+  method_option :silent, type: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
   def lint
     output = runner.lint_video_course(release_file: options['publish_file'], options:)
     exit 1 unless output.validated || ENVIRONMENT == 'staging'

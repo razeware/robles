@@ -32,7 +32,7 @@ module Concerns
         rendered = block.call(content, attribute[:file], vtt_file)
         rendered = wrap_render(rendered, attribute[:wrapper_class])
 
-        send("#{attribute[:destination]}=".to_sym, rendered)
+        send(:"#{attribute[:destination]}=", rendered)
       end
     end
 

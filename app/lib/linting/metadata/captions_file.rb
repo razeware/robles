@@ -40,13 +40,14 @@ module Linting
       def module_captions
         caption_files = ModuleFile.new(file:, attributes:).file_path_list
         caption_files.map do |file|
-          captions_file = if yaml?(file)
-            load_yaml(File.read(file)).deep_symbolize_keys[:captions_file]
-          else
-            @markdown_metadata = nil
-            @path = file
-            markdown_metadata[:captions_file]
-          end
+          captions_file =
+            if yaml?(file)
+              load_yaml(File.read(file)).deep_symbolize_keys[:captions_file]
+            else
+              @markdown_metadata = nil
+              @path = file
+              markdown_metadata[:captions_file]
+            end
           next unless captions_file.present?
 
           [captions_file, file]

@@ -3,7 +3,7 @@
 require 'rack-livereload'
 
 # A local preview server for robles
-class RoblesVideoServer < Sinatra::Application # rubocop:disable Metrics/ClassLength
+class RoblesVideoServer < Sinatra::Application
   set :bind, '0.0.0.0'
   set :views, "#{__dir__}/views"
   set :public_folder, "#{__dir__}/public"
@@ -11,7 +11,7 @@ class RoblesVideoServer < Sinatra::Application # rubocop:disable Metrics/ClassLe
 
   use Rack::LiveReload, host: 'localhost', source: :vendored
 
-  helpers do # rubocop:disable Metrics/BlockLength
+  helpers do
     def slide_path(episode)
       "/slides/#{episode.slug}"
     end
