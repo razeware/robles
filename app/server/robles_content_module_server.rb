@@ -3,7 +3,7 @@
 require 'rack-livereload'
 
 # A local preview server for robles
-class RoblesContentModuleServer < Sinatra::Application
+class RoblesContentModuleServer < Sinatra::Application # rubocop:disable Metrics/ClassLength
   set :bind, '0.0.0.0'
   set :views, "#{__dir__}/views"
   set :public_folder, "#{__dir__}/public"

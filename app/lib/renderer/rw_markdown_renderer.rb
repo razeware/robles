@@ -15,7 +15,7 @@ module Renderer
       @root_path = root_path
     end
 
-    def image(node) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity
+    def image(node) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
       return super(node) if image_provider.blank?
 
       title = node.title.present? ? escape_html(node.title) : ''

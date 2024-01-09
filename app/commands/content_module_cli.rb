@@ -55,20 +55,6 @@ class ContentModuleCli < Thor
     snapshotter.generate
   end
 
-
-  desc 'serve', 'starts local preview server'
-  option :dev, type: :boolean, desc: 'Run in development mode (watch robles files, not module files)'
-  def serve
-    fork do
-      if options[:dev]
-        Guard.start(no_interactions: true)
-      else
-        Guard.start(guardfile_contents: content_module_guardfile, watchdir: './', no_interactions: true)
-      end
-    end
-    RoblesContentModuleServer.run!
-  end
-
   desc 'secrets [REPO]', 'configures a module repo with the necessary secrets'
   long_desc <<-LONGDESC
     `robles module secrets [REPO]` will upload the secrets requires to run robles on a

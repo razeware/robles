@@ -6,7 +6,7 @@ class VideoCli < Thor
   option :'release-file', type: :string, desc: 'Location of the release.yaml file'
   option :local, type: :boolean
   def render
-    video_course = runner.render_video_course(release_file: options['release_file'], local: options['local'])
+    runner.render_video_course(release_file: options['release_file'], local: options['local'])
   end
 
   desc 'serve', 'starts local preview server'

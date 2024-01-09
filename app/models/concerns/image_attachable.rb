@@ -48,7 +48,7 @@ module Concerns
         representations = block.call(local_url)
                                .filter { |r| attribute[:variants].include?(r.variant) }
                                .uniq(&:variant)
-        send("#{attribute[:destination]}=".to_sym, representations)
+        send(:"#{attribute[:destination]}=", representations)
       end
     end
   end
