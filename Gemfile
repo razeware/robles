@@ -13,7 +13,7 @@ gem 'cli-ui', '~> 2'
 gem 'thor', '~> 1.0', '>= 1.0.1'
 
 # Markdown processing
-gem 'commonmarker'
+gem 'commonmarker', '< 1'
 
 # HTTP Client
 gem 'faraday', '~> 2'
