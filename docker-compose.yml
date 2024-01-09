@@ -1,7 +1,11 @@
 version: '3.7'
 services:
   app:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - RUBY_ENV=development
     volumes:
       - .:/app/robles
       # When working on videos
@@ -16,6 +20,7 @@ services:
     env_file: .env
     environment:
       - IMAGES_CDN_HOST=assets.robles.kodeco.com
+      - RUBY_ENV=development
     ports:
       - "4567:4567"
       - "35729:35729"

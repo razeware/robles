@@ -1,11 +1,7 @@
-FROM ruby:3.3-alpine
-LABEL maintainer=engineering@kodeco.com
+ARG RUBY_ENV
 
-LABEL com.github.actions.name="robles"
-LABEL com.github.actions.author="Kodeco <engineering@kodeco.com>"
-LABEL com.github.actions.description="Content publication for kodeco.com"
-LABEL com.github.actions.color="purple"
-LABEL com.github.actions.icon="book"
+FROM ruby:3.2-alpine AS builder
+LABEL maintainer=engineering@kodeco.com
 
 ARG APP_ROOT=/app/robles
 ARG BUILD_PACKAGES="build-base git"
@@ -41,3 +37,52 @@ RUN bundle install --jobs 20 --retry 5
 
 # Copy the main application.
 COPY . ./
+
+# Remove extra files
+RUN rm -rf /usr/local/bundle/cache/*
+
+
+##############################
+# PACKAGE STAGE              #
+##############################
+FROM ruby:3.2-alpine
+LABEL maintainer=engineering@kodeco.com
+LABEL com.github.actions.name="robles"
+LABEL com.github.actions.author="Kodeco <engineering@kodeco.com>"
+LABEL com.github.actions.description="Content publication for kodeco.com"
+LABEL com.github.actions.color="purple"
+LABEL com.github.actions.icon="book"
+
+ARG APP_ROOT=/app/robles
+ARG RUBY_ENV=${RUBY_ENV:-production}
+
+ENV RUBY_ENV=${RUBY_ENV}
+
+ARG RUNTIME_PACKAGES="imagemagick git tzdata"
+ARG TEST_AND_DEV_PACKAGES="bash build-base libsodium-dev"
+
+# SYSLOG TO STDOUT
+RUN \
+  touch /var/log/syslog && \
+  ln -sf /proc/1/fd/1 /var/log/syslog
+
+# libsodium
+COPY --from=builder /usr/lib/libsodium.so* /usr/lib/
+# Copy the app from builder
+COPY --from=builder $APP_ROOT $APP_ROOT
+COPY --from=builder /usr/local/bundle /usr/local/bundle
+
+# Set the working directory
+WORKDIR $APP_ROOT
+
+# For runtime
+RUN apk update \
+    && apk upgrade \
+    && apk add --update --no-cache $RUNTIME_PACKAGES \
+    && rm -rf /var/cache/apk/*
+
+# Test and dev packages
+RUN if [ "$RUBY_ENV" == "test" -o "$RUBY_ENV" == "development" ]; then \
+    apk add --update --no-cache $TEST_AND_DEV_PACKAGES \
+      && rm -rf /var/cache/apk/*; \
+  fi
