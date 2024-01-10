@@ -12,6 +12,7 @@ class Lesson
   attr_markdown :description, source: :description_md, file: false
   attr_markdown :learning_objectives, source: :learning_objectives_md, file: false
   validates :title, :ordinal, :ref, presence: true
+  validates :segments, length: { minimum: 1 }, allow_blank: false, segments: true
 
   def initialize(attributes = {})
     super
