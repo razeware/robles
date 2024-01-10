@@ -8,8 +8,11 @@ module Linting
 
       attr_reader :markdown_file
 
-      def lint_markdown_images
-        _md_generate_annotations(_md_non_existent_images, :non_existent) + _md_generate_annotations(_md_images_missing_width, :missing_width)
+      def lint_markdown_images(check_width: true)
+        annotations = _md_generate_annotations(_md_non_existent_images, :non_existent)
+        return annotations unless check_width
+
+        annotations + _md_generate_annotations(_md_images_missing_width, :missing_width)
       end
 
       private
