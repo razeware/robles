@@ -5,12 +5,13 @@ module Util
   module SlackNotifiable # rubocop:disable Metrics/ModuleLength
     extend ActiveSupport::Concern
 
-    BOOK_SUCCESS_IMAGE_URL = 'https://wolverine.raywenderlich.com/v3-resources/razebot/images/object_textkit-book.png'
-    VIDEO_COURSE_SUCCESS_IMAGE_URL = 'https://wolverine.raywenderlich.com/v3-resources/razebot/images/device-device_ui-flow-chart.png'
-    FAILURE_IMAGE_URL = 'https://wolverine.raywenderlich.com/v3-resources/razebot/images/object_errors.png'
-    BOOK_ROBLES_CONTEXT_IMAGE_URL = 'https://wolverine.raywenderlich.com/v3-resources/razebot/images/object_box-of-books.png'
-    VIDEO_COURSE_ROBLES_CONTEXT_IMAGE_URL = 'https://wolverine.raywenderlich.com/v3-resources/razebot/images/object-box-videos.png'
-    CONTENT_MODULE_ROBLES_CONTEXT_IMAGE_URL = 'https://wolverine.raywenderlich.com/v3-resources/razebot/images/object-box-content-module.png'
+    BOOK_SUCCESS_IMAGE_URL = 'https://cdn.kodeco.com/v3-resources/razebot/images/media-article-multi-platform.png'
+    VIDEO_COURSE_SUCCESS_IMAGE_URL = 'https://cdn.kodeco.com/v3-resources/razebot/images/media-course-multi-platform.png'
+    CONTENT_MODULE_SUCCESS_IMAGE_URL = 'https://cdn.kodeco.com/v3-resources/razebot/images/media-multi-multi-platform.png'
+    FAILURE_IMAGE_URL = 'https://cdn.kodeco.com/v3-resources/razebot/images/cross.png'
+    BOOK_ROBLES_CONTEXT_IMAGE_URL = 'https://cdn.kodeco.com/v3-resources/razebot/images/media-path-multi-platform.png'
+    VIDEO_COURSE_ROBLES_CONTEXT_IMAGE_URL = 'https://cdn.kodeco.com/v3-resources/razebot/images/media-path-multi-platform.png'
+    CONTENT_MODULE_ROBLES_CONTEXT_IMAGE_URL = 'https://cdn.kodeco.com/v3-resources/razebot/images/media-path-multi-platform.png'
 
     def notify_book_success(book:)
       return unless notifiable?
@@ -126,7 +127,7 @@ module Util
       [
         intro_section(fields: standard_content_module_fields(content_module:),
                       message: ':white_check_mark: Content module upload successful!',
-                      image_url: CONTENT_MODULE_ROBLES_CONTEXT_IMAGE_URL,
+                      image_url: CONTENT_MODULE_SUCCESS_IMAGE_URL,
                       alt_text: 'Upload successful'),
         {
           type: 'divider'
