@@ -4,6 +4,11 @@
 APP_PATH = File.expand_path('../config/application', __dir__)
 require_relative '../config/application'
 
+if GITHUB_WORKSPACE.present?
+  # Add the workspace as a safe directory to global git if we're inside a GitHub Action
+  Git.global_config('safe.directory', GITHUB_WORKSPACE)
+end
+
 begin
   RoblesCli.start(ARGV)
 rescue Exception => e # rubocop:disable Lint/RescueException
