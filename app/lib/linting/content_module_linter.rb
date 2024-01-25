@@ -42,6 +42,10 @@ module Linting
       end
       return unless annotations.blank?
 
+      with_spinner(title: 'Validating image references', show: show_ui) do
+        annotations.concat(Linting::ImageLinter.new(content_module:).lint)
+      end
+
       with_spinner(title: 'Validating data models', show: show_ui) do
         annotations.concat(Linting::Validations::ContentModule.new(content_module:, file:).lint)
       end
@@ -109,7 +113,7 @@ module Linting
         parser.parse
       end
     rescue Parser::Error => e
-      line_number = (e.message.match(/at line (\d+)/)&.captures&.first&.to_i || 0) + 1
+      line_number = e.message.match(/at line (\d+)/)&.captures&.first.to_i + 1
       annotations.push(
         Annotation.new(
           absolute_path: e.file,

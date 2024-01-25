@@ -2,14 +2,14 @@
 
 # An implementation of an image provider suitable for use in the server
 class LocalImageProvider
-  attr_reader :chapter
+  attr_reader :container
 
-  def initialize(chapter:)
-    @chapter = chapter
+  def initialize(container:)
+    @container = container
   end
 
   def process
-    image_paths = extract_images_from_markdown(chapter.markdown_file)
+    image_paths = extract_images_from_markdown(container.markdown_file)
     @images = extract(image_paths)
   end
 
@@ -28,5 +28,9 @@ class LocalImageProvider
 
   def extract_images_from_markdown(file)
     ImageProvider::MarkdownImageExtractor.images_from(file)
+  end
+
+  def width_required
+    false
   end
 end

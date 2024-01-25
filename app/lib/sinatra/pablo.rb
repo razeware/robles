@@ -58,7 +58,7 @@ module Sinatra
           [^/.]+
           \.
           (
-            #{app.settings.export_extensions.join("|")}
+            #{app.settings.export_extensions.join('|')}
           )
         $}x
         file_path = Pathname(File.join(dir, path))

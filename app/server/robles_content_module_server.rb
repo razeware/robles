@@ -3,7 +3,7 @@
 require 'rack-livereload'
 
 # A local preview server for robles
-class RoblesContentModuleServer < Sinatra::Application
+class RoblesContentModuleServer < Sinatra::Application # rubocop:disable Metrics/ClassLength
   set :bind, '0.0.0.0'
   set :views, "#{__dir__}/views"
   set :public_folder, "#{__dir__}/public"
@@ -95,6 +95,8 @@ class RoblesContentModuleServer < Sinatra::Application
     segment = segment_for_slug(lesson, params[:slug])
     raise Sinatra::NotFound unless segment.present?
 
+    render_text(segment)
+
     erb :'content_modules/text.html',
         locals: {
           segment:,
@@ -124,6 +126,13 @@ class RoblesContentModuleServer < Sinatra::Application
     renderer.render
     content_module.image_attachment_loop { |local_url| servable_image_url(local_url) }
     content_module
+  end
+
+  def render_text(text)
+    image_provider = LocalImageProvider.new(container: text)
+    image_provider.process
+    renderer = Renderer::Segment.create(text, image_provider:)
+    renderer.render
   end
 
   def render_string(content)
