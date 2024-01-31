@@ -7,6 +7,10 @@ require_relative '../config/application'
 if GITHUB_WORKSPACE.present?
   # Add the workspace as a safe directory to global git if we're inside a GitHub Action
   Git.global_config('safe.directory', GITHUB_WORKSPACE)
+else
+  # Add the default mounted directory as safe
+  # Note that this is used in CI for slide generation for, well, reasons
+  Git.global_config('safe.directory', '/data/src')
 end
 
 begin
