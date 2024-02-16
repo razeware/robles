@@ -58,7 +58,7 @@ ARG RUBY_ENV=${RUBY_ENV:-production}
 
 ENV RUBY_ENV=${RUBY_ENV}
 
-ARG RUNTIME_PACKAGES="imagemagick git tzdata"
+ARG RUNTIME_PACKAGES="libjpeg libheif imagemagick git tzdata"
 ARG TEST_AND_DEV_PACKAGES="bash build-base libsodium-dev"
 
 # SYSLOG TO STDOUT
