@@ -34,7 +34,7 @@ gem 'aws-sdk-s3', '~> 1.64'
 gem 'concurrent-ruby', '~> 1.1'
 
 # Interacting with github
-gem 'octokit', '~> 7'
+gem 'octokit', '~> 8'
 
 # Interface with libsodium
 gem 'rbnacl'
@@ -43,8 +43,9 @@ gem 'rbnacl'
 gem 'slack-notifier', '~> 2.3', '>= 2.3.2'
 
 # Local previewing
-gem 'sass-embedded', '~> 1.58'
-gem 'sinatra', '~> 3'
+gem 'rackup'
+gem 'sass-embedded'
+gem 'sinatra', '~> 4'
 gem 'thin'
 
 # Pinning google-protobuf so that it continues to build on ARM devices
