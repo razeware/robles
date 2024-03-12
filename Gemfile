@@ -34,7 +34,7 @@ gem 'aws-sdk-s3', '~> 1.64'
 gem 'concurrent-ruby', '~> 1.1'
 
 # Interacting with github
-gem 'octokit', '~> 7'
+gem 'octokit', '~> 8'
 
 # Interface with libsodium
 gem 'rbnacl'
