@@ -134,7 +134,7 @@ module Runner
       image_provider&.process
       renderer = Renderer::ContentModule.new(content_module, image_provider:)
       renderer.render
-      content_module
+      p content_module
     end
 
     def lint_content_module(module_file:, options: {})
