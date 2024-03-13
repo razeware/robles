@@ -12,7 +12,7 @@ module Parser
                                  professional difficulty platform language editor domains
                                  categories who_is_this_for_md module_outcomes_md covered_concepts_md git_commit_hash
                                  featured_banner_image twitter_card_image
-                                 access_personal access_team].freeze
+                                 access_personal access_team module_type].freeze
 
     attr_accessor :content_module
 
