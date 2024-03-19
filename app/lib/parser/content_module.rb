@@ -42,7 +42,7 @@ module Parser
     end
 
     def parse_segments(segment_yaml_file)
-      lesson_path = segment_yaml_file.split('/').first
+      lesson_path = Pathname.new(segment_yaml_file).dirname.to_s
       lesson = load_yaml_file(apply_path(segment_yaml_file))
 
       lesson[:segments].map do |segment|
