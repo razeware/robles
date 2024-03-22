@@ -12,7 +12,7 @@ module Parser
                                  professional difficulty platform language editor domains
                                  categories who_is_this_for_md module_outcomes_md covered_concepts_md git_commit_hash
                                  featured_banner_image twitter_card_image
-                                 access_personal access_team].freeze
+                                 access_personal access_team module_type].freeze
 
     attr_accessor :content_module
 
@@ -42,7 +42,7 @@ module Parser
     end
 
     def parse_segments(segment_yaml_file)
-      lesson_path = segment_yaml_file.split('/').first
+      lesson_path = Pathname.new(segment_yaml_file).dirname.to_s
       lesson = load_yaml_file(apply_path(segment_yaml_file))
 
       lesson[:segments].map do |segment|

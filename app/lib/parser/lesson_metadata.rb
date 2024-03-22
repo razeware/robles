@@ -5,7 +5,7 @@ module Parser
   class LessonMetadata
     include SimpleAttributes
 
-    VALID_SIMPLE_ATTRIBUTES = %i[title description_md learning_objectives_md ordinal ref free].freeze
+    VALID_SIMPLE_ATTRIBUTES = %i[title description_md learning_objectives_md ordinal ref free program_shortcode].freeze
 
     attr_accessor :lesson, :metadata
 

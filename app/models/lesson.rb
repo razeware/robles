@@ -7,7 +7,7 @@ class Lesson
   include Concerns::ImageAttachable
   include Concerns::MarkdownRenderable
 
-  attr_accessor :title, :description_md, :ordinal, :ref, :segments, :learning_objectives_md, :free
+  attr_accessor :title, :description_md, :ordinal, :ref, :segments, :learning_objectives_md, :free, :program_shortcode
 
   attr_markdown :description, source: :description_md, file: false
   attr_markdown :learning_objectives, source: :learning_objectives_md, file: false
@@ -26,7 +26,7 @@ class Lesson
 
   # Used for serialisation
   def attributes
-    { title: nil, description: nil, learning_objectives: nil, ordinal: nil, segments: [], ref: nil, free: false }.stringify_keys
+    { title: nil, description: nil, learning_objectives: nil, ordinal: nil, segments: [], ref: nil, free: false, program_shortcode: nil }.stringify_keys
   end
 
   # Used for linting

@@ -12,7 +12,7 @@ class ContentModule
                 :platform, :language, :editor, :domains, :categories, :who_is_this_for_md, :module_outcomes_md,
                 :covered_concepts_md, :authors, :lessons, :git_commit_hash,
                 :featured_banner_image, :twitter_card_image, :root_path, :access_personal,
-                :access_team
+                :access_team, :module_type
 
   attr_markdown :who_is_this_for, source: :who_is_this_for_md, file: false
   attr_markdown :covered_concepts, source: :covered_concepts_md, file: false
@@ -21,10 +21,11 @@ class ContentModule
   attr_image :featured_banner_image_url, source: :featured_banner_image, variants: %i[original w750 w225 w90]
   attr_image :twitter_card_image_url, source: :twitter_card_image, variants: %i[original w1800]
 
-  validates :shortcode, :version, :title, :version_description, :description_md, :domains,
-            :categories, presence: true
+  validates :shortcode, :version, :title, :version_description, :description_md, presence: true
+  validates_presence_of :domains, :categories, unless: -> { module_type == 'info' }
   validates_inclusion_of :difficulty, in: %w[beginner intermediate advanced]
   validates_inclusion_of :professional, :access_personal, :access_team, in: [true, false]
+  validates_inclusion_of :module_type, in: %w[study info]
   validates :lessons, length: { minimum: 1 }, allow_blank: false, lessons: true
   validates_each :domains do |record, attr, value|
     value.each do |domain|
@@ -35,6 +36,7 @@ class ContentModule
   def initialize(attributes = {})
     super
     @lessons ||= []
+    @module_type ||= 'study'
   end
 
   # Used for serialisation
@@ -44,7 +46,7 @@ class ContentModule
       professional: nil, difficulty: nil, platform: nil, language: nil, editor: nil, domains: [],
       categories: [], who_is_this_for: nil, covered_concepts: nil, outcomes: nil, authors: [], lessons: [],
       git_commit_hash: nil, featured_banner_image_url: [],
-      twitter_card_image_url: [], access_personal: nil, access_team: nil }.stringify_keys
+      twitter_card_image_url: [], access_personal: nil, access_team: nil, module_type: nil }.stringify_keys
   end
 
   # Used for linting
