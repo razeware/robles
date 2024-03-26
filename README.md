@@ -5,7 +5,7 @@
 > the mechanical precursor to the electronic book. In 1949, Ruiz was awarded Spanish patent 190,698
 > for the "Mechanical Encyclopedia".
 
-__robles__ is a tool that can build raywenderlich.com books and video courses from their git repositories,\
+__robles__ is a tool that can build Kodeco books and video courses from their git repositories,\
 and publish them to [`alexandria`](https://github.com/razeware/alexandria) and
 [`betamax`](https://github.com/razeware/betamax) respectively..
 
