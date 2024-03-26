@@ -1,6 +1,6 @@
 ARG RUBY_ENV
 
-FROM ruby:3.2-alpine AS builder
+FROM ruby:3.3-alpine AS builder
 LABEL maintainer=engineering@kodeco.com
 
 ARG APP_ROOT=/app/robles
@@ -45,7 +45,7 @@ RUN rm -rf /usr/local/bundle/cache/*
 ##############################
 # PACKAGE STAGE              #
 ##############################
-FROM ruby:3.2-alpine
+FROM ruby:3.3-alpine
 LABEL maintainer=engineering@kodeco.com
 LABEL com.github.actions.name="robles"
 LABEL com.github.actions.author="Kodeco <engineering@kodeco.com>"
