@@ -24,8 +24,6 @@ module Linting
           object.script_file
         when 'text'
           object.markdown_file
-        else
-          nil
         end
       end
 
