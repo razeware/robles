@@ -8,6 +8,7 @@ module Snapshotter
         next unless episode.is_a?(Video)
 
         browser.goto("#{app_base}/slides/#{episode.slug}")
+        browser.set_viewport(width: 1920, height: 1080)
         browser.screenshot(path: "#{out_dir}/#{episode.slug}.png", selector: '#slide-to-snapshot')
       end
     end
