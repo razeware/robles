@@ -83,7 +83,7 @@ class BookCli < Thor
   def book_guardfile
     <<~GUARDFILE
       guard 'livereload' do
-        watch(%r{[a-zA-Z0-9-_]+.yaml$})
+        watch(%r{[a-zA-Z0-9\-_]+.yaml$})
         watch(%r{.+.(md|markdown)$})
       end
     GUARDFILE
