@@ -30,7 +30,7 @@ class LessonsValidator < ActiveModel::EachValidator
     return unless value.is_a?(Array)
 
     title_counts = Hash.new(0)
-    value.each { |lesson| title_counts[lesson.title] += 1 } 
+    value.each { |lesson| title_counts[lesson.title] += 1 }
     non_unique_titles = title_counts.select { |_, count| count > 1 }.keys
 
     non_unique_titles.each { |title| record.errors.add(attribute, "=> Title '#{title}' is not unique") }

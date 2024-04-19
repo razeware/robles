@@ -21,7 +21,7 @@ module Linting
       output
     end
 
-    def lint_with_ui(options:, show_ui: true) # rubocop:disable Metrics/AbcSize
+    def lint_with_ui(options:, show_ui: true) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       with_spinner(title: 'Checking {{bold:module.yaml}} exists', show: show_ui) do
         check_module_file_exists
       end
