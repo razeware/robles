@@ -1,6 +1,6 @@
 name: 'robles'
 author: 'engineering@razeware.com'
-description: 'raywenderlich.com Book Processing'
+description: 'Kodeco Book Processing'
 inputs:
   operation:
     description: 'What task to perform lint|publish'
