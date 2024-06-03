@@ -1,5 +1,5 @@
 @use "sass:math";
-@use "../01-settings/fonts";
+@use "../abstracts/fonts";
 
 /* Function to convert pixel font sizes to rem */
 @function px2rem($size) {
