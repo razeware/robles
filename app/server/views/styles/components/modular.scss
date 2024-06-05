@@ -208,6 +208,7 @@
               .slide-button {
                 text-decoration: none;
                 background-color: $white;
+                color: $black-night;
                 border: 1px solid $black-night;
                 border-radius: 6px;
                 display: inline-flex;
@@ -232,7 +233,104 @@
  2. Segments
 ========================================================================== */
 
+.lesson-toc {
+  max-width: 400px;
 
+  .toc-expanded {
+    display: block;
+    border: 1px solid $black-night;
+    border-radius: 16px;
+    background-color: $white;
+
+    .toc-header {
+      min-height: 64px;
+      background-color: $grey-wisp;
+      border-radius: 16px 16px 0 0;
+      align-items: center;
+
+      h2 {
+        margin: 0 24px;
+        font-size: 1.125rem;
+        padding-top: 24px;
+      }
+    }
+    .toc-body {
+      padding: 24px 0;
+      scrollbar-width: none;
+
+      .module-title {
+        margin-bottom: 4px;
+        font-size: 1.25rem;
+      }
+
+      .length {
+        font-size: 0.875rem;
+      }
+
+      .section-list {
+        .section-list-header-wrapper {
+          padding: 36px 24px 0;
+          gap: 24px;
+          padding-inline: 24px;
+
+          .section-list-header {
+            h4 {
+              font-size: 1.25rem;
+              line-height: 1.25;
+            }
+
+            p {
+              font-size: 0.875rem;
+              padding-top: 4px;
+            }
+          }
+        }
+
+        .section-segment-list {
+          display: block;
+          list-style: none;
+          margin: 0;
+          padding: 24px 0 0 0;
+
+          .current-segment {
+
+            &::before {
+              content: '';
+              background-color: $black-night;
+            }
+          }
+
+          li {
+            white-space: normal;
+            padding: 12px 48px;
+            text-overflow: ellipsis;
+            position: relative;
+
+            &:hover {
+              background-color: $grey-wisp;
+            }
+
+            &::before {
+              content: '';
+              position: absolute;
+              left: 12px;
+              width: 24px;
+              height: 24px;
+              border-radius: 6px;
+              background-color: $white;
+              border: 1px solid $black-night;
+            }
+
+            a {
+            color: $black-night;
+            text-decoration: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
 
 
@@ -279,4 +377,8 @@
 
 .mt-80 {
   margin-top: 80px;
+}
+
+.px-24 {
+  margin-inline: 24px;
 }
