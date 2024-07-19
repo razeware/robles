@@ -76,6 +76,23 @@
      }
    }
 
+   pre code.hljs,
+   pre.hjls {
+    display: block;
+    overflow-x: auto;
+    padding: 24px;
+    background: $black-night;
+    color: $grey-thought;
+    font-family: 'Relative Mono', monospace;
+    font-variant-ligatures: no-contextual;
+   }
+
+   .hljs {
+    background: $black-night;
+    color: $grey-thought;
+    font-family: 'Relative Mono', monospace;
+  }
+
    pre + p, pre + ul, pre + ol {
      margin-top: 24px;
    }

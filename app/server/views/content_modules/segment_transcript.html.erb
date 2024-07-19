@@ -17,43 +17,17 @@
   </div>
 </header>
 
-<div class="l-admin l-admin--sidebar-open">
-  <%= erb :'content_modules/_table_of_contents.html', locals: { content_module: content_module, current_segment: segment } %>
-
-  <div class="l-book-chapter-content l-relative">
-    <article class="c-written-tutorial c-book-chapter l-block l-block--688">
-      <header>
-        <div class="c-written-tutorial__introduction">
-          <span class="c-written-tutorial__breadcrumbs l-color-grey">
-            <a href="/"><%= content_module.title %></a>
-            <svg class="l-svg-breadcrumb">
-              <use xlink:href="#chevron-vertical--grey"></use>
-            </svg>
-            <a href="#"><%= segment.title %></a>
-          </span>
-
-
-
-          <h1>
-            <span class="l-whitespace"><%= segment.ref %></span>
-            <div>
-              <span class="l-font-42 l-margin-6"><%= segment.title %></span>
-              <% if segment.respond_to?(:authors) %>
-                <span class="l-font-header l-font-17 l-font-normal l-no-font-spacing l-margin-6 l-line-height-1125">
-                  <% if segment.authors.filter { |author| author.role == 'author' }.present? %>
-                    Written by <%= segment.authors.filter { |author| author.role == 'author' }.map(&:username).to_sentence %>
-                  <% end %>
-                </span>
-              <% end %>
-            </div>
-          </h1>
-        </div>
-      </header>
-
-      <div class="c-written-tutorial__content l-block l-block--card-medium">
+<div class="content-module">
+  <div class="segment">
+    <div class="toc-open">
+      <%= erb :'content_modules/_table_of_contents.html', locals: { content_module: content_module, current_segment: segment } %>
+    </div>
+    <div class="transcript-segment written-content">
+      <h1 class="segment-title"><%= segment.ref%>.<%= segment.title %></h1>
+      <div>
         <%= segment.transcript if segment.respond_to?(:transcript) %>
       </div>
-
-    </article>
+    </div>
   </div>
 </div>
+
