@@ -1,27 +1,19 @@
-<header id="c-global-header" class="c-book-header" role="banner">
-  <div class="l-flex-align-center--force">
+<header id="global-header" class="global-header" role="banner">
+  <div class="header-container">
 
-    <div class="c-global-header__logo o-header-logo">
-      <a href="/" class="o-header-logo__link">
-        <svg class="o-header-logo__mark" viewBox="0 0 50 50"><use xlink:href="#logo-mark"/></svg>
-      </a>
+    <div class="header-left">
+      <div class="header-logo">
+        <a href="/">
+          <svg><use xlink:href="#kodeco-orange"/></svg>
+        </a>
+      </div>
+      <div class="page-name">
+        <h4>robles: preview</h4>
+      </div>
     </div>
-
-  </div>
-
-  <nav role="navigation" aria-label="primary" class="l-margin-mobile-large-left-20">
-    <ul>
-      <li class="l-margin-all-0">
-        <span class="l-font-header l-font-bold l-font-18 l-flex c-book-header__chapter-intro">
-          <span class="c-book-header__chapter-title">
-            <span><%= segment.ordinal %>.</span> <span><%= segment.title %></span>
-          </span>
-        </span>
-      </li>
-    </ul>
-  </nav>
-
-  <div class="c-global-header__user">
+    <div class="header-center">
+      <span><%= content_module.shortcode %>:&nbsp;</span><span><%= content_module.title %>.</span>
+    </div>
   </div>
 </header>
 
