@@ -243,12 +243,14 @@
     margin-inline: auto;
     grid-template-columns: 396px 1fr 40px;
     gap: 32px;
+    padding-bottom: 120px;
+
+    .segment-header {
+      margin-top: unset;
+      font-size: 2.25rem;
+    }
 
     .transcript-segment {
-      .segment-title {
-        margin-top: unset;
-        font-size: 2.25rem;
-      }
 
       p, pre, ul, ol, h2, h3, h4 {
         margin-left: 116px;
