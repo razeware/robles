@@ -28,6 +28,16 @@ class RoblesContentModuleServer < Sinatra::Application # rubocop:disable Metrics
       "/texts/#{lesson.slug}/#{segment.slug}"
     end
 
+    def segment_path(lesson, segment)
+      if segment.is_a?(Video)
+        transcript_path(lesson, segment)
+      elsif segment.is_a?(Assessment)
+        assessment_path(lesson, segment)
+      elsif segment.is_a?(Text)
+        text_path(lesson, segment)
+      end
+    end
+
     def class_for_domain(course)
       if course.domains.count > 1
         'multi-domain'
