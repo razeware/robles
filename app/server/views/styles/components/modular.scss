@@ -280,8 +280,96 @@
         font-weight: 400;
       }
     }
+
+    .assessment-quiz {
+      .quiz-container {
+        border: 1px solid $black-night;
+        padding: 24px;
+        margin-top: 40px;
+        border-radius: 16px;
+        background-color: $white;
+
+        h3 {
+          font-weight: 500;
+          font-size: 1.25rem;
+          line-height: 1.5;
+          padding-left: 12px;
+          margin-bottom: 12px;
+        }
+
+        ul.quiz-questions {
+          list-style: none;
+
+          .quiz-option {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            min-height: 64px;
+            padding: 12px;
+            border-radius: 12px;
+            flex-wrap: wrap;
+
+            .option-ref {
+              width: 32px;
+              height: 32px;
+              min-width: 32px;
+              min-height: 32px;
+              border-radius: 8px;
+              background-color: $grey-thought;
+              font-size: 0.875rem;
+              line-height: 1;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-weight: 700;
+            }
+            .option-text {
+              padding-inline: 24px;
+              margin-bottom: 20px;
+            }
+
+            .quiz-explanation {
+              font-size: 0.875rem;
+              line-height: 1.5;
+              margin-left: 56px;
+
+              &.written-content {
+                p {
+                  margin: unset;
+
+                  &:first-of-type{
+                    display: inline;
+                  }
+                }
+
+                & > * {
+                font-size: inherit;
+                line-height: inherit;
+              }
+              }
+            }
+          }
+
+          .correct-choice {
+            border: 2px solid $green-meadow;
+          }
+        }
+
+      .quiz-lo {
+        background-color: $grey-thought;
+        padding: 30px;
+        padding-left: 40px;
+        margin-top: 12px;
+        margin-bottom: -24px;
+        margin-inline: -24px;
+        border-radius: 0 0 16px 16px;
+      }
+
+      }
+    }
   }
 }
+
 
 
 
