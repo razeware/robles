@@ -295,6 +295,7 @@
           line-height: 1.5;
           padding-left: 12px;
           margin-bottom: 12px;
+          width: 95%;
         }
 
         ul.quiz-questions {
@@ -326,12 +327,14 @@
             .option-text {
               padding-inline: 24px;
               margin-bottom: 20px;
+              width: 95%;
             }
 
             .quiz-explanation {
               font-size: 0.875rem;
               line-height: 1.5;
               margin-left: 56px;
+              width: 90%;
 
               &.written-content {
                 p {
