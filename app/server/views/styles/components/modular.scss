@@ -217,6 +217,10 @@
                 font-size: 0.725rem;
                 padding: 6px;
                 height: 24px;
+
+                &:hover {
+                  background-color: $grey-thought-50;
+                }
               }
             }
           }
