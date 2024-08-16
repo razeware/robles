@@ -5,7 +5,7 @@
     </div>
     <div class="toc-body">
       <div class="px-24">
-        <h2 class="module-title"><%= content_module.title %></h2>
+        <h2 class="module-title"><a href="/"><%= content_module.title %></a></h2>
         <p class="length"><%= content_module.lessons.size %> <%= 'lesson'.pluralize(content_module.lessons.size) %></p>
       </div>
       <% content_module.lessons.each do |lesson| %>
@@ -20,7 +20,7 @@
             <% lesson.segments.each do |segment| %>
               <li class="<%= 'current-segment' if segment == current_segment %>">
                 <a href="<%= url(segment_path(lesson, segment)) %>">
-                  <span class="segment-ref"><%= segment.ref %> </span>
+                  <span class="segment-ref"><%= segment.ref %></span>.
                   <span class="segment-title"><%= segment.title %></span>
                 </a>
               </li>

@@ -105,7 +105,7 @@
      background-color: $white;
      border-radius: 16px;
 
-     p {
+     p:nth-of-type(1) {
       margin-top: unset;
      }
    }

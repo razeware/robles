@@ -7,7 +7,7 @@
     </div>
 
     <div class="assessment-quiz">
-      <h1 class="segment-header"><%= segment.ref%>.<%= segment.title %></h1>
+      <h1 class="segment-header"><%= segment.ref%>. <%= segment.title %></h1>
       <% segment.questions.each do |question| %>
         <div class="quiz-container">
           <h3 class="written-content"><%= question.question %></h3>

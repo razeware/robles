@@ -2620,6 +2620,15 @@ footer#c-global-footer{
       .module-title {
         margin-bottom: 4px;
         font-size: 1.25rem;
+
+        a {
+          text-decoration: none;
+          color: $black-night;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
       }
 
       .length {
