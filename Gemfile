@@ -61,9 +61,7 @@ gem 'rack-test'
 # Note: This is waiting for support for bundler 3.4 and ruby 3.2 on upstream.
 # https://github.com/dbalatero/levenshtein-ffi/pull/12
 gem 'levenshtein-ffi', require: 'levenshtein', git: 'https://github.com/razeware/levenshtein-ffi.git'
-# NOTE: This is waiting for 3.2 support on upstream.
-# https://github.com/opencoconut/webvtt-ruby/pull/20
-gem 'webvtt-ruby', require: 'webvtt', git: 'https://github.com/razeware/webvtt-ruby.git'
+gem 'webvtt-ruby', require: 'webvtt'
 
 group :development do
   # For integration with VSCode

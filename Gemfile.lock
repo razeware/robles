@@ -5,12 +5,6 @@ GIT
     levenshtein-ffi (1.1.0)
       ffi (~> 1.9)
 
-GIT
-  remote: https://github.com/razeware/webvtt-ruby.git
-  revision: 12ebc4ad31e3ba16b0f9f9fd068ccef255a54590
-  specs:
-    webvtt-ruby (0.3.2)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -231,6 +225,7 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    webvtt-ruby (0.4.2)
     yard (0.9.36)
     zeitwerk (2.6.17)
 
@@ -265,7 +260,7 @@ DEPENDENCIES
   solargraph (~> 0.39)
   thin
   thor (~> 1.0, >= 1.0.1)
-  webvtt-ruby!
+  webvtt-ruby
   zeitwerk (~> 2.3)
 
 BUNDLED WITH
