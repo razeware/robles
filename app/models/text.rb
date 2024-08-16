@@ -9,9 +9,10 @@ class Text
   include Concerns::MarkdownRenderable
   include Concerns::TitleCleanser
 
-  attr_accessor :title, :ordinal, :ref, :description, :authors, :markdown_file, :root_path, :free, :kind
+  attr_accessor :title, :ordinal, :ref, :description_md, :authors, :markdown_file, :root_path, :free, :kind
 
   attr_markdown :body, source: :markdown_file, file: true, wrapper_class: :wrapper_class
+  attr_markdown :description, source: :description_md, file: false
   validates :title, :ordinal, :ref, :markdown_file, presence: true
   validate do |text|
     # Check the ref is a string
