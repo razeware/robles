@@ -5,7 +5,7 @@
     </div>
     <div class="toc-body">
       <div class="px-24">
-        <h2 class="module-title"><%= content_module.title %></h2>
+        <h2 class="module-title"><a href="/"><%= content_module.title %></a></h2>
         <p class="length"><%= content_module.lessons.size %> <%= 'lesson'.pluralize(content_module.lessons.size) %></p>
       </div>
       <% content_module.lessons.each do |lesson| %>
