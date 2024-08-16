@@ -12,7 +12,7 @@
       <%= erb :'content_modules/_table_of_contents.html', locals: { content_module: content_module, current_segment: segment } %>
     </div>
     <div class="written-content">
-      <h1 class="segment-header"><%= segment.ref%>.<%= segment.title %></h1>
+      <h1 class="segment-header"><%= segment.ref%>. <%= segment.title %></h1>
       <div>
         <%= segment.body %>
       </div>
