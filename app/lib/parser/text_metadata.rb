@@ -5,7 +5,7 @@ module Parser
   class TextMetadata
     include MarkdownMetadata
 
-    VALID_SIMPLE_ATTRIBUTES = %i[title description short_description free ref authors_notes_md].freeze
+    VALID_SIMPLE_ATTRIBUTES = %i[title description_md free ref].freeze
 
     attr_reader :text
 
