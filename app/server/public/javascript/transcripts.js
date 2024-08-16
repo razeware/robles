@@ -20,4 +20,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
     element.classList.add('video-timestamp');
     element.innerHTML = displayTime(element.dataset.videoTimestamp);
   });
+
+  // Remove all headers(titles) in DOM
+  const transcriptContainer = document.querySelector('.transcript-segment');
+  const headers = transcriptContainer.querySelectorAll('h1, h2, h3, h4, h5, h6');
+  [...headers].forEach((hd) => {
+    if (!hd.classList.contains('segment-header')) {
+      hd.remove();
+    }
+  });
 });
