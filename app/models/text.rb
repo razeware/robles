@@ -9,9 +9,9 @@ class Text
   include Concerns::MarkdownRenderable
   include Concerns::TitleCleanser
 
-  attr_accessor :title, :ordinal, :ref, :description_md, :authors, :markdown_file, :root_path, :free, :kind
+  attr_accessor :title, :ordinal, :ref, :description_md, :authors, :markdown_file, :root_path, :free
 
-  attr_markdown :body, source: :markdown_file, file: true, wrapper_class: :wrapper_class
+  attr_markdown :body, source: :markdown_file, file: true
   attr_markdown :description, source: :description_md, file: false
   validates :title, :ordinal, :ref, :markdown_file, presence: true
   validate do |text|
@@ -23,7 +23,6 @@ class Text
     super
     @authors ||= []
     @free ||= false
-    @kind ||= 'chapter'
   end
 
   def slug
@@ -38,15 +37,6 @@ class Text
   # Used for linting
   def validation_name
     title
-  end
-
-  # For wrapping content
-  def wrapper_class
-    {
-      chapter: nil,
-      dedications: 'c-book-chapter__dedications',
-      'team-bios': 'c-book-chapter__team'
-    }[kind&.to_sym]
   end
 
   def episode_type
