@@ -728,7 +728,7 @@
     padding: 20px 24px;
   }
 
-  .c-nav-sidebar__section { 
+  .c-nav-sidebar__section {
     display: flex;
     align-items: center;
     height: 50px;
@@ -769,7 +769,7 @@
 
   }
 
-  a.c-nav-sidebar__item { 
+  a.c-nav-sidebar__item {
     display: block;
     color: $black-mine-shaft;
     text-decoration: none;
@@ -1100,7 +1100,7 @@
     .c-sidebar-navigator__indicator {
       display: none;
     }
-    
+
   }
 
 }
@@ -1633,7 +1633,7 @@ header#c-global-header{
         align-items: center;
         font-family: $body;
         color: white !important;
-        font-size: 0.8125rem !important; 
+        font-size: 0.8125rem !important;
         font-weight: 400;
 
         @include breakpoint("mobile-large"){
@@ -2050,7 +2050,7 @@ footer#c-global-footer{
     }
 
     .c-global-footer__logo {
-      
+
       @include breakpoint($maxWidth: 1080px){
         grid-area: logo;
         max-width: 25%;
@@ -2341,63 +2341,6 @@ footer#c-global-footer{
 
 }
 
-/* ==========================================================================
-8b. Tabs (Navigation)
-========================================================================== */
-
-.c-tabs-navigation{
-  background: $black-onyx;
-  display: flex;
-  align-items: center;
-  height: 72px;
-  width: 100%;
-  padding: 0 27px;
-  overflow: hidden;
-  overflow-x: scroll;
-  white-space: nowrap;
-  @include mobile-scroll;
-  @include hide-scrollbar;
-  
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  li {
-    margin-left: 24px;
-
-    &:first-child {
-      margin-left: 0;
-    }
-
-    a {
-      color: $grey-chateau;
-      font-size: 0.9375rem; /* 15/16 */
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    &.c-tabs--active{
-      a {
-        color: $white;
-        position: relative;
-
-        &:after {
-          content: "";
-          position: absolute;
-          left: 0;
-          bottom: -27px;
-          width: 100%;
-          height: 3px;
-          background: $green-brand;
-        }
-
-      }
-    }
-
-  }
-
-}
-
 
 /* ==========================================================================
    9. Mobile Navigator
@@ -2643,114 +2586,183 @@ footer#c-global-footer{
 
 }
 
+
+
 /* ==========================================================================
-   11. Paginator
-   ========================================================================== */
+  A. Kodeco Floating TOC.
+========================================================================== */
 
-.c-paginator {
+.lesson-toc {
+  max-width: 400px;
 
-  a {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-family: $header;
-    font-weight: 700;
-    font-size: 1.125rem; /* 18/16 */
-    height: 72px;
-    line-height: 72px;
-    text-decoration: none;
-    text-align: center;
-    color: $black-mine-shaft;
-    cursor: pointer;
+  .toc-expanded {
+    display: block;
+    border: 1px solid $black-night;
+    border-radius: 16px;
+    background-color: $white;
 
-    &:hover {
-      background: #F5F8FB;
+    .toc-header {
+      min-height: 64px;
+      background-color: $grey-wisp;
+      border-radius: 16px 16px 0 0;
+      align-items: center;
+
+      h2 {
+        margin: 0 24px;
+        font-size: 1.125rem;
+        padding-top: 24px;
+      }
     }
+    .toc-body {
+      padding: 24px 0;
+      scrollbar-width: none;
 
-    span {
-      display: inline-block;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      .module-title {
+        margin-bottom: 4px;
+        font-size: 1.25rem;
+
+        a {
+          text-decoration: none;
+          color: $black-night;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .length {
+        font-size: 0.875rem;
+      }
+
+      .section-list {
+        .section-list-header-wrapper {
+          padding: 36px 24px 0;
+          gap: 24px;
+          padding-inline: 24px;
+
+          .section-list-header {
+            h4 {
+              font-size: 1.25rem;
+              line-height: 1.25;
+            }
+
+            p {
+              font-size: 0.875rem;
+              padding-top: 4px;
+            }
+          }
+        }
+
+        .section-segment-list {
+          display: block;
+          list-style: none;
+          margin: 0;
+          padding: 24px 0 0 0;
+
+          .current-segment {
+
+            &::before {
+              content: '';
+              background-color: $orange-determination;
+            }
+          }
+
+          li {
+            white-space: normal;
+            padding: 12px 48px;
+            text-overflow: ellipsis;
+            position: relative;
+
+            &:hover {
+              background-color: $grey-wisp;
+            }
+
+            &::before {
+              content: '';
+              position: absolute;
+              left: 12px;
+              width: 24px;
+              height: 24px;
+              border-radius: 6px;
+              background-color: $white;
+              border: 1px solid $black-night;
+            }
+
+            a {
+            color: $black-night;
+            text-decoration: none;
+            }
+          }
+        }
+      }
     }
-
-    svg {
-      width: 17px;
-      height: 15px;
-      fill: $grey-chateau;
-    }
-
   }
-
-  .c-paginator__back {
-
-    &:hover svg {
-      transform: translateX(-5px);
-    }
-
-    span, svg {
-      margin-right: auto;
-      margin-right: auto;
-    }
-
-    span {
-      margin-left: -41px;
-    }
-
-    svg {
-      transition: all .25s;
-      margin-left: 24px;
-    }
-
-  }
-
-  .c-paginator__forward {
-
-    &:hover svg {
-      transform: translateX(5px);
-    }
-
-    span, svg {
-      margin-left: auto;
-      margin-left: auto;
-    }
-
-    span {
-      margin-right: -41px;
-    }
-
-    svg {
-      transition: all .25s;
-      margin-right: 24px;
-    }
-
-  }
-
-  .c-paginator__pages {
-    display: flex;
-
-    .c-paginator__pages--active {
-      cursor: default;
-      color: $grey-chateau;
-      text-decoration: none;
-    }
-
-    a {
-      color: $green-brand;
-      text-decoration: underline;
-      margin: 0 8px;
-    }
-
-  }
-
 }
 
-.c-paginator--no-hover {
-  a {
-    &:hover {
-      background: none;
+
+/* ==========================================================================
+  B. Kodeco Header
+========================================================================== */
+
+.global-header {
+  display: flex;
+  min-height: 80px;
+  background-color: $white;
+  position: sticky;
+  z-index: 99;
+
+  .header-container {
+    max-width: 1584px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin: auto;
+
+    .header-left {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      justify-content: flex-start;
+
+      .header-logo {
+        flex-shrink: 0;
+        margin-right: 24px;
+
+        a {
+          min-width: 115px;
+
+          svg {
+            max-height: 24px;
+            max-width: 115px;
+            fill: $orange-glow;
+            cursor: pointer;
+
+            &:hover {
+              fill: $black-night;
+            }
+          }
+        }
+      }
+      .page-name {
+        h4 {
+          font-size: 1.5rem;
+          color: $grey-thought;
+          font-weight: 700;
+          font-family: $mono;
+        }
+      }
+    }
+
+    .header-center {
+      flex: 1;
+      display: flex;
+
+      span {
+        font-size: 1.25rem;
+      }
     }
   }
+
 }

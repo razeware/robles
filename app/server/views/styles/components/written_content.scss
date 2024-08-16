@@ -1,0 +1,244 @@
+/**
+ * .written_content is a wrapper class that will format standard things like
+ * p, h1, h2, blockquote etc. Used in things like articles.
+ *
+ */
+
+ @import '../abstracts/colors';
+ @import '../abstracts/fonts';
+
+
+
+ .written-content {
+
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   h6 {
+     margin-top: 48px;
+     word-break: break-word;
+   }
+
+   h1,
+   h2 {
+     font-size: 32px;
+
+   }
+
+   h3 {
+     font-size: 24px;
+   }
+
+   h4 {
+     font-size: 20px;
+   }
+
+   h5,
+   h6 {
+     font-size: 16px;
+   }
+
+   p, ul, ol, .note {
+     font-family: $base;
+     font-size: 16px;
+     line-height: 1.66;
+     word-break: break-word;
+   }
+
+   p {
+     margin-top: 20px;
+   }
+
+   a {
+     color: $orange-determination;
+   }
+
+   em {
+     font-weight: 700;
+     font-style: normal;
+   }
+
+   code {
+     background-color: rgba($grey-thought, 0.25);
+     border: 1px solid $grey-thought;
+     padding: 1px 8px;
+     font-size: 15px;
+     border-radius: 8px;
+   }
+
+   pre {
+     margin-top: 24px;
+
+     code {
+       padding: 24px;
+     }
+   }
+
+   pre code.hljs,
+   pre.hjls, pre code {
+    display: block;
+    overflow-x: auto;
+    padding: 24px;
+    background: $black-night;
+    color: $grey-thought;
+    font-family: 'Relative Mono', monospace;
+    font-variant-ligatures: no-contextual;
+   }
+
+   .hljs {
+    background: $black-night;
+    color: $grey-thought;
+    font-family: 'Relative Mono', monospace;
+  }
+
+   pre + p, pre + ul, pre + ol {
+     margin-top: 24px;
+   }
+
+   .note,
+   blockquote {
+     margin-top: 24px;
+     padding: 24px;
+     border: 1px solid $orange-glow;
+     background-color: $white;
+     border-radius: 16px;
+
+     p:nth-of-type(1) {
+      margin-top: unset;
+     }
+   }
+
+   ul {
+     margin-top: 4px;
+     list-style: none;
+
+     li {
+       position: relative;
+       margin-top: 16px;
+       padding-left: 40px;
+       line-height: 1.66;
+
+       &::before {
+         content: "\200B";
+         background-color: $orange-enthusiasm;
+         display: inline-block;
+         height: 8px;
+         width: 8px;
+         border-radius: 2px;
+         position: absolute;
+         top: 9px;
+         left: 16px;
+       }
+     }
+   }
+
+   ol {
+     margin-top: 20px;
+     padding-left: 20px;
+     list-style: number;
+
+     li {
+       position: relative;
+       margin-top: 12px;
+       padding-top: 4px;
+       line-height: 1.66;
+     }
+   }
+
+   img {
+     padding: 8px;
+     border-radius: 16px;
+     margin: 40px auto;
+     max-width: 100%;
+     height: auto;
+     display: block;
+   }
+
+   figure {
+    max-width: 720px;
+    margin: 0 auto;
+
+    picture:has(svg){
+      justify-content: center;
+      display: flex;
+    }
+
+    &.l-image-bordered img {
+      padding: 8px;
+      border-radius: 16px;
+      border: 1px solid #14161E;
+    }
+
+    figcaption {
+      font-family: "Relative Mono" !important;
+      font-size: 0.875rem;
+      color: #14161E;
+      margin-bottom: 40px;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    &.l-image-100 {
+      img, svg {
+        max-width: 100% !important;
+      }
+    }
+
+    &.l-image-90 {
+      img, svg {
+        max-width: 90% !important;
+      }
+    }
+
+    &.l-image-80 {
+      img, svg {
+        max-width: 80% !important;
+      }
+    }
+
+    &.l-image-70 {
+      img, svg {
+        max-width: 70% !important;
+      }
+    }
+
+    &.l-image-60 {
+      img, svg {
+        max-width: 60% !important;
+      }
+    }
+
+    &.l-image-50 {
+      img {
+        max-width: 50% !important;
+      }
+    }
+
+    &.l-image-40 {
+      img {
+        max-width: 40% !important;
+      }
+    }
+
+    &.l-image-30 {
+      img {
+        max-width: 30% !important;
+      }
+    }
+
+    &.l-image-20 {
+      img {
+        max-width: 20% !important;
+      }
+    }
+
+    &.l-image-10 {
+      img {
+        max-width: 10% !important;
+      }
+    }
+
+   }
+ }

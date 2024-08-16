@@ -1,0 +1,127 @@
+/**
+ * This file contains all colour definitions.
+ *
+ * 1. Colours
+ * 2. Highlighter Colours
+ *
+ */
+
+/* ==========================================================================
+  1. Colours
+========================================================================== */
+
+/* Black */
+
+$black-night: #14161E;
+$black-night-hover: #43454B;
+
+// Dark mode
+$black-phantom: #0E0F14;
+$black-jaguar: #07080A; /* Dark mode input */
+$black-iridium: #3B3D43; /* Dark mode hover */
+$black-plaza:  #30363D; /* Dark mode borders */
+
+/* Grey */
+
+$grey-thought: #D7D7D7; /* Main Brand Grey */
+$grey-thought-20: #D7D7D733; /*Main Brand Grey at 20% opacity */
+$grey-thought-50: #D7D7D77F; /*Main Brand Grey at 50% opacity */
+$grey-wisp: #F7F7F7; /* Brand Light Grey */
+$grey-london: #AC9FAB; /* Light Multi-platform Colour */
+$grey-taupe: #5F4F5E; /* Dark Multi-platform Colour */
+
+/* Red */
+
+$red-lychee: #E34A4C;
+$red-lipstick: #962224;
+
+/* Pink */
+
+$pink-doll: #F26FAA; /* Light Server-Side Swift Colour */
+$pink-peony: #A53B6B; /* Dark Server-Side Swift Colour */
+$pink-peach: #E6978A;
+$pink-incense: #99584D;
+
+/* Orange */
+
+$orange-glow: #FF5A00; /* Main Brand Colour */
+$orange-enthusiasm: #FF8847; /* Brand Light Orange */
+$orange-enthusiasm-20: #FF884733; /* Brand Light Orange with 20% opacity */
+$orange-determination: #CE3F00; /* Brand Dark Orange */
+$orange-raw-sienna: #CF7F42;
+$orange-burnt: #82491D;
+
+/* Yellow */
+
+$yellow-autumn: #E3A93D; /* Light Pro-Gro Colour */
+$yellow-curry: #966B19; /* Dark Pro-Gro Colour */
+
+/* Green */
+
+$green-meadow: #00B87E; /* Light Android Colour */
+$green-meadow-50: #00B87E80; /* Light Android 50% opacity */
+$green-meadow-dark: #0F553E; /* Light Android colour equivalent for 50% opacity on dark background */
+$green-rainforest: #157857; /* Dark Android Colour */
+$green-celery: #AEB740;
+$green-cypress: #575C20;
+$green-olive: #778749;
+$green-kelp: #3C4425;
+
+/* Blue */
+
+$blue-sky : #2EA4DD; /* Light Flutter Colour */
+$blue-sky-50 : #2EA4DD80;/* Light Flutter 50% opacity */
+$blue-sky-dark : #1B4A6B;/* Light Flutter colour equivalent for 50% opacity on dark background */
+$blue-sea: #106790; /* Dark Flutter Colour */
+$blue-cornflower : #597CEE;
+$blue-denim : #2C48A1;
+
+/* Purple */
+
+$purple-iolite: #8763D2; /* Light iOS Colour */
+$purple-iolite-50: #8763D280;/* Light iOS 50% opacity */
+$purple-iolite-dark: #3C2C64; /* Light iOS colour equivalent for 50% opacity on dark background */
+$purple-amethyst: #4D3285; /* Dark iOS Colour */
+$purple-almost-fuchsia: #B44EBF;  /* Light Game Tech Colour */
+$purple-regal: #6B2372; /* Dark Game Tech Colour */
+
+/* White */
+
+$white: #FFFFFF;
+
+/* Transparent */
+
+$transparent: transparent;
+
+/* ==========================================================================
+  2. Highlighter Colours
+========================================================================== */
+
+$hljs-bright-grey: #999999;
+$hljs-bright-red: #F64E1A;
+$hljs-bright-orange: #F08D49;
+$hljs-bright-yellow: #F8C555;
+$hljs-bright-green: #7EC699;
+$hljs-bright-aqua: #18B5AB;
+$hljs-bright-blue: #70A2FF;
+$hljs-bright-purple: #CC99CD;
+
+$hljs-pastel-grey: #9FA4B1;
+$hljs-pastel-red: #F37957;
+$hljs-pastel-orange: #F5AB57;
+$hljs-pastel-yellow: #F8C555;
+$hljs-pastel-green: #86AD85;
+$hljs-pastel-aqua: #5FB3B3;
+$hljs-pastel-blue: #6293C3;
+$hljs-pastel-purple: #C192C1;
+
+$hljs-light-grey: #918791;
+$hljs-light-red: #E34A4C;
+$hljs-light-orange: #FF5A00;
+$hljs-light-yellow: #966B19;
+$hljs-light-green: #157857;
+$hljs-light-aqua: #1D7EAF;
+$hljs-light-blue: #2E5FFF;
+$hljs-light-purple: #6B2372;
+
+

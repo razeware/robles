@@ -1,78 +1,82 @@
-<div class="l-margin-60 l-margin-mobile-large-40 l-padding-bottom-120">
-
-  <div class="l-book-sales-grid l-block-padding-1200">
-
-    <div class="l-book-sales-left">
-      <div class="l-book-sales-left-top">
-
-        <div class="l-book-meta">
-          <div>
-            <span>Version</span>
-            <span><%= content_module.version_description %></span>
+<div class="content-module">
+  <div class="container-1386">
+    <header class="content-hero content-hero--dark">
+      <div class="content-hero-left">
+        <h1><%= content_module.title %></h1>
+        <div class="metadata">
+          <div class="version-meta">
+            <div>
+              <span class="w-bold">Platform:</span>
+              <span><%= content_module.platform %></span>
+            </div>
+            <div>
+              <span class="w-bold">Language:</span>
+              <span><%= content_module.language %></span>
+            </div>
+            <div>
+              <span class="w-bold">Editor:</span>
+              <span><%= content_module.editor %></span>
+            </div>
           </div>
-          <div>
-            <span>Platform</span>
-            <span><%= content_module.platform %></span>
-          </div>
-          <div>
-            <span>Language</span>
-            <span><%= content_module.language %></span>
-          </div>
-          <div>
-            <span>Editor</span>
-            <span><%= content_module.editor %></span>
-          </div>
+          <p class="description">
+            <%= content_module.description %>
+          </p>
+          <p class="authors">
+            By* <%= content_module.authors.map(&:username).to_sentence(two_words_connector: ' & ', last_word_connector: ' and ') %>
+          </p>
         </div>
-        <div class="l-book-art">
-          <div class="l-relative l-inline-block">
-            <img style="width:594px" src="<%= content_module.featured_banner_image_url&.first&.url || 'https://lorempixel.com/594/768/abstract/' %>" class="c-tutorial-item__art-image--primary">
+        <div class="programme-metadata">
+          <div class="programme-metadata__segment">
+            <svg class="programme-metadata__segment-icon sc-white dark-sc-white"><use href="#chart"></use></svg>
+            <div class="programme-metadata__segment-info">
+              <div class="fs-16 lh-1">EXPERIENCE</div>
+              <div class="fs-18 lh-1"><%= content_module.difficulty&.titlecase %> level</div>
+            </div>
+          </div>
+          <div class="programme-metadata__segment">
+            <svg class="programme-metadata__segment-icon icon sc-white dark-sc-white"><use href="#layers"></use></svg>
+            <div class="programme-metadata__segment-info">
+              <div class="fs-16 lh-1">VERSION</div>
+              <div class="fs-18 lh-1"><%= content_module.version_description %></div>
+            </div>
+          </div>
+          <div class="programme-metadata__segment">
+            <svg class="programme-metadata__segment-icon icon sc-white dark-sc-white"><use href="#svg-change-path"></use></svg>
+            <div class="programme-metadata__segment-info">
+              <div class="fs-16 lh-1">CONTENT</div>
+              <div class="fs-18 lh-1"><%= content_module.lessons.size %> <%= 'lesson'.pluralize(content_module.lessons.size) %></div>
+            </div>
           </div>
         </div>
       </div>
-
-      <div class="l-margin-60 l-margin-mobile-large-40 l-book-sales-copy">
-        <%= content_module.description %>
+      <div class="content-hero-right">
+        <img src="<%= content_module.featured_banner_image_url&.first&.url || 'https://lorempixel.com/594/768/abstract/' %>" class="content-image">
       </div>
-
-      <%= erb :'content_modules/_index_table_of_contents.html', locals: { content_module: content_module } %>
-
-      <div class="l-collection-modules__pitch-cards">
-        <div>
-          <h2 class="l-font-36 l-font-22--mobile l-margin-60 l-margin-mobile-large-40"><span>Who is this course for</span></h2>
-          <div class="c-card-pitch l-margin-18">
-            <%= content_module.who_is_this_for %>
-          </div>
+    </header>
+  </div>
+  <div class="content-middle container-1188 mt-80">
+    <div class="content-middle-left">
+      <div class="outcomes">
+        <div class="tile-header">
+          <h2>Module outcomes</h2>
         </div>
-        <div>
-          <h2 class="l-font-36 l-font-22--mobile l-margin-mobile-large-40 l-margin-60"><span>Concepts covered in this course</span></h2>
-          <div class="c-item-list-icon c-item-list-icon--checkmark l-margin-18">
-            <%= content_module.covered_concepts %>
-          </div>
+        <div class="written-content">
+          <%= content_module.outcomes %>
+        </div>
+      </div>
+      <div class="concepts">
+        <div class="tile-header">
+          <h2>Covered concepts</h2>
+        </div>
+        <div class="written-content">
+          <%= content_module.covered_concepts %>
         </div>
       </div>
     </div>
 
-    <div class="l-book-sales-right">
-      <div class="l-book-sales-right--container">
 
-        <div class="l-flex">
-
-          <% if content_module.professional %>
-            <div class="l-margin-bottom-12">
-              <span class="o-badge o-badge--pro">Pro</span>
-            </div>
-          <% end %>
-        </div>
-
-        <h1><%= content_module.title %></h1>
-        <p class="l-book-sales-right-authors l-margin-6 l-font-header l-font-18 l-font-16--mobile">
-          By* <%= content_module.authors.map(&:username).to_sentence(two_words_connector: ' & ', last_word_connector: ' and ') %>
-        </p>
-
-        <p class="l-margin-36 l-font-header l-markdown-description l-collection-hero__copy-markdown l-font-16--mobile">
-          <%= content_module.short_description %>
-        </p>
-      </div>
+    <div class="content-middle-right">
+      <%= erb :'content_modules/_index_table_of_contents.html', locals: { content_module: content_module } %>
     </div>
   </div>
 </div>

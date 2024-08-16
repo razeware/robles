@@ -1,0 +1,10 @@
+@use "sass:math";
+@use "../abstracts/fonts";
+
+/* Function to convert pixel font sizes to rem */
+@function px2rem($size) {
+  @if math.unit($size) != 'px' {
+    @error "The size argument (#{$size}) must be in pixels.";
+  }
+  @return math.div($size, fonts.$base-font-size) * 1rem;
+}

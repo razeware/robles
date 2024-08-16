@@ -1,41 +1,33 @@
-<div class="c-nav-sidebar--article c-nav-sidebar--book">
-  <div>
-    <div class="c-nav-sidebar__wrapper">
-      <nav class="c-video-player__lessons">
-        <div class="c-video-player__lessons-section">
-          <% if content_module.professional %>
-            <div class="l-margin-20 l-margin-bottom-n-10">
-              <span class="o-badge o-badge--pro">Pro</span>
+<nav class="lesson-toc">
+  <div class="toc-expanded">
+    <div class="toc-header">
+      <h2>Lessons</h2>
+    </div>
+    <div class="toc-body">
+      <div class="px-24">
+        <h2 class="module-title"><a href="/"><%= content_module.title %></a></h2>
+        <p class="length"><%= content_module.lessons.size %> <%= 'lesson'.pluralize(content_module.lessons.size) %></p>
+      </div>
+      <% content_module.lessons.each do |lesson| %>
+        <div class="section-list">
+          <div class="section-list-header-wrapper">
+            <div class="section-list-header">
+              <h4><%= lesson.title %></h4>
+              <p><%= lesson.segments.count %> <%= 'segment'.pluralize(lesson.segments.count) %></p>
             </div>
-          <% end %>
-
-          <h4 class="c-video-player__lessons-title l-flex-align-center--force">
-            <a href="/" class="l-font-19"><%= content_module.title %></a>
-          </h4>
-
-          <span class="l-display-block l-margin-3 l-color-grey l-font-14"><%= content_module.version_description %></span>
-          <span class="l-display-block l-margin-3 l-color-grey l-font-14"><%= content_module.platform %>, <%= content_module.language %>, <%= content_module.editor %></span>
-        </div>
-
-        <% content_module.lessons.each do |lesson| %>
-          <div class= "c-video-player__lessons-section">
-            <span class="c-video-player__lessons-header c-video-player__lessons-header--open">
-              <h4 class="c-video-player__lessons-title"><%= lesson.title %></h4>
-              <span class="c-video-player__lessons-sum"><%= lesson.ordinal.present? ? "Section #{lesson.ordinal}:" : '' %> <%= 'segment'.pluralize(lesson.segments.count) %></span>
-            </span>
-            <ul class="c-box-list c-box-list--linked c-video-player__lesson-list c-video-player__lesson-list--open">
-              <% lesson.segments.each do |segment| %>
-                <li class="<%= 'c-box-list__item--active' if segment == current_segment %>">
-                  <a href="<%= url(transcript_path(lesson, segment)) %>">
-                    <span class="c-box-list__item-number"><%= segment.ref %>.</span>
-                    <span class="c-box-list__item-title"><%= segment.title %></span>
-                  </a>
-                </li>
-              <% end %>
-            </ul>
           </div>
-        <% end %>
-      </nav>
+          <ul class="section-segment-list">
+            <% lesson.segments.each do |segment| %>
+              <li class="<%= 'current-segment' if segment == current_segment %>">
+                <a href="<%= url(segment_path(lesson, segment)) %>">
+                  <span class="segment-ref"><%= segment.ref %></span>.
+                  <span class="segment-title"><%= segment.title %></span>
+                </a>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
     </div>
   </div>
-</div>
+</nav>

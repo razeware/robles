@@ -1,0 +1,438 @@
+
+@import '../abstracts/colors';
+@import '../abstracts/fonts';
+@import '../abstracts/mixins';
+
+
+/* ==========================================================================
+ 1. Module Homepage
+========================================================================== */
+
+.content-hero {
+  background-color: $black-night;
+  color: $white;
+  border-radius: 40px;
+  display: grid;
+  padding: 72px 106px;
+  grid-template-columns: minmax(494px, 690px) minmax(230px, 378px);
+  grid-column-gap: 105px;
+  min-height: 676px;
+
+  .content-hero-left {
+    display: grid;
+    width: unset;
+
+    h1 {
+      font-size: 3rem;
+      word-break: break-word;
+    }
+
+    .metadata {
+      margin-block: 12px;
+      gap: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      align-self: stretch;
+
+      .version-meta {
+        display: flex;
+        gap: 12px;
+      }
+
+      .authors {
+        margin-top: 32px;
+      }
+    }
+
+    p.description {
+      display: block;
+      font-size: 1.125rem;
+      margin-top: 24px;
+      word-break: break-word;
+
+    }
+  }
+
+  .programme-metadata {
+    display: flex;
+    align-self: flex-end;
+    width: 100%;
+    border-top: 2px solid $white;
+
+    .programme-metadata__segment{
+      display: flex;
+      gap: 24px;
+      padding-right: 20px;
+      padding-left: 20px;
+      border-right: 1px solid $white;
+      margin-top: 36px;
+
+      &:first-of-type {
+        padding-left: 0;
+      }
+
+      &:last-of-type {
+        border-right: none;
+        padding-right: 0;
+      }
+
+      .programme-metadata__segment-icon {
+        align-self: center;
+        width: 32px;
+        height: 32px;
+      }
+
+      .programme-metadata__segment-info {
+        display: grid;
+        align-items: center;
+        gap: 6px;
+      }
+
+    }
+  }
+
+  .content-hero-right {
+    max-width: 398px;
+
+    .content-image {
+      max-width: 350px;
+    }
+  }
+}
+
+.content-middle {
+  display: grid;
+  grid-column-gap: 8.33%;
+  grid-template-columns: 33.33% 58.33%;
+
+  .content-middle-left {
+
+    h2 {
+      font-size: 1.25rem;
+      margin-bottom: 24px;
+      font-weight: 400;
+    }
+
+    .outcomes {
+      ul {
+        li {
+          list-style: none;
+          padding-left: 40px;
+          font-size: 1rem;
+          line-height: 1.5;
+          position: relative;
+
+          &::before {
+            content: '';
+            background-image: url('../images/svg-icons/checkmark-completed.svg');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: absolute;
+            display: inline-block;
+            background-color: transparent;
+            left: 0;
+            width: 24px;
+            height: 24px;
+            top: calc(50% - 12px);
+          }
+        }
+      }
+    }
+
+    .concepts {
+      margin-top: 40px;
+    }
+  }
+
+  .content-middle-right {
+    .content-toc {
+      h2 {
+        margin-bottom: 24px;
+      }
+
+      .content-toc-description {
+        word-break: break-word;
+        padding-bottom: 32px;
+      }
+      .toc-container {
+        border: 1px solid $black-night;
+        border-radius: 16px;
+        background-color: $white;
+        margin-bottom: 32px;
+
+        .toc-segment {
+          border-bottom: 1px solid $black-night;
+          padding: 24px;
+          display: flex;
+          flex-direction: row;
+
+          .segment-number {
+            background-color: $black-night;
+            color: $white;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 56px;
+            height: 56px;
+            margin-right: 24px;
+            font-size: 1.125rem;
+          }
+
+          .toc-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+
+            .segment-header {
+              display: flex;
+              line-height: 1.25;
+              gap: 24px;
+              margin-right: auto;
+
+
+              .segment-title {
+                text-decoration: none;
+                color: $black-night;
+                font-size: 1.25rem;
+                transition: none;
+
+                &:hover {
+                  text-decoration: underline;
+                  color: $orange-determination;
+                }
+              }
+
+              .slide-button {
+                text-decoration: none;
+                background-color: $white;
+                color: $black-night;
+                border: 1px solid $black-night;
+                border-radius: 6px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.725rem;
+                padding: 6px;
+                height: 24px;
+
+                &:hover {
+                  background-color: $grey-thought-50;
+                }
+              }
+            }
+          }
+        }
+
+      }
+
+    }
+
+  }
+}
+
+
+/* ==========================================================================
+ 3. Segments
+========================================================================== */
+
+.content-module {
+  margin-top: 40px;
+
+  .segment {
+    display: grid;
+    width: min(1536px, 100vw - 48px);
+    margin-inline: auto;
+    grid-template-columns: 396px 1fr 40px;
+    gap: 32px;
+    padding-bottom: 120px;
+
+    .segment-header {
+      margin-top: unset;
+      font-size: 2.25rem;
+    }
+
+    .transcript-segment {
+
+      p, pre, ul, ol, h2, h3, h4 {
+        margin-left: 70px;
+        position: relative;
+      }
+
+      ol, ul {
+        .video-timestamp {
+          left: -90px;
+        }
+      }
+
+      blockquote {
+        margin-left: 70px;
+
+        p {
+          margin: unset;
+
+          .video-timestamp {
+            left: -94px;
+          }
+        }
+      }
+
+      .video-timestamp {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        left: -70px;
+        height: 24px;
+        padding: 0 8px;
+        font-size: 0.875rem;
+        text-decoration: underline;
+        background: none;
+        box-shadow: none;
+        border: none;
+        font-weight: 400;
+      }
+    }
+
+    .assessment-quiz {
+      .quiz-container {
+        border: 1px solid $black-night;
+        padding: 24px;
+        margin-top: 40px;
+        border-radius: 16px;
+        background-color: $white;
+
+        h3 {
+          font-weight: 500;
+          font-size: 1.25rem;
+          line-height: 1.5;
+          padding-left: 12px;
+          margin-bottom: 12px;
+          width: 95%;
+        }
+
+        ul.quiz-questions {
+          list-style: none;
+
+          .quiz-option {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            min-height: 64px;
+            padding: 12px;
+            border-radius: 12px;
+            flex-wrap: wrap;
+
+            .option-ref {
+              width: 32px;
+              height: 32px;
+              min-width: 32px;
+              min-height: 32px;
+              border-radius: 8px;
+              background-color: $grey-thought;
+              font-size: 0.875rem;
+              line-height: 1;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-weight: 700;
+            }
+            .option-text {
+              padding-inline: 24px;
+              margin-bottom: 20px;
+              width: 95%;
+            }
+
+            .quiz-explanation {
+              font-size: 0.875rem;
+              line-height: 1.5;
+              margin-left: 56px;
+              width: 90%;
+
+              &.written-content {
+                p {
+                  margin: unset;
+
+                  &:first-of-type{
+                    display: inline;
+                  }
+                }
+
+                & > * {
+                font-size: inherit;
+                line-height: inherit;
+              }
+              }
+            }
+          }
+
+          .correct-choice {
+            border: 2px solid $green-meadow;
+          }
+        }
+
+      .quiz-lo {
+        background-color: $grey-thought;
+        padding: 30px;
+        padding-left: 40px;
+        margin-top: 12px;
+        margin-bottom: -24px;
+        margin-inline: -24px;
+        border-radius: 0 0 16px 16px;
+      }
+
+      }
+    }
+  }
+}
+
+
+
+
+/* ==========================================================================
+ 4. Stuff & bits
+========================================================================== */
+
+
+ .mb-8 {
+  margin-bottom: 8px;
+ }
+
+.sc-white {
+  fill: $white;
+}
+
+.fs-16 {
+  font-size: 1rem;
+}
+
+.lh-1 {
+  line-height: 1;
+}
+
+.fs-18 {
+  font-size: 1.125rem;
+}
+
+.w-bold {
+  font-weight: 700;
+}
+
+.container-1188 {
+  max-width: 1188px;
+  margin-inline: auto;
+}
+
+.container-1386 {
+  max-width: 1386px;
+  margin-inline: auto;
+}
+
+.mt-80 {
+  margin-top: 80px;
+}
+
+.px-24 {
+  margin-inline: 24px;
+}

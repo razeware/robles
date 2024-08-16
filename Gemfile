@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 # Stealing some bits from rails
-gem 'activemodel', '< 7.2'
-gem 'activesupport', '< 7.2'
+gem 'activemodel', '< 7.3'
+gem 'activesupport', '< 7.3'
 # Autoloading explictly will use zeitwerk
 gem 'zeitwerk', '~> 2.3'
 
@@ -34,7 +34,7 @@ gem 'aws-sdk-s3', '~> 1.64'
 gem 'concurrent-ruby', '~> 1.1'
 
 # Interacting with github
-gem 'octokit', '~> 8'
+gem 'octokit', '~> 9'
 
 # Interface with libsodium
 gem 'rbnacl'
@@ -61,9 +61,7 @@ gem 'rack-test'
 # Note: This is waiting for support for bundler 3.4 and ruby 3.2 on upstream.
 # https://github.com/dbalatero/levenshtein-ffi/pull/12
 gem 'levenshtein-ffi', require: 'levenshtein', git: 'https://github.com/razeware/levenshtein-ffi.git'
-# NOTE: This is waiting for 3.2 support on upstream.
-# https://github.com/opencoconut/webvtt-ruby/pull/20
-gem 'webvtt-ruby', require: 'webvtt', git: 'https://github.com/razeware/webvtt-ruby.git'
+gem 'webvtt-ruby', require: 'webvtt'
 
 group :development do
   # For integration with VSCode
