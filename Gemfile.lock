@@ -124,8 +124,7 @@ GEM
     notiffany (0.1.3)
       nenv (~> 0.1)
       shellany (~> 0.0)
-    octokit (8.1.0)
-      base64
+    octokit (9.1.0)
       faraday (>= 1, < 3)
       sawyer (~> 0.9)
     parallel (1.26.2)
@@ -249,7 +248,7 @@ DEPENDENCIES
   guard-livereload
   levenshtein-ffi!
   mini_magick
-  octokit (~> 8)
+  octokit (~> 9)
   rack-livereload
   rack-test
   rackup
