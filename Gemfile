@@ -49,7 +49,7 @@ gem 'sinatra', '~> 4'
 gem 'thin'
 
 # Pinning google-protobuf so that it continues to build on ARM devices
-gem 'google-protobuf', '=3.22.0'
+gem 'google-protobuf', '3.25.5'
 
 # Controlling Chrome to create snapshots
 gem 'ferrum'
