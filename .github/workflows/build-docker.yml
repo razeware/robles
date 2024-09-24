@@ -16,30 +16,7 @@ env:
   REGISTRY_IMAGE: razeware/robles
 
 jobs:
-  determine_environment:
-    name: Determine environment
-    runs-on: ubuntu-latest
-    outputs:
-      environment: ${{ steps.set_environment.outputs.environment }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set environment
-        id: set_environment
-        run: |
-          if [[ $GITHUB_REF == 'refs/heads/development' ]]; then
-            echo "environment=staging" >> $GITHUB_OUTPUT
-          # Else if tag starts with v, then it's a release
-          elif [[ $GITHUB_REF == 'refs/tags/v'* ]]; then
-            echo "environment=production" >> $GITHUB_OUTPUT
-          else
-            echo "environment=na" >> $GITHUB_OUTPUT
-          fi
-
-
   # Run tests.
-  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
     runs-on: ubuntu-latest
 
@@ -65,25 +42,9 @@ jobs:
           status: FAILED
           color: danger
 
-  # Push image to DockerHub.
-  build:
-    # Ensure test job passes before pushing image.
-    needs:
-      - determine_environment
-      - test
-
-    if: github.event_name == 'push'
-
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - runner: ubuntu-latest
-            platform: linux/amd64
-          - runner: public-arm-4core
-            platform: linux/arm64
-
-    runs-on: ${{ matrix.runner }}
+  notify_slack:
+    name: Tell slack we're starting a build
+    runs-on: ubunut-latest
     outputs:
       slack_message_id: ${{ steps.slack.outputs.message_id }}
     steps:
@@ -98,6 +59,50 @@ jobs:
           status: STARTING
           color: warning
 
+
+  determine_environment:
+    name: Determine environment
+    runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.set_environment.outputs.environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set environment
+        id: set_environment
+        run: |
+          if [[ $GITHUB_REF == 'refs/heads/development' ]]; then
+            echo "environment=staging" >> $GITHUB_OUTPUT
+          # Else if tag starts with v, then it's a release
+          elif [[ $GITHUB_REF == 'refs/tags/v'* ]]; then
+            echo "environment=production" >> $GITHUB_OUTPUT
+          else
+            echo "environment=na" >> $GITHUB_OUTPUT
+          fi
+
+
+  # Push image to DockerHub.
+  build:
+    # Ensure test job passes before pushing image.
+    needs:
+      - determine_environment
+      - test
+      - notify_slack
+
+    if: github.event_name == 'push'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            platform: linux/amd64
+          - runner: public-arm-2core
+            platform: linux/arm64
+
+    runs-on: ${{ matrix.runner }}
+    steps:
       - name: Prepare
         run: |
           platform=${{ matrix.platform }}
@@ -153,12 +158,12 @@ jobs:
         run: docker logout
 
       - name: Notify slack - build result failed
-        uses: voxmedia/github-action-slack-notify-build@v1
+        uses: zuplo/github-action-slack-notify-build@v2
         if: failure()
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         with:
-          message_id: ${{ steps.slack.outputs.message_id }}
+          message_id: ${{ needs.notify_slack.outputs.slack_message_id }}
           channel: build
           status: FAILED
           color: danger
@@ -168,6 +173,7 @@ jobs:
     needs:
       - determine_environment
       - build
+      - notify_slack
 
     steps:
       - name: Download digests
@@ -214,7 +220,7 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         with:
-          message_id: ${{ needs.build.outputs.slack_message_id }}
+          message_id: ${{ needs.notify_slack.outputs.slack_message_id }}
           channel: build
           status: SUCCESS
           color: good
@@ -225,7 +231,7 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         with:
-          message_id: ${{ needs.build.outputs.slack_message_id }}
+          message_id: ${{ needs.notify_slack.outputs.slack_message_id }}
           channel: build
           status: FAILED
           color: danger
