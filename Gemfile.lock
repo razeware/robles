@@ -243,6 +243,7 @@ DEPENDENCIES
   faraday-retry
   ferrum
   git
+  google-protobuf
   guard (~> 2, >= 2.16.2)
   guard-livereload
   levenshtein-ffi!

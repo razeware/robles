@@ -48,6 +48,10 @@ gem 'sass-embedded'
 gem 'sinatra', '~> 4'
 gem 'thin'
 
+# Forcing build of this cos it still doesn't work
+# https://github.com/sass-contrib/sass-embedded-host-ruby/issues/210
+gem 'google-protobuf', force_ruby_platform: true if Gem::Platform.local.to_s == 'aarch64-linux-musl'
+
 # Controlling Chrome to create snapshots
 gem 'ferrum'
 
@@ -59,6 +63,7 @@ gem 'rack-test'
 # https://github.com/dbalatero/levenshtein-ffi/pull/12
 gem 'levenshtein-ffi', require: 'levenshtein', git: 'https://github.com/razeware/levenshtein-ffi.git'
 gem 'webvtt-ruby', require: 'webvtt'
+
 
 group :development do
   # For integration with VSCode
