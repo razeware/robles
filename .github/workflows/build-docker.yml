@@ -56,7 +56,7 @@ jobs:
           fi
 
       - name: Notify slack - test results
-        uses: voxmedia/github-action-slack-notify-build@v1
+        uses: zuplo/github-action-slack-notify-build@v2
         if: failure()
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -88,7 +88,7 @@ jobs:
       slack_message_id: ${{ steps.slack.outputs.message_id }}
     steps:
       - name: Notify slack - build starting
-        uses: voxmedia/github-action-slack-notify-build@v1
+        uses: zuplo/github-action-slack-notify-build@v2
         if: success()
         id: slack
         env:
@@ -209,7 +209,7 @@ jobs:
         run: docker logout
 
       - name: Notify slack - build result successful
-        uses: voxmedia/github-action-slack-notify-build@v1
+        uses: zuplo/github-action-slack-notify-build@v2
         if: success()
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -220,7 +220,7 @@ jobs:
           color: good
 
       - name: Notify slack - build result failed
-        uses: voxmedia/github-action-slack-notify-build@v1
+        uses: zuplo/github-action-slack-notify-build@v2
         if: failure()
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
