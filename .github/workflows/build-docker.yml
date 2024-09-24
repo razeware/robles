@@ -13,10 +13,10 @@ on:
 
 env:
   IMAGE_NAME: robles
+  REGISTRY_IMAGE: razeware/robles
 
 jobs:
   # Run tests.
-  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
     runs-on: ubuntu-latest
 
@@ -33,7 +33,7 @@ jobs:
           fi
 
       - name: Notify slack - test results
-        uses: voxmedia/github-action-slack-notify-build@v1
+        uses: zuplo/github-action-slack-notify-build@v2
         if: failure()
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
@@ -42,17 +42,16 @@ jobs:
           status: FAILED
           color: danger
 
-  # Push image to DockerHub.
-  push:
-    # Ensure test job passes before pushing image.
-    needs: test
-
+  notify_slack:
+    name: Notify slack of build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-
+    needs:
+      - test
+    outputs:
+      slack_message_id: ${{ steps.slack.outputs.message_id }}
     steps:
       - name: Notify slack - build starting
-        uses: voxmedia/github-action-slack-notify-build@v1
+        uses: zuplo/github-action-slack-notify-build@v2
         if: success()
         id: slack
         env:
@@ -62,81 +61,177 @@ jobs:
           status: STARTING
           color: warning
 
-      - uses: actions/checkout@v4
+  determine_environment:
+    name: Determine environment
+    runs-on: ubuntu-latest
+    outputs:
+      environment: ${{ steps.set_environment.outputs.environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3.2.0
+      - name: Set environment
+        id: set_environment
+        run: |
+          if [[ $GITHUB_REF == 'refs/heads/development' ]]; then
+            echo "environment=staging" >> $GITHUB_OUTPUT
+          # Else if tag starts with v, then it's a release
+          elif [[ $GITHUB_REF == 'refs/tags/v'* ]]; then
+            echo "environment=production" >> $GITHUB_OUTPUT
+          else
+            echo "environment=na" >> $GITHUB_OUTPUT
+          fi
+
+  # Build the image
+  build:
+    needs:
+      - determine_environment
+      - test
+      - notify_slack
+
+    if: github.event_name == 'push'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            platform: linux/amd64
+          - runner: public-arm-2core
+            platform: linux/arm64
+
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - name: Prepare
+        run: |
+          platform=${{ matrix.platform }}
+          echo "PLATFORM_PAIR=${platform//\//-}" >> $GITHUB_ENV
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.REGISTRY_IMAGE }}
+          tags: |
+            type=ref,event=tag,prefix=release-
+            type=raw,value=latest,enable=${{ github.ref_name == 'master' }}
+            type=raw,value=staging,enable=${{ needs.determine_environment.outputs.environment == 'staging' }}
+
+      - uses: actions/checkout@v4
 
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@v3.6.1
+        uses: docker/setup-buildx-action@v3
         with:
           buildkitd-flags: --debug
 
       - name: Log in to DockerHub registry
         run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u razewareci --password-stdin
 
-      - name: Generate tag list
-        id: generate_tags
-        run: |
-          IMAGE_ID=razeware/$IMAGE_NAME
-
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-          # Prefix tags with 'release'
-          if [[ "${{ github.ref }}" == "refs/tags/"* ]]; then
-            TAGS=$(echo "${VERSION}" | sed -E "s/v?([0-9]+)\.([0-9]+)\.([0-9]+)/release-v\1.\2.\3 release-v\1.\2 release-v\1/g")
-          fi
-
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && TAGS=latest
-          [ "$VERSION" == "development" ] && TAGS=staging
-
-          echo IMAGE_ID=$IMAGE_ID
-          echo TAGS=$TAGS
-
-          TAG_LIST=""
-          for TAG in ${TAGS}; do
-            TAG_LIST="${TAG_LIST}${IMAGE_ID}:${TAG},"
-          done
-
-          echo $TAG_LIST
-          echo "::set-output name=tag_list::${TAG_LIST}"
-
       - name: Build and push
-        uses: docker/build-push-action@v6.6.1
+        id: build
+        uses: docker/build-push-action@v6
         with:
           context: .
-          platforms: linux/amd64,linux/arm64
-          push: true
-          tags: ${{ steps.generate_tags.outputs.tag_list }}
+          platforms: ${{ matrix.platform }}
+          labels: ${{ steps.meta.outputs.labels }}
+          outputs: type=image,name=${{ env.REGISTRY_IMAGE }},push-by-digest=true,name-canonical=true,push=true
+
+      - name: Export digest
+        run: |
+          mkdir -p /tmp/digests
+          digest="${{ steps.build.outputs.digest }}"
+          touch "/tmp/digests/${digest#sha256:}"
+
+      - name: Upload digest
+        uses: actions/upload-artifact@v4
+        with:
+          name: digests-${{ env.PLATFORM_PAIR }}
+          path: /tmp/digests/*
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Logout of DockerHub Registry
+        if: ${{ always() }}
+        run: docker logout
+
+      - name: Notify slack - build result failed
+        uses: zuplo/github-action-slack-notify-build@v2
+        if: failure()
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        with:
+          message_id: ${{ needs.notify_slack.outputs.slack_message_id }}
+          channel: build
+          status: FAILED
+          color: danger
+
+  # Join the two layers back together
+  merge:
+    runs-on: ubuntu-latest
+    needs:
+      - determine_environment
+      - build
+      - notify_slack
+
+    steps:
+      - name: Download digests
+        uses: actions/download-artifact@v4
+        with:
+          path: /tmp/digests
+          pattern: digests-*
+          merge-multiple: true
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            ${{ env.REGISTRY_IMAGE }}
+          tags: |
+            type=ref,event=tag,prefix=release-
+            type=raw,value=latest,enable=${{ github.ref_name == 'master' }}
+            type=raw,value=staging,enable=${{ needs.determine_environment.outputs.environment == 'staging' }}
+
+      - name: Log in to DockerHub registry
+        run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u razewareci --password-stdin
+
+      - name: Create manifest list and push
+        working-directory: /tmp/digests
+        run: |
+          docker buildx imagetools create $(jq -cr '.tags | map("-t " + .) | join(" ")' <<< "$DOCKER_METADATA_OUTPUT_JSON") \
+            $(printf '${{ env.REGISTRY_IMAGE }}@sha256:%s ' *)
+
+      - name: Inspect image
+        run: |
+          docker buildx imagetools inspect ${{ env.REGISTRY_IMAGE }}:${{ steps.meta.outputs.version }}
 
       - name: Logout of DockerHub Registry
         if: ${{ always() }}
         run: docker logout
 
       - name: Notify slack - build result successful
-        uses: voxmedia/github-action-slack-notify-build@v1
+        uses: zuplo/github-action-slack-notify-build@v2
         if: success()
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         with:
-          message_id: ${{ steps.slack.outputs.message_id }}
+          message_id: ${{ needs.notify_slack.outputs.slack_message_id }}
           channel: build
           status: SUCCESS
           color: good
 
       - name: Notify slack - build result failed
-        uses: voxmedia/github-action-slack-notify-build@v1
+        uses: zuplo/github-action-slack-notify-build@v2
         if: failure()
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         with:
-          message_id: ${{ steps.slack.outputs.message_id }}
+          message_id: ${{ needs.notify_slack.outputs.slack_message_id }}
           channel: build
           status: FAILED
           color: danger
