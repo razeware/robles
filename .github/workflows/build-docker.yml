@@ -43,8 +43,10 @@ jobs:
           color: danger
 
   notify_slack:
-    name: Tell slack we're starting a build
-    runs-on: ubunut-latest
+    name: Notify slack of build
+    runs-on: ubuntu-latest
+    needs:
+      - test
     outputs:
       slack_message_id: ${{ steps.slack.outputs.message_id }}
     steps:
@@ -58,7 +60,6 @@ jobs:
           channel: build
           status: STARTING
           color: warning
-
 
   determine_environment:
     name: Determine environment
@@ -81,10 +82,8 @@ jobs:
             echo "environment=na" >> $GITHUB_OUTPUT
           fi
 
-
-  # Push image to DockerHub.
+  # Build the image
   build:
-    # Ensure test job passes before pushing image.
     needs:
       - determine_environment
       - test
@@ -168,6 +167,7 @@ jobs:
           status: FAILED
           color: danger
 
+  # Join the two layers back together
   merge:
     runs-on: ubuntu-latest
     needs:
