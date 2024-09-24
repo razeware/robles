@@ -114,7 +114,9 @@ jobs:
           images: |
             ${{ env.REGISTRY_IMAGE }}
           tags: |
-            type=ref,event=tag,prefix=release-
+            type=semver,pattern=release-v{{version}}
+            type=semver,pattern=release-v{{major}}.{{minor}}
+            type=semver,pattern=release-v{{major}}
             type=raw,value=latest,enable=${{ github.ref_name == 'master' }}
             type=raw,value=staging,enable=${{ needs.determine_environment.outputs.environment == 'staging' }}
 
@@ -193,7 +195,9 @@ jobs:
           images: |
             ${{ env.REGISTRY_IMAGE }}
           tags: |
-            type=ref,event=tag,prefix=release-
+            type=semver,pattern=release-v{{version}}
+            type=semver,pattern=release-v{{major}}.{{minor}}
+            type=semver,pattern=release-v{{major}}
             type=raw,value=latest,enable=${{ github.ref_name == 'master' }}
             type=raw,value=staging,enable=${{ needs.determine_environment.outputs.environment == 'staging' }}
 
