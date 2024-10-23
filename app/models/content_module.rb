@@ -29,7 +29,7 @@ class ContentModule
   validates :lessons, length: { minimum: 1 }, allow_blank: false, lessons: true
   validates_each :domains do |record, attr, value|
     value.each do |domain|
-      record.errors.add(attr, "(#{domain}) not included in the list") unless %w[ios android flutter server-side-swift unity macos professional-growth].include?(domain)
+      record.errors.add(attr, "(#{domain}) not included in the list") unless %w[ios android flutter server-side-swift unity macos professional-growth ai].include?(domain)
     end
   end
 
