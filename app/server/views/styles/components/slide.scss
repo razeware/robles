@@ -229,6 +229,11 @@ $slide-ratio: 1.8;
       @extend .slide-domain;
       background-color: #AC9FAB;
     }
+
+    &--ai {
+      @extend .slide-domain;
+      background-color: #E6978A;
+    }
   }
 }
 
