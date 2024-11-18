@@ -143,8 +143,9 @@ GEM
     rack (3.0.11)
     rack-livereload (0.6.0)
       rack (~> 3.0.8)
-    rack-protection (4.0.0)
+    rack-protection (4.1.0)
       base64 (>= 0.1.0)
+      logger (>= 1.6.0)
       rack (>= 3.0.0, < 4)
     rack-session (2.0.0)
       rack (>= 3.0.0)
@@ -188,10 +189,11 @@ GEM
       faraday (>= 0.17.3, < 3)
     securerandom (0.3.1)
     shellany (0.0.1)
-    sinatra (4.0.0)
+    sinatra (4.1.0)
+      logger (>= 1.6.0)
       mustermann (~> 3.0)
       rack (>= 3.0.0, < 4)
-      rack-protection (= 4.0.0)
+      rack-protection (= 4.1.0)
       rack-session (>= 2.0.0, < 3)
       tilt (~> 2.0)
     slack-notifier (2.4.0)
@@ -243,7 +245,6 @@ DEPENDENCIES
   faraday-retry
   ferrum
   git
-  google-protobuf
   guard (~> 2, >= 2.16.2)
   guard-livereload
   levenshtein-ffi!
