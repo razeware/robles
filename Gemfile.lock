@@ -8,9 +8,9 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (7.2.2.1)
-      activesupport (= 7.2.2.1)
-    activesupport (7.2.2.1)
+    activemodel (8.0.1)
+      activesupport (= 8.0.1)
+    activesupport (8.0.1)
       base64
       benchmark (>= 0.3)
       bigdecimal
@@ -22,6 +22,7 @@ GEM
       minitest (>= 5.1)
       securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
+      uri (>= 0.13.1)
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
     ast (2.4.2)
@@ -251,8 +252,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activemodel (< 7.3)
-  activesupport (< 7.3)
+  activemodel (< 9)
+  activesupport (< 9)
   aws-sdk-s3 (~> 1.64)
   cli-ui (~> 2)
   commonmarker (< 1)
