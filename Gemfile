@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 # Stealing some bits from rails
-gem 'activemodel', '< 7.3'
-gem 'activesupport', '< 7.3'
+gem 'activemodel', '< 9'
+gem 'activesupport', '< 9'
 # Autoloading explictly will use zeitwerk
 gem 'zeitwerk', '~> 2.3'
 
@@ -46,7 +46,7 @@ gem 'slack-notifier', '~> 2.3', '>= 2.3.2'
 gem 'rackup'
 gem 'sass-embedded'
 gem 'sinatra', '~> 4'
-gem 'thin'
+gem 'puma', '~> 6'
 
 # Forcing build of this cos it still doesn't work
 # https://github.com/sass-contrib/sass-embedded-host-ruby/issues/210
@@ -63,6 +63,9 @@ gem 'rack-test'
 # https://github.com/dbalatero/levenshtein-ffi/pull/12
 gem 'levenshtein-ffi', require: 'levenshtein', git: 'https://github.com/razeware/levenshtein-ffi.git'
 gem 'webvtt-ruby', require: 'webvtt'
+
+# No longer part of the standard library
+gem 'ostruct'
 
 
 group :development do
