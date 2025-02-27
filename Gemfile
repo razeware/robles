@@ -64,6 +64,9 @@ gem 'rack-test'
 gem 'levenshtein-ffi', require: 'levenshtein', git: 'https://github.com/razeware/levenshtein-ffi.git'
 gem 'webvtt-ruby', require: 'webvtt'
 
+# No longer part of the standard library
+gem 'ostruct'
+
 
 group :development do
   # For integration with VSCode

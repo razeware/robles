@@ -266,6 +266,7 @@ DEPENDENCIES
   levenshtein-ffi!
   mini_magick
   octokit (~> 9)
+  ostruct
   puma (~> 6)
   rack-livereload
   rack-test
