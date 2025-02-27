@@ -46,7 +46,7 @@ gem 'slack-notifier', '~> 2.3', '>= 2.3.2'
 gem 'rackup'
 gem 'sass-embedded'
 gem 'sinatra', '~> 4'
-gem 'thin'
+gem 'puma', '~> 6'
 
 # Forcing build of this cos it still doesn't work
 # https://github.com/sass-contrib/sass-embedded-host-ruby/issues/210
