@@ -5,7 +5,7 @@ LABEL maintainer=engineering@kodeco.com
 
 ARG APP_ROOT=/app/robles
 ARG BUILD_PACKAGES="build-base git"
-ARG DEV_PACKAGES="bash imagemagick libsodium-dev"
+ARG DEV_PACKAGES="bash imagemagick libsodium-dev gcompat"
 ARG RUBY_PACKAGES="tzdata"
 
 # SYSLOG TO STDOUT
@@ -58,7 +58,7 @@ ARG RUBY_ENV=${RUBY_ENV:-production}
 
 ENV RUBY_ENV=${RUBY_ENV}
 
-ARG RUNTIME_PACKAGES="libjpeg libheif imagemagick git tzdata"
+ARG RUNTIME_PACKAGES="libjpeg libheif imagemagick git tzdata gcompat"
 ARG TEST_AND_DEV_PACKAGES="bash build-base libsodium-dev"
 
 # SYSLOG TO STDOUT
