@@ -50,7 +50,8 @@ gem 'puma', '~> 6'
 
 # Forcing build of this cos it still doesn't work
 # https://github.com/sass-contrib/sass-embedded-host-ruby/issues/210
-gem 'google-protobuf', force_ruby_platform: true if Gem::Platform.local.to_s == 'aarch64-linux-musl'
+# https://github.com/protocolbuffers/protobuf/issues/16853
+gem 'google-protobuf', force_ruby_platform: RUBY_PLATFORM.include?('linux-musl')
 
 # Controlling Chrome to create snapshots
 gem 'ferrum'
