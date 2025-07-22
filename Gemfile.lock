@@ -120,7 +120,7 @@ GEM
     mini_magick (5.2.0)
       benchmark
       logger
-    mini_portile2 (2.8.8)
+    mini_portile2 (2.8.9)
     minitest (5.25.4)
     multi_json (1.15.0)
     mustermann (3.0.3)
@@ -129,7 +129,7 @@ GEM
     net-http (0.6.0)
       uri
     nio4r (2.7.4)
-    nokogiri (1.18.3)
+    nokogiri (1.18.9)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     notiffany (0.1.3)
