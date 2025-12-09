@@ -5,6 +5,9 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 # Stealing some bits from rails
 gem 'activemodel', '< 9'
 gem 'activesupport', '< 9'
+# Pinning untile rails 8.1.2 is released
+gem 'connection_pool', '< 3.0'
+
 # Autoloading explictly will use zeitwerk
 gem 'zeitwerk', '~> 2.3'
 
