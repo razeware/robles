@@ -47,9 +47,9 @@ module Linting
       end
     end
 
-    def with_spinner(title:, show: true, &block)
+    def with_spinner(title:, show: true, &)
       if show
-        CLI::UI::Spinner.spin(title, &block)
+        CLI::UI::Spinner.spin(title, &)
       else
         yield
       end

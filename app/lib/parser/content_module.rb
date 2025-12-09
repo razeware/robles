@@ -36,7 +36,7 @@ module Parser
       segments = parse_segments(metadata[:segments_path])
 
       Lesson.new(ordinal: index + 1, segments:).tap do |lesson|
-        lesson_metadata = load_yaml_file(apply_path((metadata[:segments_path])))
+        lesson_metadata = load_yaml_file(apply_path(metadata[:segments_path]))
         LessonMetadata.new(lesson, lesson_metadata).apply!
       end
     end

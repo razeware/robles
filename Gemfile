@@ -46,10 +46,10 @@ gem 'rbnacl'
 gem 'slack-notifier', '~> 2.3', '>= 2.3.2'
 
 # Local previewing
+gem 'puma', '~> 6'
 gem 'rackup'
 gem 'sass-embedded'
 gem 'sinatra', '~> 4'
-gem 'puma', '~> 6'
 
 # Forcing build of this cos it still doesn't work
 # https://github.com/sass-contrib/sass-embedded-host-ruby/issues/210
@@ -70,7 +70,6 @@ gem 'webvtt-ruby', require: 'webvtt'
 
 # No longer part of the standard library
 gem 'ostruct'
-
 
 group :development do
   # For integration with VSCode
