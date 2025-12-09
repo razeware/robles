@@ -10,6 +10,7 @@ class RoblesPabloServer < Sinatra::Application
   set :static_cache_control, [max_age: 0]
   set :image_extractor, nil
   set :local, true
+  set :protection, except: [:host_authorization]
 
   use Rack::LiveReload, host: 'localhost', source: :vendored unless ENV['DISABLE_LIVERELOAD']
 
