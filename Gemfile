@@ -31,7 +31,7 @@ gem 'git'
 gem 'mini_magick'
 
 # AWS Access
-gem 'aws-sdk-s3', '~> 1.64'
+gem 'aws-sdk-s3', '~> 1.208'
 
 # For multithreading image proceesing
 gem 'concurrent-ruby', '~> 1.1'
