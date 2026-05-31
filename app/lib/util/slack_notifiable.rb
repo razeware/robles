@@ -5,6 +5,17 @@ module Util
   module SlackNotifiable # rubocop:disable Metrics/ModuleLength
     extend ActiveSupport::Concern
 
+    included do
+      include Util::Logging
+    end
+
+    # Slack notifications are best-effort. A Slack problem - most notably webhook
+    # rate limiting (HTTP 429) when lots of modules circulate at once - must never
+    # fail or hang the publish/circulate itself. We therefore cap how long we'll
+    # wait on Slack, and log-then-swallow any delivery error.
+    SLACK_OPEN_TIMEOUT = 5
+    SLACK_READ_TIMEOUT = 5
+
     BOOK_SUCCESS_IMAGE_URL = 'https://cdn.kodeco.com/v3-resources/razebot/images/media-article-multi-platform.png'
     VIDEO_COURSE_SUCCESS_IMAGE_URL = 'https://cdn.kodeco.com/v3-resources/razebot/images/media-course-multi-platform.png'
     CONTENT_MODULE_SUCCESS_IMAGE_URL = 'https://cdn.kodeco.com/v3-resources/razebot/images/media-multi-multi-platform.png'
@@ -14,39 +25,45 @@ module Util
     CONTENT_MODULE_ROBLES_CONTEXT_IMAGE_URL = 'https://cdn.kodeco.com/v3-resources/razebot/images/media-path-multi-platform.png'
 
     def notify_book_success(book:)
-      return unless notifiable?
-
-      notifier.post(blocks: book_success_blocks(book:))
+      deliver('book publication success', blocks: book_success_blocks(book:))
     end
 
     def notify_book_failure(book:, details: nil)
-      return unless notifiable?
-
-      notifier.post(blocks: book_failure_blocks(book:, details: details || 'N/A'))
+      deliver('book publication failure', blocks: book_failure_blocks(book:, details: details || 'N/A'))
     end
 
     def notify_video_course_success(video_course:)
-      return unless notifiable?
-
-      notifier.post(blocks: video_course_success_blocks(video_course:))
+      deliver('video course upload success', blocks: video_course_success_blocks(video_course:))
     end
 
     def notify_video_course_failure(video_course:, details: nil)
-      return unless notifiable?
-
-      notifier.post(blocks: video_course_failure_blocks(video_course:, details: details || 'N/A'))
+      deliver('video course upload failure', blocks: video_course_failure_blocks(video_course:, details: details || 'N/A'))
     end
 
     def notify_content_module_success(content_module:)
-      return unless notifiable?
-
-      notifier.post(blocks: content_module_success_blocks(content_module:))
+      deliver('content module upload success', blocks: content_module_success_blocks(content_module:))
     end
 
     def notify_content_module_failure(content_module:, details: nil)
-      return unless notifiable?
+      deliver('content module upload failure', blocks: content_module_failure_blocks(content_module:, details: details || 'N/A'))
+    end
 
-      notifier.post(blocks: content_module_failure_blocks(content_module:, details: details || 'N/A'))
+    # Best-effort delivery of a Slack notification. Logs the outcome and never
+    # raises: a Slack failure (rate limit, timeout, network error) is logged and
+    # swallowed so it can't fail or mask the surrounding publish.
+    def deliver(description, blocks:)
+      unless notifiable?
+        logger.info("Skipping Slack notification (#{description}): SLACK_WEBHOOK_URL is not set")
+        return
+      end
+
+      logger.info("Sending Slack notification: #{description}")
+      notifier.post(blocks:)
+      logger.info("Sent Slack notification: #{description}")
+    rescue Slack::Notifier::APIError => e
+      logger.warn("Slack notification failed (#{description}); continuing without it. Slack API error: #{e.message}")
+    rescue StandardError => e
+      logger.warn("Slack notification failed (#{description}); continuing without it. #{e.class}: #{e.message}")
     end
 
     def notifiable?
@@ -54,7 +71,12 @@ module Util
     end
 
     def notifier
-      @notifier ||= Slack::Notifier.new(SLACK_WEBHOOK_URL, channel: SLACK_CHANNEL, username: SLACK_USERNAME)
+      @notifier ||= Slack::Notifier.new(
+        SLACK_WEBHOOK_URL,
+        channel: SLACK_CHANNEL,
+        username: SLACK_USERNAME,
+        http_options: { open_timeout: SLACK_OPEN_TIMEOUT, read_timeout: SLACK_READ_TIMEOUT }
+      )
     end
 
     def book_success_blocks(book:)
