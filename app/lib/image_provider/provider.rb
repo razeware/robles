@@ -15,14 +15,27 @@ module ImageProvider
     def process
       logger.info('Extracting images')
       extractor.extract
-      logger.info('Beginning image upload')
-      futures = extractor.images.map do |image|
+      logger.info("Beginning upload of #{extractor.images.count} image(s)")
+      Concurrent::Promises.zip(*upload_futures).wait
+      logger.info('Completed image upload')
+    end
+
+    def upload_futures
+      extractor.images.map do |image|
         Concurrent::Promises.future do
           image.upload
+        rescue StandardError => e
+          # Surface the failure: Concurrent::Promises#wait swallows rejected
+          # futures, so without this an image upload error (or hang) would
+          # otherwise vanish from the logs.
+          logger.error("Failed to upload image #{image_descriptor(image)}: #{e.class} #{e.message}")
+          raise
         end
       end
-      Concurrent::Promises.zip(*futures).wait
-      logger.info('Completed image upload')
+    end
+
+    def image_descriptor(image)
+      image.try(:key).presence || image.try(:local_url).presence || image.class.name
     end
 
     def representations_for_local_url(url)
