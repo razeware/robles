@@ -29,7 +29,10 @@ module Renderer
           out(svg_content(node.url))
         else
           out('    <img src="', src(node.url), '" alt="', title, '" title="', title, '">')
-          out('    <source srcset="', srcset(node.url), '">')
+          image_srcset = srcset(node.url)
+          # GIFs (and any image without generated variants) only have the
+          # original, so skip the empty <source> rather than emit a broken one.
+          out('    <source srcset="', image_srcset, '">') if image_srcset.present?
         end
         out('  </picture>')
         out('  <figcaption>', title, '</figcaption>')
