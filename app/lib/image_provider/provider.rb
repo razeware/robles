@@ -15,14 +15,25 @@ module ImageProvider
     def process
       logger.info('Extracting images')
       extractor.extract
-      logger.info("Beginning upload of #{extractor.images.count} image(s)")
-      Concurrent::Promises.zip(*upload_futures).wait
+      logger.info("Beginning upload of #{extractor.images.count} image(s), up to #{upload_concurrency} at a time")
+      pool = Concurrent::FixedThreadPool.new(upload_concurrency)
+      Concurrent::Promises.zip(*upload_futures(pool)).wait
+      pool.shutdown
+      pool.wait_for_termination
       logger.info('Completed image upload')
     end
 
-    def upload_futures
+    # Resizing images (notably animated GIFs) shells out to ImageMagick, which
+    # is CPU- and memory-hungry. Running every image at once on a small CI
+    # runner exhausts resources and can grind the whole step to a halt, so we
+    # cap how many upload/resize jobs run concurrently.
+    def upload_concurrency
+      @upload_concurrency ||= [ENV.fetch('ROBLES_IMAGE_UPLOAD_CONCURRENCY', Concurrent.processor_count).to_i, 1].max
+    end
+
+    def upload_futures(pool)
       extractor.images.map do |image|
-        Concurrent::Promises.future do
+        Concurrent::Promises.future_on(pool) do
           image.upload
         rescue StandardError => e
           # Surface the failure: Concurrent::Promises#wait swallows rejected
