@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'timeout'
+
 module ImageProvider
   # Creates an interface for giving access to images that have been processed and uploaded
   class Provider
@@ -31,14 +33,23 @@ module ImageProvider
       @upload_concurrency ||= [ENV.fetch('ROBLES_IMAGE_UPLOAD_CONCURRENCY', Concurrent.processor_count).to_i, 1].max
     end
 
+    # Wall-clock budget per image. The ImageMagick limits make a runaway resize
+    # abort by itself, but this is the final backstop that guarantees one stuck
+    # image can never hang the whole circulate job.
+    def image_upload_timeout
+      @image_upload_timeout ||= [ENV.fetch('ROBLES_IMAGE_UPLOAD_TIMEOUT', 300).to_i, 1].max
+    end
+
     def upload_futures(pool)
       extractor.images.map do |image|
         Concurrent::Promises.future_on(pool) do
-          image.upload
+          Timeout.timeout(image_upload_timeout) { image.upload }
+        rescue Timeout::Error
+          # Surface (don't swallow) a stuck image: Concurrent::Promises#wait
+          # hides rejected futures, so log before re-raising.
+          logger.error("Timed out after #{image_upload_timeout}s uploading image #{image_descriptor(image)}")
+          raise
         rescue StandardError => e
-          # Surface the failure: Concurrent::Promises#wait swallows rejected
-          # futures, so without this an image upload error (or hang) would
-          # otherwise vanish from the logs.
           logger.error("Failed to upload image #{image_descriptor(image)}: #{e.class} #{e.message}")
           raise
         end
