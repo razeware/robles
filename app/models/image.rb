@@ -5,11 +5,17 @@ class Image
   include ActiveModel::Model
   include Util::Logging
 
+  # Formats we never resize. Resizing animated GIFs (e.g. screen recordings)
+  # is hugely memory-hungry and slow in CI, so we upload the original only and
+  # the renderer references it for every size instead of generated variants.
+  NON_RESIZABLE_EXTENSIONS = %w[.gif].freeze
+
   attr_accessor :local_url, :representations, :uploaded_image_root_path
 
   def self.with_representations(attributes = {}, variants: nil, representation_attributes: {})
     variants ||= ImageRepresentation::DEFAULT_WIDTHS.keys
     new(attributes).tap do |image|
+      variants = %i[original] unless image.resizable?
       image.representations = variants.map do |width|
         ImageRepresentation.new(representation_attributes.merge(width:, image:))
       end
@@ -35,6 +41,10 @@ class Image
 
   def extension
     @extension ||= Pathname.new(local_url).extname
+  end
+
+  def resizable?
+    NON_RESIZABLE_EXTENSIONS.exclude?(extension.downcase)
   end
 
   def source_filename
