@@ -5,8 +5,6 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 # Stealing some bits from rails
 gem 'activemodel', '< 9'
 gem 'activesupport', '< 9'
-# Pinning untile rails 8.1.2 is released
-gem 'connection_pool', '< 3.0'
 
 # Autoloading explictly will use zeitwerk
 gem 'zeitwerk', '~> 2.3'
@@ -37,7 +35,7 @@ gem 'aws-sdk-s3', '~> 1.64'
 gem 'concurrent-ruby', '~> 1.1'
 
 # Interacting with github
-gem 'octokit', '~> 9'
+gem 'octokit'
 
 # Interface with libsodium
 gem 'rbnacl'
@@ -46,7 +44,7 @@ gem 'rbnacl'
 gem 'slack-notifier', '~> 2.3', '>= 2.3.2'
 
 # Local previewing
-gem 'puma', '~> 6'
+gem 'puma'
 gem 'rackup'
 gem 'sass-embedded'
 gem 'sinatra', '~> 4'
