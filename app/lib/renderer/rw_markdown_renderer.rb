@@ -16,7 +16,7 @@ module Renderer
     end
 
     def image(node) # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
-      return super(node) if image_provider.blank?
+      return super if image_provider.blank?
 
       title = node.title.present? ? escape_html(node.title) : ''
       alt_text = node.each.select { |child| child.type == :text }.map { |child| escape_html(child.string_content) }.join(' ')
@@ -29,7 +29,10 @@ module Renderer
           out(svg_content(node.url))
         else
           out('    <img src="', src(node.url), '" alt="', title, '" title="', title, '">')
-          out('    <source srcset="', srcset(node.url), '">')
+          image_srcset = srcset(node.url)
+          # GIFs (and any image without generated variants) only have the
+          # original, so skip the empty <source> rather than emit a broken one.
+          out('    <source srcset="', image_srcset, '">') if image_srcset.present?
         end
         out('  </picture>')
         out('  <figcaption>', title, '</figcaption>')
@@ -45,7 +48,7 @@ module Renderer
 
     def text(node)
       # If no timestamp, just move on
-      return super(node) unless node.string_content.match?(/\$\[t=[\d:.]+\]/)
+      return super unless node.string_content.match?(/\$\[t=[\d:.]+\]/)
 
       # Find the timestamp and turn it into a data tag on a span
       timestamp = node.string_content.match(/\$\[t=([\d:.]+)\]/)[1]

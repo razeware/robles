@@ -97,7 +97,7 @@ module Runner
     end
 
     # pablo
-    def serve_pable(source:)
+    def serve_pablo(source:)
       source ||= default_pablo_source
 
       extractor = ImageProvider::DirectoryExtractor.new(

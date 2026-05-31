@@ -3,8 +3,9 @@ source 'https://rubygems.org'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
 # Stealing some bits from rails
-gem 'activemodel', '< 7.3'
-gem 'activesupport', '< 7.3'
+gem 'activemodel', '< 9'
+gem 'activesupport', '< 9'
+
 # Autoloading explictly will use zeitwerk
 gem 'zeitwerk', '~> 2.3'
 
@@ -34,7 +35,7 @@ gem 'aws-sdk-s3', '~> 1.64'
 gem 'concurrent-ruby', '~> 1.1'
 
 # Interacting with github
-gem 'octokit', '~> 9'
+gem 'octokit'
 
 # Interface with libsodium
 gem 'rbnacl'
@@ -43,14 +44,15 @@ gem 'rbnacl'
 gem 'slack-notifier', '~> 2.3', '>= 2.3.2'
 
 # Local previewing
+gem 'puma'
 gem 'rackup'
 gem 'sass-embedded'
 gem 'sinatra', '~> 4'
-gem 'thin'
 
 # Forcing build of this cos it still doesn't work
 # https://github.com/sass-contrib/sass-embedded-host-ruby/issues/210
-gem 'google-protobuf', force_ruby_platform: true if Gem::Platform.local.to_s == 'aarch64-linux-musl'
+# https://github.com/protocolbuffers/protobuf/issues/16853
+gem 'google-protobuf', force_ruby_platform: RUBY_PLATFORM.include?('linux-musl')
 
 # Controlling Chrome to create snapshots
 gem 'ferrum'
@@ -64,6 +66,8 @@ gem 'rack-test'
 gem 'levenshtein-ffi', require: 'levenshtein', git: 'https://github.com/razeware/levenshtein-ffi.git'
 gem 'webvtt-ruby', require: 'webvtt'
 
+# No longer part of the standard library
+gem 'ostruct'
 
 group :development do
   # For integration with VSCode

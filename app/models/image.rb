@@ -5,11 +5,17 @@ class Image
   include ActiveModel::Model
   include Util::Logging
 
+  # Formats we never resize. Resizing animated GIFs (e.g. screen recordings)
+  # is hugely memory-hungry and slow in CI, so we upload the original only and
+  # the renderer references it for every size instead of generated variants.
+  NON_RESIZABLE_EXTENSIONS = %w[.gif].freeze
+
   attr_accessor :local_url, :representations, :uploaded_image_root_path
 
   def self.with_representations(attributes = {}, variants: nil, representation_attributes: {})
     variants ||= ImageRepresentation::DEFAULT_WIDTHS.keys
     new(attributes).tap do |image|
+      variants = %i[original] unless image.resizable?
       image.representations = variants.map do |width|
         ImageRepresentation.new(representation_attributes.merge(width:, image:))
       end
@@ -37,6 +43,10 @@ class Image
     @extension ||= Pathname.new(local_url).extname
   end
 
+  def resizable?
+    NON_RESIZABLE_EXTENSIONS.exclude?(extension.downcase)
+  end
+
   def source_filename
     @source_filename ||= Pathname.new(local_url).basename('.*')
   end
@@ -48,18 +58,46 @@ class Image
   def upload
     representations.each do |representation|
       if representation.uploaded?
-        logger.info "Skipping #{local_url}"
+        logger.info "Skipping #{representation.width} variant for #{local_url} (already uploaded)"
         next
       end
-      logger.info "Generating #{representation.width} variant for #{local_url}"
-      representation.generate
-      logger.info "Uploading #{representation.width} variant for #{local_url}"
-      representation.upload
+      generate_variant(representation)
+      upload_variant(representation)
     end
   end
 
   # Used for linting
   def validation_name
     local_url
+  end
+
+  private
+
+  def generate_variant(representation)
+    logger.info "Generating #{representation.width} variant for #{local_url} (source #{source_size})"
+    started = monotonic_now
+    representation.generate
+    logger.info "Generated #{representation.width} variant for #{local_url} in #{elapsed_since(started)}s"
+  end
+
+  def upload_variant(representation)
+    logger.info "Uploading #{representation.width} variant for #{local_url}"
+    started = monotonic_now
+    representation.upload
+    logger.info "Uploaded #{representation.width} variant for #{local_url} in #{elapsed_since(started)}s"
+  end
+
+  def source_size
+    "#{(File.size(local_url) / 1024.0 / 1024.0).round(1)}MB"
+  rescue SystemCallError
+    'unknown size'
+  end
+
+  def monotonic_now
+    Process.clock_gettime(Process::CLOCK_MONOTONIC)
+  end
+
+  def elapsed_since(started)
+    (monotonic_now - started).round(1)
   end
 end

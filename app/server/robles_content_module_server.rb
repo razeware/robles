@@ -11,7 +11,7 @@ class RoblesContentModuleServer < Sinatra::Application # rubocop:disable Metrics
 
   use Rack::LiveReload, host: 'localhost', source: :vendored
 
-  helpers do
+  helpers do # rubocop:disable Metrics/BlockLength
     def slide_path(lesson, segment)
       "/slides/#{lesson.slug}/#{segment.slug}"
     end
@@ -29,11 +29,12 @@ class RoblesContentModuleServer < Sinatra::Application # rubocop:disable Metrics
     end
 
     def segment_path(lesson, segment)
-      if segment.is_a?(Video)
+      case segment
+      when Video
         transcript_path(lesson, segment)
-      elsif segment.is_a?(Assessment)
+      when Assessment
         assessment_path(lesson, segment)
-      elsif segment.is_a?(Text)
+      when Text
         text_path(lesson, segment)
       end
     end

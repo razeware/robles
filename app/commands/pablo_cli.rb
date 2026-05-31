@@ -12,7 +12,7 @@ class PabloCli < Thor
     fork do
       Guard.start(no_interactions: true)
     end
-    runner.serve_pable(source: options['source'])
+    runner.serve_pablo(source: options['source'])
   end
 
   desc 'publish', 'renders and publishes pablo'
