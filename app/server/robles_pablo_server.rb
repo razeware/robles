@@ -7,7 +7,7 @@ class RoblesPabloServer < Sinatra::Application
   set :bind, '0.0.0.0'
   set :views, "#{__dir__}/views"
   set :public_folder, "#{__dir__}/public"
-  set :static_cache_control, [max_age: 0]
+  set :static_cache_control, [{ max_age: 0 }]
   set :image_extractor, nil
   set :local, true
   set :host_authorization, { permitted_hosts: [] }
