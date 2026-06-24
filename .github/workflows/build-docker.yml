@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Run tests
         run: |
@@ -42,24 +42,24 @@ jobs:
           status: FAILED
           color: danger
 
-  # notify_slack:
-  #   name: Notify slack of build
-  #   runs-on: ubuntu-latest
-  #   needs:
-  #     - test
-  #   outputs:
-  #     slack_message_id: ${{ steps.slack.outputs.message_id }}
-  #   steps:
-  #     - name: Notify slack - build starting
-  #       uses: zuplo/github-action-slack-notify-build@v2
-  #       if: success()
-  #       id: slack
-  #       env:
-  #         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-  #       with:
-  #         channel: build
-  #         status: STARTING
-  #         color: warning
+  notify_slack:
+    name: Notify slack of build
+    runs-on: ubuntu-latest
+    needs:
+      - test
+    outputs:
+      slack_message_id: ${{ steps.slack.outputs.message_id }}
+    steps:
+      - name: Notify slack - build starting
+        uses: zuplo/github-action-slack-notify-build@v2
+        if: success()
+        id: slack
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        with:
+          channel: build
+          status: STARTING
+          color: warning
 
   determine_environment:
     name: Determine environment
@@ -68,7 +68,7 @@ jobs:
       environment: ${{ steps.set_environment.outputs.environment }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Set environment
         id: set_environment
@@ -120,7 +120,7 @@ jobs:
             type=raw,value=latest,enable=${{ github.ref_name == 'master' }}
             type=raw,value=staging,enable=${{ needs.determine_environment.outputs.environment == 'staging' }}
 
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Set up Docker Buildx
         id: buildx
@@ -158,16 +158,16 @@ jobs:
         if: ${{ always() }}
         run: docker logout
 
-      # - name: Notify slack - build result failed
-      #   uses: zuplo/github-action-slack-notify-build@v2
-      #   if: failure()
-      #   env:
-      #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      #   with:
-      #     message_id: ${{ needs.notify_slack.outputs.slack_message_id }}
-      #     channel: build
-      #     status: FAILED
-      #     color: danger
+      - name: Notify slack - build result failed
+        uses: zuplo/github-action-slack-notify-build@v2
+        if: failure()
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        with:
+          message_id: ${{ needs.notify_slack.outputs.slack_message_id }}
+          channel: build
+          status: FAILED
+          color: danger
 
   # Join the two layers back together
   merge:
@@ -218,24 +218,24 @@ jobs:
         if: ${{ always() }}
         run: docker logout
 
-      # - name: Notify slack - build result successful
-      #   uses: zuplo/github-action-slack-notify-build@v2
-      #   if: success()
-      #   env:
-      #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      #   with:
-      #     message_id: ${{ needs.notify_slack.outputs.slack_message_id }}
-      #     channel: build
-      #     status: SUCCESS
-      #     color: good
+      - name: Notify slack - build result successful
+        uses: zuplo/github-action-slack-notify-build@v2
+        if: success()
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        with:
+          message_id: ${{ needs.notify_slack.outputs.slack_message_id }}
+          channel: build
+          status: SUCCESS
+          color: good
 
-      # - name: Notify slack - build result failed
-      #   uses: zuplo/github-action-slack-notify-build@v2
-      #   if: failure()
-      #   env:
-      #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-      #   with:
-      #     message_id: ${{ needs.notify_slack.outputs.slack_message_id }}
-      #     channel: build
-      #     status: FAILED
-      #     color: danger
+      - name: Notify slack - build result failed
+        uses: zuplo/github-action-slack-notify-build@v2
+        if: failure()
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        with:
+          message_id: ${{ needs.notify_slack.outputs.slack_message_id }}
+          channel: build
+          status: FAILED
+          color: danger

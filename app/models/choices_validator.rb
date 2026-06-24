@@ -19,7 +19,7 @@ class ChoicesValidator < ActiveModel::EachValidator
   def check_unique_refs(record, attribute, value)
     return unless value.is_a?(Array)
 
-    ref_counts = value.map(&:ref).each_with_object(Hash.new(0)) { |ref, counts| counts[ref] += 1 }
+    ref_counts = value.map(&:ref).tally
     ref_counts.each do |ref, count|
       next if count == 1
 
