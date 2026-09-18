@@ -1,7 +1,7 @@
-# The test harness CI looks for (.github/workflows/build-docker.yml):
+# The test harness CI looks for (.github/workflows/test.yml):
 #
-#   docker-compose --file docker-compose.test.yml build
-#   docker-compose --file docker-compose.test.yml run sut
+#   docker compose --file docker-compose.test.yml build
+#   docker compose --file docker-compose.test.yml run sut
 #
 # `sut` runs the suite inside the release image and exits non-zero on failure,
 # which fails the workflow. Without this file the workflow only builds the image.
