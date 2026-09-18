@@ -1,0 +1,17 @@
+# The test harness CI looks for (.github/workflows/build-docker.yml):
+#
+#   docker-compose --file docker-compose.test.yml build
+#   docker-compose --file docker-compose.test.yml run sut
+#
+# `sut` runs the suite inside the release image and exits non-zero on failure,
+# which fails the workflow. Without this file the workflow only builds the image.
+services:
+  sut:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - RUBY_ENV=test
+    environment:
+      - RUBY_ENV=test
+    command: bin/test

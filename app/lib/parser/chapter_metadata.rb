@@ -4,6 +4,7 @@ module Parser
   # Parses the metadata at the top of a chapter markdown file
   class ChapterMetadata
     include MarkdownMetadata
+    include AiDisclosureAttributes
 
     VALID_SIMPLE_ATTRIBUTES = %i[number title description free].freeze
 
@@ -16,6 +17,7 @@ module Parser
 
     def apply!
       chapter.assign_attributes(simple_attributes)
+      chapter.assign_attributes(ai_disclosure_attributes)
       chapter.cleanse_title!
       chapter.authors += authors if authors.present?
     end

@@ -30,6 +30,7 @@ module Runner
       publish_file ||= default_publish_file
       parser = Parser::Publish.new(file: publish_file)
       book = parser.parse
+      check_ai_disclosure!(book)
       image_extractor = ImageProvider::BookExtractor.new(book)
       image_provider = ImageProvider::Provider.new(extractor: image_extractor, width_required: true)
       image_provider.process
@@ -154,6 +155,7 @@ module Runner
 
       parser = Parser::Circulate.new(file: module_file)
       content_module = parser.parse
+      check_ai_disclosure!(content_module)
 
       image_extractor = ImageProvider::ContentModuleExtractor.new(content_module)
       image_provider = ImageProvider::Provider.new(extractor: image_extractor, width_required: false)
@@ -164,6 +166,16 @@ module Runner
     rescue StandardError => e
       notify_content_module_failure(content_module: defined?(content_module) ? content_module : nil, details: e.full_message)
       raise e
+    end
+
+    # The publish paths never run the model validations, so the AI disclosure
+    # metadata is checked on its own here. Deliberately not `valid?`: that would
+    # also run pre-existing validations that publishing has never had to satisfy.
+    def check_ai_disclosure!(subject)
+      messages = AiDisclosure.errors_for(subject)
+      return if messages.empty?
+
+      raise AiDisclosure::InvalidDisclosure, "Invalid AI disclosure metadata—refusing to publish:\n#{messages.join("\n")}"
     end
 
     def default_publish_file

@@ -8,6 +8,7 @@ class Chapter
   include Concerns::ImageAttachable
   include Concerns::MarkdownRenderable
   include Concerns::TitleCleanser
+  include AiDisclosure
 
   attr_accessor :title, :number, :ordinal, :description, :authors, :markdown_file, :root_path, :free, :kind
 
@@ -27,7 +28,9 @@ class Chapter
 
   # Used for serialisation
   def attributes
-    { title: nil, number: nil, ordinal: nil, description: nil, body: nil, authors: [], free: false }.stringify_keys
+    { title: nil, number: nil, ordinal: nil, description: nil, body: nil, authors: [], free: false }
+      .stringify_keys
+      .merge(ai_disclosure_defaults)
   end
 
   # Used for linting

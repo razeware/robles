@@ -1,0 +1,16 @@
+shortcode: ai-disclosure-test
+version: 1.0.0
+version_description: Test module
+title: AI Disclosure Test Module
+description_md: A module that declares how AI was used.
+difficulty: beginner
+module_type: study
+domains:
+  - ios
+categories:
+  - concepts
+words: Written by the author
+code: No code in this piece
+media: AI voice or dubbing
+code_meta: Claude Code · author reviewed
+lessons: []
