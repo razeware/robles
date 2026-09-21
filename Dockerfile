@@ -1,10 +1,10 @@
 ARG RUBY_ENV
 
-FROM ruby:3.4-alpine AS builder
+FROM ruby:4.0-alpine AS builder
 LABEL maintainer=engineering@kodeco.com
 
 ARG APP_ROOT=/app/robles
-ARG BUILD_PACKAGES="build-base git"
+ARG BUILD_PACKAGES="build-base git yaml-dev"
 ARG DEV_PACKAGES="bash imagemagick libsodium-dev gcompat"
 ARG RUBY_PACKAGES="tzdata"
 
@@ -45,7 +45,7 @@ RUN rm -rf /usr/local/bundle/cache/*
 ##############################
 # PACKAGE STAGE              #
 ##############################
-FROM ruby:3.4-alpine
+FROM ruby:4.0-alpine
 LABEL maintainer=engineering@kodeco.com
 LABEL com.github.actions.name="robles"
 LABEL com.github.actions.author="Kodeco <engineering@kodeco.com>"
@@ -54,7 +54,7 @@ LABEL com.github.actions.color="purple"
 LABEL com.github.actions.icon="book"
 
 ARG APP_ROOT=/app/robles
-ARG RUBY_ENV=${RUBY_ENV:-production}
+ARG RUBY_ENV
 
 ENV RUBY_ENV=${RUBY_ENV}
 
