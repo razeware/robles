@@ -33,6 +33,27 @@ module Renderer
       assert_equal "<p><del>gone</del></p>\n", render('~~gone~~')
     end
 
+    # commonmarker 2.x emits the obsolete `align` attribute on aligned table
+    # cells; the renderer has always emitted style attributes instead.
+    def test_aligned_table_cells_carry_style_attributes_not_align
+      html = render("| Left | Center | Right |\n|:-----|:------:|------:|\n| a | b | c |\n")
+
+      assert_includes html, '<th style="text-align: left">Left</th>'
+      assert_includes html, '<th style="text-align: center">Center</th>'
+      assert_includes html, '<td style="text-align: right">c</td>'
+      refute_includes html, 'align="'
+    end
+
+    # An accepted difference from commonmarker 0.x, which was asked for
+    # STRIKETHROUGH_DOUBLE_TILDE and left `~this~` alone. comrak's strikethrough
+    # extension has no double-tilde-only mode, so a single pair now strikes too.
+    # Tilde-prefixed paths such as ~/Documents are unaffected: the closing
+    # delimiter has to be right-flanking.
+    def test_a_single_pair_of_tildes_now_strikes_through
+      assert_equal "<p>a <del>b</del> c</p>\n", render('a ~b~ c')
+      assert_equal "<p>open ~/Documents and ~/Library</p>\n", render('open ~/Documents and ~/Library')
+    end
+
     def test_autolink_extension
       assert_equal %(<p>See <a href="https://kodeco.com">https://kodeco.com</a>.</p>\n),
                    render('See https://kodeco.com.')

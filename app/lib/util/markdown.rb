@@ -48,6 +48,13 @@ module Util
     # markup robles builds by hand has to match what the renderer does.
     HTML_ESCAPES = { '&' => '&amp;', '<' => '&lt;', '>' => '&gt;', '"' => '&quot;' }.freeze
 
+    # cmark-gfm was asked for TABLE_PREFER_STYLE_ATTRIBUTES, which has no comrak
+    # equivalent: 2.x always emits the obsolete `align` attribute. Only the
+    # renderer can produce these -- an `align` written by an author is either
+    # escaped (in code) or stripped (raw HTML is not rendered) -- so rewriting
+    # them back to style attributes cannot touch anything else.
+    TABLE_ALIGNMENT = /<(th|td) align="(left|center|right)">/
+
     # Nodes that carry the text a human reads.
     TEXT_NODES = %i[text code].freeze
     BREAK_NODES = %i[softbreak linebreak].freeze
@@ -59,11 +66,19 @@ module Util
     end
 
     def to_html(markdown, options: CONTENT_OPTIONS)
-      Commonmarker.to_html(utf8(markdown), options:, plugins: PLUGINS)
+      table_style_attributes(Commonmarker.to_html(utf8(markdown), options:, plugins: PLUGINS))
     end
 
     def render(document, options: CONTENT_OPTIONS)
-      document.to_html(options:, plugins: PLUGINS)
+      table_style_attributes(document.to_html(options:, plugins: PLUGINS))
+    end
+
+    def table_style_attributes(html)
+      html.gsub(TABLE_ALIGNMENT) do
+        match = Regexp.last_match
+
+        %(<#{match[1]} style="text-align: #{match[2]}">)
+      end
     end
 
     # commonmarker 2.x rejects anything that is not tagged UTF-8, where 0.x
