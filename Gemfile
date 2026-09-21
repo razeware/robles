@@ -68,6 +68,10 @@ gem 'levenshtein-ffi', require: 'levenshtein', git: 'https://github.com/razeware
 gem 'webvtt-ruby', require: 'webvtt'
 
 # No longer part of the standard library
+# irb stopped being a default gem in Ruby 4.0. The CLI requires it at load time
+# for the `console` commands, so without it here every `bin/robles` invocation
+# dies with a LoadError.
+gem 'irb'
 gem 'ostruct'
 
 group :development do
