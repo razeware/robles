@@ -1,0 +1,24 @@
+shortcode: ai-disclosure-test
+version: 1.0.0
+version_description: Test module
+title: AI Disclosure Test Module
+description_md: A module that declares how AI was used.
+difficulty: beginner
+module_type: study
+domains:
+  - ios
+categories:
+  - concepts
+ai_disclosure:
+  words: author_written_ai_edited
+  code: ai_assisted
+  media:
+    diagrams: ai
+    illustrations: author
+    voice: other_human
+  code_meta:
+    tokens: 2.1M
+    approximate_cost: $0.90
+    model: Claude Opus 4.1
+    date: Sep 2026
+lessons: []

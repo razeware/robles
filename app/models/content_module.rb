@@ -6,6 +6,7 @@ class ContentModule
   include ActiveModel::Serializers::JSON
   include Concerns::ImageAttachable
   include Concerns::MarkdownRenderable
+  include AiDisclosure
 
   attr_accessor :shortcode, :version, :version_description, :title, :description_md,
                 :short_description, :released_at, :materials_url, :professional, :difficulty,
@@ -46,11 +47,19 @@ class ContentModule
       professional: nil, difficulty: nil, platform: nil, language: nil, editor: nil, domains: [],
       categories: [], who_is_this_for: nil, covered_concepts: nil, outcomes: nil, authors: [], lessons: [],
       git_commit_hash: nil, featured_banner_image_url: [],
-      twitter_card_image_url: [], access_personal: nil, access_team: nil, module_type: nil }.stringify_keys
+      twitter_card_image_url: [], access_personal: nil, access_team: nil, module_type: nil }
+      .stringify_keys
+      .merge(ai_disclosure_defaults)
   end
 
   # Used for linting
   def validation_name
     title
+  end
+
+  # A module with video is entirely voice, so omitting `voice` from the media
+  # disclosure would assert something untrue about it
+  def ai_disclosure_voice_required?
+    Array.wrap(lessons).flat_map { |lesson| Array.wrap(lesson.segments) }.any?(Video)
   end
 end

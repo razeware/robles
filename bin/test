@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+# Runs every test file in a single process. Minitest's autorun exits non-zero
+# as soon as anything fails, which is what CI checks for.
+set -e
+
+exec bundle exec ruby -Itest -e 'Dir["test/**/*_test.rb"].sort.each { |file| require File.expand_path(file) }'
