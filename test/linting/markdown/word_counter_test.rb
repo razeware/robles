@@ -29,11 +29,16 @@ module Linting
         assert_equal 2, count('[the label](https://kodeco.com/library)')
       end
 
-      def test_inline_and_fenced_code_is_counted
+      # Inline code counts as prose; the body of a fenced block does not, so the
+      # three words here are "Use", "let" and "here." and not the code.
+      def test_inline_code_counts_but_a_fenced_block_does_not
         assert_equal 3, count("Use `let` here.\n\n```swift\nlet x = 1\n```\n")
+        assert_equal 0, count("```swift\nlet x = 1\n```\n")
       end
 
-      def test_headings_list_items_and_table_cells_are_counted
+      # The word counter parses with no extensions, so the table is not a table:
+      # the pipes and dashes are counted as ordinary words.
+      def test_headings_list_items_and_unparsed_table_rows_are_counted
         markdown = <<~MD
           # A heading
 
