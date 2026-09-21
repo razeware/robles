@@ -5,10 +5,6 @@ module Ci
   class LintingReporter
     attr_reader :check_run
 
-    def initialize
-      p github_event
-    end
-
     def record_start
       return unless valid?
 
@@ -22,7 +18,7 @@ module Ci
     end
 
     def record_end(output)
-      return unless valid?
+      return unless valid? && check_run
 
       client.update_check_run(
         GITHUB_REPOSITORY,
@@ -37,6 +33,7 @@ module Ci
     def valid?
       GITHUB_REPOSITORY.present? &&
         GITHUB_SHA.present? &&
+        GITHUB_EVENT_PATH.present? &&
         GITHUB_EVENT_NAME == 'pull_request'
     end
 
@@ -45,6 +42,8 @@ module Ci
     end
 
     def github_event
+      return {} if GITHUB_EVENT_PATH.blank?
+
       @github_event ||= JSON.parse(File.read(GITHUB_EVENT_PATH))
     end
 

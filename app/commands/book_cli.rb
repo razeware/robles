@@ -7,7 +7,7 @@ require 'guard/commander' # needed because of https://github.com/guard/guard/iss
 # CLI for managing books
 class BookCli < Thor
   desc 'render', 'renders book'
-  option :'publish-file', type: :string, desc: 'Location of the publish.yaml file'
+  option :publish_file, type: :string, desc: 'Location of the publish.yaml file'
   option :local, type: :boolean
   def render
     book = runner.render_book(publish_file: options['publish_file'], local: options['local'])
@@ -28,7 +28,7 @@ class BookCli < Thor
   end
 
   desc 'console [PUBLISH_FILE]', 'opens an interactive Ruby console'
-  option :'publish-file', type: :string, desc: 'Location of the publish.yaml file'
+  option :publish_file, type: :string, desc: 'Location of the publish.yaml file'
   def console
     publish_file = options.fetch('publish_file', runner.default_publish_file)
     parser = Parser::Publish.new(file: publish_file)
@@ -37,15 +37,15 @@ class BookCli < Thor
   end
 
   desc 'publish [PUBLISH_FILE]', 'renders and publishes a book'
-  option :'publish-file', type: :string, desc: 'Location of the publish.yaml file'
+  option :publish_file, type: :string, desc: 'Location of the publish.yaml file'
   def publish
     runner.publish_book(publish_file: options['publish_file'])
   end
 
   desc 'lint [PUBLISH_FILE]', 'runs a selection of linters on the book'
-  option :'publish-file', type: :string, desc: 'Location of the publish.yaml file'
-  method_options 'without-edition': :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
-  method_options silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
+  option :publish_file, type: :string, desc: 'Location of the publish.yaml file'
+  method_option :'without-edition', type: :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
+  method_option :silent, type: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
   def lint
     output = runner.lint_book(publish_file: options['publish_file'], options:)
     exit 1 unless output.validated || ENVIRONMENT == 'staging'
