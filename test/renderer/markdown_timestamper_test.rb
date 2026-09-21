@@ -13,9 +13,9 @@ module Renderer
     TIMESTAMP = /\$\[t=[\d:.]+\]/
 
     def render(markdown)
-      doc = CommonMarker.render_doc(markdown, %i[SMART], %i[table strikethrough autolink])
+      doc = Util::Markdown.parse(markdown)
       MarkdownTimestamper.new(doc, fixture_path('transcript.vtt')).apply!
-      doc.to_html
+      Util::Markdown.render(doc)
     end
 
     def test_spoken_paragraph_is_timestamped
