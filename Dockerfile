@@ -54,7 +54,7 @@ LABEL com.github.actions.color="purple"
 LABEL com.github.actions.icon="book"
 
 ARG APP_ROOT=/app/robles
-ARG RUBY_ENV
+ARG RUBY_ENV=${RUBY_ENV:-production}
 
 ENV RUBY_ENV=${RUBY_ENV}
 
