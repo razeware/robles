@@ -1,4 +1,5 @@
-# The test harness CI looks for (.github/workflows/test.yml):
+# The test harness CI looks for (.github/workflows/test.yml and
+# .github/workflows/build-docker.yml -- keep both in sync):
 #
 #   docker compose --file docker-compose.test.yml build
 #   docker compose --file docker-compose.test.yml run sut
