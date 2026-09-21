@@ -40,6 +40,14 @@ module Renderer
 
     # Raw HTML is not rendered: the parser is run without the UNSAFE option, so
     # embedded markup is replaced by a comment rather than passed through.
+    # Markdown reaching the string renderer comes out of YAML, and is not
+    # guaranteed to arrive tagged UTF-8.
+    def test_non_utf8_tagged_content_is_rendered_rather_than_rejected
+      content = "H\u00e9llo \u2014 na\u00efve".dup.force_encoding(Encoding::ASCII_8BIT)
+
+      assert_equal "<p>H\u00e9llo \u2014 na\u00efve</p>\n", render(content)
+    end
+
     def test_raw_html_is_omitted_rather_than_passed_through
       assert_equal "<!-- raw HTML omitted -->\n", render('<script>alert(1)</script>')
       assert_equal "<p>a <!-- raw HTML omitted -->b<!-- raw HTML omitted --></p>\n", render('a <em>b</em>')

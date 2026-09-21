@@ -15,15 +15,7 @@ module Renderer
       logger.debug 'MarkdownStringRenderer::render'
       return '' if content.blank?
 
-      doc = CommonMarker.render_doc(
-        content,
-        %i[SMART STRIKETHROUGH_DOUBLE_TILDE],
-        %i[table strikethrough autolink]
-      )
-      doc.to_html(
-        %i[TABLE_PREFER_STYLE_ATTRIBUTES],
-        %i[table strikethrough autolink]
-      )
+      Util::Markdown.to_html(content)
     end
   end
 end

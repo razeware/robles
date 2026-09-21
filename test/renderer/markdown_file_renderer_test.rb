@@ -64,6 +64,19 @@ module Renderer
       assert_equal "<p>Before after.</p>\n", render_string("Before $[===]after.\n")
     end
 
+    # commonmarker 2.x refuses anything not tagged UTF-8, and markdown read off
+    # disk otherwise picks up whatever the process's default external encoding
+    # happens to be.
+    def test_non_ascii_markdown_renders_whatever_the_default_external_encoding_is
+      Dir.mktmpdir do |dir|
+        path = File.join(dir, 'body.md')
+        File.write(path, "H\u00e9llo \u2014 na\u00efve \u201cquotes\u201d\n", mode: 'w:UTF-8')
+
+        assert_equal "<p>H\u00e9llo \u2014 na\u00efve \u201cquotes\u201d</p>\n",
+                     MarkdownFileRenderer.new(path:).render
+      end
+    end
+
     def test_team_bio_markers_become_a_div
       markdown = "$[#tb]\n\nA bio paragraph.\n\n$[tb#]\n"
 

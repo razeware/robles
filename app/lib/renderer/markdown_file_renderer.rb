@@ -22,16 +22,11 @@ module Renderer
     end
 
     def rw_renderer
-      @rw_renderer ||= Renderer::RWMarkdownRenderer.new(
-        options: %i[TABLE_PREFER_STYLE_ATTRIBUTES],
-        extensions: %i[table strikethrough autolink],
-        image_provider:,
-        root_path: root_directory
-      )
+      @rw_renderer ||= Renderer::RWMarkdownRenderer.new(image_provider:, root_path: root_directory)
     end
 
     def raw_content
-      @raw_content ||= File.read(path)
+      @raw_content ||= File.read(path, mode: 'r:UTF-8')
     end
 
     def preproccessed_markdown
@@ -44,16 +39,12 @@ module Renderer
     end
 
     def doc
-      @doc ||= CommonMarker.render_doc(
-        preproccessed_markdown,
-        %i[SMART STRIKETHROUGH_DOUBLE_TILDE],
-        %i[table strikethrough autolink]
-      )
+      @doc ||= Util::Markdown.parse(preproccessed_markdown)
     end
 
     def remove_h1(document)
       document.walk do |node|
-        node.delete if node.type == :header && node.header_level.to_i == 1
+        node.delete if node.type == :heading && node.header_level.to_i == 1
       end
       document
     end
