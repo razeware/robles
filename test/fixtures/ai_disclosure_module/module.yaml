@@ -9,8 +9,16 @@ domains:
   - ios
 categories:
   - concepts
-words: Written by the author
-code: No code in this piece
-media: AI voice or dubbing
-code_meta: Claude Code · author reviewed
+ai_disclosure:
+  words: author_written_ai_edited
+  code: ai_assisted
+  media:
+    diagrams: ai
+    illustrations: author
+    voice: other_human
+  code_meta:
+    tokens: 2.1M
+    approximate_cost: $0.90
+    model: Claude Opus 4.1
+    date: Sep 2026
 lessons: []

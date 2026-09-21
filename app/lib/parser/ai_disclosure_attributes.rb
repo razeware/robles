@@ -1,24 +1,27 @@
 # frozen_string_literal: true
 
 module Parser
-  # Maps the author-facing AI disclosure keys (`words`, `code`, `media`,
-  # `code_meta`) from a metadata hash onto the `ai_`-prefixed model attributes.
+  # Hands the author's `ai_disclosure` block to the model, which is where every
+  # decision about its contents is made.
   #
   # Expects the including parser to expose a symbolised `metadata` hash.
   module AiDisclosureAttributes
     def ai_disclosure_attributes
-      metadata.slice(*::AiDisclosure::ATTRIBUTE_MAP.keys)
-              .transform_keys(::AiDisclosure::ATTRIBUTE_MAP)
-              .merge(ai_disclosure_unknown_keys: prefixed_disclosure_keys)
+      {
+        ai_disclosure: metadata[::AiDisclosure::BLOCK_KEY],
+        ai_disclosure_misplaced_keys: misplaced_disclosure_keys
+      }
     end
 
     private
 
-    # `ai_words` and friends are wire names, not author-facing ones: they are not
-    # in the slice above, so they would be dropped in silence. Hand them to the
-    # model instead, which turns them into a linting failure.
-    def prefixed_disclosure_keys
-      metadata.keys.map(&:to_sym) & ::AiDisclosure::ATTRIBUTES
+    # Disclosure keys written at the top level instead of inside the block are
+    # not read by anything: they are handed to the model, which turns them into a
+    # linting failure rather than letting the author publish nothing in silence.
+    def misplaced_disclosure_keys
+      keys = metadata.keys.map(&:to_sym)
+
+      (keys & ::AiDisclosure::ATTRIBUTE_MAP.keys) | (keys & ::AiDisclosure::ATTRIBUTES)
     end
   end
 end

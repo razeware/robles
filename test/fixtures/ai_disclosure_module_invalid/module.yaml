@@ -2,13 +2,15 @@ shortcode: ai-disclosure-test
 version: 1.0.0
 version_description: Test module
 title: AI Disclosure Test Module
-description_md: A module with a disclosure value that is not on the list.
+description_md: A module with disclosure values that are not on the list.
 difficulty: beginner
 module_type: study
 domains:
   - ios
 categories:
   - concepts
-media: Drawn by a robot
-ai_code: Not stated
+ai_disclosure:
+  media:
+    diagrams: drawn_by_a_robot
+ai_code: not_stated
 lessons: []

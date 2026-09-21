@@ -15,4 +15,4 @@ segments:
   - kind: chapter
     path: chapters/03-invalid.md
   - kind: chapter
-    path: chapters/04-prefixed.md
+    path: chapters/04-misplaced.md

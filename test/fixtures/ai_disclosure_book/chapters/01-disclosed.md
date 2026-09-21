@@ -2,10 +2,17 @@
 number: "1"
 title: "Disclosed Chapter"
 description: "A chapter that declares how AI was used."
-words: "Written by the author, AI-proofread"
-code: "AI-assisted, author-verified"
-media: "Made by the author, AI-generated diagrams"
-code_meta: "Claude Code · Xcode 16 · author reviewed"
+ai_disclosure:
+  words: author_written_ai_edited
+  code: ai_assisted
+  media:
+    diagrams: ai
+    illustrations: author
+  code_meta:
+    tokens: 2.1M
+    approximate_cost: $0.90
+    model: Claude Opus 4.1
+    date: Sep 2026
 ```
 
 Some body copy.

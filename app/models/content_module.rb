@@ -56,4 +56,10 @@ class ContentModule
   def validation_name
     title
   end
+
+  # A module with video is entirely voice, so omitting `voice` from the media
+  # disclosure would assert something untrue about it
+  def ai_disclosure_voice_required?
+    Array.wrap(lessons).flat_map { |lesson| Array.wrap(lesson.segments) }.any?(Video)
+  end
 end
