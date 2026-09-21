@@ -29,6 +29,15 @@ module Renderer
       assert_rendered_html('markdown/timestamps.file_renderer.html', render_fixture('timestamps.md'))
     end
 
+    # Timestamps assigned from a real WebVTT transcript. Which cue each
+    # paragraph matches depends on the plain-text extraction the matcher runs
+    # on, so pinning the exact markers pins that extraction too.
+    def test_transcript_timestamps_are_matched_to_paragraphs
+      html = render_fixture('spoken.md', vtt_file: fixture_path('transcript.vtt'))
+
+      assert_rendered_html('markdown/spoken.file_renderer.html', html)
+    end
+
     def test_the_leading_h1_is_removed
       assert_equal "<p>Body copy.</p>\n", render_string("# Chapter Title\n\nBody copy.\n")
     end
