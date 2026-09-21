@@ -14,7 +14,7 @@ module Linting
       def with_repo(remote: nil, contents: "sku: alg\nedition: 1.0\n")
         Dir.mktmpdir do |dir|
           git = Git.init(dir)
-          git.add_remote('origin', remote) if remote
+          git.remote_add('origin', remote) if remote
           file = File.join(dir, 'metadata.yaml')
           File.write(file, contents)
           yield file

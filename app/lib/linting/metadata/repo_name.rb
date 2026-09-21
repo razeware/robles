@@ -52,8 +52,11 @@ module Linting
       # failure to read it (not a git repo, no remotes) leaves the check inert
       # rather than failing a lint run that has nothing to compare against.
       def remote_url
-        remotes = Git.open(Pathname.new(file).dirname).remotes
-        (remotes.find { _1.name == 'origin' } || remotes.first)&.url
+        remotes = Git.open(Pathname.new(file).dirname).remote_list
+        remote = remotes.find { _1.name == 'origin' } || remotes.first
+        # A remote can carry more than one fetch URL; the first is the one git
+        # itself treats as canonical.
+        Array(remote&.url).first
       rescue StandardError
         nil
       end
