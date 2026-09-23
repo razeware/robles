@@ -140,7 +140,7 @@ module Runner
 
     def lint_content_module(module_file:, options: {})
       module_file ||= default_module_file
-      logger.info("Attempting to lint using release file at #{module_file}")
+      logger.info("Attempting to lint using module file at #{module_file}")
 
       CLI::UI::StdoutRouter.enable unless options['silent']
 
