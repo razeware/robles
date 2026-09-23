@@ -2,6 +2,8 @@
 
 require_relative '../../test_helper'
 
+require 'fileutils'
+require 'tempfile'
 require 'tmpdir'
 
 module Linting
@@ -80,11 +82,58 @@ module Linting
         end
       end
 
-      # --- inert cases -------------------------------------------------------
+      # --- unverifiable ------------------------------------------------------
+      #
+      # Not being able to read the repo name must never look like a match.
 
-      def test_a_repo_without_a_remote_is_skipped
+      def assert_unverifiable(annotations, reason)
+        assert_equal 1, annotations.length
+        assert_equal 'failure', annotations.first.annotation_level
+        assert_equal 'Unable to verify sku', annotations.first.title
+        assert_match reason, annotations.first.message
+      end
+
+      def test_a_repo_without_a_remote_fails
         with_repo do |file|
-          assert_empty lint(file:), 'nothing to compare against without a remote'
+          assert_unverifiable lint(file:), /the repository has no git remote/
+        end
+      end
+
+      def test_a_file_outside_any_git_repository_fails
+        Dir.mktmpdir do |dir|
+          file = File.join(dir, 'metadata.yaml')
+          File.write(file, "sku: alg\n")
+
+          assert_unverifiable lint(file:), /it is not in a git repository/
+        end
+      end
+
+      # The Docker case: a bind-mounted repo belongs to the host user, and git
+      # won't read another user's repo unless it's marked as a safe.directory.
+      # Needs root to hand the repo to someone else, which CI's container has.
+      def test_a_repo_git_refuses_to_read_fails_and_says_why
+        skip 'needs root to change the repository owner' unless Process.uid.zero?
+
+        with_repo(remote: 'git@github.com:kodecocodes/alg.git') do |file|
+          FileUtils.chown_R('nobody', nil, File.dirname(file))
+
+          with_isolated_git_config do
+            assert_unverifiable lint(file:), /safe\.directory/
+          end
+        end
+      end
+
+      # Keeps a developer's own git config (a `safe.directory = *`, say) from
+      # changing what git will read.
+      def with_isolated_git_config
+        Tempfile.create('gitconfig') do |config|
+          saved = ENV.to_h.slice('GIT_CONFIG_GLOBAL', 'GIT_CONFIG_NOSYSTEM')
+          ENV['GIT_CONFIG_GLOBAL'] = config.path
+          ENV['GIT_CONFIG_NOSYSTEM'] = '1'
+          yield
+        ensure
+          ENV['GIT_CONFIG_GLOBAL'] = saved['GIT_CONFIG_GLOBAL']
+          ENV['GIT_CONFIG_NOSYSTEM'] = saved['GIT_CONFIG_NOSYSTEM']
         end
       end
 

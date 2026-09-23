@@ -1,0 +1,25 @@
+shortcode: devtest
+version: 1.0.0
+version_description: First release
+title: Dev Test
+description_md: A module for testing.
+short_description: A module for testing.
+released_at: 2026-09-01
+materials_url: https://example.com/materials
+difficulty: beginner
+platform: iOS 18
+language: Swift 6
+editor: Xcode 16
+professional: false
+access_personal: true
+access_team: true
+module_type: study
+domains:
+  - ios
+categories:
+  - concepts
+authors:
+  - username: sammyd
+    role: author
+lessons:
+  - segments_path: lessons/01/lesson.yaml
