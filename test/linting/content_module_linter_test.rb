@@ -24,11 +24,34 @@ module Linting
       ContentModuleLinter.new(file:).lint(options: { 'silent' => true, 'without-version' => true })
     end
 
+    # Parsing records the module's git hash, so getting past metadata needs a commit
+    def commit_everything(dir)
+      repo = Git.open(dir)
+      repo.config_set('user.name', 'robles test')
+      repo.config_set('user.email', 'robles-test@example.com')
+      repo.add(all: true)
+      repo.commit('Fixture')
+    end
+
     def test_the_metadata_of_the_fixture_is_otherwise_clean
       with_module_repo(remote: 'git@github.com:kodecocodes/m3-wrong.git') do |file|
         output = lint(file)
 
         assert_equal ['Invalid shortcode specified'], output.annotations.map(&:title)
+      end
+    end
+
+    # The fixture has no ai_disclosure block. That is worth a warning, but a
+    # warning alone must not fail lint, or every pre-policy module would.
+    def test_a_missing_ai_disclosure_warns_without_failing_lint
+      with_module_repo do |file|
+        commit_everything(File.dirname(file))
+        output = lint(file)
+
+        assert output.validated
+        levels_and_titles = output.annotations.map { [_1.annotation_level, _1.title] }
+
+        assert_equal [['warning', 'Missing AI disclosure']], levels_and_titles
       end
     end
 
