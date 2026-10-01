@@ -1,3 +1,9 @@
+<% if (count = word_count(segment)) %>
+  <div class="o-alert l-alert-sticky o-alert--info">
+    Word count: <%= count %>.
+  </div>
+<% end %>
+
 <%= erb :'content_modules/_header.html', locals: { content_module: content_module} %>
 
 <div class="content-module">

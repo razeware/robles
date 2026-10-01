@@ -39,6 +39,19 @@ class RoblesContentModuleServer < Sinatra::Application # rubocop:disable Metrics
       end
     end
 
+    # Texts and scripted videos have a word count. Assessments, and videos with
+    # no script, don't.
+    def word_count(segment)
+      return unless segment.respond_to?(:markdown_file) && segment.markdown_file.present?
+
+      @word_counts ||= {}
+      @word_counts[segment.markdown_file] ||= word_counter_for_segment(segment).count
+    end
+
+    def lesson_word_count(lesson)
+      lesson.segments.sum { |segment| word_count(segment) || 0 }
+    end
+
     def class_for_domain(course)
       if course.domains.count > 1
         'multi-domain'
@@ -73,6 +86,8 @@ class RoblesContentModuleServer < Sinatra::Application # rubocop:disable Metrics
     segment = segment_for_slug(lesson, params[:slug])
     raise Sinatra::NotFound unless segment.present?
 
+    # Slides are snapshotted into the video, so they always stay light
+    @disable_night_mode = true
     erb :'content_modules/segment_slide.html',
         locals: { segment:, lesson:, content_module: @content_module, title: "robles Preview: #{segment.title}" },
         layout: :'content_modules/layout.html'
