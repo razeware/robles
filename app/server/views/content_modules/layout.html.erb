@@ -16,6 +16,9 @@
   <%= erb :'shared/_svg_icons.html' %>
 
   <body class="l-book-chapter l-chapter-text-size-100 l-page-size-720 l-chapter-font-sans-serif">
+    <% unless @disable_night_mode %>
+      <script src="/javascript/night-mode.js"></script>
+    <% end %>
     <div class="l-min-height-100">
      <%= yield %>
     </div>

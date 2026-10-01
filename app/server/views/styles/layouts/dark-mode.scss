@@ -1,0 +1,296 @@
+/**
+ * Dark mode for the module preview
+ *
+ * Switched on by .prefers-color-scheme--dark on the body, which is the class
+ * kodeco.com uses (see public/javascript/night-mode.js). The colours match
+ * carolus's night mode: murakami's 04-modules/_night_mode.scss, and carolus's
+ * kodeco/layouts/_night-mode.scss and kodeco/_shame.scss.
+ *
+ * The book preview has its own, older, dark mode in layouts/night-mode.
+ *
+ * 1. Page
+ * 2. Header
+ * 3. Table of contents
+ * 4. Written content
+ * 5. Code
+ * 6. Module overview
+ * 7. Quizzes
+ */
+
+@import '../abstracts/colors';
+
+.prefers-color-scheme--dark {
+
+  /* ==========================================================================
+    1. Page
+  ========================================================================== */
+
+  background-color: $black-phantom;
+  color: $white;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    color: $white;
+  }
+
+  /* ==========================================================================
+    2. Header
+  ========================================================================== */
+
+  .global-header {
+    background-color: $black-night;
+
+    .header-logo a svg:hover {
+      fill: $white;
+    }
+
+    .night-mode-toggle {
+      &:hover {
+        background-color: $black-plaza;
+      }
+
+      svg {
+        fill: $white;
+      }
+    }
+  }
+
+  /* ==========================================================================
+    3. Table of contents
+  ========================================================================== */
+
+  .lesson-toc .toc-expanded {
+    background-color: $black-night;
+    border-color: $black-plaza;
+
+    .toc-header {
+      background-color: $black-night;
+    }
+
+    .toc-body {
+      .module-title a {
+        color: $white;
+      }
+
+      .section-list .section-segment-list li {
+        &:hover {
+          background-color: $black-plaza;
+        }
+
+        &::before {
+          background-color: transparent;
+          border-color: $grey-thought;
+        }
+
+        &.current-segment::before {
+          background-color: $orange-determination;
+          border-color: $orange-determination;
+        }
+
+        a {
+          color: $white;
+        }
+      }
+    }
+  }
+
+  /* ==========================================================================
+    4. Written content
+  ========================================================================== */
+
+  .written-content {
+    color: $white;
+
+    a {
+      color: $white;
+    }
+
+    code {
+      background-color: $black-night;
+      color: $white;
+    }
+
+    .note,
+    blockquote {
+      background-color: $black-phantom;
+    }
+
+    table {
+      border-color: $black-plaza;
+      background: $black-phantom;
+    }
+
+    th,
+    td {
+      border-bottom-color: $black-plaza;
+      color: $grey-thought;
+    }
+
+    th {
+      background: $black-plaza;
+      color: $white;
+    }
+
+    tbody tr:nth-child(even) {
+      background: rgba($black-plaza, 0.7);
+    }
+
+    td code {
+      color: $grey-thought;
+    }
+
+    figure {
+      &.l-image-bordered img {
+        border-color: $white;
+      }
+
+      figcaption {
+        color: $grey-thought;
+      }
+    }
+  }
+
+  /* ==========================================================================
+    5. Code
+  ========================================================================== */
+
+  .written-content pre {
+    border: 1px solid $black-plaza;
+
+    code {
+      color: $grey-thought;
+    }
+  }
+
+  // kodeco.com turns these white in night mode, and recolours the rest below
+  .hljs-punctuation,
+  .hljs-attr,
+  .hljs-property,
+  .hljs-doctag,
+  .hljs-formula,
+  .hljs-subst,
+  .hljs-operator,
+  .hljs-selector-attr,
+  .hljs-selector-pseudo {
+    color: $white;
+  }
+
+  .hljs-comment,
+  .hljs-quote {
+    color: $hljs-bright-grey;
+  }
+
+  .hljs-variable,
+  .hljs-template-variable,
+  .hljs-attribute,
+  .hljs-tag,
+  .hljs-name,
+  .hljs-selector-id,
+  .hljs-selector-class,
+  .hljs-regexp,
+  .hljs-link,
+  .hljs-deletion {
+    color: $hljs-bright-red;
+  }
+
+  .hljs-number,
+  .hljs-built_in,
+  .hljs-builtin-name,
+  .hljs-literal,
+  .hljs-type,
+  .hljs-params {
+    color: $hljs-bright-orange;
+  }
+
+  .hljs-string,
+  .hljs-symbol,
+  .hljs-bullet,
+  .hljs-addition {
+    color: $hljs-bright-green;
+  }
+
+  .hljs-meta {
+    color: $hljs-bright-aqua;
+  }
+
+  .hljs-function,
+  .hljs-section,
+  .hljs-title {
+    color: $hljs-bright-blue;
+  }
+
+  .hljs-keyword,
+  .hljs-selector-tag,
+  .hljs-meta .hljs-keyword {
+    color: $hljs-bright-purple;
+  }
+
+  /* ==========================================================================
+    6. Module overview
+  ========================================================================== */
+
+  .content-hero {
+    border: 1px solid $black-plaza;
+  }
+
+  // These selectors follow the nesting in components/modular, since anything
+  // shorter loses to the light mode rules there
+  .content-middle {
+    .content-middle-left .outcomes ul li::before {
+      filter: invert(1);
+    }
+
+    .content-middle-right .content-toc .toc-container {
+      background-color: $black-night;
+      border-color: $black-plaza;
+
+      .toc-segment {
+        border-bottom-color: $black-plaza;
+
+        .segment-number {
+          background-color: $black-plaza;
+        }
+
+        .toc-grid .segment-header {
+          .segment-title {
+            color: $white;
+
+            &:hover {
+              color: $orange-enthusiasm;
+            }
+          }
+
+          .slide-button {
+            background-color: transparent;
+            color: $white;
+            border-color: $grey-thought;
+
+            &:hover {
+              background-color: $black-plaza;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /* ==========================================================================
+    7. Quizzes
+  ========================================================================== */
+
+  .content-module .segment .assessment-quiz .quiz-container {
+    background-color: $black-night;
+    border-color: $black-plaza;
+
+    ul.quiz-questions .quiz-option .option-ref {
+      background-color: $black-plaza;
+    }
+
+    .quiz-lo {
+      background-color: $black-plaza;
+    }
+  }
+}

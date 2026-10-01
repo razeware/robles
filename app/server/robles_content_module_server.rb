@@ -73,6 +73,8 @@ class RoblesContentModuleServer < Sinatra::Application # rubocop:disable Metrics
     segment = segment_for_slug(lesson, params[:slug])
     raise Sinatra::NotFound unless segment.present?
 
+    # Slides are snapshotted into the video, so they always stay light
+    @disable_night_mode = true
     erb :'content_modules/segment_slide.html',
         locals: { segment:, lesson:, content_module: @content_module, title: "robles Preview: #{segment.title}" },
         layout: :'content_modules/layout.html'

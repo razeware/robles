@@ -2763,6 +2763,33 @@ footer#c-global-footer{
         font-size: 1.25rem;
       }
     }
+
+    .header-right {
+      display: flex;
+      padding-inline: 24px;
+    }
+
+    .night-mode-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: none;
+      border-radius: 8px;
+      background: none;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $grey-wisp;
+      }
+
+      svg {
+        width: 20px;
+        height: 20px;
+        fill: $black-night;
+      }
+    }
   }
 
 }
