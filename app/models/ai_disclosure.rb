@@ -165,6 +165,14 @@ module AiDisclosure
     false
   end
 
+  # Nothing was disclosed at all: no block, or an empty one. That is still
+  # valid, since older content predates the policy, but linting warns about it.
+  # Disclosure keys written outside the block already fail linting with a more
+  # useful message, so they don't count as missing.
+  def ai_disclosure_missing?
+    (ai_disclosure.nil? || ai_disclosure == {}) && Array.wrap(ai_disclosure_misplaced_keys).empty?
+  end
+
   private
 
   def disclosure

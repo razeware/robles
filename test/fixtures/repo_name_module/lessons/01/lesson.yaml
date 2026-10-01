@@ -1,4 +1,6 @@
 title: Lesson One
+ref: 01-lesson-one
 description_md: The first lesson.
 segments:
   - path: 01-text.md
+    type: text
