@@ -55,6 +55,10 @@ module Linting
       with_spinner(title: 'Validating data models', show: show_ui) do
         annotations.concat(Linting::Validations::Book.new(book:, file:).lint)
       end
+
+      with_spinner(title: 'Checking AI disclosures', show: show_ui) do
+        annotations.concat(Linting::AiDisclosureLinter.new(subject: book, file:).lint)
+      end
     end
 
     def with_spinner(title:, show: true, &)

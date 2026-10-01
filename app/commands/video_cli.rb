@@ -3,7 +3,7 @@
 # CLI for managing books
 class VideoCli < Thor
   desc 'render', 'renders video course'
-  option :'release-file', type: :string, desc: 'Location of the release.yaml file'
+  option :release_file, type: :string, desc: 'Location of the release.yaml file'
   option :local, type: :boolean
   def render
     runner.render_video_course(release_file: options['release_file'], local: options['local'])
@@ -23,7 +23,7 @@ class VideoCli < Thor
   end
 
   desc 'console [RELEASE_FILE]', 'opens an interactive Ruby console'
-  option :'release-file', type: :string, desc: 'Location of the release.yaml file'
+  option :release_file, type: :string, desc: 'Location of the release.yaml file'
   def console
     release_file = options.fetch('release_file', runner.default_release_file)
     parser = Parser::Release.new(file: release_file)
@@ -32,22 +32,22 @@ class VideoCli < Thor
   end
 
   desc 'upload [RELEASE_FILE]', 'uploads a video course to betamax'
-  option :'release-file', type: :string, desc: 'Location of the release.yaml file'
+  option :release_file, type: :string, desc: 'Location of the release.yaml file'
   def upload
     runner.upload_video_course(release_file: options['release_file'])
   end
 
   desc 'lint [RELEASE_FILE]', 'runs a selection of linters on the video course'
-  option :'release-file', type: :string, desc: 'Location of the release.yaml file'
+  option :release_file, type: :string, desc: 'Location of the release.yaml file'
   method_option :'without-version', type: :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
   method_option :silent, type: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
   def lint
-    output = runner.lint_video_course(release_file: options['publish_file'], options:)
+    output = runner.lint_video_course(release_file: options['release_file'], options:)
     exit 1 unless output.validated || ENVIRONMENT == 'staging'
   end
 
   desc 'slides [RELEASE_FILE]', 'generates slides to be inserted at beginning of video'
-  option :'release-file', type: :string, desc: 'Location of the release.yaml file'
+  option :release_file, type: :string, desc: 'Location of the release.yaml file'
   option :app_host, type: :string, default: 'app', desc: 'Hostname of host running robles app server'
   option :app_port, type: :string, default: '4567', desc: 'Port of host running robles app server'
   option :snapshot_host, type: :string, default: 'snapshot', desc: 'Hostname of host running headless chrome'

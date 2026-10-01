@@ -4,6 +4,7 @@ module Parser
   # Parse a symbolised hash into a ContentModule
   class ContentModule
     include Parser::SimpleAttributes
+    include Parser::AiDisclosureAttributes
     include Util::PathExtraction
     include Util::GitHashable
 
@@ -28,8 +29,11 @@ module Parser
       content_module
     end
 
+    # Memoised: every caller re-reading module.yaml also spawned a `git log`
+    # subprocess. It also means the captions_file path that `parse_video` makes
+    # absolute now survives, which is what that assignment always intended.
     def metadata
-      @metadata = load_yaml_file(file).merge(git_commit_hash: git_hash)
+      @metadata ||= load_yaml_file(file).merge(git_commit_hash: git_hash)
     end
 
     def parse_lesson(metadata, index)
@@ -105,6 +109,7 @@ module Parser
 
     def apply_additional_metadata
       content_module.assign_attributes(simple_attributes)
+      content_module.assign_attributes(ai_disclosure_attributes)
     end
 
     private

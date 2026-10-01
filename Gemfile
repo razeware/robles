@@ -14,9 +14,10 @@ gem 'cli-ui', '~> 2'
 gem 'thor', '~> 1.0', '>= 1.0.1'
 
 # Markdown processing
-# >= 1 switches out the underlying library to one that does not support musl
-# Currently, there are no plans to support it, so let's lock to < 1
-gem 'commonmarker', '< 1'
+# 2.x replaced cmark-gfm with Rust/comrak. It had no musl build when robles was
+# pinned below 1, but it has shipped x86_64-linux-musl and aarch64-linux-musl
+# platform gems since 2.1.0, which is what the alpine image needs.
+gem 'commonmarker', '~> 2.10'
 
 # HTTP Client
 gem 'faraday', '~> 2'
@@ -67,6 +68,10 @@ gem 'levenshtein-ffi', require: 'levenshtein', git: 'https://github.com/razeware
 gem 'webvtt-ruby', require: 'webvtt'
 
 # No longer part of the standard library
+# irb stopped being a default gem in Ruby 4.0. The CLI requires it at load time
+# for the `console` commands, so without it here every `bin/robles` invocation
+# dies with a LoadError.
+gem 'irb'
 gem 'ostruct'
 
 group :development do

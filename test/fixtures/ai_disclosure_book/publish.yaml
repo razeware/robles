@@ -1,0 +1,18 @@
+sku: ai-disclosure-test
+edition: 1
+title: AI Disclosure Test Book
+difficulty: beginner
+professional: false
+access_personal: true
+access_team: true
+segments:
+  - kind: section
+    path: sections/01-section.md
+  - kind: chapter
+    path: chapters/01-disclosed.md
+  - kind: chapter
+    path: chapters/02-undisclosed.md
+  - kind: chapter
+    path: chapters/03-invalid.md
+  - kind: chapter
+    path: chapters/04-misplaced.md

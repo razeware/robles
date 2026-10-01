@@ -34,11 +34,11 @@ module ImageProvider
     end
 
     def doc
-      @doc ||= CommonMarker.render_doc(markdown)
+      @doc ||= Util::Markdown.parse(markdown, options: Util::Markdown::PLAIN_OPTIONS)
     end
 
     def markdown
-      @markdown ||= File.read(file)
+      @markdown ||= File.read(file, mode: 'r:UTF-8')
     end
   end
 end

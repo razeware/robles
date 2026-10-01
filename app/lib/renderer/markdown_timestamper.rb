@@ -29,7 +29,7 @@ module Renderer
         next if list_item_paragraph?(node) && !first_list_paragraph?(node)
 
         # Get the plain text for this paragraph and tidy it up
-        paragraph = node.to_plaintext.gsub("\n", ' ').strip
+        paragraph = Util::Markdown.plaintext(node).gsub("\n", ' ').strip
 
         # Skip if this paragraph already contains a timestamp marker
         next if paragraph.match?(/\$\[t=[\d:.]+\]/)
@@ -57,7 +57,7 @@ module Renderer
         match = match.min { |a, b| a[1] <=> b[1] }
 
         cue = vtt.cues[match[0]]
-        text = CommonMarker::Node.new(:text)
+        text = Commonmarker::Node.new(:text)
         text.string_content = "$[t=#{cue.start}]"
         node.prepend_child(text)
       end
@@ -74,7 +74,7 @@ module Renderer
     def inside_blockquote?(node)
       ancestor = node.parent
       while ancestor
-        return true if ancestor.type == :blockquote
+        return true if ancestor.type == :block_quote
 
         ancestor = ancestor.parent
       end
@@ -82,16 +82,18 @@ module Renderer
     end
 
     def list_item_paragraph?(node)
-      node.parent&.type == :list_item
+      node.parent&.type == :item
     end
 
     # The very first paragraph of the very first item of its list. Loose list
     # items can hold several paragraphs, so we check both the item and the
     # paragraph position to guarantee exactly one timestamp per list.
+    #
+    # Asked twice for the same node, commonmarker hands back two different Ruby
+    # objects, so "is this the first child" is answered by looking backwards for
+    # a sibling rather than by comparing nodes.
     def first_list_paragraph?(node)
-      list_item = node.parent
-      list = list_item.parent
-      list_item == list.first_child && list_item.first_child == node
+      node.previous_sibling.nil? && node.parent.previous_sibling.nil?
     end
   end
 end

@@ -6,7 +6,7 @@ module Util
     include PathExtraction
 
     def git_hash
-      Git.open(root_directory).log.first.sha
+      Git.open(root_directory).log.execute.first.sha
     end
   end
 end

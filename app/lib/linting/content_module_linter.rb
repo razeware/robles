@@ -49,6 +49,10 @@ module Linting
       with_spinner(title: 'Validating data models', show: show_ui) do
         annotations.concat(Linting::Validations::ContentModule.new(content_module:, file:).lint)
       end
+
+      with_spinner(title: 'Checking AI disclosures', show: show_ui) do
+        annotations.concat(Linting::AiDisclosureLinter.new(subject: content_module, file:).lint)
+      end
     end
 
     def with_spinner(title:, show: true, &)
@@ -59,10 +63,17 @@ module Linting
       end
     end
 
-    def output
+    def output # rubocop:disable Metrics/MethodLength
       return Linting::Output.new(output_details.merge(annotations:)) if output_details.present?
 
-      if annotations.present?
+      if annotations.blank?
+        Linting::Output.new(
+          title: 'robles Linting Success',
+          summary: 'Your content module repo looks great',
+          text: 'I have nothing else to say here...',
+          validated: true
+        )
+      elsif annotations.any? { _1.annotation_level.to_sym == :failure }
         Linting::Output.new(
           title: 'robles Linting Failure',
           summary: 'There was a problem with your content module repository',
@@ -72,9 +83,10 @@ module Linting
         )
       else
         Linting::Output.new(
-          title: 'robles Linting Success',
-          summary: 'Your content module repo looks great',
-          text: 'I have nothing else to say here...',
+          title: 'robles Linting Results',
+          summary: 'There are some warnings for your content module repository',
+          text: 'There are no failures—but some warnings for you to take a look at. Please check the individual file annotations for details',
+          annotations:,
           validated: true
         )
       end

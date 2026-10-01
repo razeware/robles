@@ -2,6 +2,9 @@
  * .written_content is a wrapper class that will format standard things like
  * p, h1, h2, blockquote etc. Used in things like articles.
  *
+ * Based on murakami's 02-generics/_written_content.scss, plus the overrides
+ * carolus layers on top for lesson pages (kodeco/_shame.scss and
+ * kodeco/layouts/_books.scss), so that the preview matches kodeco.com.
  */
 
  @import '../abstracts/colors';
@@ -40,8 +43,21 @@
      font-size: 16px;
    }
 
+   // carolus wraps text segments in its book chapter markup, which sizes
+   // these headings slightly differently from transcripts
+   .text-body {
+     h1,
+     h2 {
+       font-size: 30px;
+     }
+
+     h4 {
+       font-size: 19px;
+     }
+   }
+
    p, ul, ol, .note {
-     font-family: $base;
+     font-family: $system;
      font-size: 16px;
      line-height: 1.66;
      word-break: break-word;
@@ -64,34 +80,37 @@
      background-color: rgba($grey-thought, 0.25);
      border: 1px solid $grey-thought;
      padding: 1px 8px;
-     font-size: 15px;
+     font-family: $mono;
+     font-size: 14px;
+     font-variant-ligatures: no-contextual;
      border-radius: 8px;
    }
 
+   // The block is styled on the <pre>, and the <code> inside it is reset
    pre {
      margin-top: 24px;
+     padding: 24px;
+     background: $black-night;
+     color: $grey-thought;
+     border-radius: 16px;
+     font-family: $mono;
+     font-size: 14px;
+     line-height: 1.5;
+     font-variant-ligatures: no-contextual;
+     // Wrap long lines like the site does, rather than scrolling sideways
+     white-space: break-spaces;
 
-     code {
-       padding: 24px;
+     code,
+     code.hljs {
+       display: block;
+       padding: 0;
+       border: none;
+       background: none;
+       color: inherit;
+       font-size: inherit;
+       white-space: inherit;
      }
    }
-
-   pre code.hljs,
-   pre.hjls, pre code {
-    display: block;
-    overflow-x: auto;
-    padding: 24px;
-    background: $black-night;
-    color: $grey-thought;
-    font-family: 'Relative Mono', monospace;
-    font-variant-ligatures: no-contextual;
-   }
-
-   .hljs {
-    background: $black-night;
-    color: $grey-thought;
-    font-family: 'Relative Mono', monospace;
-  }
 
    pre + p, pre + ul, pre + ol {
      margin-top: 24px;
@@ -108,6 +127,40 @@
      p:nth-of-type(1) {
       margin-top: unset;
      }
+   }
+
+   blockquote {
+     border-left-width: 6px;
+
+     p {
+       margin: 0;
+     }
+   }
+
+   table {
+     width: 100%;
+     border-collapse: collapse;
+     margin: 20px 0 28px;
+     border-radius: 10px;
+     overflow: hidden;
+     border: 1px solid $grey-thought;
+   }
+
+   th,
+   td {
+     text-align: left;
+     padding: 12px 16px;
+     border-bottom: 1px solid $grey-thought;
+   }
+
+   th {
+     background: $grey-wisp;
+     color: $black-night;
+     font-weight: 700;
+   }
+
+   tbody tr:nth-child(even) {
+     background: rgba($grey-wisp, 0.6);
    }
 
    ul {

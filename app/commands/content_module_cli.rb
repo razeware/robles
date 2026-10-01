@@ -25,8 +25,8 @@ class ContentModuleCli < Thor
 
   desc 'lint [MODULE_FILE]', 'runs a selection of linters on the module'
   option :module_file, type: :string, desc: 'Location of the module.yaml file'
-  method_options 'without-version': :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
-  method_options silent: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
+  method_option :'without-version', type: :boolean, aliases: '-e', default: false, desc: 'Run linting without git branch naming check'
+  method_option :silent, type: :boolean, aliases: '-s', default: false, desc: 'Hide all output'
   def lint
     output = runner.lint_content_module(module_file: options['module_file'], options:)
     exit 1 unless output.validated || ENVIRONMENT == 'staging'

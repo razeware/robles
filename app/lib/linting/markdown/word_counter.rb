@@ -9,7 +9,7 @@ module Linting
 
       def initialize(markdown)
         @markdown = markdown
-        @doc = CommonMarker.render_doc(markdown)
+        @doc = Util::Markdown.parse(markdown, options: Util::Markdown::PLAIN_OPTIONS)
       end
 
       def count

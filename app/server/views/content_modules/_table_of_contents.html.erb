@@ -13,7 +13,7 @@
           <div class="section-list-header-wrapper">
             <div class="section-list-header">
               <h4><%= lesson.title %></h4>
-              <p><%= lesson.segments.count %> <%= 'segment'.pluralize(lesson.segments.count) %></p>
+              <p><%= lesson.segments.count %> <%= 'segment'.pluralize(lesson.segments.count) %> &middot; <%= lesson_word_count(lesson) %> words</p>
             </div>
           </div>
           <ul class="section-segment-list">

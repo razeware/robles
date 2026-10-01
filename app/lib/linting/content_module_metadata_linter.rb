@@ -5,9 +5,13 @@ module Linting
   class ContentModuleMetadataLinter
     include Util::PathExtraction
 
+    # Module repos are named for their shortcode, behind an `m3-` prefix.
+    MODULE_REPO_PREFIX = 'm3-'
+
     def lint(options: {}) # rubocop:disable Metrics/AbcSize
       [].tap do |annotations|
         annotations.concat Linting::Metadata::CirculateAttributes.lint(file:, attributes: module_attributes)
+        annotations.concat Linting::Metadata::RepoName.lint(file:, attributes: module_attributes, identifier_attribute: :shortcode, prefix: MODULE_REPO_PREFIX)
         annotations.concat Linting::Metadata::ModuleFile.lint(file:, attributes: module_attributes)
         annotations.concat Linting::Metadata::CaptionsFile.lint(file:, attributes: module_attributes)
         annotations.concat Linting::Metadata::AssessmentFile.lint(file:, attributes: module_attributes)

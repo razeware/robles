@@ -5,6 +5,7 @@
       <p>
         <%= lesson.description %>
       </p>
+      <p class="lesson-word-count">Word count: <%= lesson_word_count(lesson) %></p>
     </div>
 
     <div class="toc-container">
@@ -27,6 +28,9 @@
             <div class="segment-description">
               <%= segment.description %>
             </div>
+            <% if (count = word_count(segment)) %>
+              <div class="segment-word-count"><%= count %> words</div>
+            <% end %>
           </div>
         </div>
       <% end %>
