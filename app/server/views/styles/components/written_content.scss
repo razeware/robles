@@ -80,6 +80,8 @@
    pre.hjls, pre code {
     display: block;
     overflow-x: auto;
+    // Wrap long lines like the site does, rather than scrolling sideways
+    white-space: break-spaces;
     padding: 24px;
     background: $black-night;
     color: $grey-thought;

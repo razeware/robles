@@ -246,7 +246,10 @@
     display: grid;
     width: min(1536px, 100vw - 48px);
     margin-inline: auto;
-    grid-template-columns: 396px 1fr 40px;
+    // minmax(0, ...) rather than 1fr: a bare 1fr won't shrink below its
+    // content, so one long code line or wide table pushed the whole page
+    // off the side of the screen.
+    grid-template-columns: 396px minmax(0, 1fr) 40px;
     gap: 32px;
     padding-bottom: 120px;
 
