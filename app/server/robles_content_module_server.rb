@@ -39,6 +39,19 @@ class RoblesContentModuleServer < Sinatra::Application # rubocop:disable Metrics
       end
     end
 
+    # Texts and scripted videos have a word count. Assessments, and videos with
+    # no script, don't.
+    def word_count(segment)
+      return unless segment.respond_to?(:markdown_file) && segment.markdown_file.present?
+
+      @word_counts ||= {}
+      @word_counts[segment.markdown_file] ||= word_counter_for_segment(segment).count
+    end
+
+    def lesson_word_count(lesson)
+      lesson.segments.sum { |segment| word_count(segment) || 0 }
+    end
+
     def class_for_domain(course)
       if course.domains.count > 1
         'multi-domain'
