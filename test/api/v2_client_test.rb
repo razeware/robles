@@ -10,7 +10,7 @@ module Api
     include V2ClientStubs
 
     PATH = '/api/v2/editions/publish'
-    BODY = '{"book":{"sku":"ia"}}'
+    BODY = '{"book":{"sku":"fixture-book"}}'
 
     def setup
       @old_logger = Api::V2Client.logger
