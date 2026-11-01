@@ -9,6 +9,7 @@ module Api
       attr_reader :content_module
 
       PUBLISH_URL = '/api/content_modules/publish'
+      V2_PUBLISH_PATH = '/api/v2/content_modules/publish'
 
       # Seconds to wait when establishing the connection to Alexandria.
       OPEN_TIMEOUT = 10
@@ -21,11 +22,19 @@ module Api
         new(content_module).upload
       end
 
-      def initialize(content_module)
+      # In a real run `token` is always ALEXANDRIA_SERVICE_API_TOKEN. The
+      # keywords let the tests choose a path.
+      def initialize(content_module, token: ALEXANDRIA_SERVICE_API_TOKEN, client: nil)
         @content_module = content_module
+        @token = token
+        @client = client
       end
 
       def upload
+        # Api::V2Client never raises a Faraday::Error, so the rescue below
+        # never sees a v2 failure.
+        return upload_with_api_v2 if Api::V2Client.service_token?(@token)
+
         started_at = monotonic_now
         log_upload_start
         response = conn.post do |req|
@@ -40,6 +49,18 @@ module Api
       end
 
       private
+
+      # Sends v1's payload, so both paths send the same bytes (WEB-8205). The
+      # client logs the status and the time.
+      def upload_with_api_v2
+        logger.info("Publishing content module '#{content_module.shortcode}' to Alexandria API v2 (#{payload.bytesize} bytes)")
+        client.post(V2_PUBLISH_PATH, payload)
+      end
+
+      # Built lazily, so the v1 path never builds it
+      def client
+        @client ||= Api::V2Client.new(base_url: ALEXANDRIA_BASE_URL, token: @token)
+      end
 
       def log_upload_start
         logger.info("Publishing content module '#{content_module.shortcode}' to Alexandria at #{api_uri} (#{payload.bytesize} bytes)")
