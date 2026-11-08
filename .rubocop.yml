@@ -3,6 +3,9 @@ AllCops:
   NewCops: enable
   Exclude:
     - tmp/**/*
+    # CI installs the bundle here (ruby/setup-ruby), and this Exclude list
+    # replaces RuboCop's defaults, which would have skipped it (WEB-7739)
+    - vendor/**/*
 
 Style/Documentation:
   Enabled: false
