@@ -2,10 +2,11 @@
 
 module Util
   # Book, module and course repos are written by authors, so robles only reads
-  # an image or an SVG that is a regular file inside the content's own root:
-  # the directory holding publish.yaml, module.yaml or release.yaml. Otherwise
-  # a `../` path or a symlink could publish any file on the machine running the
-  # build. A symlink that stays inside the root is fine.
+  # an image, an SVG or a content file (Markdown, script, captions or YAML) that
+  # is a regular file inside the content's own root: the directory holding
+  # publish.yaml, module.yaml or release.yaml. Otherwise a `../` path or a
+  # symlink could publish any file on the machine running the build. A symlink
+  # that stays inside the root is fine.
   module ContentPath
     # Raised when an image is missing, isn't a regular file, or leads out of
     # the content root
@@ -28,8 +29,9 @@ module Util
       resolve(root, path) || raise(InvalidPath, refusal(root, path))
     end
 
-    def refusal(root, path)
-      message = "Refusing to publish: image #{relative(root, path)} isn't a regular file inside #{root}."
+    # `kind` names the sort of file, such as `chapter` or `script`
+    def refusal(root, path, kind: 'image')
+      message = "Refusing to publish: #{kind} #{relative(root, path)} isn't a regular file inside #{root}."
       "#{message} Check that it exists, and that no ../ path or symlink leads out of that directory."
     end
 
