@@ -45,17 +45,17 @@ module ImageProvider
       section_file = File.join(@root, 'section.md').tap { |file| File.write(file, "# Section\n") }
       chapter = ::Chapter.new(markdown_file: chapter_file, root_path: File.dirname(chapter_file))
       section = ::Section.new(markdown_file: section_file, chapters: [chapter], root_path: @root)
-      ::Book.new(sections: [section], root_path: Pathname.new(@root), cover_image:)
+      ::Book.new(sku: 'test-book', sections: [section], root_path: Pathname.new(@root), cover_image:)
     end
 
     def content_module(markdown, featured_banner_image: 'cover.png')
       text_file = write_markdown(markdown)
       text = ::Text.new(markdown_file: text_file, root_path: File.dirname(text_file))
-      ::ContentModule.new(lessons: [::Lesson.new(segments: [text])], root_path: Pathname.new(@root), featured_banner_image:)
+      ::ContentModule.new(shortcode: 'test-module', lessons: [::Lesson.new(segments: [text])], root_path: Pathname.new(@root), featured_banner_image:)
     end
 
     def video_course(card_artwork_image)
-      ::VideoCourse.new(root_path: Pathname.new(@root), card_artwork_image:)
+      ::VideoCourse.new(shortcode: 'test-course', root_path: Pathname.new(@root), card_artwork_image:)
     end
 
     def assert_refused(extractor, relative_path)
