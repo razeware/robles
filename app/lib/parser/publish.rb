@@ -5,6 +5,7 @@ module Parser
   class Publish
     include Util::PathExtraction
     include Linting::FileExistenceChecker
+    include Parser::ContentRoot
 
     VALID_BOOK_ATTRIBUTES = %i[sku edition title description_md released_at materials_url
                                cover_image email_mockup_image twitter_card_image artwork_image icon_image
@@ -25,8 +26,8 @@ module Parser
     end
 
     def load_book_segments
-      segment_file = apply_path(publish_file[:manifest_file] || file)
-      @book = Parser::BookSegments.new(file: segment_file).parse
+      segment_file = content_file!(apply_path(publish_file[:manifest_file] || file), kind: 'manifest', named_in: file)
+      @book = Parser::BookSegments.new(file: segment_file, content_root:).parse
     end
 
     def load_vend_file
@@ -49,7 +50,7 @@ module Parser
     private
 
     def publish_file
-      @publish_file ||= Psych.load_file(file, permitted_classes: [Date]).deep_symbolize_keys
+      @publish_file ||= Psych.load_file(content_file!(file, kind: 'publish file', named_in: file), permitted_classes: [Date]).deep_symbolize_keys
     end
 
     def vend_file_path
@@ -63,7 +64,7 @@ module Parser
     end
 
     def vend_file
-      @vend_file ||= file_exists?(vend_file_path) ? Parser::Vend.new(file: vend_file_path).parse : {}
+      @vend_file ||= file_exists?(vend_file_path) ? Parser::Vend.new(file: content_file!(vend_file_path, kind: 'vend file', named_in: file)).parse : {}
     end
 
     def additional_attributes

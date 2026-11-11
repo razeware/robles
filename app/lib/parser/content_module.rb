@@ -7,6 +7,7 @@ module Parser
     include Parser::AiDisclosureAttributes
     include Util::PathExtraction
     include Util::GitHashable
+    include Parser::ContentRoot
 
     VALID_SIMPLE_ATTRIBUTES = %i[shortcode version version_description title
                                  description_md short_description released_at materials_url
@@ -33,54 +34,49 @@ module Parser
     # subprocess. It also means the captions_file path that `parse_video` makes
     # absolute now survives, which is what that assignment always intended.
     def metadata
-      @metadata ||= load_yaml_file(file).merge(git_commit_hash: git_hash)
+      @metadata ||= load_yaml_file(content_file!(file, kind: 'module file', named_in: file)).merge(git_commit_hash: git_hash)
     end
 
     def parse_lesson(metadata, index)
       segments = parse_segments(metadata[:segments_path])
 
       Lesson.new(ordinal: index + 1, segments:).tap do |lesson|
-        lesson_metadata = load_yaml_file(apply_path(metadata[:segments_path]))
+        lesson_metadata = lesson_yaml(metadata[:segments_path])
         LessonMetadata.new(lesson, lesson_metadata).apply!
       end
     end
 
     def parse_segments(segment_yaml_file)
       lesson_path = Pathname.new(segment_yaml_file).dirname.to_s
-      lesson = load_yaml_file(apply_path(segment_yaml_file))
+      lesson = lesson_yaml(segment_yaml_file)
 
       lesson[:segments].map do |segment|
         segment_path = "#{lesson_path}/#{segment[:path]}"
-        send(:"parse_#{segment[:type]}", segment_path)
+        send(:"parse_#{segment[:type]}", segment_path, named_in: apply_path(segment_yaml_file))
       end
     end
 
-    def parse_text(file)
-      markdown_file = apply_path(file)
+    def parse_text(file, named_in:)
+      markdown_file = content_file!(apply_path(file), kind: 'text', named_in:)
 
       Text.new(markdown_file:, root_path: Pathname.new(markdown_file).dirname.to_s).tap do |text|
         TextMetadata.new(text).apply!
       end
     end
 
-    def parse_video(file) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-      script_file = apply_path(file) if file.present?
-      raise Parser::Error.new(file:, msg: "Script file (#{file}}) not found") if script_file.present? && !File.file?(script_file)
-
+    def parse_video(file, named_in:) # rubocop:disable Metrics/AbcSize
+      script_file = content_file!(apply_path(file), kind: 'script', named_in:) if file.present?
       root_path = Pathname.new(script_file).dirname.to_s if script_file.present?
       captions_file = apply_path(metadata[:captions_file]) if metadata[:captions_file].present?
-      raise Parser::Error.new(file:, msg: "Captions file (#{metadata[:captions_file]}) not found") if captions_file.present? && !File.file?(captions_file)
-
       metadata[:captions_file] = captions_file if captions_file.present?
       Video.new(script_file:, root_path:).tap do |video|
         VideoMetadata.new(video, metadata).apply!
+        check_captions!(video, captions_file)
       end
     end
 
-    def parse_assessment(file)
-      assessment_file = apply_path(file) if file.present?
-      raise Parser::Error.new(file:, msg: "Assessment file (#{file}}) not found") if assessment_file.present? && !File.file?(assessment_file)
-
+    def parse_assessment(file, named_in:)
+      assessment_file = content_file!(apply_path(file), kind: 'assessment', named_in:) if file.present?
       assessment_metadata = load_yaml_file(assessment_file)
 
       Assessment.create(assessment_metadata).tap do |assessment|
@@ -116,6 +112,18 @@ module Parser
 
     def load_yaml_file(file)
       Psych.load_file(file, permitted_classes: [Date]).deep_symbolize_keys
+    end
+
+    def lesson_yaml(segments_path)
+      load_yaml_file(content_file!(apply_path(segments_path), kind: 'lesson file', named_in: file))
+    end
+
+    # Captions named in the script's metadata block win over those in module.yaml
+    def check_captions!(video, yaml_captions_file)
+      return if video.captions_file.blank?
+
+      named_in = video.captions_file == yaml_captions_file ? file : video.script_file
+      content_file!(video.captions_file, kind: 'captions file', named_in:)
     end
   end
 end

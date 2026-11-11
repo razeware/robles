@@ -60,6 +60,11 @@ module ImageProvider
       image.try(:key).presence || image.try(:local_url).presence || image.class.name
     end
 
+    # The directory every image and inlined SVG has to stay inside
+    def content_root
+      extractor.content_root
+    end
+
     def representations_for_local_url(url)
       clean_url = Pathname.new(url).cleanpath.to_s
       extractor.images

@@ -101,7 +101,7 @@ module Renderer
       [
         '<blockquote>',
         '  <h3 style="color: red; margin-top: 0;">Error: This image is missing a width attribute</h3>',
-        %(  <p style="color: red;">Please provide one in the form of <code>![width=50%](#{node.url})</code></p>),
+        %(  <p style="color: red;">Please provide one in the form of <code>![width=50%](#{Util::Markdown.escape_html(node.url)})</code></p>),
         '  <p style="color: red;">The image has been hidden until this issue is resolved.</p>',
         '</blockquote>'
       ].join
