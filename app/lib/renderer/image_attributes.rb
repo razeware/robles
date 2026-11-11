@@ -49,16 +49,22 @@ module Renderer
 
     # Importing SVGs directly inline
     def svg_url(relative_url)
-      relative_svg_url = relative_url.gsub(Pathname(relative_url).extname, '.svg')
-      "#{root_path}/#{relative_svg_url}"
+      "#{root_path}/#{Pathname(relative_url).sub_ext('.svg')}"
     end
 
+    # Only a regular file inside the content root is inlined. Anything else,
+    # such as a ../ path or a symlink leading out of the repo, gets the normal
+    # <img> instead.
     def svg?(alt_text, relative_url)
-      alt_text.split.include?('svg') && Pathname(svg_url(relative_url)).exist?
+      alt_text.split.include?('svg') && svg_path(relative_url).present?
     end
 
     def svg_content(relative_url)
-      File.read(svg_url(relative_url))
+      File.read(svg_path(relative_url))
+    end
+
+    def svg_path(relative_url)
+      Util::ContentPath.resolve(image_provider.content_root, svg_url(relative_url))
     end
   end
 end
