@@ -5,8 +5,17 @@ module Parser
   class BookSegments
     include Util::PathExtraction
     include Util::GitHashable
+    include Parser::ContentRoot
 
     VALID_SEGMENTS = %w[section chapter dedications team-bios].freeze
+
+    # The directory holding publish.yaml. The manifest can sit below it.
+    attr_reader :content_root
+
+    def initialize(file:, content_root:)
+      super(file:)
+      @content_root = content_root
+    end
 
     def parse
       sections = grouped_segments.map.with_index { |segments, idx| parse_section(segments, idx) }
@@ -19,7 +28,7 @@ module Parser
       raise 'Invalid segment kind' unless section_segment[:kind] == 'section'
 
       chapters = segments.map.with_index { |segment, idx| parse_chapter(segment, idx) }
-      markdown_file = apply_path(section_segment[:path])
+      markdown_file = content_file!(apply_path(section_segment[:path]), kind: 'section', named_in: file)
       Section.new(markdown_file:, ordinal: index, chapters:, root_path: Pathname.new(markdown_file).dirname.to_s).tap do |section|
         SectionMetadata.new(section).apply!
       end
@@ -28,7 +37,7 @@ module Parser
     def parse_chapter(segment, index)
       raise 'Invalid segment kind' unless %w[chapter dedications team-bios].include?(segment[:kind])
 
-      markdown_file = apply_path(segment[:path])
+      markdown_file = content_file!(apply_path(segment[:path]), kind: 'chapter', named_in: file)
       Chapter.new(markdown_file:, ordinal: index, root_path: Pathname.new(markdown_file).dirname.to_s, kind: segment[:kind]).tap do |chapter|
         ChapterMetadata.new(chapter).apply!
       end

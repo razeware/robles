@@ -155,7 +155,7 @@ class RoblesContentModuleServer < Sinatra::Application # rubocop:disable Metrics
   end
 
   def render_text(text)
-    image_provider = LocalImageProvider.new(container: text)
+    image_provider = LocalImageProvider.new(container: text, content_root: File.dirname(module_file))
     image_provider.process
     renderer = Renderer::Segment.create(text, image_provider:)
     renderer.render

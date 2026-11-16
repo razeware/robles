@@ -2,10 +2,11 @@
 
 # An implementation of an image provider suitable for use in the server
 class LocalImageProvider
-  attr_reader :container
+  attr_reader :container, :content_root
 
-  def initialize(container:)
+  def initialize(container:, content_root:)
     @container = container
+    @content_root = content_root
   end
 
   def process

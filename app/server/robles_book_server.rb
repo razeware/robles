@@ -89,7 +89,7 @@ class RoblesBookServer < Sinatra::Application
   end
 
   def render_chapter(chapter)
-    image_provider = LocalImageProvider.new(container: chapter)
+    image_provider = LocalImageProvider.new(container: chapter, content_root: File.dirname(publish_file))
     image_provider.process
     renderer = Renderer::Chapter.new(chapter, image_provider:)
     renderer.render

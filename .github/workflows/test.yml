@@ -31,3 +31,42 @@ jobs:
           channel: circleci
           status: FAILED
           color: danger
+
+  # WEB-7739: style. robles is public, and a public repository can't call the
+  # shared ruby-lint.yml in the private github-actions repository, so this runs
+  # its steps here.
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Read-only job; keep the checkout token out of .git/config
+          persist-credentials: false
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Lint code for consistent style
+        run: bin/rubocop --format github --format clang
+
+  # WEB-7739: known-vulnerable gems. robles isn't a Rails app, so it can't use
+  # the shared ruby-scan.yml, which always runs Brakeman.
+  audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # Read-only job; keep the checkout token out of .git/config
+          persist-credentials: false
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Check gems for known vulnerabilities
+        run: bundle exec bundler-audit check --update

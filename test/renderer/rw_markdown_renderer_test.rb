@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'fileutils'
 require 'tmpdir'
 require_relative '../test_helper'
 require_relative '../support/fake_image_provider'
@@ -10,6 +11,29 @@ module Renderer
   # the assertions are deliberately on the exact HTML.
   class RWMarkdownRendererTest < Minitest::Test
     include TestHelpers
+
+    INSIDE_SVG = '<svg xmlns="http://www.w3.org/2000/svg"><title>inside</title></svg>'
+    OUTSIDE_SVG = '<svg xmlns="http://www.w3.org/2000/svg"><title>outside</title></svg>'
+
+    # A book in a temp dir, with an SVG in its shared folder and another in a
+    # directory beside it, outside the book. Tests make their own symlinks
+    # here rather than committing them.
+    def with_book
+      Dir.mktmpdir do |dir|
+        root = File.join(dir, 'book')
+        outside = File.join(dir, 'outside')
+        FileUtils.mkdir_p([File.join(root, 'chapter', 'assets'), File.join(root, 'shared'), outside])
+        File.write(File.join(root, 'shared', 'diagram.svg'), INSIDE_SVG)
+        File.write(File.join(outside, 'diagram.svg'), OUTSIDE_SVG)
+        yield root, outside
+      end
+    end
+
+    def render_chapter(root, markdown)
+      path = File.join(root, 'chapter', 'body.md')
+      File.write(path, markdown)
+      MarkdownFileRenderer.new(path:, image_provider: FakeImageProvider.new(content_root: root)).render
+    end
 
     def render_fixture(name, image_provider:)
       MarkdownFileRenderer.new(path: fixture_path("markdown/#{name}"), image_provider:).render
@@ -49,6 +73,60 @@ module Renderer
       expected = '<p><blockquote>  <h3 style="color: red; margin-top: 0;">Error: This image is missing a width attribute</h3>  <p style="color: red;">Please provide one in the form of <code>![width=50%](assets/screenshot.png)</code></p>  <p style="color: red;">The image has been hidden until this issue is resolved.</p></blockquote></p>'
 
       assert_equal "#{expected}\n", html
+    end
+
+    def test_the_missing_width_notice_shows_the_image_path_as_text
+      html = render_string(%(![no width here](assets/a<b"c&d.png)\n), image_provider: FakeImageProvider.new)
+
+      assert_includes html, '<code>![width=50%](assets/a&lt;b&quot;c&amp;d.png)</code>'
+      refute_includes html, 'a<b'
+    end
+
+    def test_an_svg_reached_by_dot_dot_from_outside_the_root_is_not_inlined
+      with_book do |root|
+        html = render_chapter(root, "![svg width=60%](../../outside/diagram.png)\n")
+
+        assert_includes html, '<img src="https://images.example.com/diagram/original.png"'
+        refute_includes html, '<svg'
+      end
+    end
+
+    def test_an_svg_symlinked_to_a_file_outside_the_root_is_not_inlined
+      with_book do |root, outside|
+        File.symlink(File.join(outside, 'diagram.svg'), File.join(root, 'chapter', 'assets', 'diagram.svg'))
+        html = render_chapter(root, "![svg width=60%](assets/diagram.png)\n")
+
+        assert_includes html, '<img src="https://images.example.com/diagram/original.png"'
+        refute_includes html, '<svg'
+      end
+    end
+
+    def test_an_svg_that_is_not_a_regular_file_is_not_inlined
+      with_book do |root|
+        FileUtils.mkdir_p(File.join(root, 'chapter', 'assets', 'diagram.svg'))
+        html = render_chapter(root, "![svg width=60%](assets/diagram.png)\n")
+
+        assert_includes html, '<img src="https://images.example.com/diagram/original.png"'
+        refute_includes html, '<svg'
+      end
+    end
+
+    def test_an_svg_symlinked_to_a_file_inside_the_root_is_inlined
+      with_book do |root|
+        File.symlink('../../shared/diagram.svg', File.join(root, 'chapter', 'assets', 'diagram.svg'))
+        html = render_chapter(root, "![svg width=60%](assets/diagram.png)\n")
+
+        assert_includes html, "<picture>#{INSIDE_SVG}  </picture>"
+      end
+    end
+
+    # The root is the whole book, not the chapter's own directory
+    def test_an_svg_reached_by_dot_dot_inside_the_root_is_inlined
+      with_book do |root|
+        html = render_chapter(root, "![svg width=60%](../shared/diagram.png)\n")
+
+        assert_includes html, "<picture>#{INSIDE_SVG}  </picture>"
+      end
     end
 
     def test_a_title_is_html_escaped_in_every_slot_it_appears_in

@@ -2,7 +2,7 @@
 
 # A stand-in for ImageProvider::Provider that serves pre-canned representations
 # without touching S3 or ImageMagick. The renderer only ever asks an image
-# provider two things, so that is all this implements.
+# provider three things, so that is all this implements.
 class FakeImageRepresentation
   attr_reader :width, :remote_url
 
@@ -23,11 +23,14 @@ end
 class FakeImageProvider
   CDN_ROOT = 'https://images.example.com'
 
-  attr_reader :width_required, :original_only
+  attr_reader :width_required, :original_only, :content_root
 
-  def initialize(width_required: true, original_only: ['animation.gif'])
+  # By default the content root is the fixtures directory, which holds the SVG
+  # the image corpus inlines.
+  def initialize(width_required: true, original_only: ['animation.gif'], content_root: File.expand_path('../fixtures', __dir__))
     @width_required = width_required
     @original_only = original_only
+    @content_root = content_root
   end
 
   def representations_for_local_url(url)

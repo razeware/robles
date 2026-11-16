@@ -6,6 +6,7 @@ module Parser
     include Parser::SimpleAttributes
     include Util::PathExtraction
     include Util::GitHashable
+    include Parser::ContentRoot
 
     VALID_SIMPLE_ATTRIBUTES = %i[shortcode version version_description title course_type
                                  description_md short_description released_at materials_url
@@ -29,7 +30,7 @@ module Parser
     end
 
     def metadata
-      @metadata = Psych.load_file(file, permitted_classes: [Date])
+      @metadata = Psych.load_file(content_file!(file, kind: 'release file', named_in: file), permitted_classes: [Date])
                        .deep_symbolize_keys
                        .merge(git_commit_hash: git_hash)
     end
@@ -52,24 +53,19 @@ module Parser
       end
     end
 
-    def parse_video(metadata) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-      script_file = apply_path(metadata[:script_file]) if metadata[:script_file].present?
-      raise Parser::Error.new(file:, msg: "Script file (#{metadata[:script_file]}}) not found") if script_file.present? && !File.file?(script_file)
-
+    def parse_video(metadata) # rubocop:disable Metrics/AbcSize
+      script_file = content_file!(apply_path(metadata[:script_file]), kind: 'script', named_in: file) if metadata[:script_file].present?
       root_path = Pathname.new(script_file).dirname.to_s if script_file.present?
       captions_file = apply_path(metadata[:captions_file]) if metadata[:captions_file].present?
-      raise Parser::Error.new(file:, msg: "Captions file (#{metadata[:captions_file]}) not found") if captions_file.present? && !File.file?(captions_file)
-
       metadata[:captions_file] = captions_file if captions_file.present?
       Video.new(script_file:, root_path:).tap do |video|
         VideoMetadata.new(video, metadata).apply!
+        check_captions!(video, captions_file)
       end
     end
 
     def parse_assessment(metadata)
-      assessment_file = apply_path(metadata[:assessment_file]) if metadata[:assessment_file].present?
-      raise Parser::Error.new(file:, msg: "Assessment file (#{metadata[:assessment_file]}}) not found") if assessment_file.present? && !File.file?(assessment_file)
-
+      assessment_file = content_file!(apply_path(metadata[:assessment_file]), kind: 'assessment', named_in: file) if metadata[:assessment_file].present?
       assessment_metadata = Psych.load_file(assessment_file, permitted_classes: [Date]).deep_symbolize_keys.merge(metadata)
 
       Assessment.create(assessment_metadata).tap do |assessment|
@@ -92,6 +88,16 @@ module Parser
 
     def apply_additional_metadata
       video_course.assign_attributes(simple_attributes)
+    end
+
+    private
+
+    # Captions named in the script's metadata block win over those in release.yaml
+    def check_captions!(video, yaml_captions_file)
+      return if video.captions_file.blank?
+
+      named_in = video.captions_file == yaml_captions_file ? file : video.script_file
+      content_file!(video.captions_file, kind: 'captions file', named_in:)
     end
   end
 end

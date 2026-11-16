@@ -79,6 +79,9 @@ group :development do
   gem 'rubocop', '~> 1.0'
   gem 'solargraph', '~> 0.39'
 
+  # Known-vulnerable gem check, run by PR CI (WEB-7739)
+  gem 'bundler-audit', require: false
+
   # Auto-reloading when serving locally
   gem 'guard', '~> 2', '>= 2.16.2'
   gem 'guard-livereload'
