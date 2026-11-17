@@ -10,14 +10,15 @@ module Api
       include TestHelpers
       include V2ClientStubs
 
-      # Stands in for Api::V2Client on the v1 path, where it must never be used
+      # Stands in for Api::V2Client when the token is refused, and fails the
+      # test if it's called
       class UnusedClient
         def initialize(test)
           @test = test
         end
 
         def post(*)
-          @test.flunk('the v1 path called the API v2 client')
+          @test.flunk('a refused token called the API v2 client')
         end
       end
 
@@ -41,41 +42,15 @@ module Api
         alexandria_api_v2_fixture('edition_publish.json')
       end
 
-      # v1's `conn` is memoised and robles has no stubbing library, so the tests
-      # hand it a connection on Faraday's test adapter through @conn.
-      def stub_v1(uploader)
-        @v1_requests = []
-        stubs = Faraday::Adapter::Test::Stubs.new do |stub|
-          stub.post(/.*/) do |env|
-            @v1_requests << env
-            [200, JSON_HEADERS, '{}']
-          end
-        end
-        uploader.instance_variable_set(:@conn, Faraday.new { |faraday| faraday.adapter(:test, stubs) })
-        uploader
+      def test_shared_token_is_refused
+        uploader = BookUploader.new(book, token: SHARED_TOKEN, client: UnusedClient.new(self))
+
+        assert_token_refused('ALEXANDRIA_SERVICE_API_TOKEN', SHARED_TOKEN) { uploader.upload }
       end
 
-      def test_shared_token_uses_v1
-        uploader = stub_v1(BookUploader.new(book, token: SHARED_TOKEN, client: UnusedClient.new(self)))
-        uploader.upload
-
-        assert_equal 1, @v1_requests.size
-        assert_equal '/api/editions/publish', @v1_requests.first.url.path
-      end
-
-      def test_no_token_uses_v1
-        uploader = stub_v1(BookUploader.new(book, token: nil, client: UnusedClient.new(self)))
-        uploader.upload
-
-        assert_equal 1, @v1_requests.size
-        assert_equal '/api/editions/publish', @v1_requests.first.url.path
-      end
-
-      def test_default_token_in_tests_uses_v1
-        uploader = stub_v1(BookUploader.new(book))
-        uploader.upload
-
-        assert_equal '/api/editions/publish', @v1_requests.first.url.path
+      # The test env sets no ALEXANDRIA_SERVICE_API_TOKEN
+      def test_no_token_is_refused
+        assert_token_refused('ALEXANDRIA_SERVICE_API_TOKEN', nil) { BookUploader.new(book).upload }
       end
 
       def test_kst_token_uses_v2
@@ -88,13 +63,6 @@ module Api
         assert_equal :post, request.method
         assert_equal '/api/v2/editions/publish', request.url.path
         assert_equal uploader.send(:payload), request.request_body
-      end
-
-      def test_kst_token_never_builds_v1
-        uploader = BookUploader.new(book, token: KST_TOKEN, client: v2_test_client { [201, JSON_HEADERS, edition_fixture] })
-        uploader.upload
-
-        assert_nil uploader.instance_variable_get(:@conn)
       end
 
       def test_kst_token_validation_failed
