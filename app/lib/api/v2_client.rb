@@ -9,14 +9,29 @@ module Api
   class V2Client
     include Util::Logging
 
-    # The switch for WEB-8205 and WEB-8206. A content repo turns API v2 on by
-    # storing robles's `kst_robles_` token in its existing secret, and off by
-    # writing the shared token back (WEB-8208). It's the same prefix test
-    # guardpost_rails uses to tell a service token apart.
+    # robles's API v2 token starts with this. It's the same prefix test
+    # guardpost_rails uses to tell a service token apart. API v2 is the only
+    # upload path, so any other token is refused before a request (WEB-8371).
     TOKEN_PREFIX = 'kst_'
+
+    # Never includes the token, and names no people, channels or hosts,
+    # because robles is public. It shows in the Actions log and in Slack.
+    TOKEN_MESSAGE = "Can't publish to %<service>s: %<name>s is empty or isn't robles's API v2 token, " \
+                    'which starts with "kst_". The old shared token no longer works. ' \
+                    "Ask Kodeco engineering for robles's kst_ token, and save it in this repo's " \
+                    '%<name>s_STAGING or %<name>s_PRODUCTION Actions secret.'
+
+    # Raised before any request, so it isn't an Error
+    class TokenError < StandardError; end
 
     def self.service_token?(token)
       token.is_a?(String) && token.start_with?(TOKEN_PREFIX)
+    end
+
+    def self.require_service_token!(token, name:, service:)
+      return if service_token?(token)
+
+      raise TokenError, format(TOKEN_MESSAGE, name:, service:)
     end
 
     Response = Data.define(:status, :data, :meta)
@@ -34,8 +49,9 @@ module Api
 
     attr_reader :base_url
 
-    # The timeouts match content_module_uploader.rb, because a publish can be
-    # slow. WEB-8206 passes its own `timeout:`.
+    # Generous timeouts, because publishing a whole module can be slow, but
+    # bounded so a hung service fails instead of hanging CI. WEB-8206 passes
+    # its own `timeout:`.
     def initialize(base_url:, token:, open_timeout: 10, timeout: 120, adapter: Faraday.default_adapter)
       raise ArgumentError, 'base_url is required' if base_url.blank?
       raise ArgumentError, 'token is required' if token.blank?

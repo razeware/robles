@@ -31,6 +31,18 @@ module V2ClientStubs
     Api::V2Client.new(base_url: 'https://alexandria.test', token: KST_TOKEN, adapter: [:test, stubs])
   end
 
+  # WEB-8371: a refused token raises Api::V2Client::TokenError, whose message
+  # names the variable and its two Actions secrets and never holds the token
+  def assert_token_refused(name, token, &)
+    error = assert_raises(Api::V2Client::TokenError, &)
+
+    assert_includes error.message, name
+    assert_includes error.message, "#{name}_STAGING"
+    assert_includes error.message, "#{name}_PRODUCTION"
+    refute_includes error.message, token if token.present?
+    error
+  end
+
   def alexandria_api_v2_fixture(name)
     File.read(File.expand_path("../fixtures/alexandria_api_v2/#{name}", __dir__))
   end

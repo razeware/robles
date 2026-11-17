@@ -41,6 +41,18 @@ module Api
       refute Api::V2Client.service_token?("KST_robles_#{'a' * 43}")
     end
 
+    def test_require_service_token
+      assert_nil Api::V2Client.require_service_token!(KST_TOKEN, name: 'ALEXANDRIA_SERVICE_API_TOKEN', service: 'alexandria')
+
+      [nil, '', SHARED_TOKEN, "KST_robles_#{'a' * 43}"].each do |token|
+        error = assert_token_refused('ALEXANDRIA_SERVICE_API_TOKEN', token) do
+          Api::V2Client.require_service_token!(token, name: 'ALEXANDRIA_SERVICE_API_TOKEN', service: 'alexandria')
+        end
+        assert error.message.start_with?("Can't publish to alexandria: ALEXANDRIA_SERVICE_API_TOKEN is empty")
+        refute_kind_of Api::V2Client::Error, error
+      end
+    end
+
     def test_created_returns_data
       response = client_answering(201, edition_fixture).post(PATH, BODY)
 

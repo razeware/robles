@@ -22,14 +22,15 @@ module Api
       # route returns
       NOT_FOUND = '{"status":404,"error":"Fixture: not found"}'
 
-      # Stands in for Api::V2Client on the v1 path, where it must never be used
+      # Stands in for Api::V2Client when the token is refused, and fails the
+      # test if it's called
       class UnusedClient
         def initialize(test)
           @test = test
         end
 
         def post(*)
-          @test.flunk('the v1 path called the API v2 client')
+          @test.flunk('a refused token called the API v2 client')
         end
       end
 
@@ -50,7 +51,7 @@ module Api
         @course ||= VideoCourse.new(shortcode: 'ios101', version: '1.0', title: 'iOS 101 with Swift')
       end
 
-      def v1_body
+      def upload_body
         { video_course: course }.to_json
       end
 
@@ -65,39 +66,15 @@ module Api
         VideoCourseUploader.new(course, token: KST_TOKEN, client: v2_test_client { [status, JSON_HEADERS, body] })
       end
 
-      # v1's `conn` is memoised and robles has no stubbing library, so the tests
-      # hand it a connection on Faraday's test adapter through @conn.
-      def stub_v1(uploader)
-        @v1_requests = []
-        stubs = Faraday::Adapter::Test::Stubs.new do |stub|
-          stub.post(/.*/) do |env|
-            @v1_requests << env
-            [200, JSON_HEADERS, '{}']
-          end
-        end
-        uploader.instance_variable_set(:@conn, Faraday.new { |faraday| faraday.adapter(:test, stubs) })
-        uploader
+      def test_shared_token_is_refused
+        uploader = VideoCourseUploader.new(course, token: SHARED_TOKEN, client: UnusedClient.new(self))
+
+        assert_token_refused('BETAMAX_SERVICE_API_TOKEN', SHARED_TOKEN) { uploader.upload }
       end
 
-      def assert_v1_upload
-        assert_equal 1, @v1_requests.size
-        request = @v1_requests.first
-        assert_equal :post, request.method
-        assert_equal '/api/v1/collections/upload', request.url.path
-        assert_equal v1_body, request.request_body
-      end
-
-      def test_shared_token_uses_v1
-        stub_v1(VideoCourseUploader.new(course, token: SHARED_TOKEN, client: UnusedClient.new(self))).upload
-
-        assert_v1_upload
-      end
-
-      # The test environment sets no BETAMAX_SERVICE_API_TOKEN
-      def test_no_token_uses_v1
-        stub_v1(VideoCourseUploader.new(course, client: UnusedClient.new(self))).upload
-
-        assert_v1_upload
+      # The test env sets no BETAMAX_SERVICE_API_TOKEN
+      def test_no_token_is_refused
+        assert_token_refused('BETAMAX_SERVICE_API_TOKEN', nil) { VideoCourseUploader.new(course).upload }
       end
 
       def test_kst_token_uploads_to_v2
@@ -110,16 +87,14 @@ module Api
         assert_equal :post, request.method
         assert_equal V2_PATH, request.url.path
         assert_equal "Bearer #{KST_TOKEN}", request.request_headers['Authorization']
-        assert_equal v1_body, request.request_body
+        assert_equal upload_body, request.request_body
       end
 
-      def test_kst_token_logs_and_never_builds_v1
-        uploader = uploader_answering(201, betamax_fixture('collection_upload.json'))
-        uploader.upload
+      def test_kst_token_logs
+        uploader_answering(201, betamax_fixture('collection_upload.json')).upload
 
         assert_includes @log.string, 'ios101 1.0'
         assert_includes @log.string, 'collection 301'
-        assert_nil uploader.instance_variable_get(:@conn)
       end
 
       def test_kst_token_returns_nested_data
