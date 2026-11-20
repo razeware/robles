@@ -41,10 +41,23 @@ module Linting
       end
     end
 
-    # The fixture has no ai_disclosure block. That is worth a warning, but a
-    # warning alone must not fail lint, or every pre-policy module would.
+    # The fixture has no ai_disclosure block and was released before the policy,
+    # so linting has nothing to say about it
+    def test_a_module_released_before_the_policy_lints_clean_without_a_disclosure
+      with_module_repo do |file|
+        commit_everything(File.dirname(file))
+        output = lint(file)
+
+        assert output.validated
+        assert_equal 'robles Linting Success', output.title
+      end
+    end
+
+    # Released after the policy, the same module is worth a warning, but a
+    # warning alone must not fail lint
     def test_a_missing_ai_disclosure_warns_without_failing_lint
       with_module_repo do |file|
+        File.write(file, File.read(file).sub(/^released_at: .*$/, 'released_at: 2026-11-01'))
         commit_everything(File.dirname(file))
         output = lint(file)
 

@@ -161,6 +161,70 @@ class AiDisclosureTest < Minitest::Test
     assert_includes message, 'words, code, media, code_meta'
   end
 
+  # --- not_applicable --------------------------------------------------------
+
+  def test_a_chapter_can_say_its_disclosure_is_not_applicable
+    subject = chapter(ai_disclosure: 'not_applicable')
+
+    assert_predicate subject, :valid?
+    refute_predicate subject, :ai_disclosure_missing?
+  end
+
+  def test_not_applicable_publishes_nothing
+    subject = chapter(ai_disclosure: 'not_applicable')
+
+    AiDisclosure::ATTRIBUTES.each { |attribute| assert_nil subject.send(attribute) }
+  end
+
+  def test_a_module_cannot_say_its_disclosure_is_not_applicable
+    message = full_message_for(content_module(ai_disclosure: 'not_applicable'), :ai_disclosure)
+
+    assert_includes message, "can't be `not_applicable` here"
+    assert_includes message, 'only front-matter book chapters'
+  end
+
+  # So the publish guard refuses it too, not just lint
+  def test_errors_for_reports_a_module_that_says_not_applicable
+    assert_equal 1, AiDisclosure.errors_for(content_module(ai_disclosure: 'not_applicable')).length
+  end
+
+  def test_not_applicable_is_case_sensitive_like_every_other_token
+    message = full_message_for(chapter(ai_disclosure: 'Not_Applicable'), :ai_disclosure)
+
+    assert_includes message, 'must be a block of words, code, media, code_meta or `not_applicable`'
+  end
+
+  def test_a_module_is_not_offered_not_applicable_when_its_block_is_the_wrong_type
+    refute_includes full_message_for(content_module(ai_disclosure: 'author_written'), :ai_disclosure), 'not_applicable'
+  end
+
+  def test_keys_written_outside_the_block_are_still_reported_alongside_not_applicable
+    subject = chapter(ai_disclosure: 'not_applicable', ai_disclosure_misplaced_keys: %i[words])
+
+    assert_includes full_message_for(subject, :ai_words), 'nest it inside the `ai_disclosure` block'
+  end
+
+  # --- pre_policy? -----------------------------------------------------------
+
+  def test_pre_policy_is_strictly_before_the_policy_date
+    assert AiDisclosure.pre_policy?(AiDisclosure::POLICY_DATE - 1)
+    refute AiDisclosure.pre_policy?(AiDisclosure::POLICY_DATE)
+    refute AiDisclosure.pre_policy?(AiDisclosure::POLICY_DATE + 1)
+  end
+
+  def test_pre_policy_reads_dates_however_yaml_hands_them_over
+    assert AiDisclosure.pre_policy?('2025-06-01')
+    assert AiDisclosure.pre_policy?(Time.utc(2025, 6, 1))
+    assert AiDisclosure.pre_policy?(DateTime.new(2025, 6, 1))
+  end
+
+  def test_a_date_that_cannot_be_read_is_not_pre_policy
+    refute AiDisclosure.pre_policy?(nil)
+    refute AiDisclosure.pre_policy?('')
+    refute AiDisclosure.pre_policy?('soon')
+    refute AiDisclosure.pre_policy?(20_250_601)
+  end
+
   def test_an_unknown_key_in_the_block_is_rejected
     message = full_message_for(chapter(ai_disclosure: { wordz: 'author_written' }), :ai_disclosure)
 

@@ -2,6 +2,8 @@
 
 require_relative '../test_helper'
 
+require 'tempfile'
+
 module Parser
   # Parses real fixture repos (a book and a content module) to check that the
   # author's `ai_disclosure` block reaches the payload alexandria receives as the
@@ -144,6 +146,29 @@ module Parser
       assert_includes messages.find { _1.include?('`media`') }, '"drawn_by_a_robot"'
       assert_includes messages.find { _1.include?('`ai_code`') }, 'nest it inside the `ai_disclosure` block'
       assert_equal 2, AiDisclosure.errors_for(subject).length
+    end
+
+    def test_a_front_matter_chapter_that_says_not_applicable_parses_lints_and_sends_nil
+      Tempfile.create(['what-you-need', '.md']) do |file|
+        file.write(<<~MARKDOWN)
+          ```metadata
+          number: "1"
+          title: "What You Need"
+          ai_disclosure: not_applicable
+          ```
+
+          Some body copy.
+        MARKDOWN
+        file.flush
+
+        chapter = ::Chapter.new(markdown_file: file.path, ordinal: 0)
+        Parser::ChapterMetadata.new(chapter).apply!
+        payload = chapter.as_json
+
+        assert_equal 'not_applicable', chapter.ai_disclosure
+        assert_empty AiDisclosure.errors_for(chapter)
+        AI_KEYS.each { |key| assert_nil payload[key], "expected #{key} to be sent as null" }
+      end
     end
   end
 end

@@ -23,6 +23,15 @@
 # `code` go on the wire as their token, `media` as a JSON object, and
 # `code_meta` as its values joined in a fixed order.
 #
+# A front-matter chapter (an introduction, "What You Need") says nothing about
+# how the book was made, so it can say so instead of disclosing:
+#
+#   ai_disclosure: not_applicable
+#
+# That publishes nothing, exactly as if there were no block, but tells linting
+# the omission is deliberate. Only chapters accept it: a module is never front
+# matter.
+#
 # The whole block is optional—content with no disclosure is valid, and all four
 # wire attributes are simply `nil`. Once the block is present, though, it has to
 # be complete and consistent: see `#ai_disclosure_violations`, which is the only
@@ -39,6 +48,15 @@ module AiDisclosure
 
   # The one key authors write. Everything else lives inside it.
   BLOCK_KEY = :ai_disclosure
+
+  # Written in place of the block by a chapter that has nothing to disclose
+  NOT_APPLICABLE = 'not_applicable'
+
+  # Content released before this date predates the policy, so linting doesn't
+  # ask it for a disclosure. carolus keeps the same date in its
+  # `ai_disclosure_policy_date` setting, and applies the same rule to show its
+  # pre-policy notice: released strictly before it. Keep the two in step.
+  POLICY_DATE = Date.new(2026, 10, 11)
 
   # Key inside the block => model attribute, which is also the wire/payload key
   ATTRIBUTE_MAP = {
@@ -91,12 +109,30 @@ module AiDisclosure
       "must be #{expected}, but was #{value.class} (#{value.inspect})"
     end
 
+    # Whether a book or module's `released_at` is before the policy took effect.
+    # A date that can't be read is not taken as old: the warning is the safer
+    # default.
+    def pre_policy?(released_at)
+      date = release_date(released_at)
+      date.present? && date < POLICY_DATE
+    end
+
     private
 
     def records_for(subject)
       return subject.sections.flat_map(&:chapters) if subject.respond_to?(:sections)
 
       Array.wrap(subject)
+    end
+
+    # YAML gives a Date for an unquoted date, and a String for a quoted one
+    def release_date(value)
+      case value
+      when Date, Time then value.to_date
+      when String then Date.parse(value)
+      end
+    rescue Date::Error
+      nil
     end
   end
 
@@ -154,6 +190,7 @@ module AiDisclosure
   # Every disclosure problem with this record, as [attribute, message] pairs
   def ai_disclosure_violations
     return misplaced_key_violations if ai_disclosure.nil?
+    return not_applicable_violations + misplaced_key_violations if ai_disclosure == NOT_APPLICABLE
     return block_type_violations unless ai_disclosure.is_a?(Hash)
 
     unknown_key_violations + token_violations + media_violations +
@@ -165,10 +202,22 @@ module AiDisclosure
     false
   end
 
+  # Overridden by chapters, which can be front matter
+  def ai_disclosure_not_applicable_permitted?
+    false
+  end
+
+  # Whether linting should ask this record for a disclosure at all. Overridden
+  # by chapters whose kind marks them as front matter.
+  def ai_disclosure_expected?
+    true
+  end
+
   # Nothing was disclosed at all: no block, or an empty one. That is still
   # valid, since older content predates the policy, but linting warns about it.
   # Disclosure keys written outside the block already fail linting with a more
-  # useful message, so they don't count as missing.
+  # useful message, so they don't count as missing. Nor does `not_applicable`,
+  # which is a deliberate answer.
   def ai_disclosure_missing?
     (ai_disclosure.nil? || ai_disclosure == {}) && Array.wrap(ai_disclosure_misplaced_keys).empty?
   end
@@ -184,7 +233,17 @@ module AiDisclosure
   end
 
   def block_type_violations
-    [[BLOCK_KEY, "must be a block of #{ATTRIBUTE_MAP.keys.join(', ')}, but was #{ai_disclosure.class} (#{ai_disclosure.inspect})"]]
+    alternative = " or `#{NOT_APPLICABLE}`" if ai_disclosure_not_applicable_permitted?
+
+    [[BLOCK_KEY, "must be a block of #{ATTRIBUTE_MAP.keys.join(', ')}#{alternative}, " \
+                 "but was #{ai_disclosure.class} (#{ai_disclosure.inspect})"]]
+  end
+
+  def not_applicable_violations
+    return [] if ai_disclosure_not_applicable_permitted?
+
+    [[BLOCK_KEY, "can't be `#{NOT_APPLICABLE}` here: only front-matter book chapters can opt out. " \
+                 "Disclose with a block of #{ATTRIBUTE_MAP.keys.join(', ')}"]]
   end
 
   # A YAML key is usually a string the parser has symbolised, but `2: ai` is a

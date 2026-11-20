@@ -6,6 +6,11 @@ module Linting
   # should be blocked from publishing for it—so this is only ever a warning.
   # Problems with a disclosure that *is* present are failures, and come from the
   # model validations instead.
+  #
+  # Nothing is asked of a book or module released before the policy, so fixing a
+  # typo in one doesn't bring a warning for every chapter. Nor of front matter:
+  # dedications and team bios are exempt by kind, and any other chapter can say
+  # `ai_disclosure: not_applicable`.
   class AiDisclosureLinter
     attr_reader :subject, :file
 
@@ -17,7 +22,10 @@ module Linting
     end
 
     def lint
-      records.select(&:ai_disclosure_missing?).map { |record| annotation_for(record) }
+      return [] if AiDisclosure.pre_policy?(subject.try(:released_at))
+
+      records.select { |record| record.ai_disclosure_expected? && record.ai_disclosure_missing? }
+             .map { |record| annotation_for(record) }
     end
 
     private
@@ -41,7 +49,10 @@ module Linting
     end
 
     def where_it_goes(record)
-      record.is_a?(Chapter) ? "to the chapter's metadata block" : 'at the top level of module.yaml'
+      return 'at the top level of module.yaml' unless record.is_a?(Chapter)
+
+      "to the chapter's metadata block, or, if it's front matter, " \
+        "write `ai_disclosure: #{AiDisclosure::NOT_APPLICABLE}` there instead"
     end
   end
 end

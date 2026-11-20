@@ -12,6 +12,10 @@ class Chapter
 
   attr_accessor :title, :number, :ordinal, :description, :authors, :markdown_file, :root_path, :free, :kind
 
+  # Front matter that robles already gives a kind of its own. Neither says
+  # anything about how the book was made.
+  AI_DISCLOSURE_EXEMPT_KINDS = %w[dedications team-bios].freeze
+
   attr_markdown :body, source: :markdown_file, file: true, wrapper_class: :wrapper_class
   validates :title, :number, :ordinal, :markdown_file, presence: true
 
@@ -36,6 +40,16 @@ class Chapter
   # Used for linting
   def validation_name
     title
+  end
+
+  # Other front matter is an ordinary chapter, and opts out with
+  # `ai_disclosure: not_applicable`
+  def ai_disclosure_not_applicable_permitted?
+    true
+  end
+
+  def ai_disclosure_expected?
+    AI_DISCLOSURE_EXEMPT_KINDS.exclude?(kind)
   end
 
   # For wrapping content
